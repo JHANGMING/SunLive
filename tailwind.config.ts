@@ -1,20 +1,145 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "12px",
+        lg: "72px",
+      },
+    },
+    screens: {
+      sm: "390px",
+      lg: "1296px",
+    },
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        friendlyFarmBG: "url(/images/home/friendlyFarm/friendlyFarmBG.png)",
+        farmFeatureBG: "url(/images/home/friendlyFarm/farmFeatureBG.png)",
+        liveBG: "url(/images/home/live/liveBG.png)",
+        recommendBG: "url(/images/home/recommend/recommendBG.png)",
+        authBG: "url(/images/auth/authBG.png)",
+      },
+      borderRadius: {
+        8: "8px",
+        12: "12px",
+        16: "16px",
+        18: "18px",
+        20: "20px",
+        25: "25px",
+        50: "50px",
+      },
+      colors: {
+        primary: {
+          yellow: "#FEE26B",
+          red: "#DE3C2B",
+          green: "#47835A",
+        },
+        mediumGray: "#333333",
+        lightGray: "#CCCCCC",
+        darkGray: "#999999",
+        lightWhite: "#FBF9F3",
+      },
+      spacing: {
+        2: "2px",
+        3: "3px",
+        4: "4px",
+        6: "6px",
+        8: "8px",
+        10: "10px",
+        12: "12px",
+        14: "14px",
+        15: "15px",
+        16: "16px",
+        18: "18px",
+        20: "20px",
+        22: "22px",
+        24: "24px",
+        26: "26px",
+        27: "27px",
+        28: "28px",
+        30: "30px",
+        32: "32px",
+        35: "35px",
+        36: "36px",
+        38: "38px",
+        40: "40px",
+        41: "41px",
+        43: "43px",
+        44: "44px",
+        46: "46px",
+        48: "48px",
+        50: "50px",
+        53: "53px",
+        54: "54px",
+        55.5: "55.5px",
+        60: "60px",
+        62: "62px",
+        64: "64px",
+        66: "66px",
+        74: "74px",
+        80: "80px",
+        84: "84px",
+        90: "90px",
+        100: "100px",
+        102: "102px",
+        110: "110px",
+        112: "112px",
+        114: "114.5px",
+        116: "116px",
+        118: "118px",
+        120: "120px",
+        126: "126px",
+        130: "130px",
+        154: "154px",
+        155: "155px",
+        165: "165px",
+        180: "180px",
+        276: "276px",
+        434: "434px",
+        680: "680px",
+        824: "824px",
+      },
+      fontSize: {
+        12: "12px",
+        14: "14px",
+        16: "16px",
+        18: "18px",
+        20: "20px",
+        24: "24px",
+        28: "28px",
+        32: "32px",
+        40: "40px",
+      },
+      textShadow: {
+        bannerTitle: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+      },
+      boxShadow: {
+        headerIcon: "3px 3px 0px 1px rgba(0, 0, 0, 0.05)",
+      },
+      writingMode: {
+        vertical: "vertical-rl",
+        verticalLr: "vertical-lr",
       },
     },
   },
-  plugins: [],
-}
-export default config
+  plugins: [
+    require("tailwindcss-writing-mode")({
+      variants: ["responsive", "hover"],
+    }),
+    require("tailwindcss-textshadow"),
+    function ({ addComponents }: any) {
+      addComponents({
+        ".container": {
+          maxWidth: "100%",
+          "@screen lg": {
+            maxWidth: "1440px",
+          },
+        },
+      });
+    },
+  ],
+};
+export default config;
