@@ -1,8 +1,7 @@
-
 export default function Home() {
   return (
     <>
-    Hello
+      <h1 className=" bg-primary-yellow text-primary-red">環境建置</h1>
     </>
-  )
+  );
 }

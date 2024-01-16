@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    max-width: 1440px;
+    margin: 0 auto;
+    font-family: 'Noto Sans TC';
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    scroll-behavior: smooth;
+    @apply bg-lightWhite;
+  }
+
+  h1 {
+    @apply text-40 font-bold;
+  }
+  h2 {
+    @apply text-32 font-bold;
+  }
+  h3 {
+    @apply text-28 font-bold;
+  }
+  h4 {
+    @apply text-24 font-bold;
+  }
+  h5 {
+    @apply text-20;
+  }
+  h6 {
+    @apply text-18 font-bold;
+  }
+}
