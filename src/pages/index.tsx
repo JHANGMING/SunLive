@@ -1,12 +1,10 @@
-import { useSelector } from "react-redux";
+import Layout from '@/common/Layout';
+import LandingPage from '@/modules/LandingPage';
 
 export default function Home() {
-  const data=useSelector(state=>state.auth)
-  console.log(data);
-  
   return (
-    <>
-      <h1 className=" bg-primary-yellow text-primary-red">環境建置</h1>
-    </>
+    <Layout pageCategory="landingPage">
+      <LandingPage />
+    </Layout>
   );
 }
