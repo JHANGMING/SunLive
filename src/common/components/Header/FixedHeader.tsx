@@ -4,7 +4,7 @@ import Logo from '../Logo';
 import CartAndLogin from './CartAndLogin';
 import { BsSearch } from 'react-icons/bs';
 import SearchInput from '../Input/SearchInput';
-import { LayoutPropsType } from '@/common/Layout/data';
+import { LayoutPropsType } from '../Layout/data';
 
 const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
   const headerBehavior = fixedPageSet[pageCategory];

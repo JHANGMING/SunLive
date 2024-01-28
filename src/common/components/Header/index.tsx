@@ -1,8 +1,8 @@
 import NavBar from './Navbar';
 import { pageSet } from './data';
-import { LayoutPropsType } from '@/common/Layout/data';
 import Logo from '@/common/components/Logo';
 import CartAndLogin from './CartAndLogin';
+import { LayoutPropsType } from '../Layout/data';
 
 const Header = ({ pageCategory }: LayoutPropsType) => {
   const headerBehavior = pageSet[pageCategory];
