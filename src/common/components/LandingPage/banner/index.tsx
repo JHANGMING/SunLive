@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
-import { grassMotionSet } from '@/constants/globaIIcon';
-import { bannerImgData } from './data';
+import { bannerImgData, grassMotionSet } from './data';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/zoom';

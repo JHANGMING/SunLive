@@ -25,3 +25,14 @@ export const bannerTitle = {
   title: '對土地保持友善的態度',
   subTitle: '為你提供最安心、最放心的農產品',
 };
+
+export const grassMotionSet = {
+  grassMotionLeft: {
+    src: '/images/grassMotionLeft.png',
+    alt: 'grassMotionLeft',
+  },
+  grassMotionRight: {
+    src: '/images/grassMotionRight.png',
+    alt: 'grassMotionRight',
+  },
+};

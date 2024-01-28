@@ -1,4 +1,4 @@
-import { PageCategoryType } from '@/common/Layout/data';
+import { PageCategoryType } from '../Layout/data';
 
 export const navBarDatas = [
   {

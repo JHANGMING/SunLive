@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import { grassMotionSet } from '@/constants/globaIIcon';
 import { icons, swiperSet } from './data';
 import LogoImg from '../Logo/LogoImg';
 import GlobalLink from '../GlobalLink';
 import HomeSwiper from '../HomeSwiper';
 import DashBoardFooter from './DashBoardFooter';
+import { grassMotionSet } from '../LandingPage/banner/data';
 
 type FooterProps = {
   gapClassSyle: string;

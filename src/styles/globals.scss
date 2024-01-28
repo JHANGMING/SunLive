@@ -1,16 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import 'header.scss';
+@import 'landingPage.scss';
+@import 'productShop';
 @layer base {
   body {
-    max-width: 1440px;
+    // max-width: 1440px;
     margin: 0 auto;
     font-family: 'Noto Sans TC';
     line-height: 1.5;
-    letter-spacing: 1.5px;
     scroll-behavior: smooth;
-    @apply bg-lightWhite;
+    @apply tracking-widest text-mediumGray;
   }
 
   h1 {
@@ -31,4 +32,89 @@
   h6 {
     @apply text-18 font-bold;
   }
+  img {
+    object-fit: cover;
+  }
+  a {
+    @apply block;
+  }
+}
+
+@layer utilities {
+  .custom-background {
+    background-image: url('/images/productShop/seasonalBG.png'),
+      linear-gradient(to bottom, #fde047, #fde047);
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, repeat;
+  }
+}
+
+//auth
+.text-with-lines {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 18px;
+}
+
+.text-with-lines::before,
+.text-with-lines::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  margin: 0 10px;
+  @apply bg-darkGray;
+}
+
+//cart
+.cartlist li:not(:last-child) {
+  @apply border-b border-lightGray;
+}
+
+.form-transition {
+  overflow: hidden;
+  transition:
+    max-height 0.7s ease,
+    opacity 0.7s ease,
+    visibility 0.7s;
+}
+
+.form-closed {
+  max-height: 50px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.form-open {
+  max-height: 530px;
+  opacity: 1;
+  visibility: visible;
+}
+
+//live/veiw
+@keyframes shinyScaleEffect {
+  0% {
+    transform: scale(1);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    transform: scale(1.3);
+    text-shadow: 0px 0px 8px rgba(254, 226, 107, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.shiny-scale-effect {
+  animation: shinyScaleEffect 3s infinite ease-in-out;
+  @apply text-primary-red;
+}
+
+//datepicker
+.react-datepicker-wrapper {
+  width: 100%;
 }

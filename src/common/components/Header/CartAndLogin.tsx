@@ -4,7 +4,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 import CartItemCount from '../../../modules/Header/CartItemCount';
 import { useState } from 'react';
 import Image from 'next/image';
-import { LayoutPropsType } from '@/common/Layout/data';
+import { LayoutPropsType } from '../Layout/data';
 const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const toggleDropdown = () => {
