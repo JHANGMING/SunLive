@@ -1,4 +1,5 @@
-import Layout from '@/common/Layout';
+
+import Layout from '@/common/components/Layout';
 import LandingPage from '@/modules/LandingPage';
 
 export default function Home() {
