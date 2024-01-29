@@ -12,6 +12,8 @@ export type FormValues = {
   gender: string;
   zip: string;
   birthday: Date;
+  idea: string;
+  introduce: string;
   county: { label: string; value: string };
   district: { label: string; value: string } | null;
 };

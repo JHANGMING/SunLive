@@ -1,14 +1,14 @@
 import LogoImg from '@/common/components/Logo/LogoImg';
 import ProfileImgSection from '../PersonInfoPage/ProfileImgSection';
 import FarmerSearch from '@/common/components/Input/FarmerSearch';
-import DynamicTable from '@/common/components/DynamicTable';
 import { productColumns, productData } from './data';
-const AllOrders = () => {
+import ManagementTable from '@/common/components/DynamicTable/ManagementTable';
+const Management = () => {
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow self-start">
       <div className="flex justify-between items-center mb-24">
         <div className="flex items-center gap-16">
-          <h3 className=" text-20 font-semibold ">所有訂單</h3>
+          <h3 className=" text-20 font-semibold ">所有農產品</h3>
           <button
             type="button"
             className=" text-primary-green p-8 border border-primary-green rounded-8 hover:bg-primary-green hover:text-white">
@@ -17,11 +17,11 @@ const AllOrders = () => {
         </div>
         <FarmerSearch />
       </div>
-      {/* <DynamicTable
-            columns={productColumns}
-            data={productData}
-            showCheckbox={true}
-          /> */}
+      <ManagementTable
+        columns={productColumns}
+        data={productData}
+        showCheckbox={true}
+      />
 
       {/* <table className="w-full">
             <tr className=" bg-primary-yellow text-14 text-center">
@@ -65,4 +65,4 @@ const AllOrders = () => {
   );
 };
 
-export default AllOrders;
+export default Management;
