@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-
+import { Noto_Sans_TC } from 'next/font/google';
 export type PageCategoryType =
   | 'liveStreamPage'
   | 'liveStreamView'
@@ -60,3 +60,8 @@ export const footerSet: pageSetType = {
   dashboardPage: 'pt-0',
   personInfoPage: 'pt-0',
 };
+
+export const notoTC = Noto_Sans_TC({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+});
