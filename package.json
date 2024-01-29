@@ -16,6 +16,7 @@
     "next": "14.0.4",
     "next-redux-wrapper": "^8.1.0",
     "react": "^18",
+    "react-datepicker": "^5.0.0",
     "react-dom": "^18",
     "react-hook-form": "^7.49.3",
     "react-icons": "^5.0.1",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-datepicker": "^4.19.5",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
