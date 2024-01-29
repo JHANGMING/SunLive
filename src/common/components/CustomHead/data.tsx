@@ -1,4 +1,4 @@
-import { PageCategoryType } from '@/common/Layout/data';
+import { PageCategoryType } from '@/common/components/Layout/data';
 
 type dataType = {
   title: string;
