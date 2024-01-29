@@ -6,7 +6,7 @@ import AuthLayout from './AuthLayout';
 import Header from '@/common/components/Header';
 import Footer from '../Footer';
 import FixedHeader from '../Header/FixedHeader';
-// import ScrollPageTop from '../components/ScrollPageTop';
+import ScrollPageTop from '../ScrollPageTop';
 // import ContactService from '@/modules/ContactService';
 
 const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
@@ -23,7 +23,7 @@ const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
           children
         )}
         {/* {pageCategory === 'authPage' || <ContactService />} */}
-        {/* <ScrollPageTop /> */}
+        <ScrollPageTop />
       </main>
       <Footer
         gapClassSyle={footerSet[pageCategory]}
