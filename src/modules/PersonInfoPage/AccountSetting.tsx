@@ -2,8 +2,6 @@ import { useForm } from 'react-hook-form';
 import { FormValues } from '@/common/components/Input/data';
 import PersonInput from '@/common/components/Input/PersonInput';
 import Button from '@/common/components/Button';
-import AuthSelect from '@/common/components/Select/AuthSelect';
-import CommonSelect from '@/common/components/Select/GenderSelect';
 import DatePickerShow from '@/common/components/DatePicker';
 import { format } from 'date-fns';
 import GenderSelect from '@/common/components/Select/GenderSelect';
@@ -74,7 +72,6 @@ const AccountSetting = () => {
             </label>
             <DatePickerShow control={control} />
           </div>
-          {/* <CommonSelect control={control} /> */}
         </div>
         <Button category="submit" classStyle="self-end hover:opacity-70">
           儲存
