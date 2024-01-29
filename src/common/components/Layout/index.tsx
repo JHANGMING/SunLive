@@ -7,7 +7,7 @@ import Header from '@/common/components/Header';
 import Footer from '../Footer';
 import FixedHeader from '../Header/FixedHeader';
 import ScrollPageTop from '../ScrollPageTop';
-// import ContactService from '@/modules/ContactService';
+import ContactService from '@/modules/ContactService';
 
 const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
   return (
@@ -22,7 +22,7 @@ const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
         ) : (
           children
         )}
-        {/* {pageCategory === 'authPage' || <ContactService />} */}
+        {pageCategory === 'authPage' || <ContactService />}
         <ScrollPageTop />
       </main>
       <Footer
