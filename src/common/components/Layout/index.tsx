@@ -1,11 +1,11 @@
 
 
 import { LayoutPropsType, colorWhiteSet, footerSet } from './data';
-// import CustomHead from '../components/CustomHead';
+import CustomHead from '../CustomHead';
 import AuthLayout from './AuthLayout';
 import Header from '@/common/components/Header';
 import Footer from '../Footer';
-// import FixedHeader from '../components/Header/FixedHeader';
+import FixedHeader from '../Header/FixedHeader';
 // import ScrollPageTop from '../components/ScrollPageTop';
 // import ContactService from '@/modules/ContactService';
 
@@ -13,9 +13,9 @@ const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
   return (
     <div
       className={`${colorWhiteSet[pageCategory]} flex flex-col min-h-screen`}>
-      {/* <CustomHead pageCategory={pageCategory} /> */}
+      <CustomHead pageCategory={pageCategory} />
       <Header pageCategory={pageCategory} />
-      {/* <FixedHeader pageCategory={pageCategory} /> */}
+      <FixedHeader pageCategory={pageCategory} />
       <main className="flex-grow">
         {pageCategory === 'authPage' ? (
           <AuthLayout classStyle={classStyle}>{children}</AuthLayout>
