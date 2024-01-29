@@ -14,7 +14,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setUserData(state, action) {
+
       const { nickname, token } = action.payload
+      
       return { ...state, nickname, token }
     },
   },

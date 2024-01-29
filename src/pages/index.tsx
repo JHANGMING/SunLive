@@ -1,7 +1,11 @@
+
+import Layout from '@/common/components/Layout';
+import LandingPage from '@/modules/LandingPage';
+
 export default function Home() {
   return (
-    <>
-      <h1 className=" bg-primary-yellow text-primary-red">環境建置</h1>
-    </>
+    <Layout pageCategory="landingPage">
+      <LandingPage />
+    </Layout>
   );
 }
