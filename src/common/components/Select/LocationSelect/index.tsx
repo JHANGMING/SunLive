@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
-import Select, { SingleValue } from 'react-select';
-import { StylesConfig } from 'react-select';
-
-import { LocationSelectProps, OptionType, countyOptions } from './data';
+import Select, { SingleValue, StylesConfig } from 'react-select';
 import useDistrictOptions from '@/common/hooks/useDistrictOptions';
-import DefaultInput from '../../Input';
 import useZipOptions from '@/common/hooks/useZipOptions';
+import { LocationSelectProps, OptionType, countyOptions } from './data';
+import DefaultInput from '../../Input';
 
 const LocationSelect = ({
   control,
@@ -17,7 +15,6 @@ const LocationSelect = ({
   errors,
 }: LocationSelectProps) => {
   const [selectedCounty, setSelectedCounty] = useState('新北市');
-
   const districtOptions = useDistrictOptions(selectedCounty);
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const zipOptions = useZipOptions(selectedDistrict);

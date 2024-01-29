@@ -39,15 +39,18 @@ const YoutubeLiveIfram = ({
     }
   };
   useEffect(() => {
-    // 当 isViewPage 或 isLivePage 为 true 时，自动播放视频
     if (isViewPage || isLivePage) {
       playVideo();
     }
+    const iframeElement = iframeRef.current;
 
+    if (!('IntersectionObserver' in window)) {
+      return;
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         if (isViewPage || isLivePage) {
-          return; // 如果 isViewPage 或 isLivePage 为 true，不执行任何操作
+          return;
         }
 
         const entry = entries[0];
@@ -60,15 +63,15 @@ const YoutubeLiveIfram = ({
       { threshold: 0.5 }
     );
 
-    if (iframeRef.current) {
-      observer.observe(iframeRef.current);
+    if (iframeElement) {
+      observer.observe(iframeElement);
     }
 
-    return () => {
-      if (iframeRef.current) {
-        observer.unobserve(iframeRef.current);
-      }
-    };
+     return () => {
+       if (iframeElement) {
+         observer.unobserve(iframeElement);
+       }
+     };
   }, [isViewPage, isLivePage]);
   return (
     <div className={`relative ${iframeContainerStyle}`}>
