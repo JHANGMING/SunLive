@@ -4,6 +4,9 @@ import AccountSettng from './AccountSettng';
 import { useState } from 'react';
 import AllProducts from './Management/AllProducts';
 import AddProduct from './Management/AddProduct';
+import AllOrders from './Management/AllOrders';
+import UnshippedOrders from './Management/UnshippedOrders';
+import ShippedOrders from './Management/ShippedOrders';
 
 const DashboardPage = () => {
   const [activeSection, setActiveSection] = useState('account');
@@ -15,12 +18,12 @@ const DashboardPage = () => {
     setActiveSection(page);
 
     if (page === 'management') {
-      setManagementSubPage('allProducts'); 
+      setManagementSubPage('allProducts');
       if (activeSection !== 'management') {
         setOrderSubPage('');
       }
     } else if (page === 'order') {
-      setOrderSubPage('allOrders'); 
+      setOrderSubPage('allOrders');
       if (activeSection !== 'order') {
         setManagementSubPage('');
       }
@@ -32,10 +35,16 @@ const DashboardPage = () => {
 
   const handleManagementClick = (subPage: string) => {
     setManagementSubPage(subPage);
+    if (activeSection !== 'management') {
+      setActiveSection('management');
+    }
   };
 
   const handleOrderClick = (subPage: string) => {
     setOrderSubPage(subPage);
+    if (activeSection !== 'order') {
+      setActiveSection('order');
+    }
   };
   return (
     <>
@@ -118,6 +127,14 @@ const DashboardPage = () => {
             <AllProducts />
           ) : (
             <AddProduct />
+          ))}
+        {activeSection === 'order' &&
+          (orderSubPage === 'allOrders' ? (
+            <AllOrders />
+          ) : orderSubPage === 'unshippedOrders' ? (
+            <UnshippedOrders/> 
+          ) : (
+            <ShippedOrders />
           ))}
       </section>
     </>
