@@ -120,7 +120,10 @@ const DashboardPage = () => {
                 <LogoImg widthProps={24} heightProps={24} />
                 <h3 className="text-16">直播設定</h3>
               </button>
-              <p className="text-14 pl-12">直播設定</p>
+              <div className="text-14 pl-12 flex flex-col gap-8">
+                <p className="">所有直播</p>
+                <p className="">直播設定</p>
+              </div>
             </div>
           </div>
         </div>
