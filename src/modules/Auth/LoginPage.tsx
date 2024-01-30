@@ -16,13 +16,24 @@ const LoginPage = () => {
   const handlerToPasswordlessPage = () => {
     router.push('/auth/passwordlessLogin');
   };
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async(data: FormValues) => {
     const { email, password } = data;
     const dataObj = {
       email: email.trim(),
       password: password.trim(),
     };
     console.log(dataObj);
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(dataObj),
+      });
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      alert('登入失敗');
+    }
   };
   return (
     <>

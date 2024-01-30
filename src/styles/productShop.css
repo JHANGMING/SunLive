@@ -1,0 +1,27 @@
+@charset "UTF-8";
+.ellipse {
+  width: 150px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  @apply bg-primary-yellow bg-opacity-50;
+}
+
+.product-card-enter {
+  opacity: 0;
+}
+
+/* 淡入效果 */
+.product-card-enter-active {
+  opacity: 1;
+  transition: opacity 700ms ease-in-out;
+}
+
+/* 淡出效果 */
+.product-card-exit-active {
+  opacity: 0;
+  transition: opacity 700ms ease-in-out;
+}/*# sourceMappingURL=productShop.css.map */
