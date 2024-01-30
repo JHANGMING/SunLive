@@ -1,14 +1,41 @@
 import LogoImg from '@/common/components/Logo/LogoImg';
 import ProfileImgSection from '../PersonInfoPage/ProfileImgSection';
-import FarmerSearch from '@/common/components/Input/FarmerSearch';
 import AccountSettng from './AccountSettng';
 import { useState } from 'react';
-import Management from './Management';
+import AllProducts from './Management/AllProducts';
+import AddProduct from './Management/AddProduct';
 
 const DashboardPage = () => {
   const [activeSection, setActiveSection] = useState('account');
-  const handleClick = (page:string) => {
+  const [managementSubPage, setManagementSubPage] = useState('');
+
+  const [orderSubPage, setOrderSubPage] = useState('');
+
+  const handleClick = (page: string) => {
     setActiveSection(page);
+
+    if (page === 'management') {
+      setManagementSubPage('allProducts'); 
+      if (activeSection !== 'management') {
+        setOrderSubPage('');
+      }
+    } else if (page === 'order') {
+      setOrderSubPage('allOrders'); 
+      if (activeSection !== 'order') {
+        setManagementSubPage('');
+      }
+    } else {
+      setManagementSubPage('');
+      setOrderSubPage('');
+    }
+  };
+
+  const handleManagementClick = (subPage: string) => {
+    setManagementSubPage(subPage);
+  };
+
+  const handleOrderClick = (subPage: string) => {
+    setOrderSubPage(subPage);
   };
   return (
     <>
@@ -35,8 +62,16 @@ const DashboardPage = () => {
                 <h3 className="text-16">農產品管理</h3>
               </button>
               <div className="text-14 pl-12 flex flex-col gap-8">
-                <p>所有農產品</p>
-                <p>新增農產品</p>
+                <p
+                  className={`${managementSubPage === 'allProducts' && 'text-primary-green'} cursor-pointer hover:opacity-60 `}
+                  onClick={() => handleManagementClick('allProducts')}>
+                  所有農產品
+                </p>
+                <p
+                  className={`${managementSubPage === 'addProduct' && 'text-primary-green'} cursor-pointer hover:opacity-60 `}
+                  onClick={() => handleManagementClick('addProduct')}>
+                  新增農產品
+                </p>
               </div>
             </div>
             <div>
@@ -48,9 +83,21 @@ const DashboardPage = () => {
                 <h3 className="text-16">訂單管理</h3>
               </button>
               <div className="text-14 pl-12 flex flex-col gap-8">
-                <p>所有訂單</p>
-                <p>未出貨訂單</p>
-                <p>已出貨訂單</p>
+                <p
+                  className={`${orderSubPage === 'allOrders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
+                  onClick={() => handleOrderClick('allOrders')}>
+                  所有訂單
+                </p>
+                <p
+                  className={`${orderSubPage === 'unshippedOrders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
+                  onClick={() => handleOrderClick('unshippedOrders')}>
+                  未出貨訂單
+                </p>
+                <p
+                  className={`${orderSubPage === 'shippedOrders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
+                  onClick={() => handleOrderClick('shippedOrders')}>
+                  已出貨訂單
+                </p>
               </div>
             </div>
             <div>
@@ -66,7 +113,12 @@ const DashboardPage = () => {
           </div>
         </div>
         {activeSection === 'account' && <AccountSettng />}
-        {activeSection === 'management' && <Management />}
+        {activeSection === 'management' &&
+          (managementSubPage === 'allProducts' ? (
+            <AllProducts />
+          ) : (
+            <AddProduct />
+          ))}
         {/* <div className="w-9/12 bg-white rounded-20 p-32 flex-grow self-start">
           <div className="flex justify-between items-center mb-24">
             <div className="flex items-center gap-16">

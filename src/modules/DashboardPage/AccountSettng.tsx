@@ -70,14 +70,6 @@ const AccountSettng = () => {
           id="idea"
           register={register}
         />
-        {/* <PersonInput
-          type="text"
-          labelText="小農介紹"
-          inputText="我種植的草莓真的很好吃，品種繁多，包括了甜蜜時光、金莓、霓虹草莓等友善種植作品。我的草莓園地位於美麗的苗栗，充滿愛和專業的栽培，每一顆草莓都是經過細心呵護的結晶。"
-          inputStyle="text-14 w-full h-[74px]"
-          id="introduce"
-          register={register}
-        /> */}
         <div className="">
           <label htmlFor="introduce" className="text-18 block mb-8">
             小農介紹

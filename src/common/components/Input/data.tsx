@@ -18,7 +18,7 @@ export type FormValues = {
   district: { label: string; value: string } | null;
 };
 export type DefaultInputProps = {
-  type: 'email' | 'text' | 'password' | 'tel';
+  type: 'email' | 'text' | 'password' | 'tel' | "number";
   labelText: string;
   inputText: string;
   icon?: ReactNode;
@@ -32,7 +32,7 @@ export type DefaultInputProps = {
 };
 
 export type PersonInputProps = {
-  type: 'email' | 'text' | 'password' | 'tel';
+  type: 'email' | 'text' | 'password' | 'tel' | "number";
   labelText: string;
   inputText: string;
   inputStyle: string;
