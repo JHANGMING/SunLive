@@ -1,5 +1,5 @@
 
-import FarmerSearch from '@/common/components/Input/FarmerSearch';
+import FarmerProductSearch from '@/common/components/Input/FarmerProductSearch';
 import ManagementTable from '@/common/components/DynamicTable/ManagementTable';
 import Button from '@/common/components/Button';
 import { productColumns, productData } from '../data';
@@ -18,7 +18,7 @@ const AllProducts = ({ onAddProductClick }) => {
             新增農產品
           </button>
         </div>
-        <FarmerSearch />
+        <FarmerProductSearch />
       </div>
       <div className="mb-24 ">
         <ManagementTable

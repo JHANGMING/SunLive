@@ -63,3 +63,69 @@ export const productData = [
     productstatus: '未出貨',
   },
 ];
+
+export const ordersColumns = [
+  { title: '訂單編號', dataIndex: 'orderNumber', key: 'orderNumber' },
+  { title: '顧客', dataIndex: 'custom', key: 'custom' },
+  { title: '金額', dataIndex: 'orderPrice', key: 'orderPrice' },
+  { title: '訂單建立時間', dataIndex: 'orderTime', key: 'orderTime' },
+  { title: '付款狀態', dataIndex: 'payStatus', key: 'payStatus' },
+  { title: '出貨狀態', dataIndex: 'orderStatus', key: 'orderStatus' },
+];
+
+export const ordersData = [
+  {
+    id: '001',
+    orderNumber: '012012012',
+    custom: '小米',
+    orderPrice: '$2500',
+    orderTime: '2024/01/28',
+    payStatus: '未付款',
+    orderStatus: '未出貨',
+  },
+  {
+    id: '002',
+    orderNumber: '012012013',
+    custom: '阿亮',
+    orderPrice: '$1500',
+    orderTime: '2023/12/20',
+    payStatus: '已付款',
+    orderStatus: '未出貨',
+  },
+  {
+    id: '003',
+    orderNumber: '012012345',
+    custom: '玉米頭',
+    orderPrice: '$1340',
+    orderTime: '2023/12/12',
+    payStatus: '已付款',
+    orderStatus: '未出貨',
+  },
+  {
+    id: '004',
+    orderNumber: '012012554',
+    custom: '米頭',
+    orderPrice: '$1240',
+    orderTime: '2023/12/02',
+    payStatus: '已付款',
+    orderStatus: '已出貨',
+  },
+  {
+    id: '005',
+    orderNumber: '012012546',
+    custom: '筍頭',
+    orderPrice: '$340',
+    orderTime: '2023/11/02',
+    payStatus: '已付款',
+    orderStatus: '已出貨',
+  },
+  {
+    id: '006',
+    orderNumber: '012013852',
+    custom: '芋頭',
+    orderPrice: '$3340',
+    orderTime: '2023/11/01',
+    payStatus: '已付款',
+    orderStatus: '已出貨',
+  },
+];

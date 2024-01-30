@@ -5,13 +5,10 @@ import { useState } from 'react';
 import AllProducts from './Management/AllProducts';
 import AddProduct from './Management/AddProduct';
 import AllOrders from './Management/AllOrders';
-import UnshippedOrders from './Management/UnshippedOrders';
-import ShippedOrders from './Management/ShippedOrders';
 
 const DashboardPage = () => {
   const [activeSection, setActiveSection] = useState('account');
   const [managementSubPage, setManagementSubPage] = useState('');
-
   const [orderSubPage, setOrderSubPage] = useState('');
 
   const handleClick = (page: string) => {
@@ -23,7 +20,7 @@ const DashboardPage = () => {
         setOrderSubPage('');
       }
     } else if (page === 'order') {
-      setOrderSubPage('allOrders');
+      setOrderSubPage('所有訂單');
       if (activeSection !== 'order') {
         setManagementSubPage('');
       }
@@ -48,6 +45,9 @@ const DashboardPage = () => {
   };
   const handleAddProductClick = () => {
     setManagementSubPage('addProduct');
+  };
+  const handleOrderTabChange = (newSubPage) => {
+    setOrderSubPage(newSubPage);
   };
   return (
     <>
@@ -96,18 +96,18 @@ const DashboardPage = () => {
               </button>
               <div className="text-14 pl-12 flex flex-col gap-8">
                 <p
-                  className={`${orderSubPage === 'allOrders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
-                  onClick={() => handleOrderClick('allOrders')}>
+                  className={`${orderSubPage === '所有訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
+                  onClick={() => handleOrderClick('所有訂單')}>
                   所有訂單
                 </p>
                 <p
-                  className={`${orderSubPage === 'unshippedOrders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
-                  onClick={() => handleOrderClick('unshippedOrders')}>
+                  className={`${orderSubPage === '未出貨訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
+                  onClick={() => handleOrderClick('未出貨訂單')}>
                   未出貨訂單
                 </p>
                 <p
-                  className={`${orderSubPage === 'shippedOrders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
-                  onClick={() => handleOrderClick('shippedOrders')}>
+                  className={`${orderSubPage === '已出貨訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
+                  onClick={() => handleOrderClick('已出貨訂單')}>
                   已出貨訂單
                 </p>
               </div>
@@ -131,14 +131,12 @@ const DashboardPage = () => {
           ) : (
             <AddProduct />
           ))}
-        {activeSection === 'order' &&
-          (orderSubPage === 'allOrders' ? (
-            <AllOrders />
-          ) : orderSubPage === 'unshippedOrders' ? (
-            <UnshippedOrders />
-          ) : (
-            <ShippedOrders />
-          ))}
+        {activeSection === 'order' && (
+          <AllOrders
+            selectedTab={orderSubPage}
+            onTabChange={handleOrderTabChange}
+          />
+        )}
       </section>
     </>
   );
