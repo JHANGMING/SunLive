@@ -37,7 +37,7 @@ const ManagementSelect = ({
   };
   return (
     <div className="w-full">
-      <label htmlFor={id} className="text-18 block mb-8">
+      <label htmlFor={id} className="block mb-8">
         {labelText}
       </label>
       <Controller

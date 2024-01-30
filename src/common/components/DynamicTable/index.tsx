@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DynamicTableProps } from './data';
 
-const DynamicTable = ({ columns, data, showCheckbox }: DynamicTableProps) => {
+const DynamicTable = ({ columns, data }: DynamicTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const maxPage = Math.ceil(data.length / itemsPerPage);

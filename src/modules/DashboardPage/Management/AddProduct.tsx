@@ -5,6 +5,7 @@ import { categoryData, countyData, seasonData, statusData, storageData } from '.
 import { useForm } from 'react-hook-form';
 import { FormValues } from '@/common/components/Input/data';
 import Button from '@/common/components/Button';
+import Editor from '@/common/components/Editor';
 const AddProduct = () => {
   const {
     control,
@@ -139,6 +140,12 @@ const AddProduct = () => {
           id="description"
           // register={register}
         />
+        <div className="h-[403px] mb-[37px]">
+          <label htmlFor="editor" className="block mb-8">
+            農產品介紹
+          </label>
+          <Editor control={control} />
+        </div>
         <Button category="submit" classStyle="self-end hover:opacity-70">
           新增
         </Button>

@@ -3,6 +3,7 @@ import {PersonInputProps } from './data';
 const PersonInput = ({
   type,
   labelText,
+  labelStyle,
   inputText,
   inputStyle,
   id,
@@ -13,7 +14,7 @@ const PersonInput = ({
 }: PersonInputProps) => {
   return (
     <div className="w-full">
-      <label htmlFor={id} className="text-18 block mb-8">
+      <label htmlFor={id} className={`${labelStyle} block mb-8`}>
         {labelText}
       </label>
       <input

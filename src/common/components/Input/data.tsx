@@ -32,9 +32,10 @@ export type DefaultInputProps = {
 };
 
 export type PersonInputProps = {
-  type: 'email' | 'text' | 'password' | 'tel' | "number";
+  type: 'email' | 'text' | 'password' | 'tel' | 'number';
   labelText: string;
   inputText: string;
+  labelStyle: string;
   inputStyle: string;
   id: keyof FormValues;
   register?: UseFormRegister<FormValues>;
