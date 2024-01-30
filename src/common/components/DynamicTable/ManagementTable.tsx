@@ -53,9 +53,9 @@ const ManagementTable = ({
   // };
   return (
     <>
-      <table className={`${showCheckbox ? ' w-full' : 'w-full'} table-fixed `}>
+      <table className={`${showCheckbox ? ' w-full' : 'w-full'} table-fixed text-14 `}>
         <thead className="h-48">
-          <tr className="bg-primary-yellow text-14 text-center">
+          <tr className="bg-primary-yellow text-center">
             {showCheckbox && (
               <th className="py-16 font-normal w-64">
                 <input

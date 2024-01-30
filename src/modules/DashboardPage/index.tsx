@@ -46,6 +46,9 @@ const DashboardPage = () => {
       setActiveSection('order');
     }
   };
+  const handleAddProductClick = () => {
+    setManagementSubPage('addProduct');
+  };
   return (
     <>
       <section className="pt-60 pb-[194px] container flex gap-[74px]">
@@ -124,7 +127,7 @@ const DashboardPage = () => {
         {activeSection === 'account' && <AccountSettng />}
         {activeSection === 'management' &&
           (managementSubPage === 'allProducts' ? (
-            <AllProducts />
+            <AllProducts onAddProductClick={handleAddProductClick} />
           ) : (
             <AddProduct />
           ))}
@@ -132,7 +135,7 @@ const DashboardPage = () => {
           (orderSubPage === 'allOrders' ? (
             <AllOrders />
           ) : orderSubPage === 'unshippedOrders' ? (
-            <UnshippedOrders/> 
+            <UnshippedOrders />
           ) : (
             <ShippedOrders />
           ))}

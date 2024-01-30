@@ -38,38 +38,29 @@ const AddProduct = () => {
         action=""
         className="flex flex-col gap-24"
         onSubmit={handleSubmit(onSubmit)}>
+        <PersonInput
+          type="text"
+          labelText="農產品名稱"
+          inputText="輸入商品名稱"
+          inputStyle="text-14 w-full h-[53px]"
+          id="productName"
+          // register={register}
+        />
         <div className="flex gap-24">
-          <PersonInput
-            type="text"
-            labelText="農產品名稱"
-            inputText="輸入商品名稱"
-            inputStyle="text-14 w-full h-[53px]"
-            id="productName"
-            // register={register}
-          />
           <PersonInput
             type="number"
-            labelText="農產品庫存"
-            inputText="輸入農產品庫存"
+            labelText="規格 (小份)"
+            inputText="輸入小份規格 (斤)"
             inputStyle="text-14 w-full h-[53px]"
-            id="productName"
+            id="small-specification"
             // register={register}
           />
-          <ManagementSelect
-            labelText="農產品狀態"
-            data={statusData}
-            control={control}
-            defaultValue={true}
-            id="status"
-          />
-        </div>
-        <div className="flex gap-24">
           <PersonInput
             type="number"
             labelText="原價"
             inputText="輸入原價"
             inputStyle="text-14 w-full h-[53px]"
-            id="productName"
+            id="small-original-price"
             // register={register}
           />
           <PersonInput
@@ -77,26 +68,57 @@ const AddProduct = () => {
             labelText="促銷價"
             inputText="輸入優惠價"
             inputStyle="text-14 w-full h-[53px]"
-            id="productName"
+            id="small-promotion-price"
             // register={register}
           />
-        </div>
+          <PersonInput
+            type="number"
+            labelText="農產品庫存"
+            inputText="輸入農產品庫存"
+            inputStyle="text-14 w-full h-[53px]"
+            id="small-stock"
+            // register={register}
+          />
 
+          {/* <ManagementSelect
+            labelText="農產品狀態"
+            data={statusData}
+            control={control}
+            defaultValue={true}
+            id="status"
+          /> */}
+        </div>
         <div className="flex gap-24">
           <PersonInput
             type="number"
-            labelText="規格 (小份)"
+            labelText="規格 (大份)"
             inputText="輸入小份規格 (斤)"
             inputStyle="text-14 w-full h-[53px]"
-            id="productName"
+            id="large-specification"
             // register={register}
           />
           <PersonInput
             type="number"
-            labelText="規格 (大份)"
-            inputText="輸入大份規格 (斤)"
+            labelText="原價"
+            inputText="輸入原價"
             inputStyle="text-14 w-full h-[53px]"
-            id="productName"
+            id="large-original-price"
+            // register={register}
+          />
+          <PersonInput
+            type="number"
+            labelText="促銷價"
+            inputText="輸入優惠價"
+            inputStyle="text-14 w-full h-[53px]"
+            id="large-promotion-price"
+            // register={register}
+          />
+          <PersonInput
+            type="number"
+            labelText="農產品庫存"
+            inputText="輸入農產品庫存"
+            inputStyle="text-14 w-full h-[53px]"
+            id="large-stock"
             // register={register}
           />
         </div>
