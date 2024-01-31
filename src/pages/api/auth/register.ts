@@ -1,3 +1,4 @@
+import apiPaths from '@/constants/apiPaths';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {
@@ -9,10 +10,12 @@ export default async function handler(
   res: NextApiResponse<{ error: string }>
 ) {
   try {
+
+    const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPaths.register}`;
     const { email, password, identity } = JSON.parse(req.body);
     console.log(email, password, identity);
     const category = identity === '一般會員' ? 0 : 1;
-    const result = await fetch('http://4.224.41.94/api/register', {
+    const result = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
