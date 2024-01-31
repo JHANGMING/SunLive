@@ -9,15 +9,15 @@ export default async function handler(
   res: NextApiResponse<{ error: string }>
 ) {
   try {
-    const { email, password } = JSON.parse(req.body);
-    console.log(email, password );
-    
+    const { email, password, identity } = JSON.parse(req.body);
+    console.log(email, password, identity);
+    const category = identity === '一般會員' ? 0 : 1;
     const result = await fetch('http://4.224.41.94/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ Account: email, Password: password }),
+      body: JSON.stringify({ account: email, password: password, category }),
     });
     const data = await result.json();
 
