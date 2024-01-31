@@ -6,7 +6,7 @@ import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
 import { useForm } from 'react-hook-form';
-import { BsPlusCircle } from 'react-icons/bs';
+import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 const LiveSettings = () => {
   const {
     control,
@@ -70,23 +70,37 @@ const LiveSettings = () => {
             type="button"
             className=" text-primary-green p-8 border border-primary-green rounded-8 hover:bg-primary-green hover:text-white"
             // onClick={onAddProductClick}
-            >
+          >
             新增農產品
           </button>
         </div>
-        <div className="flex gap-24 mb-32">
-          <LiveProductSelect control={control} />
-          <ProductSpecSelect control={control} />
-          <PersonInput
-            type="text"
-            labelText="直播特惠價格"
-            inputText="輸入直播特惠價格"
-            inputStyle="text-14 w-full h-[53px]"
-            id="liveSpectialPrice"
-            // register={register}
-          />
+        <div className="pr-48">
+          <div className="flex gap-24 mb-16 relative">
+            <BsXCircleFill size={24} className=' absolute top-0 -right-48 text-darkGray cursor-pointer hover:opacity-70'/>
+            <LiveProductSelect control={control} />
+            <ProductSpecSelect control={control} />
+            <PersonInput
+              type="number"
+              labelText="直播特惠價格"
+              inputText="輸入直播特惠價格"
+              inputStyle="text-14 w-full h-[53px]"
+              id="liveSpectialPrice"
+              // register={register}
+            />
+          </div>
+          <div className="flex gap-24 mb-16">
+            <LiveProductSelect control={control} />
+            <ProductSpecSelect control={control} />
+            <PersonInput
+              type="number"
+              labelText="直播特惠價格"
+              inputText="輸入直播特惠價格"
+              inputStyle="text-14 w-full h-[53px]"
+              id="liveSpectialPrice"
+              // register={register}
+            />
+          </div>
         </div>
-
         <Button category="submit" classStyle="self-end hover:opacity-70">
           儲存
         </Button>
