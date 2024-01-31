@@ -5,9 +5,11 @@ import { FormValues } from '@/common/components/Input/data';
 import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 const LiveSettings = () => {
+  const [products, setProducts] = useState([]);
   const {
     control,
     register,
@@ -24,6 +26,16 @@ const LiveSettings = () => {
     //   identity,
     // };
     console.log(data);
+  };
+  
+
+  const onAddProductClick = () => {
+    setProducts([...products, {}]); // 添加一个新的产品选择区域
+  };
+
+  const onDeleteProductClick = (index) => {
+    const updatedProducts = products.filter((_, idx) => idx !== index);
+    setProducts(updatedProducts); // 删除指定索引的产品选择区域
   };
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
@@ -69,14 +81,16 @@ const LiveSettings = () => {
           <button
             type="button"
             className=" text-primary-green p-8 border border-primary-green rounded-8 hover:bg-primary-green hover:text-white"
-            // onClick={onAddProductClick}
-          >
-            新增農產品
+            onClick={onAddProductClick}>
+            新增直播農產品
           </button>
         </div>
-        <div className="pr-48">
+        <div className="pr-48 mb-40">
           <div className="flex gap-24 mb-16 relative">
-            <BsXCircleFill size={24} className=' absolute top-0 -right-48 text-darkGray cursor-pointer hover:opacity-70'/>
+            <BsXCircleFill
+              size={24}
+              className=" absolute top-0 -right-48 text-darkGray cursor-pointer hover:opacity-70"
+            />
             <LiveProductSelect control={control} />
             <ProductSpecSelect control={control} />
             <PersonInput
@@ -88,18 +102,24 @@ const LiveSettings = () => {
               // register={register}
             />
           </div>
-          <div className="flex gap-24 mb-16">
-            <LiveProductSelect control={control} />
-            <ProductSpecSelect control={control} />
-            <PersonInput
-              type="number"
-              labelText="直播特惠價格"
-              inputText="輸入直播特惠價格"
-              inputStyle="text-14 w-full h-[53px]"
-              id="liveSpectialPrice"
-              // register={register}
-            />
-          </div>
+          {products.map((_, index) => (
+            <div key={index} className="flex gap-24 mb-16 relative">
+              <BsXCircleFill
+                size={24}
+                className="absolute top-0 -right-48 text-darkGray cursor-pointer hover:opacity-70"
+                onClick={() => onDeleteProductClick(index)}
+              />
+              <LiveProductSelect control={control} />
+              <ProductSpecSelect control={control} />
+              <PersonInput
+                type="number"
+                labelText="直播特惠價格"
+                inputText="輸入直播特惠價格"
+                inputStyle="text-14 w-full h-[53px]"
+                id={`liveSpectialPrice-${index}`}
+              />
+            </div>
+          ))}
         </div>
         <Button category="submit" classStyle="self-end hover:opacity-70">
           儲存
