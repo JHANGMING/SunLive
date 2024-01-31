@@ -22,7 +22,6 @@ export type LiveListDataType= {
   liveDate: string;
   startTime: string;
   liveLink: string;
-  prodcutToChat: string[];
 }
 type ColumnType= {
   title: string;
@@ -167,7 +166,6 @@ export const LiveListColumns: ColumnType[] = [
   { title: '直播日期', dataIndex: 'liveDate', key: 'liveDate' },
   { title: '直播開始時間', dataIndex: 'startTime', key: 'tartTime' },
   { title: '直播連結', dataIndex: 'liveLink', key: 'liveLink' },
-  { title: '聊天室置頂商品', dataIndex: 'prodcutToChat', key: 'prodcutToChat' },
 ];
 
 export const LiveListData: LiveListDataType []= [
@@ -177,7 +175,6 @@ export const LiveListData: LiveListDataType []= [
     liveDate: '2024/01/16',
     startTime: '14:00',
     liveLink: '複製連結',
-    prodcutToChat: ['甜蜜時光有機草莓', '夏浪西瓜舞', '極致芒果夏韻'],
   },
   {
     id: '002',
@@ -185,7 +182,6 @@ export const LiveListData: LiveListDataType []= [
     liveDate: '2024/01/14',
     startTime: '10:30',
     liveLink: '複製連結',
-    prodcutToChat: ['柳橙夏悠', '夏浪西瓜舞', '極致芒果夏韻'],
   },
   {
     id: '003',
@@ -193,6 +189,5 @@ export const LiveListData: LiveListDataType []= [
     liveDate: '2024/01/02',
     startTime: '09:30',
     liveLink: '複製連結',
-    prodcutToChat: ['時光有機草莓', '浪西瓜', '芒果夏韻'],
   },
 ];
