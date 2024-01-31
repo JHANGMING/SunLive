@@ -8,7 +8,6 @@ import { FormValues } from '@/common/components/Input/data';
 
 const CartFormSection = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
   const initialDistrictOptions = getInitialDistrictOptions('新北市');
   const initialDistrictValue =
     initialDistrictOptions.length > 0 ? initialDistrictOptions[0] : null;
@@ -41,27 +40,15 @@ const CartFormSection = () => {
     //  };
     //  console.log(dataObj);
   };
-  const toggleForm = () => {
-    setIsFormOpen(!isFormOpen);
-  };
   return (
     <section className="container mb-[78px]">
       <div className="w-[73%]">
         <div className="bg-white col-span-9 pt-24 pl-24 pb-48 pr-[43px] rounded-20 mb-32">
-          <div className="flex gap-8 mb-24 ">
-            {isFormOpen ? (
-              <BsChevronDown
-                size={24}
-                className="text-primary-green cursor-pointer hover:scale-105"
-                onClick={toggleForm}
-              />
-            ) : (
-              <BsChevronRight
-                size={24}
-                className="text-primary-green cursor-pointer hover:scale-105"
-                onClick={toggleForm}
-              />
-            )}
+          <div className="flex items-center gap-8 mb-24 ">
+            <BsChevronDown
+              size={24}
+              className="text-primary-green cursor-pointer hover:scale-105"
+            />
             <p className=" text-darkGray font-semibold text-20">
               填寫資料與付款
             </p>
@@ -70,7 +57,7 @@ const CartFormSection = () => {
           <form
             ref={formRef}
             onSubmit={handleSubmit(onSubmit)}
-            className={`flex flex-col gap-24 form-transition ${isFormOpen ? 'form-open' : 'form-closed'}`}>
+            className="flex flex-col gap-24 form-transition">
             <div className=" flex gap-24">
               <DefaultInput
                 page="cart"
