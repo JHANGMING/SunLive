@@ -117,3 +117,7 @@
 .react-datepicker-wrapper {
   width: 100%;
 }
+
+.react-datepicker__input-container input::placeholder {
+  @apply text-14 text-darkGray tracking-widest
+}

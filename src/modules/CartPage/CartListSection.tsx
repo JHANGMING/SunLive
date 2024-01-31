@@ -211,7 +211,7 @@ const CartListSection = () => {
           <div className="bg-white p-20 rounded-20  flex flex-col gap-8 items-center">
             <div className="flex items-center gap-8">
               <LogoImg widthProps={32} heightProps={32} />
-              <p>商品總價</p>
+              <p className='text-18'>商品總價</p>
             </div>
             <h5 className=" text-primary-green font-bold">
               <span>$</span>500
