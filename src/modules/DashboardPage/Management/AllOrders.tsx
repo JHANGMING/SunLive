@@ -32,7 +32,7 @@ const AllOrders = ({ selectedTab: initialSelectedTab, onTabChange }) => {
         {['所有訂單', '未出貨訂單', '已出貨訂單'].map((tab) => (
           <h4
             key={tab}
-            className={`text-16 font-normal py-10 px-8 rounded-8 cursor-pointer ${
+            className={`text-16 font-normal py-10 px-8 rounded-8 cursor-pointer hover:opacity-70 ${
               selectedTab === tab ? 'bg-primary-yellow' : ''
             }`}
             onClick={() => handleFilterChange(tab)}>

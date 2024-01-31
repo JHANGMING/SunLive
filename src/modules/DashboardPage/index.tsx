@@ -5,28 +5,33 @@ import { useState } from 'react';
 import AllProducts from './Management/AllProducts';
 import AddProduct from './Management/AddProduct';
 import AllOrders from './Management/AllOrders';
+import AllLive from './Management/AllLive';
+import LiveSettings from './Management/LiveSettings';
 
 const DashboardPage = () => {
   const [activeSection, setActiveSection] = useState('account');
   const [managementSubPage, setManagementSubPage] = useState('');
   const [orderSubPage, setOrderSubPage] = useState('');
-
+const [liveSubPage, setLiveSubPage] = useState('');
   const handleClick = (page: string) => {
     setActiveSection(page);
 
     if (page === 'management') {
       setManagementSubPage('allProducts');
-      if (activeSection !== 'management') {
-        setOrderSubPage('');
-      }
+      setOrderSubPage('');
+      setLiveSubPage('');
     } else if (page === 'order') {
       setOrderSubPage('所有訂單');
-      if (activeSection !== 'order') {
-        setManagementSubPage('');
-      }
+      setManagementSubPage('');
+      setLiveSubPage('');
+    } else if (page === 'live') {
+      setLiveSubPage('所有直播'); // 当点击直播管理时，默认选择所有直播
+      setManagementSubPage('');
+      setOrderSubPage('');
     } else {
       setManagementSubPage('');
       setOrderSubPage('');
+      setLiveSubPage('');
     }
   };
 
@@ -46,8 +51,16 @@ const DashboardPage = () => {
   const handleAddProductClick = () => {
     setManagementSubPage('addProduct');
   };
-  const handleOrderTabChange = (newSubPage) => {
+  const handleOrderTabChange = (newSubPage: string) => {
     setOrderSubPage(newSubPage);
+  };
+  const handleLiveClick = (subPage: string) => {
+    setLiveSubPage(subPage);
+    if (activeSection !== 'live') {
+      setActiveSection('live');
+      setManagementSubPage('');
+      setOrderSubPage('');
+    }
   };
   return (
     <>
@@ -121,8 +134,16 @@ const DashboardPage = () => {
                 <h3 className="text-16">直播設定</h3>
               </button>
               <div className="text-14 pl-12 flex flex-col gap-8">
-                <p className="">所有直播</p>
-                <p className="">直播設定</p>
+                <p
+                  className={`${liveSubPage === '所有直播' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
+                  onClick={() => handleLiveClick('所有直播')}>
+                  所有直播
+                </p>
+                <p
+                  className={`${liveSubPage === '直播設定' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
+                  onClick={() => handleLiveClick('直播設定')}>
+                  直播設定
+                </p>
               </div>
             </div>
           </div>
@@ -140,6 +161,8 @@ const DashboardPage = () => {
             onTabChange={handleOrderTabChange}
           />
         )}
+        {activeSection === 'live' &&
+          (liveSubPage === '所有直播' ? <AllLive /> : <LiveSettings />)}
       </section>
     </>
   );

@@ -14,6 +14,9 @@ export type FormValues = {
   birthday: Date;
   idea: string;
   introduce: string;
+  liveName: string;
+  liveLink: string;
+  liveSpectialPrice: string;
   county: { label: string; value: string };
   district: { label: string; value: string } | null;
 };
@@ -35,7 +38,7 @@ export type PersonInputProps = {
   type: 'email' | 'text' | 'password' | 'tel' | 'number';
   labelText: string;
   inputText: string;
-  labelStyle: string;
+  labelStyle?: string;
   inputStyle: string;
   id: keyof FormValues;
   register?: UseFormRegister<FormValues>;

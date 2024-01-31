@@ -71,7 +71,7 @@ const AccountSettng = () => {
           register={register}
         />
         <div className="">
-          <label htmlFor="introduce" className="text-18 block mb-8">
+          <label htmlFor="introduce" className="block mb-8">
             小農介紹
           </label>
           <textarea

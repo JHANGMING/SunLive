@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import { DynamicTableProps } from './data';
+import { DynamicTableProps } from '../data';
 
-
-const OrdersTable = ({
+const LiveListTable = ({
   columns,
   initialData,
   showCheckbox,
 }: DynamicTableProps) => {
-  
   const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
@@ -71,7 +69,7 @@ const OrdersTable = ({
             )}
             {columns.map((column) => {
               const thClass =
-                column.title === '訂單建立時間'
+                column.title === '直播日期'
                   ? 'py-[13px] font-normal w-130'
                   : 'py-[13px] font-normal';
 
@@ -97,20 +95,25 @@ const OrdersTable = ({
                 </td>
               )}
               {columns.map((column) => {
-                const cellContent =
-                  column.dataIndex === 'orderStatus' ? (
+                let cellContent;
+
+                if (column.dataIndex === 'prodcutToChat') {
+                  cellContent = (
                     <select
                       className="text-14"
-                      value={row[column.dataIndex]}
                       onChange={(e) =>
                         handleStatusChange(row.id, e.target.value)
                       }>
-                      <option value="未出貨">未出貨</option>
-                      <option value="已出貨">已出貨</option>
+                      {row.prodcutToChat.map((product, index) => (
+                        <option key={index} value={product}>
+                          {product}
+                        </option>
+                      ))}
                     </select>
-                  ) : (
-                    row[column.dataIndex]
                   );
+                } else {
+                  cellContent = row[column.dataIndex];
+                }
 
                 return <td key={column.key}>{cellContent}</td>;
               })}
@@ -140,4 +143,4 @@ const OrdersTable = ({
   );
 };
 
-export default OrdersTable;
+export default LiveListTable;

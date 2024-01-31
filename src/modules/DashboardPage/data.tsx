@@ -1,4 +1,36 @@
-export const productColumns = [
+export type ProductDataType ={
+  id: string;
+  productName: string;
+  origialPrice: string;
+  discountPrice: string;
+  stock: number;
+  createTime: string;
+  productstatus: string;
+}
+export type OrderDataType= {
+  id: string;
+  orderNumber: string;
+  custom: string;
+  orderPrice: string;
+  orderTime: string;
+  payStatus: string;
+  orderStatus: string;
+}
+export type LiveListDataType= {
+  id: string;
+  liveNumber: string;
+  liveDate: string;
+  startTime: string;
+  liveLink: string;
+  prodcutToChat: string[];
+}
+type ColumnType= {
+  title: string;
+  dataIndex: string;
+  key: string;
+  render?: (row: any) => JSX.Element; // 根据需要调整类型
+}
+export const productColumns: ColumnType[] = [
   { title: '農產品名稱', dataIndex: 'productName', key: 'productName' },
   { title: '原價', dataIndex: 'origialPrice', key: 'origialPrice' },
   { title: '促銷價', dataIndex: 'discountPrice', key: 'discountPrice' },
@@ -7,7 +39,7 @@ export const productColumns = [
   { title: '商品狀態', dataIndex: 'productstatus', key: 'productstatus' },
 ];
 
-export const productData = [
+export const productData: ProductDataType []= [
   {
     id: '001',
     productName: '甜蜜時光有機草莓',
@@ -64,7 +96,7 @@ export const productData = [
   },
 ];
 
-export const ordersColumns = [
+export const ordersColumns: ColumnType[] = [
   { title: '訂單編號', dataIndex: 'orderNumber', key: 'orderNumber' },
   { title: '顧客', dataIndex: 'custom', key: 'custom' },
   { title: '金額', dataIndex: 'orderPrice', key: 'orderPrice' },
@@ -73,7 +105,7 @@ export const ordersColumns = [
   { title: '出貨狀態', dataIndex: 'orderStatus', key: 'orderStatus' },
 ];
 
-export const ordersData = [
+export const ordersData: OrderDataType[] = [
   {
     id: '001',
     orderNumber: '012012012',
@@ -127,5 +159,40 @@ export const ordersData = [
     orderTime: '2023/11/01',
     payStatus: '已付款',
     orderStatus: '已出貨',
+  },
+];
+
+export const LiveListColumns: ColumnType[] = [
+  { title: '直播名稱', dataIndex: 'liveNumber', key: 'liveNumber' },
+  { title: '直播日期', dataIndex: 'liveDate', key: 'liveDate' },
+  { title: '直播開始時間', dataIndex: 'startTime', key: 'tartTime' },
+  { title: '直播連結', dataIndex: 'liveLink', key: 'liveLink' },
+  { title: '聊天室置頂商品', dataIndex: 'prodcutToChat', key: 'prodcutToChat' },
+];
+
+export const LiveListData: LiveListDataType []= [
+  {
+    id: '001',
+    liveNumber: '蕃茄特價直播',
+    liveDate: '2024/01/16',
+    startTime: '14:00',
+    liveLink: '複製連結',
+    prodcutToChat: ['甜蜜時光有機草莓', '夏浪西瓜舞', '極致芒果夏韻'],
+  },
+  {
+    id: '002',
+    liveNumber: '玉米特價直播',
+    liveDate: '2024/01/14',
+    startTime: '10:30',
+    liveLink: '複製連結',
+    prodcutToChat: ['柳橙夏悠', '夏浪西瓜舞', '極致芒果夏韻'],
+  },
+  {
+    id: '003',
+    liveNumber: '芋頭特價直播',
+    liveDate: '2024/01/02',
+    startTime: '09:30',
+    liveLink: '複製連結',
+    prodcutToChat: ['時光有機草莓', '浪西瓜', '芒果夏韻'],
   },
 ];
