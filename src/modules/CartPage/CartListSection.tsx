@@ -4,32 +4,19 @@ import { useState } from 'react';
 import { BsChevronRight, BsChevronDown, BsX } from 'react-icons/bs';
 import CartLink from './CartLink';
 const CartListSection = () => {
-  const [isFormOpen, setIsFormOpen] = useState(true);
-  const toggleForm = () => {
-    setIsFormOpen(!isFormOpen);
-  };
   return (
     <section className="container">
       <div className=" flex gap-40">
         <div className="w-9/12 bg-white p-24 rounded-20 mb-16 flex-grow self-start">
-          <div className="flex gap-8">
-            {isFormOpen ? (
+          <div className="flex items-center gap-8">
               <BsChevronDown
                 size={24}
-                className="text-primary-green cursor-pointer hover:scale-105"
-                onClick={toggleForm}
+                className="text-primary-green"
               />
-            ) : (
-              <BsChevronRight
-                size={24}
-                className="text-primary-green cursor-pointer hover:scale-105"
-                onClick={toggleForm}
-              />
-            )}
             <p className=" text-darkGray font-semibold text-20">購物車清單</p>
           </div>
           <ul
-            className={`cartlist form-transition ${isFormOpen ? 'form-open' : 'form-closed'}`}>
+            className="cartlist form-transition">
             <li className="p-24 flex justify-between">
               <div className="flex gap-16">
                 <Image
