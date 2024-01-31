@@ -14,7 +14,14 @@ export const countyData: OptionType[] = locationData.map((item) => ({
   value: item.name,
   label: item.name,
 }));
+export type AllProductsProps = {
+  onAddProductClick: () => void;
+};
 
+export type AllOrdersProps = {
+  selectedTab: string; 
+  onTabChange: (newTab: string) => void; 
+}
 export const storageData: OptionType[] = [
   { value: '冷藏保存', label: '冷藏保存' },
   { value: '冷凍保存', label: '冷凍保存' },

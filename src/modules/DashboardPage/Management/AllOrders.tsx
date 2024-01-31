@@ -1,10 +1,14 @@
-import OrdersTable from "@/common/components/DynamicTable/OrdersTable";
-import OrdersSearch from "@/common/components/Input/OrdersSearch";
-import { ordersColumns, ordersData } from "../data";
-import Button from "@/common/components/Button";
-import { useEffect, useState } from "react";
+import OrdersTable from '@/common/components/DynamicTable/OrdersTable';
+import OrdersSearch from '@/common/components/Input/OrdersSearch';
+import { ordersColumns, ordersData } from '../data';
+import Button from '@/common/components/Button';
+import { useEffect, useState } from 'react';
+import { AllOrdersProps } from './data';
 
-const AllOrders = ({ selectedTab: initialSelectedTab, onTabChange }) => {
+const AllOrders = ({
+  selectedTab: initialSelectedTab,
+  onTabChange,
+}: AllOrdersProps) => {
   const [selectedTab, setSelectedTab] = useState(initialSelectedTab);
   const [filteredData, setFilteredData] = useState(ordersData);
 
@@ -59,5 +63,5 @@ const AllOrders = ({ selectedTab: initialSelectedTab, onTabChange }) => {
     </div>
   );
 };
- 
+
 export default AllOrders;

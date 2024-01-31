@@ -1,24 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DynamicTableProps } from './data';
 
-const getCellClass = (columnDataIndex:string) => {
-  switch (columnDataIndex) {
-    case 'discountPrice':
-      return 'py-[13px] text-primary-red';
-    default:
-      return 'py-[13px]';
-  }
-};
-
-const ManagementTable = ({
+const OrdersTable = ({
   columns,
-  data,
+  initialData,
   showCheckbox,
 }: DynamicTableProps) => {
+  const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({});
   const itemsPerPage = 5;
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
 
   const maxPage = Math.ceil(data.length / itemsPerPage);
   const currentData = data.slice(
@@ -33,7 +28,10 @@ const ManagementTable = ({
     setCurrentPage((prev) => (prev < maxPage ? prev + 1 : prev));
   };
   const handleStatusChange = (id: string, newStatus: string) => {
-    console.log(newStatus);
+    const updatedData = data.map((item) =>
+      item.id === id ? { ...item, orderStatus: newStatus } : item
+    );
+    setData(updatedData); // 更新数据
   };
   // const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const newSelectedRows = {};
@@ -53,7 +51,8 @@ const ManagementTable = ({
   // };
   return (
     <>
-      <table className={`${showCheckbox ? ' w-full' : 'w-full'} table-fixed text-14 `}>
+      <table
+        className={`${showCheckbox ? ' w-full' : 'w-full'} table-fixed text-14 `}>
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
             {showCheckbox && (
@@ -70,8 +69,8 @@ const ManagementTable = ({
             )}
             {columns.map((column) => {
               const thClass =
-                column.title === '農產品名稱'
-                  ? 'py-[13px] font-normal w-160'
+                column.title === '訂單建立時間'
+                  ? 'py-[13px] font-normal w-130'
                   : 'py-[13px] font-normal';
 
               return (
@@ -96,27 +95,22 @@ const ManagementTable = ({
                 </td>
               )}
               {columns.map((column) => {
-                const tdClass = getCellClass(column.dataIndex);
                 const cellContent =
-                  column.dataIndex === 'productstatus' ? (
+                  column.dataIndex === 'orderStatus' ? (
                     <select
-                    className='text-14'
+                      className="text-14"
                       value={row[column.dataIndex]}
                       onChange={(e) =>
                         handleStatusChange(row.id, e.target.value)
                       }>
-                      <option value="上架">上架</option>
-                      <option value="下架">下架</option>
+                      <option value="未出貨">未出貨</option>
+                      <option value="已出貨">已出貨</option>
                     </select>
                   ) : (
                     row[column.dataIndex]
                   );
 
-                return (
-                  <td className={tdClass} key={column.key}>
-                    {cellContent}
-                  </td>
-                );
+                return <td key={column.key}>{cellContent}</td>;
               })}
             </tr>
           ))}
@@ -144,4 +138,4 @@ const ManagementTable = ({
   );
 };
 
-export default ManagementTable;
+export default OrdersTable;

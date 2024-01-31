@@ -1,11 +1,10 @@
-
 import FarmerProductSearch from '@/common/components/Input/FarmerProductSearch';
 import ManagementTable from '@/common/components/DynamicTable/ManagementTable';
 import Button from '@/common/components/Button';
 import { productColumns, productData } from '../data';
+import { AllProductsProps } from './data';
 
-
-const AllProducts = ({ onAddProductClick }) => {
+const AllProducts = ({ onAddProductClick}:AllProductsProps) => {
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
       <div className="flex justify-between items-center mb-24">

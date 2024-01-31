@@ -1,4 +1,4 @@
-type ColumnType = {
+export type ColumnType = {
   title: string;
   dataIndex: string;
   key: string;
@@ -16,6 +16,6 @@ type OrdersDataItemType = {
 export type DynamicTableProps = {
   columns: ColumnType[];
   data: OrdersDataItemType[];
-  initialData: OrdersDataItemType[];
+  initialData?: OrdersDataItemType[];
   showCheckbox: boolean;
 };

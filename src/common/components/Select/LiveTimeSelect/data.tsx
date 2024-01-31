@@ -3,8 +3,8 @@ import { FormValues } from '../../Input/data';
 
 export type LiveTimeSelectProps = {
   control: Control<FormValues>;
-  labelText: string;
-  id: keyof FormValues;
+  labelText?: string;
+  id?: keyof FormValues;
 };
 export type OptionType = {
   value: string;

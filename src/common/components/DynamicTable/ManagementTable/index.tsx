@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DynamicTableProps } from './data';
 
+const getCellClass = (columnDataIndex: string) => {
+  switch (columnDataIndex) {
+    case 'discountPrice':
+      return 'py-[13px] text-primary-red';
+    default:
+      return 'py-[13px]';
+  }
+};
 
-const OrdersTable = ({
+const ManagementTable = ({
   columns,
-  initialData,
+  data,
   showCheckbox,
 }: DynamicTableProps) => {
-  
-  const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({});
   const itemsPerPage = 5;
-  useEffect(() => {
-    setData(initialData);
-  }, [initialData]);
 
   const maxPage = Math.ceil(data.length / itemsPerPage);
   const currentData = data.slice(
@@ -30,10 +33,7 @@ const OrdersTable = ({
     setCurrentPage((prev) => (prev < maxPage ? prev + 1 : prev));
   };
   const handleStatusChange = (id: string, newStatus: string) => {
-    const updatedData = data.map((item) =>
-      item.id === id ? { ...item, orderStatus: newStatus } : item
-    );
-    setData(updatedData); // 更新数据
+    console.log(newStatus);
   };
   // const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const newSelectedRows = {};
@@ -71,8 +71,8 @@ const OrdersTable = ({
             )}
             {columns.map((column) => {
               const thClass =
-                column.title === '訂單建立時間'
-                  ? 'py-[13px] font-normal w-130'
+                column.title === '農產品名稱'
+                  ? 'py-[13px] font-normal w-160'
                   : 'py-[13px] font-normal';
 
               return (
@@ -97,22 +97,27 @@ const OrdersTable = ({
                 </td>
               )}
               {columns.map((column) => {
+                const tdClass = getCellClass(column.dataIndex);
                 const cellContent =
-                  column.dataIndex === 'orderStatus' ? (
+                  column.dataIndex === 'productstatus' ? (
                     <select
                       className="text-14"
                       value={row[column.dataIndex]}
                       onChange={(e) =>
                         handleStatusChange(row.id, e.target.value)
                       }>
-                      <option value="未出貨">未出貨</option>
-                      <option value="已出貨">已出貨</option>
+                      <option value="上架">上架</option>
+                      <option value="下架">下架</option>
                     </select>
                   ) : (
                     row[column.dataIndex]
                   );
 
-                return <td key={column.key}>{cellContent}</td>;
+                return (
+                  <td className={tdClass} key={column.key}>
+                    {cellContent}
+                  </td>
+                );
               })}
             </tr>
           ))}
@@ -140,4 +145,4 @@ const OrdersTable = ({
   );
 };
 
-export default OrdersTable;
+export default ManagementTable;

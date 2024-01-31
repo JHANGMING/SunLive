@@ -7,7 +7,7 @@ export type ManagementSelectProps = {
   placeholder: string;
   id: keyof FormValues;
   data: OptionType[];
-  defaultValue:boolean;
+  defaultValue?:boolean;
 };
 export type OptionType = {
   value: string;

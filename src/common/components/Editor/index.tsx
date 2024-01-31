@@ -7,6 +7,7 @@ const ReactQuill = dynamic(() => import('react-quill'), {
   loading: () => <p>Loading...</p>,
 });
 import 'react-quill/dist/quill.snow.css';
+import { EditorProps } from './data';
 
 const FontSizes = [
   '12px',
@@ -20,7 +21,7 @@ const FontSizes = [
   '36px',
 ];
 
-const Editor = ({ control }) => {
+const Editor = ({ control }:EditorProps) => {
   const modules = {
     toolbar: [
       [{ size: FontSizes }],

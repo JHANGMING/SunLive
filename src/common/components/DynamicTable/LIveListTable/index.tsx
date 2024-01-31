@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DynamicTableProps } from '../data';
+import { DynamicTableProps } from './data';
 
 const LiveListTable = ({
   columns,
@@ -98,19 +98,21 @@ const LiveListTable = ({
                 let cellContent;
 
                 if (column.dataIndex === 'prodcutToChat') {
-                  cellContent = (
-                    <select
-                      className="text-14"
-                      onChange={(e) =>
-                        handleStatusChange(row.id, e.target.value)
-                      }>
-                      {row.prodcutToChat.map((product, index) => (
-                        <option key={index} value={product}>
-                          {product}
-                        </option>
-                      ))}
-                    </select>
-                  );
+                  if (Array.isArray(row.prodcutToChat)) {
+                    cellContent = (
+                      <select
+                        className="text-14"
+                        onChange={(e) =>
+                          handleStatusChange(row.id, e.target.value)
+                        }>
+                        {row.prodcutToChat.map((product, index) => (
+                          <option key={index} value={product}>
+                            {product}
+                          </option>
+                        ))}
+                      </select>
+                    );
+                  }
                 } else {
                   cellContent = row[column.dataIndex];
                 }

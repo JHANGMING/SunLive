@@ -61,7 +61,7 @@ const LiveTimeSelect = ({ control}: LiveTimeSelectProps) => {
               styles={customStyles}
               placeholder="選擇直播開始時間"
               onChange={(val) => {
-                setStartTime(val);
+                setStartTime(val as OptionType);
                 field.onChange(val);
               }}
             />
@@ -84,7 +84,7 @@ const LiveTimeSelect = ({ control}: LiveTimeSelectProps) => {
               placeholder="選擇直播結束時間"
               value={endTime}
               onChange={(val) => {
-                setEndTime(val);
+                setEndTime(val as OptionType);
                 field.onChange(val);
               }}
             />
