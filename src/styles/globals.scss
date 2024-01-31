@@ -8,7 +8,6 @@
   body {
     // max-width: 1440px;
     margin: 0 auto;
-    font-family: 'Noto Sans TC';
     line-height: 1.5;
     scroll-behavior: smooth;
     @apply tracking-widest text-mediumGray;
@@ -117,4 +116,8 @@
 //datepicker
 .react-datepicker-wrapper {
   width: 100%;
+}
+
+.react-datepicker__input-container input::placeholder {
+  @apply text-14 text-darkGray tracking-widest
 }

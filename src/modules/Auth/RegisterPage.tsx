@@ -18,7 +18,7 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm<FormValues>();
   const gapClass = useGapClass(errors);
-  const onSubmit: OnSubmitType = (data) => {
+  const onSubmit: OnSubmitType = async(data) => {
     const { email, password, identity } = data;
     const dataObj = {
       email: email.trim(),
@@ -26,6 +26,19 @@ const RegisterPage = () => {
       identity: identity.value,
     };
     console.log(dataObj);
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        body: JSON.stringify(dataObj),
+      });
+
+      const result = await response.json();
+      console.log(result);
+
+
+    } catch (error) {
+      alert('登入失敗');
+    }
   };
 
   return (

@@ -1,8 +1,9 @@
-import { DefaultInputProps, PersonInputProps } from './data';
+import {PersonInputProps } from './data';
 
 const PersonInput = ({
   type,
   labelText,
+  labelStyle,
   inputText,
   inputStyle,
   id,
@@ -13,13 +14,14 @@ const PersonInput = ({
 }: PersonInputProps) => {
   return (
     <div className="w-full">
-      <label htmlFor={id} className="text-18 block mb-8">
+      <label htmlFor={id} className={`${labelStyle} block mb-8`}>
         {labelText}
       </label>
       <input
         type={type}
         placeholder={inputText}
         id={id}
+        min={type === 'number' ? 0 : undefined}
         {...(register && register(id, rules))}
         disabled={isdisabled}
         className={`focus-visible:outline-primary-green tracking-widest p-16 w-full rounded-8 border border-lightGray ${inputStyle}`}

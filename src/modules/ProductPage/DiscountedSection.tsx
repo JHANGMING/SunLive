@@ -27,7 +27,7 @@ const DiscountedSection = () => {
                 className="w-[854px] h-[381px] hover:opacity-50 border-dashed border-2 border-primary-red rounded-20 transition duration-800 ease-in-out"
               />
               <Image
-                src="/images/home/live/UpcomingIcon.svg"
+                src="/images/productShop/todaySale.svg"
                 alt="UpcomingIcon"
                 width={120}
                 height={120}
@@ -50,7 +50,7 @@ const DiscountedSection = () => {
             <ul className="flex flex-col gap-20">
               <li className="flex gap-8 items-center">
                 <Image
-                  src="/images/productDetail/farmerImg.svg"
+                  src="/images/productDetail/farmer.png"
                   alt="farmerImg"
                   width={40}
                   height={40}

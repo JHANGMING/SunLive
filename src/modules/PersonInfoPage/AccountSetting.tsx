@@ -30,6 +30,7 @@ const AccountSetting = () => {
         <PersonInput
           type="email"
           labelText="電子郵件"
+          labelStyle="text-18"
           inputText="XXX@gmil.com"
           inputStyle="text-14"
           id="email"
@@ -40,7 +41,8 @@ const AccountSetting = () => {
             type="text"
             labelText="暱稱"
             inputText="請輸入暱稱"
-            inputStyle="text-18 w-full"
+            labelStyle="text-18"
+            inputStyle="text-14 w-full"
             id="nickName"
             register={register}
           />
@@ -48,7 +50,8 @@ const AccountSetting = () => {
             type="tel"
             labelText="聯絡電話"
             inputText="請輸入聯絡電話"
-            inputStyle=""
+            labelStyle="text-18"
+            inputStyle="text-14"
             id="userPhone"
             errors={errors}
             register={register}

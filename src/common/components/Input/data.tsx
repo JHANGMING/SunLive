@@ -12,11 +12,35 @@ export type FormValues = {
   gender: string;
   zip: string;
   birthday: Date;
+  idea: string;
+  introduce: string;
+  liveName: string;
+  liveLink: string;
+  startTime: string;
+  endTime: string;
+  productName: string;
+  'small-specification': string;
+  'small-original-price': string;
+  'small-promotion-price': string;
+  'small-stock': string;
+  'large-specification': string;
+  'large-original-price': string;
+  'large-promotion-price': string;
+  'large-stock': string;
+  liveProduct: string;
+  origin: string;
+  storage: string;
+  season: string;
+  category: string;
+  description: string;
+  liveProductSpec: string;
+  liveSpectialPrice: string;
+  editorContent: string;
   county: { label: string; value: string };
   district: { label: string; value: string } | null;
 };
 export type DefaultInputProps = {
-  type: 'email' | 'text' | 'password' | 'tel';
+  type: 'email' | 'text' | 'password' | 'tel' | "number";
   labelText: string;
   inputText: string;
   icon?: ReactNode;
@@ -30,9 +54,10 @@ export type DefaultInputProps = {
 };
 
 export type PersonInputProps = {
-  type: 'email' | 'text' | 'password' | 'tel';
+  type: 'email' | 'text' | 'password' | 'tel' | 'number';
   labelText: string;
   inputText: string;
+  labelStyle?: string;
   inputStyle: string;
   id: keyof FormValues;
   register?: UseFormRegister<FormValues>;
