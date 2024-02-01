@@ -2,12 +2,12 @@ import Layout from '@/common/components/Layout';
 import DashboardPage from '@/modules/DashboardPage';
 import AccountSettng from '@/modules/DashboardPage/AccountSettng';
 import AllProducts from '@/modules/DashboardPage/Management/AllProducts';
-const Account = () => {
+const Products = () => {
   return (
     <Layout pageCategory="dashboardPage">
-        <AllProducts />
+      <AllProducts />
     </Layout>
   );
 };
 
-export default Account;
+export default Products;
