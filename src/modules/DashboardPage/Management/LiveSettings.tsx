@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 const LiveSettings = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<any[]>([]);
   const {
     control,
     register,
@@ -34,9 +34,9 @@ const LiveSettings = () => {
     setProducts([...products, {}]);
   };
 
-  const onDeleteProductClick = (index) => {
+  const onDeleteProductClick = (index:number) => {
     const updatedProducts = products.filter((_, idx) => idx !== index);
-    setProducts(updatedProducts); // 删除指定索引的产品选择区域
+    setProducts(updatedProducts); 
   };
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
