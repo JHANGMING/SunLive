@@ -4,7 +4,7 @@ import AccountSettng from './AccountSettng';
 import { useState } from 'react';
 import AllProducts from './Management/AllProducts';
 import AddProduct from './Management/AddProduct';
-import AllOrders from './Management/AllOrders';
+import AllOrders from './Orders/AllOrders';
 import AllLive from './Management/AllLive';
 import LiveSettings from './Management/LiveSettings';
 import { useRouter } from 'next/router';
@@ -15,7 +15,7 @@ const DashboardPage = () => {
   const [activeSection, setActiveSection] = useState('account');
   const [managementSubPage, setManagementSubPage] = useState('');
   const [orderSubPage, setOrderSubPage] = useState('');
-const [liveSubPage, setLiveSubPage] = useState('');
+  const [liveSubPage, setLiveSubPage] = useState('');
   const handleClick = (page: string) => {
     setActiveSection(page);
 
@@ -67,7 +67,7 @@ const [liveSubPage, setLiveSubPage] = useState('');
   };
   const handerToPage = (page: string) => {
     router.push(`/dashboard/${page}`);
-  }
+  };
   return (
     <>
       <div className="w-3/12">
@@ -85,69 +85,75 @@ const [liveSubPage, setLiveSubPage] = useState('');
           <div>
             <Link
               href={'/dashboard/products'}
-              className="p-12 w-full flex items-center gap-8 bg-primary-yellow mb-4 rounded-8"
-              >
+              className="p-12 w-full flex items-center gap-8 bg-primary-yellow mb-4 rounded-8">
               <LogoImg widthProps={24} heightProps={24} />
               <h3 className="text-16">農產品管理</h3>
             </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
-              <p
+              <Link
+                href={'/dashboard/products'}
                 className={`${managementSubPage === 'allProducts' && 'text-primary-green'} cursor-pointer hover:opacity-60 `}
                 onClick={() => handleManagementClick('allProducts')}>
                 所有農產品
-              </p>
-              <p
+              </Link>
+              <Link
+                href={'/dashboard/products/addproduct'}
                 className={`${managementSubPage === 'addProduct' && 'text-primary-green'} cursor-pointer hover:opacity-60 `}
                 onClick={() => handleManagementClick('addProduct')}>
                 新增農產品
-              </p>
+              </Link>
             </div>
           </div>
           <div>
-            <button
-              type="button"
+            <Link
+              href={'/dashboard/orders/allorders'}
               className="p-12 w-full flex items-center gap-8 hover:bg-primary-yellow mb-4 hover:rounded-8"
               onClick={() => handleClick('order')}>
               <LogoImg widthProps={24} heightProps={24} />
               <h3 className="text-16">訂單管理</h3>
-            </button>
+            </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
-              <p
+              <Link
+                href={'/dashboard/orders/allorders'}
                 className={`${orderSubPage === '所有訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
                 onClick={() => handleOrderClick('所有訂單')}>
                 所有訂單
-              </p>
-              <p
+              </Link>
+              <Link
+                href={'/dashboard/orders/unshippedorders'}
                 className={`${orderSubPage === '未出貨訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
                 onClick={() => handleOrderClick('未出貨訂單')}>
                 未出貨訂單
-              </p>
-              <p
+              </Link>
+              <Link
+                href={'/dashboard/orders/shippedorders'}
                 className={`${orderSubPage === '已出貨訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
                 onClick={() => handleOrderClick('已出貨訂單')}>
                 已出貨訂單
-              </p>
+              </Link>
             </div>
           </div>
           <div>
-            <button
-              type="button"
+            <Link
+              href={'/dashboard/live'}
               className="p-12 w-full flex items-center gap-8 hover:bg-primary-yellow mb-4 hover:rounded-8"
               onClick={() => handleClick('live')}>
               <LogoImg widthProps={24} heightProps={24} />
               <h3 className="text-16">直播設定</h3>
-            </button>
+            </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
-              <p
+              <Link
+                href={'/dashboard/live'}
                 className={`${liveSubPage === '所有直播' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
                 onClick={() => handleLiveClick('所有直播')}>
                 所有直播
-              </p>
-              <p
+              </Link>
+              <Link
+                href={'/dashboard/live/livesetting'}
                 className={`${liveSubPage === '直播設定' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
                 onClick={() => handleLiveClick('直播設定')}>
                 直播設定
-              </p>
+              </Link>
             </div>
           </div>
         </div>
