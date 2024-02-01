@@ -30,7 +30,7 @@ const LiveSettings = () => {
   
 
   const onAddProductClick = () => {
-    setProducts([...products, {}]); // 添加一个新的产品选择区域
+    setProducts([...products, {}]);
   };
 
   const onDeleteProductClick = (index) => {
@@ -116,10 +116,14 @@ const LiveSettings = () => {
                 labelText="直播特惠價格"
                 inputText="輸入直播特惠價格"
                 inputStyle="text-14 w-full h-[53px]"
-                id={`liveSpectialPrice-${index}`}
+                id={`liveSpectialPrice-${index}` as keyof FormValues}
+                register={register}
               />
             </div>
           ))}
+        </div>
+        <div className="">
+          <h3 className=" text-20 font-semibold ">選擇直播聊天室置頂農產品</h3>
         </div>
         <Button category="submit" classStyle="self-end hover:opacity-70">
           儲存

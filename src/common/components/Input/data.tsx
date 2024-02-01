@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { UseFormRegister, FieldErrors, RegisterOptions } from 'react-hook-form';
 export type FormValues = {
+  // [key: string]: any;
   email: string;
   password: string;
   confirmPassword: string;
