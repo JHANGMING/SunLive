@@ -27,24 +27,13 @@ const RegisterPage = () => {
     };
     console.log(dataObj);
     try {
-      // const response = await fetch('/api/auth/register', {
-      //   method: 'POST',
-      //   body: JSON.stringify(dataObj),
-      // });
-      const response = await fetch('http://4.224.41.94/api/login/general', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          account: email,
-          password: password,
-          category: 0,
-        }),
+        body: JSON.stringify(dataObj),
       });
-      const data = await response.json();
-      console.log(data);
 
+      const result = await response.json();
+      console.log(result);
 
     } catch (error) {
       alert('登入失敗');
@@ -117,6 +106,24 @@ const RegisterPage = () => {
           }}
         />
         <AuthSelect control={control} />
+        {/* <div className="">
+          <label htmlFor="identity" className="text-20 font-bold block mb-8">
+            註冊身份{' '}
+            <span className="text-20 font-bold text-primary-red">*</span>
+          </label>
+          <select
+            id="identity"
+            {...register('identity', {
+              required: '請選擇註冊身份',
+            })}
+            className=" h-48 w-full border rounded-8 py-12 pl-12 text-mediumGray focus-visible:outline-primary-green">
+            <option value="一般會員">一般會員 (我想要查看或購買農產品)</option>
+            <option value="小農">小農 (我想要販售農產品)</option>
+          </select>
+          {errors.identity && (
+            <p className="text-primary-red mt-8">{errors.identity.message}</p>
+          )}
+        </div> */}
         <Button
           type="submit"
           category="auth"
