@@ -27,13 +27,23 @@ const RegisterPage = () => {
     };
     console.log(dataObj);
     try {
-      const response = await fetch('/api/auth/register', {
+      // const response = await fetch('/api/auth/register', {
+      //   method: 'POST',
+      //   body: JSON.stringify(dataObj),
+      // });
+      const response = await fetch('http://4.224.41.94/api/login/general', {
         method: 'POST',
-        body: JSON.stringify(dataObj),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          account: email,
+          password: password,
+          category: 0,
+        }),
       });
-
-      const result = await response.json();
-      console.log(result);
+      const data = await response.json();
+      console.log(data);
 
 
     } catch (error) {
