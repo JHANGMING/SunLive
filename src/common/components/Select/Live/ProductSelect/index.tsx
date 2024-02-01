@@ -3,9 +3,10 @@ import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { LiveProductSelectProps, OptionType, productData } from './data';
+import { FormValues } from '@/common/components/Input/data';
 
 const LiveProductSelect = ({
-  control,
+  control,id
 }: LiveProductSelectProps) => {
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
@@ -36,7 +37,7 @@ const LiveProductSelect = ({
         農產品
       </label>
       <Controller
-        name="liveProduct"
+        name={id!}
         control={control}
         render={({ field }) => (
           <Select

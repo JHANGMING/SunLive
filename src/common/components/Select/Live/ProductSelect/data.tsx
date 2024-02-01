@@ -1,5 +1,9 @@
+import { FormValues } from '@/common/components/Input/data';
 import { Control } from 'react-hook-form';
-import { FormValues } from '../../../Input/data';
+
+// type FormValues = {
+//   [key: string]: any;
+// };
 
 export type LiveProductSelectProps = {
   control: Control<FormValues>;

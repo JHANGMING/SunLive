@@ -34,7 +34,7 @@ const ProductToChatSelect = ({ control }: LiveProductSelectProps) => {
         直播聊天室置頂農產品
       </label>
       <Controller
-        name="liveProduct"
+        name="ProductToChat"
         control={control}
         render={({ field }) => (
           <Select

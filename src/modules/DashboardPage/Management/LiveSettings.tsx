@@ -6,9 +6,10 @@ import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
 import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSelect';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
+import { format } from 'date-fns';
 const LiveSettings = () => {
   const [products, setProducts] = useState<any[]>([]);
   const {
@@ -16,10 +17,52 @@ const LiveSettings = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormValues>();
+
+  const fileInputRef = useRef<HTMLInputElement>(null); 
+  const handleFileInputChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        // 替换成你的上传 API 端点
+        const response = await fetch('https://your-upload-endpoint.com', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          // 处理上传成功
+          console.log('File uploaded successfully');
+        } else {
+          // 处理错误情况
+          console.error('Upload failed');
+        }
+      } catch (error) {
+        console.error('Error during upload', error);
+      }
+    } else {
+      // 处理未选择文件的情况或者文件输入清空的情况
+      console.log('No file selected');
+    }
+  };
+
+  const handleAddImageClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   const onSubmit = (data: FormValues) => {
     //儲存日期格式
     // const formattedDate = format(data.birthday, 'yyyy/MM/dd');
+
     // const { email, password, identity } = data;
     // const dataObj = {
     //   email: email.trim(),
@@ -27,6 +70,7 @@ const LiveSettings = () => {
     //   identity,
     // };
     console.log(data);
+    reset();
   };
   
 
@@ -44,9 +88,18 @@ const LiveSettings = () => {
       {/* 上傳圖片 */}
       <div className="mb-24">
         <p className="mb-8">直播圖片</p>
-        <div className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center">
+        <div
+          className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center cursor-pointer hover:opacity-70"
+          onClick={handleAddImageClick}>
           <BsPlusCircle size={24} className=" text-lightGray" />
         </div>
+        {/* 隐藏的文件输入 */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          onChange={handleFileInputChange}
+        />
       </div>
       <form
         action=""
@@ -59,23 +112,62 @@ const LiveSettings = () => {
             inputText="輸入直播名稱"
             inputStyle="text-14 w-full h-[53px]"
             id="liveName"
-            // register={register}
+            register={register}
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請輸入直播名稱!',
+              },
+            }}
           />
           <div className="w-full">
             <label htmlFor="" className="text-16 block mb-8">
               直播日期
             </label>
-            <DatePickerShow control={control} page="live" />
+            <DatePickerShow
+              control={control}
+              page="live"
+              errors={errors}
+              rules={{
+                required: {
+                  value: true,
+                  message: '請選擇日期!',
+                },
+              }}
+            />
           </div>
         </div>
-        <LiveTimeSelect control={control} />
+        <LiveTimeSelect
+          control={control}
+          errors={errors}
+          startTimeRules={{
+            required: {
+              value: true,
+              message: '請選擇開始時間!',
+            },
+          }}
+          endTimeRules={{
+            required: {
+              value: true,
+              message: '請選擇結束時間!',
+            },
+          }}
+        />
         <PersonInput
           type="text"
           labelText="直播連結"
           inputText="輸入直播連結"
           inputStyle="text-14 w-full h-[53px]"
           id="liveLink"
-          // register={register}
+          register={register}
+          errors={errors}
+          rules={{
+            required: {
+              value: true,
+              message: '請輸入直播連結!',
+            },
+          }}
         />
         <div className="mt-40 mb-32 flex items-center gap-16">
           <h3 className=" text-20 font-semibold ">選擇直播農產品</h3>
@@ -92,15 +184,21 @@ const LiveSettings = () => {
               size={24}
               className=" absolute top-0 -right-48 text-darkGray cursor-pointer hover:opacity-70"
             />
-            <LiveProductSelect control={control} />
-            <ProductSpecSelect control={control} />
+            <LiveProductSelect
+              control={control}
+              id={'liveProduct-0' as keyof FormValues}
+            />
+            <ProductSpecSelect
+              control={control}
+              id={'liveProductSpec-0' as keyof FormValues}
+            />
             <PersonInput
               type="number"
               labelText="直播特惠價格"
               inputText="輸入直播特惠價格"
               inputStyle="text-14 w-full h-[53px]"
-              id="liveSpectialPrice"
-              // register={register}
+              id={'liveSpectialPrice-0' as keyof FormValues}
+              register={register}
             />
           </div>
           {products.map((_, index) => (
@@ -110,14 +208,20 @@ const LiveSettings = () => {
                 className="absolute top-0 -right-48 text-darkGray cursor-pointer hover:opacity-70"
                 onClick={() => onDeleteProductClick(index)}
               />
-              <LiveProductSelect control={control} />
-              <ProductSpecSelect control={control} />
+              <LiveProductSelect
+                control={control}
+                id={`liveProduct-${index + 1}` as keyof FormValues}
+              />
+              <ProductSpecSelect
+                control={control}
+                id={`liveProductSpec-${index + 1}` as keyof FormValues}
+              />
               <PersonInput
                 type="number"
                 labelText="直播特惠價格"
                 inputText="輸入直播特惠價格"
                 inputStyle="text-14 w-full h-[53px]"
-                id={`liveSpectialPrice-${index}` as keyof FormValues}
+                id={`liveSpectialPrice-${index + 1}` as keyof FormValues}
                 register={register}
               />
             </div>

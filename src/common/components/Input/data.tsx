@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { UseFormRegister, FieldErrors, RegisterOptions } from 'react-hook-form';
 export type FormValues = {
-  // [key: string]: any;
   email: string;
   password: string;
   confirmPassword: string;
@@ -12,7 +11,7 @@ export type FormValues = {
   nickName: string;
   gender: string;
   zip: string;
-  birthday: Date;
+  datePicker: Date;
   idea: string;
   introduce: string;
   liveName: string;
@@ -37,6 +36,7 @@ export type FormValues = {
   liveProductSpec: string;
   liveSpectialPrice: string;
   editorContent: string;
+  ProductToChat: string;
   county: { label: string; value: string };
   district: { label: string; value: string } | null;
 };
