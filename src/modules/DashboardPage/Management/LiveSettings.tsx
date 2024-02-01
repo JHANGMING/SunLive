@@ -4,6 +4,7 @@ import PersonInput from '@/common/components/Input/PersonInput';
 import { FormValues } from '@/common/components/Input/data';
 import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
+import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSelect';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -122,8 +123,9 @@ const LiveSettings = () => {
             </div>
           ))}
         </div>
-        <div className="">
+        <div className="flex flex-col gap-32">
           <h3 className=" text-20 font-semibold ">選擇直播聊天室置頂農產品</h3>
+          <ProductToChatSelect control={control} />
         </div>
         <Button category="submit" classStyle="self-end hover:opacity-70">
           儲存

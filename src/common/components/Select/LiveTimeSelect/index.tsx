@@ -47,7 +47,7 @@ const LiveTimeSelect = ({ control}: LiveTimeSelectProps) => {
   return (
     <div className="flex gap-24">
       <div className="w-full">
-        <label htmlFor="startTime" className="text-18 block mb-8">
+        <label htmlFor="startTime" className="text-16 block mb-8">
           直播開始時間
         </label>
         <Controller
@@ -69,7 +69,7 @@ const LiveTimeSelect = ({ control}: LiveTimeSelectProps) => {
         />
       </div>
       <div className="w-full">
-        <label htmlFor="endTime" className="text-18 block mb-8">
+        <label htmlFor="endTime" className="text-16 block mb-8">
           直播結束時間
         </label>
         <Controller
