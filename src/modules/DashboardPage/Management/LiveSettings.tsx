@@ -18,6 +18,7 @@ const LiveSettings = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<FormValues>();
 
   const fileInputRef = useRef<HTMLInputElement>(null); 
@@ -26,40 +27,47 @@ const LiveSettings = () => {
   ) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
-
       const formData = new FormData();
       formData.append('file', file);
 
       try {
-        // 替换成你的上传 API 端点
         const response = await fetch('https://your-upload-endpoint.com', {
           method: 'POST',
           body: formData,
         });
 
         if (response.ok) {
-          // 处理上传成功
+          // 假设服务器返回的响应包含了图片的 URL
+          const data = await response.json(); // 或者根据服务器的响应格式调整
+          const imageURL = data.url; // 服务器返回的图片 URL
+
+          // 调用 handleImageUploadSuccess 并传入图片 URL
+          handleImageUploadSuccess(imageURL);
           console.log('File uploaded successfully');
         } else {
-          // 处理错误情况
           console.error('Upload failed');
         }
       } catch (error) {
         console.error('Error during upload', error);
       }
     } else {
-      // 处理未选择文件的情况或者文件输入清空的情况
       console.log('No file selected');
     }
   };
-
   const handleAddImageClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
-
+  const handleImageUploadSuccess = (imageURL:string) => {
+    // 使用 setValue 来更新 imageURL 字段的值
+    setValue('imageURL', imageURL);
+  };
   const onSubmit = (data: FormValues) => {
+    if (!data.imageURL) {
+      console.error('No image URL provided');
+      return; // 如果没有图片网址，则不提交
+    }
     //儲存日期格式
     // const formattedDate = format(data.birthday, 'yyyy/MM/dd');
 
@@ -90,7 +98,8 @@ const LiveSettings = () => {
         <p className="mb-8">直播圖片</p>
         <div
           className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center cursor-pointer hover:opacity-70"
-          onClick={handleAddImageClick}>
+          // onClick={handleAddImageClick}
+          onClick={() => handleImageUploadSuccess("hggfgf")}>
           <BsPlusCircle size={24} className=" text-lightGray" />
         </div>
         {/* 隐藏的文件输入 */}

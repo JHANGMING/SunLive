@@ -19,6 +19,8 @@ export type FormValues = {
   startTime: string;
   endTime: string;
   productName: string;
+  imageURL: string;
+  status: string;
   'small-specification': string;
   'small-original-price': string;
   'small-promotion-price': string;

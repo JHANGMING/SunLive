@@ -9,7 +9,9 @@ const ManagementSelect = ({
   id,
   data,
   placeholder,
-  defaultValue=false,
+  defaultValue = false,
+  errors,
+  rules,
 }: ManagementSelectProps) => {
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
@@ -43,7 +45,8 @@ const ManagementSelect = ({
       <Controller
         name={id}
         control={control}
-        defaultValue={defaultValue ? data[0]:""}
+        rules={rules}
+        defaultValue={defaultValue ? data[0] : ''}
         render={({ field }) => (
           <Select
             {...field}
@@ -55,6 +58,9 @@ const ManagementSelect = ({
           />
         )}
       />
+      {errors && errors[id] && (
+        <p className="text-primary-red mt-2">{errors[id]?.message}</p>
+      )}
     </div>
   );
 };
