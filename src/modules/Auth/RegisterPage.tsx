@@ -21,9 +21,9 @@ const RegisterPage = () => {
   const onSubmit: OnSubmitType = async(data) => {
     const { email, password, identity } = data;
     const dataObj = {
-      email: email.trim(),
+      account: email.trim(),
       password: password.trim(),
-      identity: identity.value,
+      category: identity.value,
     };
     console.log(dataObj);
     try {

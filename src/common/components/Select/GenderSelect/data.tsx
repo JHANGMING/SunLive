@@ -7,11 +7,11 @@ export type GenderSelectProps = {
   id: keyof FormValues;
 };
 export type OptionType = {
-  value: string;
+  value: number;
   label: string;
 };
 
 export const optionsData: OptionType[] = [
-  { value: '男', label: '男' },
-  { value: '女', label: '女' },
+  { value: 0, label: '男' },
+  { value: 1, label: '女' },
 ];

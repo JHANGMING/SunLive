@@ -12,15 +12,12 @@ export default async function handler(
   try {
 
     const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPaths.register}`;
-    const { email, password, identity } = JSON.parse(req.body);
-    console.log(email, password, identity);
-    const category = identity === '一般會員' ? 0 : 1;
     const result = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ account: email, password: password, category }),
+      body:req.body,
     });
     const data = await result.json();
 
