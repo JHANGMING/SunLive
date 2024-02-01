@@ -4,23 +4,28 @@ import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { LiveTimeSelectProps, OptionType, optionsData } from './data';
 
-const LiveTimeSelect = ({ control}: LiveTimeSelectProps) => {
-   const [startTime, setStartTime] = useState<OptionType | null>(null);
-   const [endTime, setEndTime] = useState<OptionType | null>(null);
-   const [endTimeOptions, setEndTimeOptions] = useState<OptionType[]>([]);
+const LiveTimeSelect = ({
+  control,
+  errors,
+  startTimeRules,
+  endTimeRules,
+}: LiveTimeSelectProps) => {
+  const [startTime, setStartTime] = useState<OptionType | null>(null);
+  const [endTime, setEndTime] = useState<OptionType | null>(null);
+  const [endTimeOptions, setEndTimeOptions] = useState<OptionType[]>([]);
 
-   useEffect(() => {
-     if (startTime) {
-       const startTimeIndex = optionsData.findIndex(
-         (option) => option.value === startTime.value
-       );
-       const filteredOptions = optionsData.slice(startTimeIndex + 1);
-       setEndTimeOptions(filteredOptions);
-       setEndTime(null); 
-     } else {
-       setEndTimeOptions(optionsData);
-     }
-   }, [startTime]);
+  useEffect(() => {
+    if (startTime) {
+      const startTimeIndex = optionsData.findIndex(
+        (option) => option.value === startTime.value
+      );
+      const filteredOptions = optionsData.slice(startTimeIndex + 1);
+      setEndTimeOptions(filteredOptions);
+      setEndTime(null);
+    } else {
+      setEndTimeOptions(optionsData);
+    }
+  }, [startTime]);
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
@@ -47,12 +52,13 @@ const LiveTimeSelect = ({ control}: LiveTimeSelectProps) => {
   return (
     <div className="flex gap-24">
       <div className="w-full">
-        <label htmlFor="startTime" className="text-18 block mb-8">
+        <label htmlFor="startTime" className="text-16 block mb-8">
           直播開始時間
         </label>
         <Controller
           name="startTime"
           control={control}
+          rules={startTimeRules}
           render={({ field }) => (
             <Select
               {...field}
@@ -67,14 +73,18 @@ const LiveTimeSelect = ({ control}: LiveTimeSelectProps) => {
             />
           )}
         />
+        {errors?.startTime && (
+          <p className="text-primary-red mt-2">{errors.startTime.message}</p>
+        )}
       </div>
       <div className="w-full">
-        <label htmlFor="endTime" className="text-18 block mb-8">
+        <label htmlFor="endTime" className="text-16 block mb-8">
           直播結束時間
         </label>
         <Controller
           name="endTime"
           control={control}
+          rules={endTimeRules}
           render={({ field }) => (
             <Select
               {...field}
@@ -90,6 +100,9 @@ const LiveTimeSelect = ({ control}: LiveTimeSelectProps) => {
             />
           )}
         />
+        {errors?.endTime && (
+          <p className="text-primary-red mt-2">{errors.endTime.message}</p>
+        )}
       </div>
     </div>
   );

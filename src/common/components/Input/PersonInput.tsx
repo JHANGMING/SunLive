@@ -21,6 +21,7 @@ const PersonInput = ({
         type={type}
         placeholder={inputText}
         id={id}
+        name={id}
         min={type === 'number' ? 0 : undefined}
         {...(register && register(id, rules))}
         disabled={isdisabled}

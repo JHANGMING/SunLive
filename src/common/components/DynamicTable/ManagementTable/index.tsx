@@ -18,6 +18,7 @@ const ManagementTable = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({});
+  const [hoveredRow, setHoveredRow] = useState(null);
   const itemsPerPage = 5;
 
   const maxPage = Math.ceil(data.length / itemsPerPage);
@@ -51,6 +52,20 @@ const ManagementTable = ({
   //     [id]: !prev[id],
   //   }));
   // };
+    const handleEdit = (id) => {
+      console.log('编辑: ', id);
+      // 编辑逻辑
+    };
+
+    const handleDelete = (id) => {
+      console.log('删除: ', id);
+      // 删除逻辑
+    };
+
+    const handleToggleStatus = (id) => {
+      console.log('切换上下架状态: ', id);
+      // 上下架切换逻辑
+    };
   return (
     <>
       <table
@@ -98,8 +113,33 @@ const ManagementTable = ({
               )}
               {columns.map((column) => {
                 const tdClass = getCellClass(column.dataIndex);
-                const cellContent =
-                  column.dataIndex === 'productstatus' ? (
+                let cellContent;
+
+                if (column.dataIndex === 'productName') {
+                  cellContent = (
+                    <div
+                      onMouseEnter={() => setHoveredRow(row.id)}
+                      onMouseLeave={() => setHoveredRow(null)}>
+                      {row[column.dataIndex]}
+                      {hoveredRow === row.id && (
+                        <div className="flex justify-center gap-4">
+                          <button
+                            type="button"
+                            className="text-12 text-primary-green pr-4 border-r border-lightGray"
+                            onClick={() => handleEdit(row.id)}>
+                            編輯
+                          </button>
+                          <button
+                            type="button"
+                            className="text-12 text-primary-green">
+                            移至垃圾桶
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  );
+                } else if (column.dataIndex === 'productstatus') {
+                  cellContent = (
                     <select
                       className="text-14"
                       value={row[column.dataIndex]}
@@ -109,9 +149,10 @@ const ManagementTable = ({
                       <option value="上架">上架</option>
                       <option value="下架">下架</option>
                     </select>
-                  ) : (
-                    row[column.dataIndex]
                   );
+                } else {
+                  cellContent = row[column.dataIndex];
+                }
 
                 return (
                   <td className={tdClass} key={column.key}>

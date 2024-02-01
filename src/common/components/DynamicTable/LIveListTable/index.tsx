@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DynamicTableProps } from './data';
-
+import { BsLink45Deg } from 'react-icons/bs';
 const LiveListTable = ({
   columns,
   initialData,
@@ -75,7 +75,14 @@ const LiveListTable = ({
 
               return (
                 <th className={thClass} key={column.key}>
-                  {column.title}
+                  {column.title === '直播連結' ? (
+                    <div className="flex items-center justify-center gap-4">
+                      <BsLink45Deg size={20}/>
+                      直播連結
+                    </div>
+                  ) : (
+                    column.title
+                  )}
                 </th>
               );
             })}
@@ -96,27 +103,19 @@ const LiveListTable = ({
               )}
               {columns.map((column) => {
                 let cellContent;
-
-                if (column.dataIndex === 'prodcutToChat') {
-                  if (Array.isArray(row.prodcutToChat)) {
-                    cellContent = (
-                      <select
-                        className="text-14"
-                        onChange={(e) =>
-                          handleStatusChange(row.id, e.target.value)
-                        }>
-                        {row.prodcutToChat.map((product, index) => (
-                          <option key={index} value={product}>
-                            {product}
-                          </option>
-                        ))}
-                      </select>
-                    );
-                  }
+                if (
+                  column.dataIndex === 'liveLink' &&
+                  column.title === '直播連結'
+                ) {
+                  cellContent = (
+                    <div className='flex justify-center gap-4'>
+                      <BsLink45Deg size={20} />
+                      {row[column.dataIndex]}
+                    </div>
+                  );
                 } else {
                   cellContent = row[column.dataIndex];
                 }
-
                 return <td key={column.key}>{cellContent}</td>;
               })}
             </tr>
