@@ -1,23 +1,63 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface authData {
-  nickname: string
-  token: string
+  token: string;
+  account: string;
+  birthday: string;
+  category: number;
+  description: string;
+  nickName: string;
+  phone: string;
+  photo: string;
+  sex: string;
+  vision: string;
 }
 const initialState: authData = {
-  nickname: '',
   token: '',
-}
+  account: '',
+  birthday: '',
+  category: 0,
+  description: '',
+  nickName: '',
+  phone: '',
+  photo: '',
+  sex: '',
+  vision: '',
+};
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     setUserData(state, action) {
-
-      const { nickname, token } = action.payload
+      const {
+        account,
+        birthday,
+        category,
+        description,
+        nickName,
+        phone,
+        photo,
+        sex,
+        vision
+      } = action.payload.data;
+      const token = action.payload.token;
       
-      return { ...state, nickname, token }
+      // const { nickname, token } = action.payload
+      // return { ...state };
+      return {
+        ...state,
+        account,
+        birthday,
+        category,
+        description,
+        nickName,
+        phone,
+        photo,
+        sex,
+        vision,
+        token,
+      };
     },
   },
 })

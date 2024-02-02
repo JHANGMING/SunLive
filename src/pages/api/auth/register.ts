@@ -20,7 +20,6 @@ export default async function handler(
       body:req.body,
     });
     const data = await result.json();
-
     res.status(200).json(data);
   } catch (error) {
     console.error('API Error:', error);

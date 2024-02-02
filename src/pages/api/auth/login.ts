@@ -10,8 +10,6 @@ export default async function handler(
 ) {
   try {
     const { email, password } = JSON.parse(req.body);
-    console.log(email, password);
-
     const result = await fetch('http://4.224.41.94/api/login/general', {
       method: 'POST',
       headers: {

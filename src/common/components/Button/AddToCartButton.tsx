@@ -1,5 +1,7 @@
 import { BsHandIndex } from 'react-icons/bs';
 import { ButtonPropsType } from './data';
+import { getCookies } from 'cookies-next';
+import { useRouter } from 'next/router';
 const AddToCartButton = ({
   children,
   btnStyle,
@@ -7,10 +9,17 @@ const AddToCartButton = ({
   showIcon = true,
   disabled = false,
 }: ButtonPropsType) => {
+  const router = useRouter();
   const handleCartAddition = () => {
+    
     if (disabled) return;
     console.log('加入購物車11');
+  const authToken = getCookies().Token;
+  if (!authToken) {
 
+    router.push('/auth/login');
+    return; 
+  }
     // if (onClick) onClick();
   };
   const buttonClassName = disabled
