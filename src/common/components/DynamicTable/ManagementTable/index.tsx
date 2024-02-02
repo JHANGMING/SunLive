@@ -18,7 +18,7 @@ const ManagementTable = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({});
-  const [hoveredRow, setHoveredRow] = useState(null);
+  const [hoveredRow, setHoveredRow] = useState<string | null>(null);
   const itemsPerPage = 5;
 
   const maxPage = Math.ceil(data.length / itemsPerPage);
@@ -52,17 +52,17 @@ const ManagementTable = ({
   //     [id]: !prev[id],
   //   }));
   // };
-    const handleEdit = (id) => {
+    const handleEdit = (id:string) => {
       console.log('编辑: ', id);
       // 编辑逻辑
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = (id: string) => {
       console.log('删除: ', id);
       // 删除逻辑
     };
 
-    const handleToggleStatus = (id) => {
+    const handleToggleStatus = (id: string) => {
       console.log('切换上下架状态: ', id);
       // 上下架切换逻辑
     };
@@ -119,7 +119,8 @@ const ManagementTable = ({
                   cellContent = (
                     <div
                       onMouseEnter={() => setHoveredRow(row.id)}
-                      onMouseLeave={() => setHoveredRow(null)}>
+                      onMouseLeave={() => setHoveredRow(null)}
+                      >
                       {row[column.dataIndex]}
                       {hoveredRow === row.id && (
                         <div className="flex justify-center gap-4">
