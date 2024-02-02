@@ -1,21 +1,11 @@
-import { useRouter } from 'next/router';
+import useRequireAuth from '@/common/hooks/useRequireAuth';
 import CartEmpty from './CartEmpty';
 import CartFormSection from './CartFormSection';
-import CartLink from './CartLink';
 import CartListSection from './CartListSection';
 import CartProcess from './CartProcess';
-import { useEffect } from 'react';
-import { getCookies } from 'cookies-next';
 
 const CartPage = () => {
-  const router = useRouter();
-  const authToken = getCookies().Token;
-
-  useEffect(() => {
-    if (!authToken) {
-      router.push('/auth/login');
-    }
-  }, [authToken, router]);
+  const authToken = useRequireAuth();
   return (
     <>
       <CartProcess />

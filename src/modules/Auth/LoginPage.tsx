@@ -40,12 +40,12 @@ const LoginPage = () => {
       if (result.statusCode === 200) {
         console.log(result);
         
-        // dispatch(setUserData({data: result.data, token: result.token}));
-        // Object.entries(result.data).forEach(([key, value]) => {
-        //   setCookie(key, value === null ? '' : value, { maxAge: 60 * 60 * 24 });
-        // });
-        // setCookie('Token', `Bearer ${result.token}`, { maxAge: 60 * 60 * 24 });
-        // router.push('/');
+        dispatch(setUserData({data: result.data, token: result.token}));
+        Object.entries(result.data).forEach(([key, value]) => {
+          setCookie(key, value === null ? '' : value, { maxAge: 60 * 60 * 24 });
+        });
+        setCookie('Token', `Bearer ${result.data.token}`, { maxAge: 60 * 60 * 24 });
+        router.push('/');
       } else {
         setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
       }

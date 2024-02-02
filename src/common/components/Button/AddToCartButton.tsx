@@ -11,7 +11,6 @@ const AddToCartButton = ({
 }: ButtonPropsType) => {
   const router = useRouter();
   const handleCartAddition = () => {
-    
     if (disabled) return;
     console.log('加入購物車11');
   const authToken = getCookies().Token;

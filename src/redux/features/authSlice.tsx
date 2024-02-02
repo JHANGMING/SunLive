@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface authData {
-  token: string;
   account: string;
   birthday: string;
   category: number;
@@ -13,7 +12,6 @@ export interface authData {
   vision: string;
 }
 const initialState: authData = {
-  token: '',
   account: '',
   birthday: '',
   category: 0,
@@ -39,9 +37,8 @@ export const authSlice = createSlice({
         phone,
         photo,
         sex,
-        vision
+        vision,
       } = action.payload.data;
-      const token = action.payload.token;
       
       // const { nickname, token } = action.payload
       // return { ...state };
@@ -56,7 +53,6 @@ export const authSlice = createSlice({
         photo,
         sex,
         vision,
-        token,
       };
     },
   },
