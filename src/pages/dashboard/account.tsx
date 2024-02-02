@@ -1,11 +1,12 @@
 import Layout from '@/common/components/Layout';
 import DashboardPage from '@/modules/DashboardPage';
-const Dashboard = () => {
+import AccountSettng from '@/modules/DashboardPage/AccountSettng';
+const Account = () => {
   return (
     <Layout pageCategory="dashboardPage">
-      <DashboardPage />
+      <AccountSettng/>
     </Layout>
   );
 };
 
-export default Dashboard;
+export default Account;

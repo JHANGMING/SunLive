@@ -8,6 +8,7 @@ import Footer from '../Footer';
 import FixedHeader from '../Header/FixedHeader';
 import ScrollPageTop from '../ScrollPageTop';
 import ContactService from '@/modules/ContactService';
+import DashboardLayout from './DashboardLayout';
 
 
 const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
@@ -20,6 +21,8 @@ const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
       <main className="flex-grow">
         {pageCategory === 'authPage' ? (
           <AuthLayout classStyle={classStyle}>{children}</AuthLayout>
+        ) : pageCategory === 'dashboardPage' ? (
+          <DashboardLayout>{children}</DashboardLayout>
         ) : (
           children
         )}

@@ -19,8 +19,8 @@ export type AllProductsProps = {
 };
 
 export type AllOrdersProps = {
-  selectedTab: string; 
-  onTabChange: (newTab: string) => void; 
+  selectedTab?: string; 
+  onTabChange?: (newTab: string) => void; 
 }
 export const storageData: OptionType[] = [
   { value: '冷藏保存', label: '冷藏保存' },

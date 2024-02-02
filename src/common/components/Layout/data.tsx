@@ -22,7 +22,9 @@ export type AuthLayoutProps = {
   children: ReactNode;
   classStyle: string | undefined;
 };
-
+export type DashboardLayoutProps ={
+  children: ReactNode;
+}
 type pageSetType = {
   authPage: string;
   productDetailPage: string;

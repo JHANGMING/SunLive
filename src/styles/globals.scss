@@ -72,25 +72,6 @@
   @apply border-b border-lightGray;
 }
 
-.form-transition {
-  overflow: hidden;
-  transition:
-    max-height 0.7s ease,
-    opacity 0.7s ease,
-    visibility 0.7s;
-}
-
-.form-closed {
-  max-height: 50px;
-  opacity: 0;
-  visibility: hidden;
-}
-
-.form-open {
-  max-height: 530px;
-  opacity: 1;
-  visibility: visible;
-}
 
 //live/veiw
 @keyframes shinyScaleEffect {
