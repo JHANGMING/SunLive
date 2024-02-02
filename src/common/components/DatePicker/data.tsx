@@ -4,4 +4,5 @@ import { FormValues } from '../Input/data';
 export type DatePickerShowProps = {
   control: Control<FormValues>;
   page?: string;
+  defaultValue?: Date;
 };

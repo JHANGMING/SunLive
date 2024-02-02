@@ -10,8 +10,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 const LandingPage = () => {
   const auth=useSelector((state:RootState)=>state.auth)
-  console.log('auth',auth);
-  
+
   return (
     <>
       <Banner />

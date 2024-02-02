@@ -64,4 +64,5 @@ export type PersonInputProps = {
   errors?: FieldErrors<FormValues>;
   rules?: RegisterOptions;
   isdisabled?: boolean;
+  value?: string;
 };

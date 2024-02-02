@@ -4,7 +4,12 @@ import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { GenderSelectProps, OptionType, optionsData } from './data';
 
-const GenderSelect = ({ control, labelText, id }: GenderSelectProps) => {
+const GenderSelect = ({
+  control,
+  labelText,
+  id,
+  defaultValue,
+}: GenderSelectProps) => {
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
@@ -31,10 +36,7 @@ const GenderSelect = ({ control, labelText, id }: GenderSelectProps) => {
       <Controller
         name={id}
         control={control}
-        defaultValue={{
-          value: '男',
-          label: '男',
-        }}
+        defaultValue={defaultValue}
         render={({ field }) => (
           <Select
             {...field}

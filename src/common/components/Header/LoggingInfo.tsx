@@ -34,18 +34,20 @@ const LoggingInfo = ({ toggleDropdown, dropdownClass }: NoLoggingProps) => {
         <Link
           href="/personinfo?section=account"
           onClick={toggleDropdown}
-          className="mb-8 hover:opacity-60">
+          className="mb-8 hover:text-primary-green ">
           我的帳戶
         </Link>
         <Link
           href="/personinfo?section=order"
           onClick={toggleDropdown}
-          className="hover:opacity-60 mb-8">
+          className="hover:text-primary-green mb-8">
           訂單查詢
         </Link>
         {authToken && (
           <>
-            <button type="button" className="hover:opacity-60 tracking-widest">
+            <button
+              type="button"
+              className="hover:text-primary-green tracking-widest">
               會員登出
             </button>
           </>
