@@ -1,73 +1,51 @@
 import LogoImg from '@/common/components/Logo/LogoImg';
 import ProfileImgSection from '../PersonInfoPage/ProfileImgSection';
-import AccountSettng from './AccountSettng';
-import { useState } from 'react';
-import AllProducts from './Management/AllProducts';
-import AddProduct from './Management/AddProduct';
-import AllOrders from './Orders/AllOrders';
-import AllLive from './Management/AllLive';
-import LiveSettings from './Management/LiveSettings';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const DashboardPage = () => {
   const router = useRouter();
-  const [activeSection, setActiveSection] = useState('account');
-  const [managementSubPage, setManagementSubPage] = useState('');
-  const [orderSubPage, setOrderSubPage] = useState('');
-  const [liveSubPage, setLiveSubPage] = useState('');
-  const handleClick = (page: string) => {
-    setActiveSection(page);
+  const [activeSection, setActiveSection] = useState('');
+  const [subPage, setSubPage] = useState('');
 
-    if (page === 'management') {
-      setManagementSubPage('allProducts');
-      setOrderSubPage('');
-      setLiveSubPage('');
-    } else if (page === 'order') {
-      setOrderSubPage('所有訂單');
-      setManagementSubPage('');
-      setLiveSubPage('');
-    } else if (page === 'live') {
-      setLiveSubPage('所有直播'); // 当点击直播管理时，默认选择所有直播
-      setManagementSubPage('');
-      setOrderSubPage('');
-    } else {
-      setManagementSubPage('');
-      setOrderSubPage('');
-      setLiveSubPage('');
-    }
-  };
-
-  const handleManagementClick = (subPage: string) => {
-    setManagementSubPage(subPage);
-    if (activeSection !== 'management') {
-      setActiveSection('management');
-    }
-  };
-
-  const handleOrderClick = (subPage: string) => {
-    setOrderSubPage(subPage);
-    if (activeSection !== 'order') {
+  useEffect(() => {
+    const page = router.pathname;
+    if (page.startsWith('/dashboard/orders/') && router.query.orderId) {
       setActiveSection('order');
+      const orderId = Array.isArray(router.query.orderId)
+        ? router.query.orderId[0]
+        : router.query.orderId;
+      setSubPage(orderId);
+    } else {
+      // 处理非动态路由
+      switch (page) {
+        case '/dashboard/account':
+          setActiveSection('account');
+          break;
+        case '/dashboard/products':
+          setSubPage('allProducts');
+          setActiveSection('products');
+          break;
+        case '/dashboard/products/addproduct':
+          setSubPage('addProduct');
+          setActiveSection('products');
+          break;
+        case '/dashboard/live':
+          setSubPage('allLive');
+          setActiveSection('live');
+          break;
+        case '/dashboard/live/livesetting':
+          setSubPage('liveSetting');
+          setActiveSection('live');
+          break;
+        default:
+          setActiveSection('');
+          setSubPage(''); 
+      }
     }
-  };
-  const handleAddProductClick = () => {
-    setManagementSubPage('addProduct');
-  };
-  const handleOrderTabChange = (newSubPage: string) => {
-    setOrderSubPage(newSubPage);
-  };
-  const handleLiveClick = (subPage: string) => {
-    setLiveSubPage(subPage);
-    if (activeSection !== 'live') {
-      setActiveSection('live');
-      setManagementSubPage('');
-      setOrderSubPage('');
-    }
-  };
-  const handerToPage = (page: string) => {
-    router.push(`/dashboard/${page}`);
-  };
+  }, [router.pathname, router.query]);
+
   return (
     <>
       <div className="w-3/12">
@@ -77,29 +55,28 @@ const DashboardPage = () => {
         </div>
         <div className="bg-white px-16 pt-24 pb-[119px] flex flex-col gap-32 rounded-20">
           <Link
+            type="button"
             href={'/dashboard/account'}
-            className="p-12  flex items-center gap-8 mb-32 bg-primary-yellow rounded-8">
+            className={`p-12  flex items-center gap-8 mb-32 ${activeSection === 'account' ? 'bg-primary-yellow rounded-8' : ''} `}>
             <LogoImg widthProps={24} heightProps={24} />
             <h3 className="text-16">帳號設定</h3>
           </Link>
           <div>
             <Link
               href={'/dashboard/products'}
-              className="p-12 w-full flex items-center gap-8 bg-primary-yellow mb-4 rounded-8">
+              className={`p-12 w-full flex items-center gap-8 ${activeSection === 'products' ? 'bg-primary-yellow rounded-8' : ''} mb-4 `}>
               <LogoImg widthProps={24} heightProps={24} />
               <h3 className="text-16">農產品管理</h3>
             </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
               <Link
                 href={'/dashboard/products'}
-                className={`${managementSubPage === 'allProducts' && 'text-primary-green'} cursor-pointer hover:opacity-60 `}
-                onClick={() => handleManagementClick('allProducts')}>
+                className={`${subPage === 'allProducts' && 'text-primary-green'} cursor-pointer hover:opacity-60 `}>
                 所有農產品
               </Link>
               <Link
                 href={'/dashboard/products/addproduct'}
-                className={`${managementSubPage === 'addProduct' && 'text-primary-green'} cursor-pointer hover:opacity-60 `}
-                onClick={() => handleManagementClick('addProduct')}>
+                className={`${subPage === 'addProduct' && 'text-primary-green'} cursor-pointer hover:opacity-60 `}>
                 新增農產品
               </Link>
             </div>
@@ -107,28 +84,24 @@ const DashboardPage = () => {
           <div>
             <Link
               href={'/dashboard/orders/allorders'}
-              className="p-12 w-full flex items-center gap-8 hover:bg-primary-yellow mb-4 hover:rounded-8"
-              onClick={() => handleClick('order')}>
+              className={`p-12 w-full flex items-center gap-8 mb-4 ${activeSection === 'order' ? 'bg-primary-yellow rounded-8' : ''}`}>
               <LogoImg widthProps={24} heightProps={24} />
               <h3 className="text-16">訂單管理</h3>
             </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
               <Link
                 href={'/dashboard/orders/allorders'}
-                className={`${orderSubPage === '所有訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
-                onClick={() => handleOrderClick('所有訂單')}>
+                className={`${subPage === 'allorders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}>
                 所有訂單
               </Link>
               <Link
                 href={'/dashboard/orders/unshippedorders'}
-                className={`${orderSubPage === '未出貨訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
-                onClick={() => handleOrderClick('未出貨訂單')}>
+                className={`${subPage === 'unshippedorders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}>
                 未出貨訂單
               </Link>
               <Link
                 href={'/dashboard/orders/shippedorders'}
-                className={`${orderSubPage === '已出貨訂單' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
-                onClick={() => handleOrderClick('已出貨訂單')}>
+                className={`${subPage === 'shippedorders' && 'text-primary-green'} cursor-pointer hover:opacity-60`}>
                 已出貨訂單
               </Link>
             </div>
@@ -136,45 +109,25 @@ const DashboardPage = () => {
           <div>
             <Link
               href={'/dashboard/live'}
-              className="p-12 w-full flex items-center gap-8 hover:bg-primary-yellow mb-4 hover:rounded-8"
-              onClick={() => handleClick('live')}>
+              className={`p-12 w-full flex items-center gap-8 ${activeSection === 'live' ? 'bg-primary-yellow rounded-8' : ''} mb-4`}>
               <LogoImg widthProps={24} heightProps={24} />
               <h3 className="text-16">直播設定</h3>
             </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
               <Link
                 href={'/dashboard/live'}
-                className={`${liveSubPage === '所有直播' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
-                onClick={() => handleLiveClick('所有直播')}>
+                className={`${subPage === 'allLive' && 'text-primary-green'} cursor-pointer hover:opacity-60`}>
                 所有直播
               </Link>
               <Link
                 href={'/dashboard/live/livesetting'}
-                className={`${liveSubPage === '直播設定' && 'text-primary-green'} cursor-pointer hover:opacity-60`}
-                onClick={() => handleLiveClick('直播設定')}>
+                className={`${subPage === 'liveSetting' && 'text-primary-green'} cursor-pointer hover:opacity-60`}>
                 直播設定
               </Link>
             </div>
           </div>
         </div>
       </div>
-      {/* <section className="pt-60 pb-[194px] container flex gap-[74px]">
-        {activeSection === 'account' && <AccountSettng />}
-        {activeSection === 'management' &&
-          (managementSubPage === 'allProducts' ? (
-            <AllProducts onAddProductClick={handleAddProductClick} />
-          ) : (
-            <AddProduct />
-          ))}
-        {activeSection === 'order' && (
-          <AllOrders
-            selectedTab={orderSubPage}
-            onTabChange={handleOrderTabChange}
-          />
-        )}
-        {activeSection === 'live' &&
-          (liveSubPage === '所有直播' ? <AllLive /> : <LiveSettings />)}
-      </section> */}
     </>
   );
 };
