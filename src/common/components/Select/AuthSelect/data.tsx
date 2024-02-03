@@ -9,7 +9,7 @@ export type OptionType = {
   label: string;
 };
 
-export const optionsData = [
-  { value: '一般會員', label: '一般會員 (我想要查看或購買農產品)' },
-  { value: '小農', label: '小農 (我想要販售農產品)' },
+export const optionsData: OptionType[] = [
+  { value: "0", label: '一般會員 (我想要查看或購買農產品)' },
+  { value: "1", label: '小農 (我想要販售農產品)' },
 ];

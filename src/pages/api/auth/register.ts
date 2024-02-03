@@ -1,27 +1,20 @@
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import {apiPaths} from '@/constants/apiPaths';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-  name: string;
-};
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ error: string }>
 ) {
   try {
-    const { email, password, identity } = JSON.parse(req.body);
-    console.log(email, password, identity);
-    const category = identity === '一般會員' ? 0 : 1;
-    const result = await fetch('http://4.224.41.94/api/register', {
+    const apiParams: ApiParamsType = {
+      apiPath: apiPaths['register'],
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ account: email, password: password, category }),
-    });
-    const data = await result.json();
-
-    res.status(200).json(data);
+      data: req.body,
+    };
+    const result = await fetchApi(apiParams);
+    res.status(200).json(result);
   } catch (error) {
     console.error('API Error:', error);
 

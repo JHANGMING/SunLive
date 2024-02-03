@@ -2,14 +2,21 @@ import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
 import AuthSelect from '@/common/components/Select/AuthSelect';
+import Toast from '@/common/components/Toast';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { useGapClass } from '@/common/hooks/useGapClass';
+import { nextRoutes } from '@/constants/apiPaths';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 type OnSubmitType = {
   (data: FormValues): void;
 };
 const RegisterPage = () => {
+  const [toastMessage, setToastMessage] = useState('');
+  const router = useRouter();
   const {
     control,
     register,
@@ -21,28 +28,32 @@ const RegisterPage = () => {
   const onSubmit: OnSubmitType = async(data) => {
     const { email, password, identity } = data;
     const dataObj = {
-      email: email.trim(),
+      account: email.trim(),
       password: password.trim(),
-      identity: identity.value,
+      category: identity.value,
     };
-    console.log(dataObj);
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['register'],
+      method: 'POST',
+      data: dataObj,
+    };
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        body: JSON.stringify(dataObj),
-      });
-
-      const result = await response.json();
-      console.log(result);
-
-
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        router.push('/auth/login');
+      } else {
+        setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      }
     } catch (error) {
-      alert('登入失敗');
+      console.log(error);
     }
   };
 
   return (
     <>
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
+      )}
       <h2 className="text-center">電子郵件註冊</h2>
       <form
         className={`flex flex-col ${gapClass}`}

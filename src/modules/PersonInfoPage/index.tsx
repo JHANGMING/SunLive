@@ -4,10 +4,13 @@ import AccountSetting from './AccountSetting';
 import { useEffect, useState } from 'react';
 import AllOrders from './AllOrders';
 import { useRouter } from 'next/router';
+import useAuth from '@/common/hooks/useAuth';
 
 const PersonInfoPage = () => {
+  const auth = useAuth();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState('account');
+
   useEffect(() => {
     const section = Array.isArray(router.query.section)
       ? router.query.section[0]
@@ -16,7 +19,7 @@ const PersonInfoPage = () => {
       setActiveSection(section);
     }
   }, [router.query.section]);
-
+  if (auth?.category==="1") return;
   const handleAccountClick = () => {
     setActiveSection('account');
   };

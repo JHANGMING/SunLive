@@ -10,6 +10,7 @@ const PersonInput = ({
   register,
   rules,
   errors,
+  value,
   isdisabled,
 }: PersonInputProps) => {
   return (
@@ -23,6 +24,7 @@ const PersonInput = ({
         id={id}
         name={id}
         min={type === 'number' ? 0 : undefined}
+        value={value}
         {...(register && register(id, rules))}
         disabled={isdisabled}
         className={`focus-visible:outline-primary-green tracking-widest p-16 w-full rounded-8 border border-lightGray ${inputStyle}`}

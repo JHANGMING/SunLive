@@ -1,12 +1,22 @@
 import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
+import Toast from '@/common/components/Toast';
+import { setAllCookies, setTokenCookie } from '@/common/helpers/getCookie';
 import { useGapClass } from '@/common/hooks/useGapClass';
+import { setUserData } from '@/redux/features/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { ROUTES } from './data';
+import { nextRoutes } from '@/constants/apiPaths';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 const LoginPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const [toastMessage, setToastMessage] = useState('');
   const {
     register,
     handleSubmit,
@@ -16,27 +26,39 @@ const LoginPage = () => {
   const handlerToPasswordlessPage = () => {
     router.push('/auth/passwordlessLogin');
   };
-  const onSubmit = async(data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     const { email, password } = data;
     const dataObj = {
       email: email.trim(),
       password: password.trim(),
     };
-    console.log(dataObj);
+    const apiParams:apiParamsType= {
+      apiPath: nextRoutes['login'],
+      method: 'POST',
+      data: dataObj,
+    };
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(dataObj),
-      });
-
-      const result = await response.json();
-      console.log(result);
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        dispatch(setUserData({ data: result.data, token: result.token }));
+        setAllCookies(result.data);
+        setTokenCookie(result.data.token);
+        const redirectTo = result.category
+          ? ROUTES.DASHBOARD_ACCOUNT
+          : ROUTES.HOME;
+        router.push(redirectTo);
+      } else {
+        setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      }
     } catch (error) {
       alert('登入失敗');
     }
   };
   return (
     <>
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
+      )}
       <h2 className="text-center">會員登入</h2>
       <form
         className={`flex flex-col gap-24 px-55.5 ${gapClass}`}

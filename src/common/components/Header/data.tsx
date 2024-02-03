@@ -48,3 +48,7 @@ export const fixedPageSet: PageSet = {
 export type PageSet = {
   [key in PageCategoryType]?: string | boolean;
 };
+
+export type LoggingInfoProps = {
+  dropdownClass: string;
+};

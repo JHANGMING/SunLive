@@ -1,5 +1,7 @@
 import Layout from '@/common/components/Layout';
 import CartPage from '@/modules/CartPage';
+import wrapper from '@/redux/store';
+import { getCookies } from 'cookies-next';
 
 const Cart = () => {
   return (
@@ -10,3 +12,20 @@ const Cart = () => {
 };
 
 export default Cart;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  () =>
+    async ({ req, res }) => {
+      const auth = getCookies({ req, res });
+
+      if (!auth.Token) {
+        res.writeHead(302, { Location: '/auth/login' });
+        res.end();
+      }
+      return {
+        props: {
+          auth,
+        },
+      };
+    }
+);
