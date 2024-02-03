@@ -1,70 +1,73 @@
 import Link from 'next/link';
-import { NoLoggingProps } from './data';
-import useAuthToken from '@/common/helpers/getCookie';
+import { LoggingInfoProps } from './data';
+import  { removeAllCookies } from '@/common/helpers/getCookie';
 import LogoImg from '../Logo/LogoImg';
 import useAuth from '@/common/hooks/useAuth';
+import { useRouter } from 'next/router';
+import getAuthToken from '@/common/helpers/getAuthToken';
 
-const LoggingInfo = ({ toggleDropdown, dropdownClass }: NoLoggingProps) => {
-  const authToken = useAuthToken();
-  const auth=useAuth()
-    return (
-      <div
-        className={`${dropdownClass} absolute right-16 top-60 py-24 px-20 w-[196px] bg-white z-50 border-4 border-primary-yellow rounded-12 rounded-tr-none`}>
-        {!authToken ? (
-          <>
-            <Link
-              href="/auth/login"
-              onClick={toggleDropdown}
-              className=" bg-primary-yellow py-8 w-full block rounded-8 text-center mb-8 hover:font-bold">
-              會員登入
-            </Link>
-            <Link
-              href="/auth/register"
-              onClick={toggleDropdown}
-              className="border border-primary-yellow py-8 w-full block rounded-8 text-center hover:font-bold">
-              註冊新會員
-            </Link>
-          </>
-        ) : (
-          <div className="flex gap-10 items-center">
-            <LogoImg widthProps={24} heightProps={24} />
-            <p className="text-14">歡迎回來 !</p>
-          </div>
-        )}
-        <div className="mt-16 border-t border-lightGray pt-20">
-          {authToken && auth?.category ==="1"? (
-            <Link
-              href="/dashboard/account"
-              onClick={toggleDropdown}
-              className="mb-8 hover:text-primary-green ">
-              我的後台
-            </Link>
-          ) : (
-            <Link
-              href="/personinfo?section=account"
-              onClick={toggleDropdown}
-              className="mb-8 hover:text-primary-green ">
-              我的帳戶
-            </Link>
-          )}
+const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
+  const router = useRouter();
+  const authToken = getAuthToken();
+  const auth = useAuth();
+  const handlerLoginOut = () => {
+    removeAllCookies();
+    router.reload();
+  };
+  return (
+    <div
+      className={`${dropdownClass} absolute right-16 top-60 py-24 px-20 w-[196px] bg-white z-50 border-4 border-primary-yellow rounded-12 rounded-tr-none`}>
+      {!authToken ? (
+        <>
           <Link
-            href="/personinfo?section=order"
-            onClick={toggleDropdown}
-            className="hover:text-primary-green mb-8">
-            訂單查詢
+            href="/auth/login"
+            className=" bg-primary-yellow py-8 w-full block rounded-8 text-center mb-8 hover:font-bold">
+            會員登入
           </Link>
-          {authToken && (
-            <>
-              <button
-                type="button"
-                className="hover:text-primary-green tracking-widest">
-                會員登出
-              </button>
-            </>
-          )}
+          <Link
+            href="/auth/register"
+            className="border border-primary-yellow py-8 w-full block rounded-8 text-center hover:font-bold">
+            註冊新會員
+          </Link>
+        </>
+      ) : (
+        <div className="flex gap-10 items-center">
+          <LogoImg widthProps={24} heightProps={24} />
+          <p className="text-14">歡迎回來 !</p>
         </div>
+      )}
+      <div className="mt-16 border-t border-lightGray pt-20">
+        {authToken && auth?.category === '1' ? (
+          <Link
+            href="/dashboard/account"
+            className="mb-8 hover:text-primary-green ">
+            我的後台
+          </Link>
+        ) : (
+          <Link
+            href="/personinfo?section=account"
+            className="mb-8 hover:text-primary-green ">
+            我的帳戶
+          </Link>
+        )}
+        <Link
+          href="/personinfo?section=order"
+          className="hover:text-primary-green mb-8">
+          訂單查詢
+        </Link>
+        {authToken && (
+          <>
+            <button
+              type="button"
+              className="hover:text-primary-green tracking-widest"
+              onClick={handlerLoginOut}>
+              會員登出
+            </button>
+          </>
+        )}
       </div>
-    );
+    </div>
+  );
 };
 
 export default LoggingInfo;

@@ -1,4 +1,4 @@
-const apiPaths = {
+export const apiPaths = {
   //auth
   login: '/api/login/general',
   register: '/api/register',
@@ -6,4 +6,9 @@ const apiPaths = {
   
 };
 
-export default apiPaths;
+export const nextRoutes = {
+  //auth
+  login: '/auth/login',
+  register: '/auth/register',
+};
+

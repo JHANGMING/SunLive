@@ -3,7 +3,9 @@ import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
 import AuthSelect from '@/common/components/Select/AuthSelect';
 import Toast from '@/common/components/Toast';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { useGapClass } from '@/common/hooks/useGapClass';
+import { nextRoutes } from '@/constants/apiPaths';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -30,18 +32,18 @@ const RegisterPage = () => {
       password: password.trim(),
       category: identity.value,
     };
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['register'],
+      method: 'POST',
+      data: dataObj,
+    };
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        body: JSON.stringify(dataObj),
-      });
-      const result = await response.json();
+      const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
         router.push('/auth/login');
       } else {
         setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
       }
-
     } catch (error) {
       console.log(error);
     }
