@@ -6,9 +6,9 @@ import DatePickerShow from '@/common/components/DatePicker';
 import { format } from 'date-fns';
 import GenderSelect from '@/common/components/Select/GenderSelect';
 import useAuth from '@/common/hooks/useAuth';
+
 const AccountSetting = () => {
-  const auth=useAuth()
-  console.log('auth',auth);
+  const auth = useAuth();
   const genderDefaultValue = {
     value: auth?.sex === '1' ? '1' : '0',
     label: auth?.sex === '1' ? '女' : '男',
