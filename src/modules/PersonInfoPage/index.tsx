@@ -8,7 +8,6 @@ import useAuth from '@/common/hooks/useAuth';
 
 const PersonInfoPage = () => {
   const auth = useAuth();
-
   const router = useRouter();
   const [activeSection, setActiveSection] = useState('account');
 
@@ -20,7 +19,7 @@ const PersonInfoPage = () => {
       setActiveSection(section);
     }
   }, [router.query.section]);
-  if (auth?.category) return;
+  if (auth?.category==="1") return;
   const handleAccountClick = () => {
     setActiveSection('account');
   };
