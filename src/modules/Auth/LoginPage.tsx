@@ -2,6 +2,7 @@ import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
 import Toast from '@/common/components/Toast';
+import { setAllCookies, setTokenCookie } from '@/common/helpers/getCookie';
 import { useGapClass } from '@/common/hooks/useGapClass';
 import { setUserData } from '@/redux/features/authSlice';
 import { setCookie } from 'cookies-next';
@@ -41,10 +42,8 @@ const LoginPage = () => {
         console.log(result);
         
         dispatch(setUserData({data: result.data, token: result.token}));
-        Object.entries(result.data).forEach(([key, value]) => {
-          setCookie(key, value === null ? '' : value, { maxAge: 60 * 60 * 24 });
-        });
-        setCookie('Token', `Bearer ${result.data.token}`, { maxAge: 60 * 60 * 24 });
+        setAllCookies(result.data);
+        setTokenCookie(result.data.token);
         router.push('/');
       } else {
         setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
