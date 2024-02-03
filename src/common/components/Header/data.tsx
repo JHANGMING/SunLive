@@ -49,7 +49,6 @@ export type PageSet = {
   [key in PageCategoryType]?: string | boolean;
 };
 
-export type NoLoggingProps = {
-  toggleDropdown:()=>void;
-   dropdownClass:string;
-}
+export type LoggingInfoProps = {
+  dropdownClass: string;
+};

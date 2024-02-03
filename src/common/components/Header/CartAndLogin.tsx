@@ -8,8 +8,17 @@ import { LayoutPropsType } from '../Layout/data';
 import LoggingInfo from './LoggingInfo';
 const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
+  let leaveTimer: NodeJS.Timeout;
+
+  const handleMouseEnter = () => {
+    clearTimeout(leaveTimer); 
+    setShowDropdown(true);
+  };
+
+  const handleMouseLeave = () => {
+    leaveTimer = setTimeout(() => {
+      setShowDropdown(false);
+    }, 500); 
   };
   const dropdownClass = showDropdown ? 'dropdown-enter' : 'dropdown-exit';
 
@@ -35,15 +44,17 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
           </p>
         </div>
       )}
-      <div className="relative flex items-center justify-center">
+      <div
+        className="relative flex items-center justify-center"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}>
         <button
-          onClick={toggleDropdown}
+          // onClick={toggleDropdown}
           className="shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full">
           <BsPersonCircle size={40} className="text-primary-yellow" />
         </button>
         {showDropdown && (
           <LoggingInfo
-            toggleDropdown={toggleDropdown}
             dropdownClass={dropdownClass}
           />
         )}
