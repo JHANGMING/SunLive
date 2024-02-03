@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react';
 import AllOrders from './AllOrders';
 import { useRouter } from 'next/router';
 import useAuth from '@/common/hooks/useAuth';
+import useRequireAuth from '@/common/hooks/useRequireAuth';
 
 const PersonInfoPage = () => {
+  const authToken = useRequireAuth();
   const auth = useAuth();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState('account');
