@@ -7,8 +7,6 @@ import useAuth from '@/common/hooks/useAuth';
 const LoggingInfo = ({ toggleDropdown, dropdownClass }: NoLoggingProps) => {
   const authToken = useAuthToken();
   const auth=useAuth()
-  console.log('auth', auth?.category);
-
     return (
       <div
         className={`${dropdownClass} absolute right-16 top-60 py-24 px-20 w-[196px] bg-white z-50 border-4 border-primary-yellow rounded-12 rounded-tr-none`}>
