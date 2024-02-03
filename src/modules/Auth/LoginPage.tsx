@@ -5,7 +5,6 @@ import Toast from '@/common/components/Toast';
 import { setAllCookies, setTokenCookie } from '@/common/helpers/getCookie';
 import { useGapClass } from '@/common/hooks/useGapClass';
 import { setUserData } from '@/redux/features/authSlice';
-import { setCookie } from 'cookies-next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
