@@ -4,7 +4,13 @@ import { Controller } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { DatePickerShowProps } from './data';
 
-const DatePickerShow = ({ control,page,errors,rules }: DatePickerShowProps) => {
+const DatePickerShow = ({
+  control,
+  page,
+  errors,
+  rules, 
+  defaultValue,
+}: DatePickerShowProps) => {
   const inputStyle = page === 'live' ? 'h-[53px]' : 'h-[54px]';
   const isLivePage = page === 'live';
   return (
@@ -13,6 +19,7 @@ const DatePickerShow = ({ control,page,errors,rules }: DatePickerShowProps) => {
         name="datePicker"
         control={control}
         rules={rules}
+        defaultValue={defaultValue}
         render={({ field: { onChange, value, ...field } }) => (
           <DatePicker
             {...field}

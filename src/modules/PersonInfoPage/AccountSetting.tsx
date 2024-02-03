@@ -5,7 +5,15 @@ import Button from '@/common/components/Button';
 import DatePickerShow from '@/common/components/DatePicker';
 import { format } from 'date-fns';
 import GenderSelect from '@/common/components/Select/GenderSelect';
+import useAuth from '@/common/hooks/useAuth';
+
 const AccountSetting = () => {
+  const auth = useAuth();
+  const genderDefaultValue = {
+    value: auth?.sex === '1' ? '1' : '0',
+    label: auth?.sex === '1' ? '女' : '男',
+  };
+  const defaultBirthday = auth?.birthday ? new Date(auth.birthday) : new Date();
   const {
     control,
     register,
@@ -31,10 +39,11 @@ const AccountSetting = () => {
           type="email"
           labelText="電子郵件"
           labelStyle="text-18"
-          inputText="XXX@gmil.com"
+          inputText={'XXX@gmil.com'}
           inputStyle="text-14"
           id="email"
           isdisabled={true}
+          value={decodeURIComponent(auth?.account || '')}
         />
         <div className="flex gap-24">
           <PersonInput
@@ -45,6 +54,7 @@ const AccountSetting = () => {
             inputStyle="text-14 w-full"
             id="nickName"
             register={register}
+            value={auth?.nickName || ''}
           />
           <PersonInput
             type="tel"
@@ -55,6 +65,7 @@ const AccountSetting = () => {
             id="userPhone"
             errors={errors}
             register={register}
+            value={auth?.phone || ''}
             rules={{
               pattern: {
                 value: /^\d+$/,
@@ -68,12 +79,17 @@ const AccountSetting = () => {
           />
         </div>
         <div className="flex gap-24">
-          <GenderSelect control={control} labelText="性別" id="gender" />
+          <GenderSelect
+            control={control}
+            labelText="性別"
+            id="gender"
+            defaultValue={genderDefaultValue}
+          />
           <div className="w-full">
             <label htmlFor="" className="text-18 block mb-8">
               生日
             </label>
-            <DatePickerShow control={control} />
+            <DatePickerShow control={control} defaultValue={defaultBirthday} />
           </div>
         </div>
         <Button category="submit" classStyle="self-end hover:opacity-70">

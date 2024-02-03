@@ -1,12 +1,19 @@
 import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
+import Toast from '@/common/components/Toast';
 import { useGapClass } from '@/common/hooks/useGapClass';
+import { setUserData } from '@/redux/features/authSlice';
+import { setCookie } from 'cookies-next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 const LoginPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const [toastMessage, setToastMessage] = useState('');
   const {
     register,
     handleSubmit,
@@ -30,13 +37,27 @@ const LoginPage = () => {
       });
 
       const result = await response.json();
-      console.log(result);
+      if (result.statusCode === 200) {
+        console.log(result);
+        
+        dispatch(setUserData({data: result.data, token: result.token}));
+        Object.entries(result.data).forEach(([key, value]) => {
+          setCookie(key, value === null ? '' : value, { maxAge: 60 * 60 * 24 });
+        });
+        setCookie('Token', `Bearer ${result.data.token}`, { maxAge: 60 * 60 * 24 });
+        router.push('/');
+      } else {
+        setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      }
     } catch (error) {
       alert('登入失敗');
     }
   };
   return (
     <>
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
+      )}
       <h2 className="text-center">會員登入</h2>
       <form
         className={`flex flex-col gap-24 px-55.5 ${gapClass}`}

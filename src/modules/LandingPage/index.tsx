@@ -6,7 +6,11 @@ import FriendlyFarmSection from '@/common/components/LandingPage/friendlyFarmSec
 import LivingShowSection from '@/modules/LandingPage/LivingShowSection';
 import ProductListSection from '@/modules/LandingPage/productListSection';
 import RecommendSection from '@/common/components/LandingPage/RecommendSection';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 const LandingPage = () => {
+  const auth=useSelector((state:RootState)=>state.auth)
+
   return (
     <>
       <Banner />

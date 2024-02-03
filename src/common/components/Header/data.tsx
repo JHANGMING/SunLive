@@ -48,3 +48,8 @@ export const fixedPageSet: PageSet = {
 export type PageSet = {
   [key in PageCategoryType]?: string | boolean;
 };
+
+export type NoLoggingProps = {
+  toggleDropdown:()=>void;
+   dropdownClass:string;
+}
