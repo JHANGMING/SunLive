@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { ProductSpecSelectProps, OptionType, productSpecData } from './data';
 
-const ProductSpecSelect = ({ control }: ProductSpecSelectProps) => {
+const ProductSpecSelect = ({ control,id }: ProductSpecSelectProps) => {
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
@@ -34,7 +34,7 @@ const ProductSpecSelect = ({ control }: ProductSpecSelectProps) => {
         規格
       </label>
       <Controller
-        name="liveProductSpec"
+        name={id!}
         control={control}
         render={({ field }) => (
           <Select

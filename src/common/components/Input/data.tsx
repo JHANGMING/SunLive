@@ -11,7 +11,7 @@ export type FormValues = {
   nickName: string;
   gender: string;
   zip: string;
-  birthday: Date;
+  datePicker: Date;
   idea: string;
   introduce: string;
   liveName: string;
@@ -19,6 +19,8 @@ export type FormValues = {
   startTime: string;
   endTime: string;
   productName: string;
+  imageURL: string;
+  status: string;
   'small-specification': string;
   'small-original-price': string;
   'small-promotion-price': string;
@@ -36,6 +38,7 @@ export type FormValues = {
   liveProductSpec: string;
   liveSpectialPrice: string;
   editorContent: string;
+  ProductToChat: string;
   county: { label: string; value: string };
   district: { label: string; value: string } | null;
 };

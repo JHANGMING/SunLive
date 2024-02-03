@@ -1,7 +1,13 @@
 import PersonInput from '@/common/components/Input/PersonInput';
 import ManagementSelect from '@/common/components/Select/ManagementSelect';
 import { BsPlusCircle } from 'react-icons/bs';
-import { categoryData, countyData, seasonData, statusData, storageData } from './data';
+import {
+  categoryData,
+  countyData,
+  seasonData,
+  statusData,
+  storageData,
+} from './data';
 import { useForm } from 'react-hook-form';
 import { FormValues } from '@/common/components/Input/data';
 import Button from '@/common/components/Button';
@@ -12,6 +18,7 @@ const AddProduct = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormValues>();
   const onSubmit = (data: FormValues) => {
     //儲存日期格式
@@ -23,6 +30,7 @@ const AddProduct = () => {
     //   identity,
     // };
     console.log(data);
+    reset();
   };
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
@@ -38,14 +46,30 @@ const AddProduct = () => {
         action=""
         className="flex flex-col gap-24"
         onSubmit={handleSubmit(onSubmit)}>
-        <PersonInput
-          type="text"
-          labelText="農產品名稱"
-          inputText="輸入商品名稱"
-          inputStyle="text-14 w-full h-[53px]"
-          id="productName"
-          // register={register}
-        />
+        <div className="flex gap-24">
+          <PersonInput
+            type="text"
+            labelText="農產品名稱"
+            inputText="輸入商品名稱"
+            inputStyle="text-14 w-full h-[53px]"
+            id="productName"
+            register={register}
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請輸入農產品名稱!',
+              },
+            }}
+          />
+          <ManagementSelect
+            labelText="農產品狀態"
+            data={statusData}
+            control={control}
+            defaultValue={true}
+            id="status"
+          />
+        </div>
         <div className="flex gap-24">
           <PersonInput
             type="number"
@@ -53,7 +77,14 @@ const AddProduct = () => {
             inputText="輸入小份規格 (斤)"
             inputStyle="text-14 w-full h-[53px]"
             id="small-specification"
-            // register={register}
+            register={register}
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請輸入規格!',
+              },
+            }}
           />
           <PersonInput
             type="number"
@@ -61,7 +92,14 @@ const AddProduct = () => {
             inputText="輸入原價"
             inputStyle="text-14 w-full h-[53px]"
             id="small-original-price"
-            // register={register}
+            register={register}
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請輸入金額!',
+              },
+            }}
           />
           <PersonInput
             type="number"
@@ -69,7 +107,7 @@ const AddProduct = () => {
             inputText="輸入優惠價"
             inputStyle="text-14 w-full h-[53px]"
             id="small-promotion-price"
-            // register={register}
+            register={register}
           />
           <PersonInput
             type="number"
@@ -77,16 +115,15 @@ const AddProduct = () => {
             inputText="輸入農產品庫存"
             inputStyle="text-14 w-full h-[53px]"
             id="small-stock"
-            // register={register}
+            register={register}
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請輸入庫存量!',
+              },
+            }}
           />
-
-          {/* <ManagementSelect
-            labelText="農產品狀態"
-            data={statusData}
-            control={control}
-            defaultValue={true}
-            id="status"
-          /> */}
         </div>
         <div className="flex gap-24">
           <PersonInput
@@ -95,7 +132,7 @@ const AddProduct = () => {
             inputText="輸入小份規格 (斤)"
             inputStyle="text-14 w-full h-[53px]"
             id="large-specification"
-            // register={register}
+            register={register}
           />
           <PersonInput
             type="number"
@@ -103,7 +140,7 @@ const AddProduct = () => {
             inputText="輸入原價"
             inputStyle="text-14 w-full h-[53px]"
             id="large-original-price"
-            // register={register}
+            register={register}
           />
           <PersonInput
             type="number"
@@ -111,7 +148,7 @@ const AddProduct = () => {
             inputText="輸入優惠價"
             inputStyle="text-14 w-full h-[53px]"
             id="large-promotion-price"
-            // register={register}
+            register={register}
           />
           <PersonInput
             type="number"
@@ -119,7 +156,7 @@ const AddProduct = () => {
             inputText="輸入農產品庫存"
             inputStyle="text-14 w-full h-[53px]"
             id="large-stock"
-            // register={register}
+            register={register}
           />
         </div>
         <div className="flex gap-24">
@@ -129,6 +166,13 @@ const AddProduct = () => {
             control={control}
             placeholder="請選擇產地"
             id="origin"
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請選擇產地!',
+              },
+            }}
           />
           <ManagementSelect
             labelText="保存方式"
@@ -136,6 +180,13 @@ const AddProduct = () => {
             data={storageData}
             control={control}
             id="storage"
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請選擇保存方式!',
+              },
+            }}
           />
         </div>
         <div className="flex gap-24">
@@ -145,13 +196,27 @@ const AddProduct = () => {
             control={control}
             placeholder="請選擇產季"
             id="season"
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請選擇產季!',
+              },
+            }}
           />
           <ManagementSelect
             labelText="類別"
-            placeholder="選擇類別"
+            placeholder="請選擇類別"
             data={categoryData}
             control={control}
             id="category"
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請選擇類別!',
+              },
+            }}
           />
         </div>
         <PersonInput
@@ -160,7 +225,14 @@ const AddProduct = () => {
           inputText="輸入農產品簡述"
           inputStyle="text-14 w-full h-[53px]"
           id="description"
-          // register={register}
+          register={register}
+          errors={errors}
+          rules={{
+            required: {
+              value: true,
+              message: '請輸入簡短描述!',
+            },
+          }}
         />
         <div className="h-[403px] mb-[37px]">
           <label htmlFor="editor" className="block mb-8">
