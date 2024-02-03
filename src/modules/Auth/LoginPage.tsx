@@ -41,10 +41,7 @@ const LoginPage = () => {
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log(result);
       if (result.statusCode === 200) {
-        console.log(result);
-
         dispatch(setUserData({ data: result.data, token: result.token }));
         setAllCookies(result.data);
         setTokenCookie(result.data.token);
