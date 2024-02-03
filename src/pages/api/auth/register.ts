@@ -1,26 +1,20 @@
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import {apiPaths} from '@/constants/apiPaths';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-  name: string;
-};
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ error: string }>
 ) {
   try {
-
-    const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPaths.register}`;
-    const result = await fetch(url, {
+    const apiParams: ApiParamsType = {
+      apiPath: apiPaths['register'],
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body:req.body,
-    });
-    const data = await result.json();
-    res.status(200).json(data);
+      data: req.body,
+    };
+    const result = await fetchApi(apiParams);
+    res.status(200).json(result);
   } catch (error) {
     console.error('API Error:', error);
 

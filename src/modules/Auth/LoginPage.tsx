@@ -33,7 +33,6 @@ const LoginPage = () => {
       email: email.trim(),
       password: password.trim(),
     };
-    console.log(dataObj);
     const apiParams:apiParamsType= {
       apiPath: nextRoutes['login'],
       method: 'POST',
