@@ -8,17 +8,17 @@ const AddToCartButton = ({
   textStyle,
   showIcon = true,
   disabled = false,
+  // productId, // 新增 productId
 }: ButtonPropsType) => {
   const router = useRouter();
   const handleCartAddition = () => {
     if (disabled) return;
     console.log('加入購物車11');
-  const authToken = getCookies().Token;
-  if (!authToken) {
-
-    router.push('/auth/login');
-    return; 
-  }
+    const authToken = getCookies().Token;
+    if (!authToken) {
+      router.push('/auth/login');
+      return;
+    }
     // if (onClick) onClick();
   };
   const buttonClassName = disabled

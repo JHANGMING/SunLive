@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { BsChevronRight, BsChevronDown, BsX } from 'react-icons/bs';
 import CartLink from './CartLink';
+import SpecSelect from '@/common/components/Select/SpecSelect';
+import { generateSpecData } from '@/common/components/Select/SpecSelect/data';
 const CartListSection = () => {
   return (
     <section className="container">
@@ -28,7 +30,7 @@ const CartListSection = () => {
                 />
                 <div className="">
                   <h6 className=" font-normal">夢幻柳橙夏悠</h6>
-                  <div className="text-14 flex gap-8">
+                  <div className="text-14 flex gap-8 items-center">
                     <p>
                       NT$<span>250</span>
                     </p>
@@ -36,7 +38,8 @@ const CartListSection = () => {
                   </div>
                 </div>
               </div>
-              <div className="text-18">小份 (213g)</div>
+              <SpecSelect optionsData={generateSpecData({smallWeight: 120,
+  largeWeight: 300})}/>
               <div>
                 <div className="flex gap-x-12 items-center">
                   <Image
