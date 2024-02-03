@@ -11,6 +11,9 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { ROUTES } from './data';
+import { nextRoutes } from '@/constants/apiPaths';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 const LoginPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -24,27 +27,31 @@ const LoginPage = () => {
   const handlerToPasswordlessPage = () => {
     router.push('/auth/passwordlessLogin');
   };
-  const onSubmit = async(data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     const { email, password } = data;
     const dataObj = {
       email: email.trim(),
       password: password.trim(),
     };
     console.log(dataObj);
+    const apiParams:apiParamsType= {
+      apiPath: nextRoutes['login'],
+      method: 'POST',
+      data: dataObj,
+    };
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(dataObj),
-      });
-
-      const result = await response.json();
+      const result = await fetchNextApi(apiParams);
+      console.log(result);
       if (result.statusCode === 200) {
         console.log(result);
-        
-        dispatch(setUserData({data: result.data, token: result.token}));
+
+        dispatch(setUserData({ data: result.data, token: result.token }));
         setAllCookies(result.data);
         setTokenCookie(result.data.token);
-        router.push('/');
+        const redirectTo = result.category
+          ? ROUTES.DASHBOARD_ACCOUNT
+          : ROUTES.HOME;
+        router.push(redirectTo);
       } else {
         setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
       }

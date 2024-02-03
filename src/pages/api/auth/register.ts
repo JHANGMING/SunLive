@@ -1,4 +1,4 @@
-import apiPaths from '@/constants/apiPaths';
+import {apiPaths} from '@/constants/apiPaths';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {

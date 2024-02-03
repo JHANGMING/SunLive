@@ -1,12 +1,19 @@
 import Link from 'next/link';
 import { NoLoggingProps } from './data';
-import useAuthToken from '@/common/helpers/getCookie';
+import  { removeAllCookies } from '@/common/helpers/getCookie';
 import LogoImg from '../Logo/LogoImg';
 import useAuth from '@/common/hooks/useAuth';
+import { useRouter } from 'next/router';
+import getAuthToken from '@/common/helpers/getAuthToken';
 
 const LoggingInfo = ({ toggleDropdown, dropdownClass }: NoLoggingProps) => {
-  const authToken = useAuthToken();
+  const router = useRouter();
+  const authToken = getAuthToken();
   const auth=useAuth()
+  const handlerLoginOut=()=>{
+    removeAllCookies()
+    router.push('/')
+  }
     return (
       <div
         className={`${dropdownClass} absolute right-16 top-60 py-24 px-20 w-[196px] bg-white z-50 border-4 border-primary-yellow rounded-12 rounded-tr-none`}>
@@ -32,7 +39,7 @@ const LoggingInfo = ({ toggleDropdown, dropdownClass }: NoLoggingProps) => {
           </div>
         )}
         <div className="mt-16 border-t border-lightGray pt-20">
-          {authToken && auth?.category ==="1"? (
+          {authToken && auth?.category === '1' ? (
             <Link
               href="/dashboard/account"
               onClick={toggleDropdown}
@@ -57,7 +64,8 @@ const LoggingInfo = ({ toggleDropdown, dropdownClass }: NoLoggingProps) => {
             <>
               <button
                 type="button"
-                className="hover:text-primary-green tracking-widest">
+                className="hover:text-primary-green tracking-widest"
+                onClick={handlerLoginOut}>
                 會員登出
               </button>
             </>
