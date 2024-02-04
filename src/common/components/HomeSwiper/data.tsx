@@ -39,6 +39,30 @@ export const swiperData: { [key: string]: SwiperData } = {
         src: '/images/home/friendlyFarm/farmImg5.png',
         alt: 'farmImg5.png',
       },
+      {
+        src: '/images/home/friendlyFarm/farmImg0.png',
+        alt: 'farmImg6.png',
+      },
+      {
+        src: '/images/home/friendlyFarm/farmImg1.png',
+        alt: 'farmImg7.png',
+      },
+      {
+        src: '/images/home/friendlyFarm/farmImg2.png',
+        alt: 'farmImg22.png',
+      },
+      {
+        src: '/images/home/friendlyFarm/farmImg3.png',
+        alt: 'farmImg8.png',
+      },
+      {
+        src: '/images/home/friendlyFarm/farmImg4.png',
+        alt: 'farmImg9.png',
+      },
+      {
+        src: '/images/home/friendlyFarm/farmImg5.png',
+        alt: 'farmImg10.png',
+      },
     ],
   },
   farmerDatas: {
@@ -46,31 +70,59 @@ export const swiperData: { [key: string]: SwiperData } = {
     imgDatas: [
       {
         src: '/images/home/farmer/farmer1.png',
-        alt: 'farmer1.png',
+        alt: 'farmer11.png',
       },
       {
         src: '/images/home/farmer/farmer2.png',
-        alt: 'farmer2.png',
+        alt: 'farmer12.png',
       },
       {
         src: '/images/home/farmer/farmer3.png',
-        alt: 'farmer3.png',
+        alt: 'farmer13.png',
       },
       {
         src: '/images/home/farmer/farmer4.png',
-        alt: 'farmer4.png',
+        alt: 'farmer14.png',
       },
       {
         src: '/images/home/farmer/farmer5.png',
-        alt: 'farmer5.png',
+        alt: 'farmer15.png',
       },
       {
         src: '/images/home/farmer/farmer6.png',
-        alt: 'farmer6.png',
+        alt: 'farmer16.png',
       },
       {
         src: '/images/home/farmer/farmer7.png',
-        alt: 'farmer7.png',
+        alt: 'farmer17.png',
+      },
+      {
+        src: '/images/home/farmer/farmer1.png',
+        alt: 'farmer31.png',
+      },
+      {
+        src: '/images/home/farmer/farmer2.png',
+        alt: 'farmer32.png',
+      },
+      {
+        src: '/images/home/farmer/farmer3.png',
+        alt: 'farmer33.png',
+      },
+      {
+        src: '/images/home/farmer/farmer4.png',
+        alt: 'farmer34.png',
+      },
+      {
+        src: '/images/home/farmer/farmer5.png',
+        alt: 'farmer35.png',
+      },
+      {
+        src: '/images/home/farmer/farmer6.png',
+        alt: 'farmer36.png',
+      },
+      {
+        src: '/images/home/farmer/farmer7.png',
+        alt: 'farmer37.png',
       },
     ],
   },
