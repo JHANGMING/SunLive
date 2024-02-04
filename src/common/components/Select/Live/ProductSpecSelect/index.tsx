@@ -3,8 +3,10 @@ import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { ProductSpecSelectProps, OptionType, productSpecData } from './data';
+import useClient from '@/common/hooks/useClient';
 
-const ProductSpecSelect = ({ control,id }: ProductSpecSelectProps) => {
+const ProductSpecSelect = ({ control, id }: ProductSpecSelectProps) => {
+  const isClient = useClient();
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
@@ -30,23 +32,27 @@ const ProductSpecSelect = ({ control,id }: ProductSpecSelectProps) => {
   };
   return (
     <div className="w-full">
-      <label htmlFor="liveProductSpec" className="text-16 block mb-8">
-        規格
-      </label>
-      <Controller
-        name={id!}
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            instanceId="liveProductSpec"
-            placeholder="選擇規格"
-            options={productSpecData}
-            styles={customStyles}
-            onChange={(val) => field.onChange(val)}
+      {isClient && (
+        <>
+          <label htmlFor="liveProductSpec" className="text-16 block mb-8">
+            規格
+          </label>
+          <Controller
+            name={id!}
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                instanceId="liveProductSpec"
+                placeholder="選擇規格"
+                options={productSpecData}
+                styles={customStyles}
+                onChange={(val) => field.onChange(val)}
+              />
+            )}
           />
-        )}
-      />
+        </>
+      )}
     </div>
   );
 };

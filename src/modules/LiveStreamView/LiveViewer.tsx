@@ -108,6 +108,7 @@ const LiveViewer = () => {
             placeholder="輸入聊天訊息 ..."
             className=" text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
           />
+          {/* 要用token鎖住 */}
           <BsCursorFill
             size={24}
             className=" text-primary-red cursor-pointer hover:opacity-60"

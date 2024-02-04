@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Select, { StylesConfig } from 'react-select';
 import { OptionType, SpecSelectProps } from './data';
+import useClient from '@/common/hooks/useClient';
 
 const SpecSelect = ({ optionsData }: SpecSelectProps) => {
+  const isClient = useClient();
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
-   useEffect(() => {
-     if (optionsData.length > 0) {
-       setSelectedOption(optionsData[0]); 
-     }
-   }, [optionsData]); 
+  useEffect(() => {
+    if (optionsData.length > 0) {
+      setSelectedOption(optionsData[0]);
+    }
+  }, [optionsData]);
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
@@ -39,13 +41,15 @@ const SpecSelect = ({ optionsData }: SpecSelectProps) => {
 
   return (
     <div className="w-[170px]">
-      <Select
-        instanceId="spec"
-        value={selectedOption}
-        options={optionsData}
-        styles={customStyles}
-        onChange={(option) => handleChange(option as OptionType)}
-      />
+      {isClient && (
+        <Select
+          instanceId="spec"
+          value={selectedOption}
+          options={optionsData}
+          styles={customStyles}
+          onChange={(option) => handleChange(option as OptionType)}
+        />
+      )}
     </div>
   );
 };
