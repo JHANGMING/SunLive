@@ -4,10 +4,10 @@ import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { LiveProductSelectProps, OptionType, productData } from './data';
 import { FormValues } from '@/common/components/Input/data';
+import useClient from '@/common/hooks/useClient';
 
-const LiveProductSelect = ({
-  control,id
-}: LiveProductSelectProps) => {
+const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
+  const isClient = useClient();
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
@@ -33,23 +33,27 @@ const LiveProductSelect = ({
   };
   return (
     <div className="w-full">
-      <label htmlFor="liveProduct" className="text-16 block mb-8">
-        農產品
-      </label>
-      <Controller
-        name={id!}
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            instanceId="liveProduct"
-            placeholder="選擇產品"
-            options={productData}
-            styles={customStyles}
-            onChange={(val) => field.onChange(val)}
+      {isClient && (
+        <>
+          <label htmlFor="liveProduct" className="text-16 block mb-8">
+            農產品
+          </label>
+          <Controller
+            name={id!}
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                instanceId="liveProduct"
+                placeholder="選擇產品"
+                options={productData}
+                styles={customStyles}
+                onChange={(val) => field.onChange(val)}
+              />
+            )}
           />
-        )}
-      />
+        </>
+      )}
     </div>
   );
 };

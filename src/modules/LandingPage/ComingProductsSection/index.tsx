@@ -1,5 +1,5 @@
 import LinkToProduct from '@/common/components/LandingPage/LinkToProduct';
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import UpcomingProductsList from '../../../common/components/product/UpcomingProducts/UpcomingProductsList';
 const ComingProductsSection = () => {
   return (
@@ -16,8 +16,6 @@ const ComingProductsSection = () => {
           <Image
             src="/images/home/live/liveComingLogo.png"
             alt="liveComingLogo"
-            width={276}
-            height={276}
             className="w-[276px] h-[276px] object-cover"
           />
         </div>

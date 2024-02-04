@@ -13,7 +13,7 @@ export const liveCardData: liveCardProps[] = [
     farmerName: '黃小鳳',
     liveTime: '2024.01.30 (二) 14:00',
     productImg: {
-      src: '/images/product/product1.png',
+      src: '/images/liveStream/livemonth.png',
       alt: 'product1',
     },
   },
@@ -22,7 +22,7 @@ export const liveCardData: liveCardProps[] = [
     farmerName: '黃小鳳',
     liveTime: '2024.01.30 (二) 14:00',
     productImg: {
-      src: '/images/productShop/discountedImg2.png',
+      src: '/images/liveStream/livemonth2.png',
       alt: 'product2',
     },
   },

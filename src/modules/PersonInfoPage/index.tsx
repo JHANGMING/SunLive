@@ -29,6 +29,8 @@ const PersonInfoPage = () => {
   const handleOrderClick = () => {
     setActiveSection('order');
   };
+  const accountButtonClass = `p-12 flex items-center gap-8 mb-32 ${activeSection === 'account' ? 'bg-primary-yellow rounded-8' : 'hover:opacity-80'}`;
+  const orderButtonClass = `p-12 flex items-center gap-8 mb-4 ${activeSection === 'order' ? 'bg-primary-yellow rounded-8' : 'hover:opacity-80'}`;
   return (
     <>
       <section className="pt-60 pb-120 container flex gap-[74px]">
@@ -41,18 +43,21 @@ const PersonInfoPage = () => {
             <button
               onClick={handleAccountClick}
               type="button"
-              className="p-12  flex items-center gap-8 mb-32 hover:bg-primary-yellow hover:rounded-8">
+              className={accountButtonClass}>
               <LogoImg widthProps={24} heightProps={24} />
               <p>帳號設定</p>
             </button>
             <button
               onClick={handleOrderClick}
               type="button"
-              className="p-12 flex items-center gap-8 hover:bg-primary-yellow mb-4 hover:rounded-8">
+              className={orderButtonClass}>
               <LogoImg widthProps={24} heightProps={24} />
               <p>訂單總覽</p>
             </button>
-            <p className="text-14 pl-12">所有訂單</p>
+            <p
+              className={`text-14 pl-12 ${activeSection === 'order' && 'text-primary-green'}`}>
+              所有訂單
+            </p>
           </div>
         </div>
         <div className="w-9/12 bg-white rounded-20 p-32">

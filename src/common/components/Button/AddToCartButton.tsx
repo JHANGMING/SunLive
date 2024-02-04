@@ -1,24 +1,24 @@
 import { BsHandIndex } from 'react-icons/bs';
 import { ButtonPropsType } from './data';
-import { getCookies } from 'cookies-next';
 import { useRouter } from 'next/router';
+import getAuthToken from '@/common/helpers/getAuthToken';
 const AddToCartButton = ({
   children,
   btnStyle,
   textStyle,
   showIcon = true,
   disabled = false,
+  // productId, // 新增 productId
 }: ButtonPropsType) => {
   const router = useRouter();
   const handleCartAddition = () => {
     if (disabled) return;
     console.log('加入購物車11');
-  const authToken = getCookies().Token;
-  if (!authToken) {
-
-    router.push('/auth/login');
-    return; 
-  }
+    const authToken = getAuthToken();
+    if (!authToken) {
+      router.push('/auth/login');
+      return;
+    }
     // if (onClick) onClick();
   };
   const buttonClassName = disabled

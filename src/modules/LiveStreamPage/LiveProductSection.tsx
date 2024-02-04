@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import CategoryTitle from '../ProductPage/CategoryTitle';
 import { liveCardData } from './data';
 
@@ -16,17 +16,17 @@ const LiveProductSection = () => {
                 <Image
                   src={data.productImg.src}
                   alt={data.productImg.alt}
-                  width={416}
-                  height={480}
-                  className="w-[416px] h-[480px] rounded-16"
+                  roundedStyle="rounded-16 h-full w-full object-cover"
+                  className="w-full h-[480px]"
                 />
-                <Image
-                  src="/images/home/live/UpcomingIcon.svg"
-                  alt="UpcomingIcon"
-                  width={120}
-                  height={120}
-                  className="absolute left-0 top-0"
-                />
+
+                <div className="absolute left-0 top-0">
+                  <Image
+                    src="/images/home/live/UpcomingIcon.svg"
+                    alt="UpcomingIcon"
+                    className="w-120 h-120 "
+                  />
+                </div>
                 <div className="bg-black/20 absolute left-0 top-0 w-full h-full rounded-16"></div>
                 <div className="absolute left-0 bottom-0 w-full py-16 gap-8  opacity-80 flex flex-col items-center rounded-bl-20 rounded-br-20 bg-white/90">
                   <h4 className=" text-primary-green">{data.title}</h4>

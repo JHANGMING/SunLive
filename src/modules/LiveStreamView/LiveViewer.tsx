@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 import GlobalLink from '@/common/components/GlobalLink';
 import LogoImg from '@/common/components/Logo/LogoImg';
@@ -16,8 +16,7 @@ const LiveViewer = () => {
             <Image
               src="/images/home/live/liveComingPerson1.png"
               alt="liveComingPerson1"
-              width={40}
-              height={40}
+              className='w-40 h-40'
             />
             <h3 className=" text-16 font-normal">黃小翰</h3>
           </div>
@@ -44,8 +43,6 @@ const LiveViewer = () => {
             <Image
               src="/images/home/live/liveComingImg1.png"
               alt="liveComingImg"
-              width={80}
-              height={80}
               className="w-80 h-80"
             />
             <div className="text-darkGray flex flex-col gap-8 w-full">
@@ -75,8 +72,6 @@ const LiveViewer = () => {
               <Image
                 src="/images/liveStream/viewPerson2.png"
                 alt="viewPerson2"
-                width={24}
-                height={24}
                 className="w-24 h-24"
               />
               <h6 className="text-14 font-normal">Ann</h6>
@@ -86,8 +81,6 @@ const LiveViewer = () => {
               <Image
                 src="/images/liveStream/viewPerson2.png"
                 alt="viewPerson2"
-                width={24}
-                height={24}
                 className="w-24 h-24"
               />
               <h6 className="text-14 font-normal">Ann</h6>
@@ -99,8 +92,6 @@ const LiveViewer = () => {
           <Image
             src="/images/liveStream/viewPerson1.png"
             alt="viewPerson1"
-            width={24}
-            height={24}
             className="w-24 h-24"
           />
           <input
@@ -108,6 +99,7 @@ const LiveViewer = () => {
             placeholder="輸入聊天訊息 ..."
             className=" text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
           />
+          {/* 要用token鎖住 */}
           <BsCursorFill
             size={24}
             className=" text-primary-red cursor-pointer hover:opacity-60"

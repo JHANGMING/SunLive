@@ -48,7 +48,7 @@ const LoginPage = () => {
         setAllCookies(result.data);
         setTokenCookie(result.data.token);
         const id = setTimeout(async () => {
-          const redirectTo = result.category
+          const redirectTo = result.data.category
             ? ROUTES.DASHBOARD_ACCOUNT
             : ROUTES.HOME;
           await router.push(redirectTo);

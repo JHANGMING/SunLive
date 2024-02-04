@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import CategoryTitle from '../ProductPage/CategoryTitle';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import Button from '@/common/components/Button';
@@ -9,13 +9,13 @@ const LiveSaleSection = () => {
     <section className=" bg-lightWhite pt-60 pb-[113px]">
       <div className="container relative">
         <CategoryTitle title="直播商品" gapStyle="mb-40" />
-        <Image
-          src="/images/liveStream/limitTimeSale_view.svg"
-          alt="limitTimeSale_view"
-          width={133}
-          height={134}
-          className=" absolute right-8 top-8 z-10"
-        />
+        <div className=" absolute right-8 top-8 z-10">
+          <Image
+            src="/images/liveStream/limitTimeSale_view.svg"
+            alt="limitTimeSale_view"
+            className="w-[133px] h-[134px]"
+          />
+        </div>
         <ul className="grid grid-cols-12 gap-24">
           {liveCardData.map((data) => (
             <li key={data.title} className="flex flex-col col-span-3">
@@ -23,9 +23,9 @@ const LiveSaleSection = () => {
                 <Image
                   src={data.productImg.src}
                   alt={data.productImg.alt}
-                  width={306}
-                  height={284}
-                  className="w-[306px] h-[284px] rounded-16"
+
+                  roundedStyle="rounded-16 object-cover w-full h-full"
+                  className=" h-[284px] rounded-16"
                 />
                 <h4 className="absolute left-0 bottom-0 py-16 w-full opacity-80 flex justify-center items-center rounded-bl-16 rounded-br-16 bg-white/90 text-primary-green">
                   剩餘

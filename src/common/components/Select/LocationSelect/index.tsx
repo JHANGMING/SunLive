@@ -5,6 +5,7 @@ import useDistrictOptions from '@/common/hooks/useDistrictOptions';
 import useZipOptions from '@/common/hooks/useZipOptions';
 import { LocationSelectProps, OptionType, countyOptions } from './data';
 import DefaultInput from '../../Input';
+import useClient from '@/common/hooks/useClient';
 
 const LocationSelect = ({
   control,
@@ -14,6 +15,7 @@ const LocationSelect = ({
   register,
   errors,
 }: LocationSelectProps) => {
+  const isClient = useClient();
   const [selectedCounty, setSelectedCounty] = useState('新北市');
   const districtOptions = useDistrictOptions(selectedCounty);
   const [selectedDistrict, setSelectedDistrict] = useState('');
@@ -71,93 +73,97 @@ const LocationSelect = ({
 
   return (
     <>
-      <div className="flex gap-24">
-        <div className="w-1/2">
-          <label htmlFor="county" className="text-18 block mb-8">
-            縣市
-          </label>
-          <Controller
-            name="county"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                instanceId={`${id}-county`}
-                options={countyOptions}
-                styles={customStyles}
-                name={countyName}
-                menuPortalTarget={
-                  typeof document === 'undefined' ? null : document.body
-                }
-                onChange={(val) => {
-                  field.onChange(val);
-                  handleCountyChange(val);
-                }}
+      {isClient && (
+        <>
+          <div className="flex gap-24">
+            <div className="w-1/2">
+              <label htmlFor="county" className="text-18 block mb-8">
+                縣市
+              </label>
+              <Controller
+                name="county"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    instanceId={`${id}-county`}
+                    options={countyOptions}
+                    styles={customStyles}
+                    name={countyName}
+                    menuPortalTarget={
+                      typeof document === 'undefined' ? null : document.body
+                    }
+                    onChange={(val) => {
+                      field.onChange(val);
+                      handleCountyChange(val);
+                    }}
+                  />
+                )}
               />
-            )}
-          />
-        </div>
-        <div className="w-1/2">
-          <label htmlFor="district" className="text-18 block mb-8">
-            鄉鎮(市)區
-          </label>
-          <Controller
-            name="district"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                instanceId={`${id}-district`}
-                options={districtOptions}
-                styles={customStyles}
-                name={districtName}
-                value={
-                  districtOptions.find(
-                    (option) => option.value === selectedDistrict
-                  ) || null
-                }
-                menuPortalTarget={
-                  typeof document === 'undefined' ? null : document.body
-                }
-                onChange={(val) => {
-                  field.onChange(val);
-                  handleDistrictChange(val);
-                }}
+            </div>
+            <div className="w-1/2">
+              <label htmlFor="district" className="text-18 block mb-8">
+                鄉鎮(市)區
+              </label>
+              <Controller
+                name="district"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    instanceId={`${id}-district`}
+                    options={districtOptions}
+                    styles={customStyles}
+                    name={districtName}
+                    value={
+                      districtOptions.find(
+                        (option) => option.value === selectedDistrict
+                      ) || null
+                    }
+                    menuPortalTarget={
+                      typeof document === 'undefined' ? null : document.body
+                    }
+                    onChange={(val) => {
+                      field.onChange(val);
+                      handleDistrictChange(val);
+                    }}
+                  />
+                )}
               />
-            )}
-          />
-        </div>
-      </div>
-      <div className="flex gap-24">
-        <div className="w-1/2">
-          <label htmlFor="zip" className="text-18 block mb-8">
-            郵遞區號
-          </label>
-          <input
-            className="w-full h-[59px] border border-lightGray rounded-8 px-16 focus-visible:outline-primary-green tracking-widest"
-            id="zip"
-            value={zipOptions.length > 0 ? zipOptions[0].value : ''}
-            {...(register && register('zip'))}
-            readOnly
-          />
-        </div>
-        <DefaultInput
-          page="cart"
-          type="text"
-          labelText="收貨地址"
-          globalStyle="w-1/2"
-          id="address"
-          inputText="請輸入到貨地址"
-          register={register}
-          errors={errors}
-          rules={{
-            required: {
-              value: true,
-              message: '請輸入您的到貨地址!',
-            },
-          }}
-        />
-      </div>
+            </div>
+          </div>
+          <div className="flex gap-24">
+            <div className="w-1/2">
+              <label htmlFor="zip" className="text-18 block mb-8">
+                郵遞區號
+              </label>
+              <input
+                className="w-full h-[59px] border border-lightGray rounded-8 px-16 focus-visible:outline-primary-green tracking-widest"
+                id="zip"
+                value={zipOptions.length > 0 ? zipOptions[0].value : ''}
+                {...(register && register('zip'))}
+                readOnly
+              />
+            </div>
+            <DefaultInput
+              page="cart"
+              type="text"
+              labelText="收貨地址"
+              globalStyle="w-1/2"
+              id="address"
+              inputText="請輸入到貨地址"
+              register={register}
+              errors={errors}
+              rules={{
+                required: {
+                  value: true,
+                  message: '請輸入您的到貨地址!',
+                },
+              }}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };
