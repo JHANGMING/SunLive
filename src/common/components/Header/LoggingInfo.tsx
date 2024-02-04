@@ -10,9 +10,10 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
   const router = useRouter();
   const authToken = getAuthToken();
   const auth = useAuth();
+  
   const handlerLoginOut = () => {
     removeAllCookies();
-    router.reload();
+    auth?.category === '0' ? router.reload() : router.push('/');
   };
   return (
     <div
