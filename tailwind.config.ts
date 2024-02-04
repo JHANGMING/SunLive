@@ -147,6 +147,7 @@ const config: Config = {
         headerIcon: '3px 3px 0px 1px rgba(0, 0, 0, 0.05)',
         chatRoom:
           '0px 8px 24px -4px rgba(0, 0, 0, 0.08), 0px 6px 12px -6px rgba(0, 0, 0, 0.25)',
+        cartInfo: '-4px 4px 10px 0px rgba(0, 0, 0, 0.15)',
       },
       writingMode: {
         vertical: 'vertical-rl',

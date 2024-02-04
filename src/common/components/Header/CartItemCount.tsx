@@ -1,4 +1,7 @@
+import useRequireAuth from "@/common/hooks/useRequireAuth";
+
 const CartItemCount = () => {
+  
   return (
     <p className="absolute right-6 top-8 w-15 rounded-full bg-mediumGray flex justify-center text-xs text-white">
       0
