@@ -1,7 +1,7 @@
 export type CustomImageProps = {
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  priority?: boolean;
   className?: string;
+  roundedStyle?: string;
 };

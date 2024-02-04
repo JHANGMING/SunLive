@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import { featureData, featureIcon } from './data';
 
 const FarmFeatureSection = () => {
@@ -21,27 +21,23 @@ const FarmFeatureSection = () => {
             <li
               className=" col-span-4 flex flex-col justify-center items-center"
               key={title}>
-              <div className="flex gap-16 mb-16">
+              <div className="flex gap-16 mb-16 items-center">
                 <Image
                   src={IconLeft.src}
                   alt={IconLeft.alt}
-                  width={IconLeft.width}
-                  height={IconLeft.height}
+                  className="w-[30px] h-[60px]"
                 />
                 <h4 className=" text-primary-red">{title}</h4>
                 <Image
                   src={IconRight.src}
                   alt={IconRight.alt}
-                  width={IconRight.width}
-                  height={IconRight.height}
+                  className="w-[30px] h-[60px]"
                 />
               </div>
               <Image
                 src={image.src}
                 alt={image.alt}
-                width={image.width}
-                height={image.height}
-                className="mb-16 h-276 object-cover"
+                className="mb-16 h-276 w-full"
               />
               <h5 className=" text-primary-red mb-8">{subTitle}</h5>
               <p className="text-center">

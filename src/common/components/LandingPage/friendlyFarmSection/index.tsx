@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import { dataSet } from './data';
 import LogoImg from '../../Logo/LogoImg';
 
@@ -35,7 +35,7 @@ const FriendlyFarmSection = () => {
             })}
           </ul>
           <div className="col-start-9 col-end-13">
-            <Image src={src} alt={alt} width={411} height={308} />
+            <Image src={src} alt={alt}  className='w-full h-[308px]'/>
           </div>
         </div>
       </div>

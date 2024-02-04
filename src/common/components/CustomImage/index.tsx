@@ -4,19 +4,19 @@ import { CustomImageProps } from "./data";
 const CustomImage = ({
   src,
   alt,
-  width,
-  height,
   className,
+  priority = false,
+  roundedStyle,
 }: CustomImageProps) => {
   return (
-    <div className={`${className}`}>
+    <div className={`relative flex-shrink-0 ${className}`}>
       <Image
         src={src}
         alt={alt}
-        width={width}
-        height={height}
-        priority
-        className="w-auto h-auto object-cover"
+        fill
+        sizes="100%"
+        className={`object-contain align-middle ${roundedStyle}`}
+        priority={priority}
       />
     </div>
   );

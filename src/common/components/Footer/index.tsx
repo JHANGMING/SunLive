@@ -1,11 +1,11 @@
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import { icons, swiperSet } from './data';
 import LogoImg from '../Logo/LogoImg';
 import GlobalLink from '../GlobalLink';
 import HomeSwiper from '../HomeSwiper';
 import DashBoardFooter from './DashBoardFooter';
 import { grassMotionSet } from '../LandingPage/banner/data';
-import CustomImage from '../CustomImage';
+
 
 type FooterProps = {
   gapClassSyle: string;
@@ -23,12 +23,10 @@ const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
       <footer className={`bg-white ${gapClassSyle} flex-shrink-0`}>
         <ul className="flex  items-end justify-between">
           <li>
-            <CustomImage
+            <Image
               src={grassMotionLeft.src}
               alt={grassMotionLeft.alt}
-              width={489}
-              height={136}
-              className=" self-end w-full"
+              className=" self-end w-[489px] h-[136px]"
             />
           </li>
           <li className="text-primary-green flex flex-col items-center mb-40">
@@ -39,11 +37,9 @@ const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
               {icons.map((icon) => (
                 <li key={icon.alt}>
                   <GlobalLink href={icon.path} openInNewTab={true}>
-                    <CustomImage
+                    <Image
                       src={icon.src}
                       alt={`Follow us on ${icon.alt}`}
-                      width={40}
-                      height={40}
                       className=" hover:opacity-80 w-40 h-40"
                     />
                   </GlobalLink>
@@ -52,12 +48,10 @@ const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
             </ul>
           </li>
           <li>
-            <CustomImage
+            <Image
               src={grassMotionRight.src}
               alt={grassMotionRight.alt}
-              width={489}
-              height={136}
-              className="w-[489px] "
+              className="w-[489px] h-[136px]"
             />
           </li>
         </ul>

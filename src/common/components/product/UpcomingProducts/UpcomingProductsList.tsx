@@ -6,7 +6,7 @@ const UpcomingProductsList = () => {
     <div className=" col-start-5 col-end-11">
       <ul className="flex flex-col gap-40">
         {productData.map((data) => (
-          <UpcomingProduct key={data.title} {...data} />
+          <UpcomingProduct key={data.title} {...data}  />
         ))}
       </ul>
     </div>

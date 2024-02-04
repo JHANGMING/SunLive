@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import Link from 'next/link';
 import { BsHandIndex } from 'react-icons/bs';
 import LivingProduct from './LivingProduct';
@@ -32,13 +32,13 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
           <div className="grid grid-cols-6 gap-y-116 gap-x-24">
             <LivingProduct />
             <div className="col-span-6 px-27 relative flex flex-col items-center">
-              <Image
-                src="/images/home/live/limitTimeSale.svg"
-                alt="limitTimeSale"
-                width={138}
-                height={138}
-                className=" absolute -top-155 right-0"
-              />
+              <div className="absolute -top-155 right-0">
+                <Image
+                  src="/images/home/live/limitTimeSale.svg"
+                  alt="limitTimeSale"
+                  className="w-[138px] h-[138px] "
+                />
+              </div>
               <p className="text-white mb-24">
                 「品味夏日，尋找自然的美好。我們自豪地呈獻陽光甘醇有機蕃茄，每一口都是大自然的悠然滋味，新鮮、有機，為您帶來健康美味的味覺饗宴。」
               </p>

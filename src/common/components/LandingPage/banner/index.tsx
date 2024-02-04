@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import { bannerImgData, grassMotionSet } from './data';
@@ -25,36 +25,35 @@ const Banner = () => {
         }}
         effect="fade"
         modules={[Autoplay, EffectFade]}
-        className="bannerSwiper">
+        className="bannerSwiper flex items-center justify-center">
         {bannerImgData.map((data) => (
           <SwiperSlide key={data.alt}>
             {({ isVisible }) => (
               <Image
                 src={data.src}
                 alt={data.alt}
-                width={1440}
-                height={600}
-                priority
-                className={`h-[600px] w-full object-cover transition-transform duration-[25000ms] ease-in-out ${isVisible ? 'scale-125' : 'scale-100'}`}
+                roundedStyle="w-full object-cover"
+                priority={true}
+                className={`h-[600px] object-cover transition-transform duration-[25000ms] ease-in-out ${isVisible ? 'scale-125' : 'scale-110'}`}
               />
             )}
           </SwiperSlide>
         ))}
       </Swiper>
-      <Image
-        src={grassMotionLeft.src}
-        alt={grassMotionLeft.alt}
-        width={546}
-        height={136}
-        className=" absolute -bottom-1 left-0 z-10"
-      />
-      <Image
-        src={grassMotionRight.src}
-        alt={grassMotionRight.alt}
-        width={489}
-        height={136}
-        className=" absolute -bottom-1 right-0 z-10"
-      />
+      <div className="absolute -bottom-1 left-0 z-10">
+        <Image
+          src={grassMotionLeft.src}
+          alt={grassMotionLeft.alt}
+          className="w-[546px] h-[136px] "
+        />
+      </div>
+      <div className="absolute -bottom-1 right-0 z-10">
+        <Image
+          src={grassMotionRight.src}
+          alt={grassMotionRight.alt}
+          className="w-[489px] h-[136px] "
+        />
+      </div>
     </section>
   );
 };
