@@ -30,6 +30,7 @@ const CartFormSection = () => {
     }
   };
   const onSubmit = (data: FormValues) => {
+    //送出時要一併將購物車資料一併送出
     console.log(data);
 
     //  const { email, password, nickname } = data;

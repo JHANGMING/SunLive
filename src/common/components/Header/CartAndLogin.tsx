@@ -1,36 +1,61 @@
-import Link from 'next/link';
 import { LuShoppingCart } from 'react-icons/lu';
 import { BsPersonCircle } from 'react-icons/bs';
-import CartItemCount from '../../../modules/Header/CartItemCount';
+import CartItemCount from './CartItemCount';
 import { useState } from 'react';
 import Image from 'next/image';
 import { LayoutPropsType } from '../Layout/data';
 import LoggingInfo from './LoggingInfo';
+import CartInfo from './CartInfo';
+import { useToken } from '@/common/hooks/useToken';
+
 const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  let leaveTimer: NodeJS.Timeout;
-
-  const handleMouseEnter = () => {
-    clearTimeout(leaveTimer); 
-    setShowDropdown(true);
+  const authToken = useToken();
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [showCartDropdown, setShowCartDropdown] = useState(false);
+  let leaveProfileTimer: ReturnType<typeof setTimeout>;
+  let leaveCartTimer: ReturnType<typeof setTimeout>;
+  const handleProfileMouseEnter = () => {
+    clearTimeout(leaveProfileTimer);
+    setShowProfileDropdown(true);
   };
 
-  const handleMouseLeave = () => {
-    leaveTimer = setTimeout(() => {
-      setShowDropdown(false);
-    }, 500); 
+  const handleProfileMouseLeave = () => {
+    leaveProfileTimer = setTimeout(() => {
+      setShowProfileDropdown(false);
+    }, 500);
   };
-  const dropdownClass = showDropdown ? 'dropdown-enter' : 'dropdown-exit';
+
+  const handleCartMouseEnter = () => {
+    clearTimeout(leaveCartTimer);
+    setShowCartDropdown(true);
+  };
+
+  const handleCartMouseLeave = () => {
+    leaveCartTimer = setTimeout(() => {
+      setShowCartDropdown(false);
+    }, 500);
+  };
+  const dropdownClass =
+    showCartDropdown || showProfileDropdown
+      ? 'dropdown-enter'
+      : 'dropdown-exit';
 
   return (
     <>
       {pageCategory !== 'dashboardPage' ? (
-        <Link
-          href="/cart"
-          className="relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
-          <LuShoppingCart size={32} />
-          <CartItemCount />
-        </Link>
+        <div
+          className="relative"
+          onMouseEnter={handleCartMouseEnter}
+          onMouseLeave={handleCartMouseLeave}
+          >
+          <button
+            type="button"
+            className="relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
+            <LuShoppingCart size={32} />
+          </button>
+          {authToken && <CartItemCount />}
+          {showCartDropdown && <CartInfo dropdownClass={dropdownClass} />}
+        </div>
       ) : (
         <div className="relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
           <Image
@@ -46,18 +71,12 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
       )}
       <div
         className="relative flex items-center justify-center"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}>
-        <button
-          // onClick={toggleDropdown}
-          className="shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full">
+        onMouseEnter={handleProfileMouseEnter}
+        onMouseLeave={handleProfileMouseLeave}>
+        <button className="shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full">
           <BsPersonCircle size={40} className="text-primary-yellow" />
         </button>
-        {showDropdown && (
-          <LoggingInfo
-            dropdownClass={dropdownClass}
-          />
-        )}
+        {showProfileDropdown && <LoggingInfo dropdownClass={dropdownClass} />}
       </div>
     </>
   );

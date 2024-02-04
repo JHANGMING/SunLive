@@ -13,10 +13,13 @@ import { useDispatch } from 'react-redux';
 import { ROUTES } from './data';
 import { nextRoutes } from '@/constants/apiPaths';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import Loading from '@/common/components/Loading';
 const LoginPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [toastMessage, setToastMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const {
     register,
     handleSubmit,
@@ -40,22 +43,29 @@ const LoginPage = () => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
+        setLoading(true); 
         dispatch(setUserData({ data: result.data, token: result.token }));
         setAllCookies(result.data);
         setTokenCookie(result.data.token);
-        const redirectTo = result.category
-          ? ROUTES.DASHBOARD_ACCOUNT
-          : ROUTES.HOME;
-        router.push(redirectTo);
+        const id = setTimeout(async () => {
+          const redirectTo = result.data.category
+            ? ROUTES.DASHBOARD_ACCOUNT
+            : ROUTES.HOME;
+          await router.push(redirectTo);
+          setLoading(false);
+        }, 1500);
+        setTimeoutId(id); 
       } else {
         setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
       }
     } catch (error) {
-      alert('登入失敗');
+      console.error('登入失败', error);
+      setLoading(false); 
     }
   };
   return (
     <>
+      {loading && <Loading />}
       {toastMessage && (
         <Toast message={toastMessage} onClose={() => setToastMessage('')} />
       )}
