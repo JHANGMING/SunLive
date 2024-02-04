@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { LuShoppingCart } from 'react-icons/lu';
 import { BsPersonCircle } from 'react-icons/bs';
 import CartItemCount from './CartItemCount';
@@ -7,14 +6,14 @@ import Image from 'next/image';
 import { LayoutPropsType } from '../Layout/data';
 import LoggingInfo from './LoggingInfo';
 import CartInfo from './CartInfo';
-import getAuthToken from '@/common/helpers/getAuthToken';
+import { useToken } from '@/common/hooks/useToken';
+
 const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
-  const auth = getAuthToken();
+  const authToken = useToken();
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
-  let leaveProfileTimer: NodeJS.Timeout;
-  let leaveCartTimer: NodeJS.Timeout;
-
+  let leaveProfileTimer: ReturnType<typeof setTimeout>;
+  let leaveCartTimer: ReturnType<typeof setTimeout>;
   const handleProfileMouseEnter = () => {
     clearTimeout(leaveProfileTimer);
     setShowProfileDropdown(true);
@@ -36,9 +35,10 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
       setShowCartDropdown(false);
     }, 500);
   };
-  const dropdownClass = showCartDropdown || showProfileDropdown
-    ? 'dropdown-enter'
-    : 'dropdown-exit';
+  const dropdownClass =
+    showCartDropdown || showProfileDropdown
+      ? 'dropdown-enter'
+      : 'dropdown-exit';
 
   return (
     <>
@@ -46,14 +46,13 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
         <div
           className="relative"
           onMouseEnter={handleCartMouseEnter}
-          onMouseLeave={handleCartMouseLeave}
-        >
+          onMouseLeave={handleCartMouseLeave}>
           <button
             type="button"
             className="relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
             <LuShoppingCart size={32} />
-            {auth && <CartItemCount />}
           </button>
+          {authToken && <CartItemCount />}
           {showCartDropdown && <CartInfo dropdownClass={dropdownClass} />}
         </div>
       ) : (
