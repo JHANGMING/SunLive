@@ -60,7 +60,7 @@ const CartInfo = ({ dropdownClass }: LoggingInfoProps) => {
           </Link>
         </>
       ) : (
-        <div className="bg-white col-span-12 p-24 rounded-20 mb-16 flex flex-col items-center gap-24">
+        <div className="bg-white col-span-12 py-24 rounded-20 mb-16 flex flex-col items-center gap-24">
           <div className="w-80 h-80 rounded-full bg-dashboardGray flex justify-center items-center">
             <BsCart2 size={40} className=" text-darkGray" />
           </div>

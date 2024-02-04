@@ -22,7 +22,7 @@ const HomeSwiper = ({ imgData, classStyle }: HomeSwiperPropsType) => {
         spaceBetween={spaceBetween} // 幻燈片間隔
         // slidesPerView={auto} // 在Swiper中一次顯示幻燈片數量
         // loop={true}
-        speed={10000}
+        speed={15000}
         autoplay={{
           delay: 1, //幻燈片切換延遲
           disableOnInteraction: false, // 操作swiper，是否禁止
