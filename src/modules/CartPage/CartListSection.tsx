@@ -36,7 +36,7 @@ const CartListSection = () => {
                         className="w-80 h-80"
                       />
                       <div>
-                        <h6 className=" font-normal">{productTitle}</h6>
+                        <h6 className=" font-normal mb-8">{productTitle}</h6>
                         <div className="text-14 flex gap-8 items-center">
                           <p>
                             NT$<span>{smallPromotionPrice}</span>
