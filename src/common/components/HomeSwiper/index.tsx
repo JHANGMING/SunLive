@@ -15,13 +15,13 @@ const HomeSwiper = ({ imgData, classStyle }: HomeSwiperPropsType) => {
   return (
     <div className={`homeSwiper ${classStyle}`}>
       <Swiper
-        slidesPerView={'auto'}
+        slidesPerView={"auto"}
         centeredSlides={false}
         slidesOffsetBefore={0}
         modules={[Autoplay]}
         spaceBetween={spaceBetween} // 幻燈片間隔
-        // slidesPerView={4} // 在Swiper中一次顯示幻燈片數量
-        loop={true}
+        // slidesPerView={auto} // 在Swiper中一次顯示幻燈片數量
+        // loop={true}
         speed={10000}
         autoplay={{
           delay: 1, //幻燈片切換延遲
