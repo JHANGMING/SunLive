@@ -46,12 +46,11 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
         <div
           className="relative"
           onMouseEnter={handleCartMouseEnter}
-          onMouseLeave={handleCartMouseLeave}
-          >
+          onMouseLeave={handleCartMouseLeave}>
           <button
             type="button"
-            className="relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
-            <LuShoppingCart size={32} />
+            className="relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
+            <LuShoppingCart className="text-20 lg:text-32" />
           </button>
           {authToken && <CartItemCount />}
           {showCartDropdown && <CartInfo dropdownClass={dropdownClass} />}
@@ -74,7 +73,9 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
         onMouseEnter={handleProfileMouseEnter}
         onMouseLeave={handleProfileMouseLeave}>
         <button className="shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full">
-          <BsPersonCircle size={40} className="text-primary-yellow" />
+          <BsPersonCircle
+            className="text-primary-yellow text-[30px] lg:text-40"
+          />
         </button>
         {showProfileDropdown && <LoggingInfo dropdownClass={dropdownClass} />}
       </div>

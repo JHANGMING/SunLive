@@ -11,7 +11,7 @@ const config: Config = {
       },
     },
     screens: {
-      sm: '390px',
+      sm: '375px',
       lg: '1296px',
     },
     extend: {

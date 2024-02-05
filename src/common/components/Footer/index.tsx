@@ -8,7 +8,7 @@ import { grassMotionSet } from '../LandingPage/banner/data';
 
 
 type FooterProps = {
-  gapClassSyle: string;
+  gapClassSyle: string | undefined;
   pageCategory: string;
 };
 const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {

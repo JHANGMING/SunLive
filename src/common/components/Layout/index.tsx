@@ -9,6 +9,7 @@ import FixedHeader from '../Header/FixedHeader';
 import ScrollPageTop from '../ScrollPageTop';
 import ContactService from '@/modules/ContactService';
 import DashboardLayout from './DashboardLayout';
+import SmallHeader from '../Header/SmallHeader';
 
 
 const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
@@ -18,6 +19,7 @@ const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
       <CustomHead pageCategory={pageCategory} />
       <Header pageCategory={pageCategory} />
       <FixedHeader pageCategory={pageCategory} />
+      <SmallHeader/>
       <main className="flex-grow">
         {pageCategory === 'authPage' ? (
           <AuthLayout classStyle={classStyle}>{children}</AuthLayout>
