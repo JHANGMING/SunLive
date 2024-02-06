@@ -1,16 +1,11 @@
 import Image from '@/common/components/CustomImage';
-import { icons, swiperSet } from './data';
+import { FooterProps, icons, swiperSet } from './data';
 import LogoImg from '../Logo/LogoImg';
 import GlobalLink from '../GlobalLink';
 import HomeSwiper from '../HomeSwiper';
 import DashBoardFooter from './DashBoardFooter';
 import { grassMotionSet } from '../LandingPage/banner/data';
 
-
-type FooterProps = {
-  gapClassSyle: string | undefined;
-  pageCategory: string;
-};
 const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
   const { grassMotionLeft, grassMotionRight } = grassMotionSet;
   const swierShow = swiperSet[pageCategory] ? '' : 'hidden';
@@ -30,9 +25,13 @@ const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
             />
           </li>
           <li className="text-primary-green flex flex-col items-center mb-40">
-            <LogoImg widthProps={32} heightProps={32} classProps="mb-8" />
-            <h3>搶鮮購</h3>
-            <p className=" text-14 py-8">freshgrab@contact.com</p>
+            <div className="flex items-center justify-center gap-4 lg:block lg:text-center">
+              <LogoImg classProps="w-24 h-24 lg:w-[32px] lg:h-[32px] lg:mx-auto lg:mb-8" />
+              <h3 className="text-16 lg:text-28">搶鮮購</h3>
+            </div>
+            <p className=" text-14 py-8 hidden lg:block">
+              freshgrab@contact.com
+            </p>
             <ul className="flex gap-16">
               {icons.map((icon) => (
                 <li key={icon.alt}>

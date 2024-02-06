@@ -3,7 +3,7 @@ import { featureData, featureIcon } from './data';
 
 const FarmFeatureSection = () => {
   return (
-    <section className=" bg-farmFeatureBG bg-cover lg:bg-contain bg-repeat-x bg-center mb-60 lg:mb-120  lg:h-[610px] flex items-center pt-48 pb-60 lg:pt-0">
+    <section className=" bg-farmFeatureBG bg-cover lg:bg-contain bg-repeat-x bg-center mb-40 lg:mb-120  lg:h-[610px] flex items-center pt-48 pb-60 lg:pt-0">
       <ul className="container  flex flex-col gap-40 mb-24 lg:mt-30 lg:mb-0 lg:grid lg:grid-cols-12 lg:gap-24 bg-white">
         {featureData.map((data) => {
           const {

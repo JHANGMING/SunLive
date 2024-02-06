@@ -21,9 +21,15 @@ export const icons = [
   },
 ];
 
+export type FooterProps = {
+  gapClassSyle: string | undefined;
+  pageCategory: string;
+};
+
 type pageSetType = {
   [key: string]: boolean;
 };
+
 export const swiperSet: pageSetType = {
   authPage: false,
   CartPage: false,
@@ -34,3 +40,4 @@ export const swiperSet: pageSetType = {
   landingPage: true,
   searchPage: true,
 };
+

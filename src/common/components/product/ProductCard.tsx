@@ -58,7 +58,7 @@ const ProductCard = ({
 
         <Link
           href="/productshop/11"
-          className="flex gap-8 lg:gap-16 justify-center mb-4 lg:mb-8">
+          className="flex gap-8 lg:gap-16 justify-center items-center mb-4 lg:mb-8">
           <LogoImg classProps="w-20 h-20 lg:w-32 lg:h-32 group-shake" />
           <h3
             className={`text-14 lg:text-28 text-primary-green hover:opacity-80 ${cardTitleStyle}`}>
