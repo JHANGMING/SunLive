@@ -44,14 +44,14 @@ const PersonInfoPage = () => {
               onClick={handleAccountClick}
               type="button"
               className={accountButtonClass}>
-              <LogoImg widthProps={24} heightProps={24} />
+              <LogoImg classProps="w-24 h-24" />
               <p>帳號設定</p>
             </button>
             <button
               onClick={handleOrderClick}
               type="button"
               className={orderButtonClass}>
-              <LogoImg widthProps={24} heightProps={24} />
+              <LogoImg classProps="w-24 h-24" />
               <p>訂單總覽</p>
             </button>
             <p

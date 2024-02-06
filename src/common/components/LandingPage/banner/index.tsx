@@ -10,8 +10,8 @@ import SearchInput from '../../Input/SearchInput';
 const Banner = () => {
   const { grassMotionLeft, grassMotionRight } = grassMotionSet;
   return (
-    <section className="relative mb-120">
-      <div className="absolute top-1/2 left-1/2 z-10 text-center transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-16">
+    <section className="relative mb-24 lg:mb-120">
+      <div className="hidden  absolute top-1/2 left-1/2 z-10 text-center transform -translate-x-1/2 -translate-y-1/2 lg:flex flex-col gap-16">
         <BannerTitle />
         <SearchInput />
       </div>
@@ -34,24 +34,24 @@ const Banner = () => {
                 alt={data.alt}
                 roundedStyle="w-full object-cover"
                 priority={true}
-                className={`h-[600px] object-cover transition-transform duration-[25000ms] ease-in-out ${isVisible ? 'scale-125' : 'scale-110'}`}
+                className={`h-[335px] lg:h-[600px] object-cover transition-transform duration-[25000ms] ease-in-out ${isVisible ? 'scale-125' : 'scale-110'}`}
               />
             )}
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="absolute -bottom-1 left-0 z-10">
+      <div className="absolute -bottom-[12px] lg:-bottom-1 left-0 z-10">
         <Image
           src={grassMotionLeft.src}
           alt={grassMotionLeft.alt}
-          className="w-[546px] h-[136px] "
+          className="w-[174px] h-[66px] lg:w-[546px] lg:h-[136px] "
         />
       </div>
-      <div className="absolute -bottom-1 right-0 z-10">
+      <div className="absolute -bottom-[10px] lg:-bottom-1 right-0 z-10">
         <Image
           src={grassMotionRight.src}
           alt={grassMotionRight.alt}
-          className="w-[489px] h-[136px] "
+          className="w-[174px] h-[66px] lg:w-[489px] lg:h-[136px] "
         />
       </div>
     </section>

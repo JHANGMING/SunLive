@@ -7,7 +7,7 @@ const NavBar = () => {
   return (
     <ul className="flex w-824 items-center justify-between">
       <li>
-        <Logo />
+        <Logo classProps='w-50 h-50'/>
       </li>
       {navBarDatas.map((data) => {
         const { src, title, subTitle } = data;

@@ -1,9 +1,9 @@
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from '@/common/components/CustomImage';
 import Button from '../Button';
 import { ProductCardProps } from './data';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
 
 const ProductCard = ({
   productImg,
@@ -23,7 +23,9 @@ const ProductCard = ({
     priceBorderStyle === 'white' ? 'border-white' : 'border-lightGray';
   const originalPriceClass =
     originalPriceStyle === 'white' ? 'text-white' : 'text-lightGray';
-  const cardGapStyle = cardGapThreeCol ? 'col-span-4' : 'col-span-3';
+  const cardGapStyle = cardGapThreeCol
+    ? 'col-span-2 lg:col-span-4'
+    : 'col-span-3';
   const cardTitleStyle = cardGapThreeCol || 'text-24';
   const [animation, setAnimation] = useState('product-card-enter');
 
@@ -36,15 +38,16 @@ const ProductCard = ({
   }, []);
   return (
     <li className={`${cardGapStyle} flex flex-col ${animation}`}>
-      <div className="group flex flex-col gap-16">
+      <div className="group flex flex-col gap-4 lg:gap-16">
         <Link href="/productshop/11" className=" relative">
+          <div className="flex justify-center">
           <Image
             src={productImg.src}
             alt={productImg.alt}
-            width={416}
-            height={381}
-            className={`hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${imgBorderStyle}`}
+            roundedStyle='rounded-20 h-full'
+            className={`w-[148px] h-[136px] lg:w-[416px] lg:h-[381px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${imgBorderStyle}`}
           />
+          </div>
           {label && (
             <h4
               className={`absolute left-0 bottom-0 w-full  h-60 opacity-80 flex justify-center items-center rounded-bl-20 rounded-br-20 ${labelStyle}`}>
@@ -55,30 +58,26 @@ const ProductCard = ({
 
         <Link
           href="/productshop/11"
-          className="flex gap-16 justify-center mb-8">
-          <LogoImg
-            widthProps={32}
-            heightProps={32}
-            classProps="w-32 h-32 group-shake"
-          />
+          className="flex gap-8 lg:gap-16 justify-center items-center mb-4 lg:mb-8">
+          <LogoImg classProps="w-20 h-20 lg:w-32 lg:h-32 group-shake" />
           <h3
-            className={` text-primary-green hover:opacity-80 ${cardTitleStyle}`}>
+            className={`text-14 lg:text-28 text-primary-green hover:opacity-80 ${cardTitleStyle}`}>
             {title}
           </h3>
         </Link>
       </div>
 
-      {!buttonAtBottom && <p className="px-24 flex-grow mb-16">{des}</p>}
+      {!buttonAtBottom && <p className="text-[10px] lg:text-16 lg:px-24 flex-grow mb-8 lg:mb-16">{des}</p>}
 
       <div
-        className={`${buttonAtBottom ? 'flex flex-col items-center gap-16' : 'flex justify-between'} px-24`}>
-        <div className="flex gap-8 items-center">
+        className={`${buttonAtBottom ? 'flex flex-col items-center gap-16' : 'flex justify-between'} lg:px-24`}>
+        <div className="flex gap-6 lg:gap-8 items-center">
           <p
-            className={` text-mediumGray py-6 px-20 rounded-8 border text-center font-bold ${priceBorderClass}`}>
+            className={`hidden lg:block text-mediumGray py-6 px-20 rounded-8 border text-center font-bold ${priceBorderClass}`}>
             價格
           </p>
-          <h4 className=" text-primary-red">{salePrice}</h4>
-          <span className={` text-18 line-through ${originalPriceClass}`}>
+          <h4 className=" text-primary-red text-12 lg:text-24"><span className='lg:hidden'>$</span>{salePrice}</h4>
+          <span className={`text-[10px] lg:text-18 line-through ${originalPriceClass}`}>
             {originalPrice}
           </span>
         </div>

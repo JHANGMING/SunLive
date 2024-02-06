@@ -13,7 +13,7 @@ const ProductList = ({ category }: ProductListProps) => {
   switch (category) {
     case 'landingPage':
       return (
-        <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-84">
+        <ul className="grid grid-cols-4 lg:grid-cols-12 auto-rows-min gap-x-24 gap-y-24 lg:gap-y-84">
           {productData.map((data) => (
             <ProductCard
               key={data.title}
