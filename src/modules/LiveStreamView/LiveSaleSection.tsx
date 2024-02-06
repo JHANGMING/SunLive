@@ -23,7 +23,6 @@ const LiveSaleSection = () => {
                 <Image
                   src={data.productImg.src}
                   alt={data.productImg.alt}
-
                   roundedStyle="rounded-16 object-cover w-full h-full"
                   className=" h-[284px] rounded-16"
                 />
@@ -35,16 +34,10 @@ const LiveSaleSection = () => {
                   組
                 </h4>
               </div>
-
               <div className="flex gap-16 justify-center mb-16">
-                <LogoImg
-                  widthProps={32}
-                  heightProps={32}
-                  classProps="w-32 h-32"
-                />
+                <LogoImg classProps="w-32 h-32" />
                 <h3 className="text-primary-green">{data.title}</h3>
               </div>
-
               <div className="flex flex-col items-center gap-16 px-24">
                 <div className="flex gap-8 items-center">
                   <p className="text-mediumGray py-6 px-20 rounded-8 border text-center font-bold">

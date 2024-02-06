@@ -24,7 +24,7 @@ const ContactService = () => {
         <div
           className="w-[240px] h-[48px] bg-primary-yellow rounded-tl-20 rounded-tr-20 py-12 flex justify-center items-center gap-16 cursor-pointer"
           onClick={toggleExpand}>
-          <LogoImg widthProps={24} heightProps={24} />
+          <LogoImg classProps="w-24 h-24" />
           <p>即時聊聊</p>
         </div>
       )}
@@ -37,7 +37,7 @@ const ContactService = () => {
               className="w-24 h-24 text-white absolute top-12 right-12 cursor-pointer hover:bg-black hover:rounded-full"
               onClick={toggleExpand}
             />
-            <Logo textSytle="text-20" widthProps={32} heightProps={32} />
+            <Logo textSytle="text-20" classProps="h-32 w-32" />
             <div>
               <p className=" text-14">嗨！歡迎來到搶鮮購聊天室</p>
               <span className="text-14">

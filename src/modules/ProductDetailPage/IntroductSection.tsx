@@ -67,7 +67,7 @@ const IntroductSection = () => {
                   </div>
                 </div>
                 <div className=" text-primary-green bg-primary-yellow flex justify-center items-center gap-8 py-16 rounded-20 w-[421px]  mb-16">
-                  <LogoImg widthProps={32} heightProps={32} />
+                  <LogoImg classProps="w-32 h-32" />
                   <p className="font-bold">
                     我希望自己的種植對環境好，對人的健康也好
                   </p>
