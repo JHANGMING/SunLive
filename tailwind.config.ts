@@ -19,6 +19,7 @@ const config: Config = {
         friendlyFarmBG: 'url(/images/home/friendlyFarm/friendlyFarmBG.png)',
         farmFeatureBG: 'url(/images/home/friendlyFarm/farmFeatureBG.png)',
         liveBG: 'url(/images/home/live/liveBG.png)',
+        liveBG_small: 'url(/images/375/liveBG_small.png)',
         recommendBG: 'url(/images/home/recommend/recommendBG.png)',
         authBG: 'url(/images/auth/authBG.png)',
         commonBannerBG: 'url(/images/commonBannerBG.png)',

@@ -17,7 +17,7 @@ const FriendlyFarmSection = () => {
           <div className="lg:hidden">
             <Image src={src} alt={alt} className="w-[163px] h-[150px]" />
           </div>
-          <ul className="lg:col-start-2 lg:col-end-9">
+          <ul className=" lg:col-start-2 lg:col-end-9">
             {dataSet.content.map((data) => {
               const {
                 subTitle,
@@ -33,7 +33,7 @@ const FriendlyFarmSection = () => {
                     <Image
                       src={image.src}
                       alt={image.alt}
-                      className="w-24 h-24 lg:w-30 lg:h-30 -ml-40 lg:-ml-54"
+                      className="w-24 h-24 lg:w-30 lg:h-30  lg:-ml-54"
                     />
                     <h3 className="text-16 lg:text-20 text-primary-green">
                       {subTitle}
@@ -44,7 +44,7 @@ const FriendlyFarmSection = () => {
                     <br />
                     {desSecond}
                   </p>
-                  <p className="lg:hidden text-12 lg:text-16">
+                  <p className="ml-40 lg:hidden text-12 lg:text-16">
                     {desFirst_small}
                     <br />
                     {desSecond_small}

@@ -8,7 +8,7 @@ const YoutubeLiveIfram = ({
   isViewPage = false,
   isLivePage,
 }: YoutubeLiveIframProps) => {
-  const iframeContainerStyle = isViewPage ? 'h-[530px]' : 'h-full';
+  const iframeContainerStyle = isViewPage ? 'h-[530px]' : 'w-[320px] h-[200px] lg:w-full lg:h-full';
   const iframeBorderStyle = isViewPage
     ? 'border-4  border-primary-red rounded-20'
     : 'border-[20px] border-white rounded-20 outline outline-4 outline-mediumGray';
@@ -67,11 +67,11 @@ const YoutubeLiveIfram = ({
       observer.observe(iframeElement);
     }
 
-     return () => {
-       if (iframeElement) {
-         observer.unobserve(iframeElement);
-       }
-     };
+    return () => {
+      if (iframeElement) {
+        observer.unobserve(iframeElement);
+      }
+    };
   }, [isViewPage, isLivePage]);
   return (
     <div className={`relative ${iframeContainerStyle}`}>
@@ -85,11 +85,9 @@ const YoutubeLiveIfram = ({
           allowFullScreen
           onLoad={handleIframeLoad}></iframe>
       </div>
-      <LogoImg
-        widthProps={50}
-        heightProps={50}
-        classProps="absolute left-1/2 -top-35 transform -translate-x-1/2  logo-shake"
-      />
+      <div className="absolute left-1/2 -top-16 lg:-top-35 transform -translate-x-1/2 ">
+        <LogoImg classProps=" logo-shake w-24 h-24 lg:w-50 lg:h-50" />
+      </div>
     </div>
   );
 };
