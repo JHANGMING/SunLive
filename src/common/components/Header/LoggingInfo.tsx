@@ -33,7 +33,7 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
         </>
       ) : (
         <div className="flex gap-10 items-center">
-          <LogoImg widthProps={24} heightProps={24} />
+          <LogoImg classProps='w-24 h-24' />
           <p className="text-14">歡迎回來 !</p>
         </div>
       )}

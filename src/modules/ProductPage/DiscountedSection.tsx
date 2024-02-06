@@ -40,7 +40,7 @@ const DiscountedSection = () => {
           </li>
           <li className=" col-span-4 px-16 flex flex-col gap-24">
             <div className="flex gap-16 ">
-              <LogoImg widthProps={50} heightProps={50} />
+              <LogoImg classProps="w-50 h-50" />
               <h2>紫禧有機天使茄</h2>
             </div>
             <p className=" text-18 ">

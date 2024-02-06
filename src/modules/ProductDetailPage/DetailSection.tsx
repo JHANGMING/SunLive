@@ -67,7 +67,7 @@ const DetailSection = () => {
         </div>
         <div className="col-span-6 ml-16">
           <div className="flex items-center gap-16 mb-8">
-            <LogoImg widthProps={32} heightProps={32} />
+            <LogoImg classProps="w-32 h-32" />
             <h2 className=" text-primary-green">甜蜜時光有機草莓</h2>
           </div>
           <p className=" text-18 mb-16">

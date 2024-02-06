@@ -58,14 +58,14 @@ const DashboardPage = () => {
             type="button"
             href={'/dashboard/account'}
             className={`p-12  flex items-center gap-8 mb-32 ${activeSection === 'account' ? 'bg-primary-yellow rounded-8' : ''} `}>
-            <LogoImg widthProps={24} heightProps={24} />
+            <LogoImg classProps="w-24 h-24" />
             <h3 className="text-16">帳號設定</h3>
           </Link>
           <div>
             <Link
               href={'/dashboard/products'}
               className={`p-12 w-full flex items-center gap-8 ${activeSection === 'products' ? 'bg-primary-yellow rounded-8' : ''} mb-4 `}>
-              <LogoImg widthProps={24} heightProps={24} />
+              <LogoImg classProps="w-24 h-24" />
               <h3 className="text-16">農產品管理</h3>
             </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
@@ -85,7 +85,7 @@ const DashboardPage = () => {
             <Link
               href={'/dashboard/orders/allorders'}
               className={`p-12 w-full flex items-center gap-8 mb-4 ${activeSection === 'order' ? 'bg-primary-yellow rounded-8' : ''}`}>
-              <LogoImg widthProps={24} heightProps={24} />
+              <LogoImg classProps="w-24 h-24" />
               <h3 className="text-16">訂單管理</h3>
             </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
@@ -110,7 +110,7 @@ const DashboardPage = () => {
             <Link
               href={'/dashboard/live'}
               className={`p-12 w-full flex items-center gap-8 ${activeSection === 'live' ? 'bg-primary-yellow rounded-8' : ''} mb-4`}>
-              <LogoImg widthProps={24} heightProps={24} />
+              <LogoImg classProps="w-24 h-24" />
               <h3 className="text-16">直播設定</h3>
             </Link>
             <div className="text-14 pl-12 flex flex-col gap-8">
