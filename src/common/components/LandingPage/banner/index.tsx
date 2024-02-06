@@ -47,7 +47,7 @@ const Banner = () => {
           className="w-[174px] h-[66px] lg:w-[546px] lg:h-[136px] "
         />
       </div>
-      <div className="absolute -bottom-[11px] right-0 z-10">
+      <div className="absolute -bottom-[11px] lg:-bottom-1 right-0 z-10">
         <Image
           src={grassMotionRight.src}
           alt={grassMotionRight.alt}

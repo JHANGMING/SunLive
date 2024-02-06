@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import { HomeSwiperPropsType, swiperData } from './data';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -15,7 +15,7 @@ const HomeSwiper = ({ imgData, classStyle }: HomeSwiperPropsType) => {
   return (
     <div className={`homeSwiper ${classStyle}`}>
       <Swiper
-        slidesPerView={"auto"}
+        slidesPerView={'auto'}
         centeredSlides={false}
         slidesOffsetBefore={0}
         modules={[Autoplay]}
@@ -32,9 +32,7 @@ const HomeSwiper = ({ imgData, classStyle }: HomeSwiperPropsType) => {
             <Image
               src={data.src}
               alt={data.alt}
-              width={378}
-              height={282}
-              className=" object-cover"
+              className="w-[160px] h-[119px] lg:w-[378px] lg:h-[282px] object-cover"
             />
           </SwiperSlide>
         ))}

@@ -11,15 +11,15 @@
 
 //homeSwiper
 .homeSwiper .swiper {
-  width: 100%;
-  height: 100%;
+  @apply  w-full h-full; ;
 }
 
 .homeSwiper .swiper-slide {
-  width: 378px;
+  @apply w-[160px] lg:w-[378px] ;
   & img {
-    width: 378px;
-    height: 282px;
+    // @apply w-[160px] lg:w-[378px] ;
+    // width: 378px;
+    // height: 282px;
     object-fit: cover;
   }
 }
