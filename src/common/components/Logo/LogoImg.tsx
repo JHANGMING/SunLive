@@ -1,15 +1,18 @@
 import Image from 'next/image';
 import { LogoImgPrors } from './data';
 
-const LogoImg = ({ widthProps, heightProps, classProps }: LogoImgPrors) => {
+const LogoImg = ({ classProps }: LogoImgPrors) => {
   const classStyle = !!classProps ? `${classProps}` : '';
   return (
-    <Image
-      src="/images/logo.svg"
-      alt="Logo"
-      width={widthProps}
-      height={heightProps}
-      className={`w-${widthProps} h-${heightProps} ${classStyle}`}></Image>
+    <div className={`relative flex-shrink-0 ${classStyle}`}>
+      <Image
+        src="/images/logo.svg"
+        alt="Logo"
+        fill
+        sizes="100%"
+        className={`object-contain align-middle`}
+      />
+    </div>
   );
 };
 

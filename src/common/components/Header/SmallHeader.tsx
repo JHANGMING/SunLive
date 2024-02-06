@@ -33,10 +33,11 @@ const SmallHeader = () => {
         </div>
         <div className="">
           <Logo
-            widthProps={24}
-            heightProps={24}
+            // widthProps={24}
+            // heightProps={24}
             textSytle="text-16"
             classStyle="gap-8"
+            classProps='w-24 h-24'
           />
         </div>
         <div className="flex gap-16 items-center justify-end">

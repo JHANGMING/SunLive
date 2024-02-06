@@ -4,17 +4,14 @@ import { classStyleProps } from './data';
 
 const Logo = ({
   classStyle,
-  widthProps = 50,
-  heightProps = 50,
+  classProps,
   textSytle = 'text-28',
 }: classStyleProps) => {
   return (
-    <Link href="/" className={`flex items-center gap-16 group ${classStyle}`}>
-      <LogoImg
-        widthProps={widthProps}
-        heightProps={heightProps}
-        classProps={`group-shake`}
-      />
+    <Link
+      href="/"
+      className={`flex items-center gap-16 group ${classStyle}`}>
+      <LogoImg classProps={`group-shake ${classProps}`} />
       <p className={`${textSytle} font-bold text-primary-green`}>搶鮮購</p>
     </Link>
   );
