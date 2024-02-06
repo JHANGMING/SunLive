@@ -10,7 +10,7 @@ import SearchInput from '../../Input/SearchInput';
 const Banner = () => {
   const { grassMotionLeft, grassMotionRight } = grassMotionSet;
   return (
-    <section className="relative mb-120">
+    <section className="relative mb-24 lg:mb-120">
       <div className="hidden  absolute top-1/2 left-1/2 z-10 text-center transform -translate-x-1/2 -translate-y-1/2 lg:flex flex-col gap-16">
         <BannerTitle />
         <SearchInput />
