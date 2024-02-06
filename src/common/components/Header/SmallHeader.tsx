@@ -1,11 +1,9 @@
 
-import { useEffect, useState, useCallback } from 'react';
-import { fixedPageSet } from './data';
+import {  useState, useCallback } from 'react';
 import Logo from '../Logo';
 import CartAndLogin from './CartAndLogin';
 import { BsSearch } from 'react-icons/bs';
 import SearchInput from '../Input/SearchInput';
-import { LayoutPropsType } from '../Layout/data';
 
 const SmallHeader = () => {
 
@@ -18,9 +16,9 @@ const SmallHeader = () => {
 
   return (
     <div
-      className={`container fixed top-0 left-1/2 transform -translate-x-1/2 bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0 py-12 lg:hidden`}>
+      className={` fixed top-0 left-1/2 transform -translate-x-1/2 bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0 py-12 lg:hidden`}>
       <div className="container flex justify-between items-center ">
-        <div className={`flex justify-center `}>
+        <div className={`flex lg:justify-center w-[78px]`}>
           {!isSearchActive ? (
             <div
               className="bg-primary-yellow w-32 h-32 flex justify-center items-center rounded-full cursor-pointer hover:opacity-80"
@@ -33,8 +31,6 @@ const SmallHeader = () => {
         </div>
         <div className="">
           <Logo
-            // widthProps={24}
-            // heightProps={24}
             textSytle="text-16"
             classStyle="gap-8"
             classProps='w-24 h-24'

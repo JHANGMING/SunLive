@@ -21,6 +21,7 @@ const config: Config = {
         liveBG: 'url(/images/home/live/liveBG.png)',
         liveBG_small: 'url(/images/375/liveBG_small.png)',
         recommendBG: 'url(/images/home/recommend/recommendBG.png)',
+        recommendBG_small: 'url(/images/375/recommendBG_small.png)',
         authBG: 'url(/images/auth/authBG.png)',
         commonBannerBG: 'url(/images/commonBannerBG.png)',
         searchBannerBG: 'url(/images/productShop/bannerBG.png)',
@@ -164,7 +165,7 @@ const config: Config = {
     function ({ addComponents }: any) {
       addComponents({
         '.container': {
-          maxWidth: '100%',
+          maxWidth: '375px',
           '@screen lg': {
             maxWidth: '1440px',
           },

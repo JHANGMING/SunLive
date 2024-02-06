@@ -2,7 +2,7 @@ import Image from '@/common/components/CustomImage';
 
 const RecommendSection = () => {
   return (
-    <section className=" bg-recommendBG h-[473px] lg:h-[877px] bg-bottom bg-repeat-x bg-white pt-48 lg:pt-100">
+    <section className="bg-recommendBG_small lg:bg-recommendBG h-[500px]  lg:h-[877px] bg-center bg-repeat-x lg:bg-bottom  bg-white pt-48  lg:pt-100">
       <div className="container flex flex-col items-center">
         <h2 className="hidden lg:block text-primary-red mb-16">
           除了直播！快來看看小農熱門商品
