@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux';
 import PaginatedProductList from './PaginatedProductList';
 import ProductCard from './ProductCard';
 import { allproductData, productData } from './data';
+import { RootState } from '@/redux/store';
 type ProductListProps = {
   category: string;
 };
@@ -10,6 +12,7 @@ const numberToChinese = (number: number) => {
   return chineseNumbers[number] || number;
 };
 const ProductList = ({ category }: ProductListProps) => {
+  const { data:searchData } = useSelector((state: RootState) => state.product);
   switch (category) {
     case 'landingPage':
       return (
@@ -82,9 +85,9 @@ const ProductList = ({ category }: ProductListProps) => {
     case 'search':
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-24 ">
-          {productData.slice(0, 3).map((data, index) => (
+          {searchData.map((data, index) => (
             <ProductCard
-              key={data.title}
+              key={data.productId}
               {...data}
               imgBorderStyle="border-primary-yellow"
             />

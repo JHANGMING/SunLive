@@ -7,10 +7,10 @@ import LogoImg from '@/common/components/Logo/LogoImg';
 
 const ProductCard = ({
   productImg,
-  title,
-  des,
-  originalPrice,
-  salePrice,
+  productTitle,
+  description,
+  smallOriginalPrice,
+  smallPromotionPrice,
   label,
   labelStyle,
   imgBorderStyle,
@@ -41,12 +41,12 @@ const ProductCard = ({
       <div className="group flex flex-col gap-4 lg:gap-16">
         <Link href="/productshop/11" className=" relative">
           <div className="flex justify-center">
-          <Image
-            src={productImg.src}
-            alt={productImg.alt}
-            roundedStyle='rounded-20 h-full'
-            className={`w-[148px] h-[136px] lg:w-[416px] lg:h-[381px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${imgBorderStyle}`}
-          />
+            <Image
+              src={productImg.src===null?'/images/product/product1.png':productImg.src}
+              alt={productImg.alt}
+              roundedStyle="rounded-20 h-full"
+              className={`w-[148px] h-[136px] lg:w-[416px] lg:h-[381px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${imgBorderStyle}`}
+            />
           </div>
           {label && (
             <h4
@@ -62,12 +62,16 @@ const ProductCard = ({
           <LogoImg classProps="w-20 h-20 lg:w-32 lg:h-32 group-shake" />
           <h3
             className={`text-14 lg:text-28 text-primary-green hover:opacity-80 ${cardTitleStyle}`}>
-            {title}
+            {productTitle}
           </h3>
         </Link>
       </div>
 
-      {!buttonAtBottom && <p className="text-[10px] lg:text-16 lg:px-24 flex-grow mb-8 lg:mb-16">{des}</p>}
+      {!buttonAtBottom && (
+        <p className="text-[10px] lg:text-16 lg:px-24 flex-grow mb-8 lg:mb-16">
+          {description}
+        </p>
+      )}
 
       <div
         className={`${buttonAtBottom ? 'flex flex-col items-center gap-16' : 'flex justify-between'} lg:px-24`}>
@@ -76,9 +80,13 @@ const ProductCard = ({
             className={`hidden lg:block text-mediumGray py-6 px-20 rounded-8 border text-center font-bold ${priceBorderClass}`}>
             價格
           </p>
-          <h4 className=" text-primary-red text-12 lg:text-24"><span className='lg:hidden'>$</span>{salePrice}</h4>
-          <span className={`text-[10px] lg:text-18 line-through ${originalPriceClass}`}>
-            {originalPrice}
+          <h4 className=" text-primary-red text-12 lg:text-24">
+            <span className="lg:hidden">$</span>
+            {smallOriginalPrice}
+          </h4>
+          <span
+            className={`text-[10px] lg:text-18 line-through ${originalPriceClass}`}>
+            {smallPromotionPrice}
           </span>
         </div>
 

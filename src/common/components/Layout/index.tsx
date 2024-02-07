@@ -19,7 +19,7 @@ const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
       <CustomHead pageCategory={pageCategory} />
       <Header pageCategory={pageCategory} />
       <FixedHeader pageCategory={pageCategory} />
-      <SmallHeader/>
+      {/* <SmallHeader/> */}
       <main className="flex-grow">
         {pageCategory === 'authPage' ? (
           <AuthLayout classStyle={classStyle}>{children}</AuthLayout>

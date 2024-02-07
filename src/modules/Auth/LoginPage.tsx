@@ -53,7 +53,7 @@ const LoginPage = () => {
       if (result.statusCode === 200) {
         setLoading(true);
         console.log(result);
-        // dispatch(setUserData({ data: result.data, token: result.token }));
+        // dispatch(setUserData({ data: result.data }));
         setAllCookies(result.data);
         const id = setTimeout(async () => {
           const redirectTo = result.data.category

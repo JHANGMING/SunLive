@@ -53,7 +53,9 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
               <BsSearch className="text-20 text-mediumGray" />
             </div>
           ) : (
-            <SearchInput headerVisible={true} onClick={handleSearchClick} />
+            <SearchInput headerVisible={true} 
+            onClick={handleSearchClick} 
+            />
           )}
         </div>
         <div className="flex gap-40 items-center justify-end w-400">

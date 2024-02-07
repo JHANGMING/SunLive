@@ -14,17 +14,9 @@ export interface productData {
   productImg: productImgType;
   productSpecId: number;
 }
-const initialState: productData = {
-  productId: 0,
-  productTitle: "",
-  description: "",
-  smallOriginalPrice:0,
-  smallPromotionPrice: 0,
-  productImg: {
-    src: "",
-    alt: "",
-  },
-  productSpecId: 0,
+const initialState: { data: productData[]; searchTag:string } = {
+  data: [],
+  searchTag: '',
 };
 
 export const productSlice = createSlice({
@@ -39,6 +31,8 @@ export const productSlice = createSlice({
       // return { ...state };
       return {
         ...state,
+        data: action.payload.data,
+        searchTag: action.payload.searchTag,
       };
     },
   },

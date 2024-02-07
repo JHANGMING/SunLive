@@ -1,8 +1,12 @@
 import ProductList from '@/common/components/product/ProductList';
 import CategoryTitle from '../CategoryTitle';
 import SearchInput from '@/common/components/Input/SearchInput';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const SearchSection = () => {
+  const {data,searchTag} = useSelector((state: RootState) => state.product);
+  
   return (
     <section className="bg-searchBannerBG bg-repeat-x -mt-[216px] pt-120  ">
       <div className="bg-lightWhite pb-60">
@@ -12,9 +16,10 @@ const SearchSection = () => {
             <SearchInput headerVisible={true} />
           </div>
           <h4 className="mb-24">
-            玉米的搜尋結果共 <span className=" text-primary-green">3</span> 筆
+            {searchTag}的搜尋結果共{' '}
+            <span className=" text-primary-green">{data.length}</span> 筆
           </h4>
-          <ProductList category="search" />
+          <ProductList category="search"/>
         </div>
       </div>
     </section>
