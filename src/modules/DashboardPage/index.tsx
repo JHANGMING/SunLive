@@ -18,7 +18,6 @@ const DashboardPage = () => {
         : router.query.orderId;
       setSubPage(orderId);
     } else {
-      // 处理非动态路由
       switch (page) {
         case '/dashboard/account':
           setActiveSection('account');

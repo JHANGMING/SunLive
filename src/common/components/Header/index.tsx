@@ -20,7 +20,7 @@ const Header = ({ pageCategory }: LayoutPropsType) => {
     case 'logo':
       return (
         <header>
-          <Logo classStyle="justify-center py-64 flex-shrink-0" />
+          <Logo classStyle="justify-center py-64 flex-shrink-0" classProps='w-50 h-50'/>
         </header>
       );
 

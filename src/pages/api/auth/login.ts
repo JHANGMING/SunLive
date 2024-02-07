@@ -1,10 +1,7 @@
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-type Data = {
-  name: string;
-};
+import { setCookie } from 'cookies-next';
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,9 +13,17 @@ export default async function handler(
    const apiParams:ApiParamsType = {
       apiPath:apiPaths["login"],
       method:'POST',
-      data: { Account: email, Password: password },
+      data: { account: email, password: password },
     };
     const result=await fetchApi(apiParams);
+    setCookie('token', result.token, {
+      req,
+      res,
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      path: '/',
+    });
     res.status(200).json(result);
   } catch (error) {
     console.error('API Error:', error);

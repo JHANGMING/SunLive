@@ -1,7 +1,7 @@
 import { BsHandIndex } from 'react-icons/bs';
 import { ButtonPropsType } from './data';
 import { useRouter } from 'next/router';
-import getAuthToken from '@/common/helpers/getAuthToken';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 const AddToCartButton = ({
   children,
   btnStyle,
@@ -11,11 +11,12 @@ const AddToCartButton = ({
   // productId, // 新增 productId
 }: ButtonPropsType) => {
   const router = useRouter();
+  const { authStatus } = useAuthStatus();
   const handleCartAddition = () => {
     if (disabled) return;
     console.log('加入購物車11');
-    const authToken = getAuthToken();
-    if (!authToken) {
+    
+    if (!authStatus) {
       router.push('/auth/login');
       return;
     }
