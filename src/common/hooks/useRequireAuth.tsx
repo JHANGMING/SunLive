@@ -1,18 +1,19 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getCookies } from 'cookies-next';
+import { useAuthStatus } from './useAuthStatus';
 
 const useRequireAuth = () => {
   const router = useRouter();
-  const authToken = getCookies().Token;
+  const { authStatus, loading } = useAuthStatus(); 
 
   useEffect(() => {
-    if (!authToken) {
+    if (loading) return;
+    if (!authStatus) {
       router.push('/auth/login');
     }
-  }, [authToken, router]);
+  }, [authStatus, loading, router]); 
 
-  return authToken;
+  return authStatus;
 };
 
 export default useRequireAuth;

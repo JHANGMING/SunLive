@@ -6,10 +6,10 @@ import Image from 'next/image';
 import { LayoutPropsType } from '../Layout/data';
 import LoggingInfo from './LoggingInfo';
 import CartInfo from './CartInfo';
-import { useToken } from '@/common/hooks/useToken';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 
 const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
-  const authToken = useToken();
+  const { authStatus } = useAuthStatus();
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   let leaveProfileTimer: ReturnType<typeof setTimeout>;
@@ -52,7 +52,7 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
             className="relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
             <LuShoppingCart className="text-20 lg:text-32" />
           </button>
-          {authToken && <CartItemCount />}
+          {authStatus && <CartItemCount />}
           {showCartDropdown && <CartInfo dropdownClass={dropdownClass} />}
         </div>
       ) : (
@@ -73,9 +73,7 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
         onMouseEnter={handleProfileMouseEnter}
         onMouseLeave={handleProfileMouseLeave}>
         <button className="shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full">
-          <BsPersonCircle
-            className="text-primary-yellow text-[30px] lg:text-40"
-          />
+          <BsPersonCircle className="text-primary-yellow text-[30px] lg:text-40" />
         </button>
         {showProfileDropdown && <LoggingInfo dropdownClass={dropdownClass} />}
       </div>

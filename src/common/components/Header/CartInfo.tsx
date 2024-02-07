@@ -4,13 +4,14 @@ import { BsCart2 } from 'react-icons/bs';
 import Image from 'next/image';
 import { BsX } from 'react-icons/bs';
 import { productData } from '@/modules/CartPage/data';
-import getAuthToken from '@/common/helpers/getAuthToken';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+
 const CartInfo = ({ dropdownClass }: LoggingInfoProps) => {
-  const auth = getAuthToken();
+  const { authStatus } = useAuthStatus();
   return (
     <div
       className={`${dropdownClass} fixed right-0 top-100 w-[304px] bg-white shadow-cartInfo z-50`}>
-      {auth ? (
+      {authStatus ? (
         <>
           <ul className="px-16 pb-16 cartlist">
             {productData.map((data) => {

@@ -31,7 +31,7 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
   const heightClass = headerBehavior === 'always' ? 'h-[98px]' : 'h-60';
   const positionClass =
     headerBehavior === 'always'
-      ? 'flex justify-between items-center '
+      ? 'lg:flex justify-between items-center '
       : 'fixed top-0 left-1/2 transform -translate-x-1/2';
   const logoImgstyle = headerBehavior === 'always' ? 50 : 32;
 
@@ -39,7 +39,7 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
 
   return (
     <div
-      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0 hidden lg:block`}>
+      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0 hidden `}>
       <div className="container flex justify-between items-center ">
         <div className="w-400 flex ">
           <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />
