@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import React from 'react';
 import { useRouter } from 'next/router';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
 type SearchInputProps = {
   headerVisible?: boolean;
   onClick?: () => void;
@@ -9,11 +11,36 @@ type SearchInputProps = {
 const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const router = useRouter();
-  const handlerSearch = () => {
-    if (inputValue) {
-      console.log(inputValue);
-    }
-
+  const handlerSearch = async() => {
+    if (!inputValue) return;
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['search'],
+      method: 'POST',
+      data: inputValue.trim(),
+    };
+    try {
+    const result = await fetchNextApi(apiParams);
+    console.log(result);
+    // if (result.statusCode === 200) {
+    //   setLoading(true);
+    //   console.log(result);
+    //   // dispatch(setUserData({ data: result.data, token: result.token }));
+    //   setAllCookies(result.data);
+    //   const id = setTimeout(async () => {
+    //     const redirectTo = result.data.category
+    //       ? ROUTES.DASHBOARD_ACCOUNT
+    //       : ROUTES.HOME;
+    //     await router.push(redirectTo);
+    //     setLoading(false);
+    //   }, 1500);
+    //   setTimeoutId(id);
+  //   } else {
+  //     setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+  //   }
+  } catch (error) {
+    console.error('取得失败', error);
+    // setLoading(false);
+  }
     setInputValue('');
 
     if (headerVisible) {
@@ -21,6 +48,39 @@ const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
     }
     // router.push('/search');
   };
+
+  // const { email, password } = data;
+  // const dataObj = {
+  //   email: email.trim(),
+  //   password: password.trim(),
+  // };
+  // const apiParams: apiParamsType = {
+  //   apiPath: nextRoutes['login'],
+  //   method: 'POST',
+  //   data: dataObj,
+  // };
+  // try {
+  //   const result = await fetchNextApi(apiParams);
+  //   if (result.statusCode === 200) {
+  //     setLoading(true);
+  //     console.log(result);
+  //     // dispatch(setUserData({ data: result.data, token: result.token }));
+  //     setAllCookies(result.data);
+  //     const id = setTimeout(async () => {
+  //       const redirectTo = result.data.category
+  //         ? ROUTES.DASHBOARD_ACCOUNT
+  //         : ROUTES.HOME;
+  //       await router.push(redirectTo);
+  //       setLoading(false);
+  //     }, 1500);
+  //     setTimeoutId(id);
+  //   } else {
+  //     setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+  //   }
+  // } catch (error) {
+  //   console.error('登入失败', error);
+  //   setLoading(false);
+  // }
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return;
     handlerSearch();
