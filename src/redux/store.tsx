@@ -1,13 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 import authReducer from '../redux/features/authSlice'
-import { authApi } from '../redux/service/authApi'
+import productReducer from '../redux/features/productSlice';
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    [authApi.reducerPath]: authApi.reducer,
+    product:productReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
 })
 const wrapper = createWrapper(() => store, { debug: false })
 export default wrapper

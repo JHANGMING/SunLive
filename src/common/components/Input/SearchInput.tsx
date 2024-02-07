@@ -21,7 +21,8 @@ const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
     try {
     const result = await fetchNextApi(apiParams);
     console.log(result);
-    // if (result.statusCode === 200) {
+    router.push('/search');
+    // if (result.message==="取得成功") {
     //   setLoading(true);
     //   console.log(result);
     //   // dispatch(setUserData({ data: result.data, token: result.token }));
