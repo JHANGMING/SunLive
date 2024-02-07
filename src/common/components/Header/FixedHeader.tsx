@@ -39,7 +39,7 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
 
   return (
     <div
-      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0 hidden `}>
+      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0`}>
       <div className="container flex justify-between items-center ">
         <div className="w-400 flex ">
           <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />
