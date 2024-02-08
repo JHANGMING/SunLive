@@ -1,16 +1,10 @@
 import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { numberToChinese } from '@/common/helpers/numberToChinese';
 import PaginatedProductList from './PaginatedProductList';
 import ProductCard from './ProductCard';
-import { allproductData, productData } from './data';
-import { RootState } from '@/redux/store';
-type ProductListProps = {
-  category: string;
-};
+import { ProductListProps, allproductData, productData } from './data';
 
-const numberToChinese = (number: number) => {
-  const chineseNumbers = ['零', '一', '二', '三'];
-  return chineseNumbers[number] || number;
-};
 const ProductList = ({ category }: ProductListProps) => {
   const { data:searchData } = useSelector((state: RootState) => state.product);
   switch (category) {
@@ -19,7 +13,7 @@ const ProductList = ({ category }: ProductListProps) => {
         <ul className="grid grid-cols-4 lg:grid-cols-12 auto-rows-min gap-x-24 gap-y-24 lg:gap-y-84">
           {productData.map((data) => (
             <ProductCard
-              key={data.title}
+              key={data.productId}
               {...data}
               imgBorderStyle="border-primary-yellow"
             />
@@ -31,7 +25,7 @@ const ProductList = ({ category }: ProductListProps) => {
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24">
           {productData.slice(0, 3).map((data) => (
             <ProductCard
-              key={data.title}
+              key={data.productId}
               {...data}
               label="限時折扣"
               labelStyle="text-white bg-primary-red"
@@ -45,7 +39,7 @@ const ProductList = ({ category }: ProductListProps) => {
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 ">
           {productData.slice(0, 3).map((data, index) => (
             <ProductCard
-              key={data.title}
+              key={data.productId}
               {...data}
               label={`熱賣第${numberToChinese(index + 1)}名`}
               labelStyle="text-primary-red bg-primary-yellow"
@@ -59,7 +53,7 @@ const ProductList = ({ category }: ProductListProps) => {
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-84">
           {productData.slice(0, 3).map((data) => (
             <ProductCard
-              key={data.title}
+              key={data.productId}
               {...data}
               imgBorderStyle="border-white"
               priceBorderStyle="white"
@@ -73,7 +67,7 @@ const ProductList = ({ category }: ProductListProps) => {
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24">
           {productData.slice(0, 4).map((data) => (
             <ProductCard
-              key={data.title}
+              key={data.productId}
               {...data}
               imgBorderStyle="border-primary-yellow"
               buttonAtBottom={true}
@@ -85,7 +79,7 @@ const ProductList = ({ category }: ProductListProps) => {
     case 'search':
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-24 ">
-          {searchData.map((data, index) => (
+          {searchData.map((data) => (
             <ProductCard
               key={data.productId}
               {...data}

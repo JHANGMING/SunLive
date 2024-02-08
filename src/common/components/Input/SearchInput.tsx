@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-import React from 'react';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
-import { useDispatch } from 'react-redux';
 import { setSearchData } from '@/redux/features/productSlice';
-type SearchInputProps = {
-  headerVisible?: boolean;
-  onClick?: () => void;
-};
+import { SearchInputProps } from './data';
+
 const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const dispatch = useDispatch();
+  const { searchTag } = useSelector((state: RootState) => state.product);
   const router = useRouter();
-  const handlerSearch = async() => {
+
+  const handlerSearch = async () => {
     if (!inputValue) return;
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['search'],
@@ -22,20 +22,18 @@ const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
       data: inputValue.trim(),
     };
     try {
-    const result = await fetchNextApi(apiParams);
-    console.log(result);
+      const result = await fetchNextApi(apiParams);
+      console.log(result);
 
-    if (result.statusCode=== 200) {
-      // setLoading(true);
-      dispatch(setSearchData({ data: result.data,searchTag:inputValue }));
-      router.push('/search');
-    } else {
-      console.error(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      if (result.statusCode === 200) {
+        dispatch(setSearchData({ data: result.data, searchTag: inputValue }));
+        router.push('/search');
+      } else {
+        console.error(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      }
+    } catch (error) {
+      console.error('取得失败', error);
     }
-  } catch (error) {
-    console.error('取得失败', error);
-    // setLoading(false);
-  }
     setInputValue('');
 
     if (headerVisible) {
@@ -61,7 +59,7 @@ const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
     <div className="relative">
       <input
         type="text"
-        placeholder="輸入水果、蔬菜"
+        placeholder={searchTag ? searchTag : '輸入水果、蔬菜'}
         className={`${inputStyle} border pl-16 focus-visible:outline-none tracking-widest`}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
