@@ -3,10 +3,11 @@ export const apiPaths = {
   login: '/api/login/general',
   register: '/api/register',
   logout: '/api/logout',
-  
+
   //products
   search: '/api/product/search',
   allproducts: '/api/product/all',
+  otherCategory: '/api/product',
 };
 
 export const nextRoutes = {

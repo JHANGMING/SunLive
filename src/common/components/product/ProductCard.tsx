@@ -6,6 +6,7 @@ import { ProductCardProps } from './data';
 import LogoImg from '@/common/components/Logo/LogoImg';
 
 const ProductCard = ({
+  productId,
   productImg,
   productTitle,
   description,
@@ -40,7 +41,7 @@ const ProductCard = ({
   return (
     <li className={`${cardGapStyle} flex flex-col ${animation}`}>
       <div className="group flex flex-col gap-4 lg:gap-16">
-        <Link href="/productshop/11" className=" relative">
+        <Link href={`/productshop/${productId}`} className=" relative">
           <div className="flex justify-center">
             <Image
               src={
@@ -62,7 +63,7 @@ const ProductCard = ({
         </Link>
 
         <Link
-          href="/productshop/11"
+          href={`/productshop/${productId}`}
           className="flex gap-8 lg:gap-16 justify-center items-center mb-4 lg:mb-8">
           <LogoImg classProps="w-20 h-20 lg:w-32 lg:h-32 group-shake" />
           <h3

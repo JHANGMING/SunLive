@@ -3,10 +3,10 @@ import { RootState } from '@/redux/store';
 import { numberToChinese } from '@/common/helpers/numberToChinese';
 import PaginatedProductList from './PaginatedProductList';
 import ProductCard from './ProductCard';
-import { ProductListProps, allproductData, productData } from './data';
+import { ProductListProps, productData } from './data';
 
 const ProductList = ({ category }: ProductListProps) => {
-  const { searchData, allProductsData } = useSelector(
+  const { searchData, allProductsData, topSaleProduct,fruitProduct,vegetableProduct,promotionProduct} = useSelector(
     (state: RootState) => state.product
   );
 
@@ -26,7 +26,7 @@ const ProductList = ({ category }: ProductListProps) => {
     case 'discounted':
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24">
-          {productData.slice(0, 3).map((data) => (
+          {promotionProduct.slice(1, 4).map((data) => (
             <ProductCard
               key={data.productId}
               {...data}
@@ -40,7 +40,7 @@ const ProductList = ({ category }: ProductListProps) => {
     case 'popular':
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 ">
-          {productData.slice(0, 3).map((data, index) => (
+          {topSaleProduct.map((data, index) => (
             <ProductCard
               key={data.productId}
               {...data}
@@ -51,10 +51,24 @@ const ProductList = ({ category }: ProductListProps) => {
           ))}
         </ul>
       );
+    case 'seasonalVegetable':
+      return (
+        <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-84">
+          {vegetableProduct.slice(0, 3).map((data) => (
+            <ProductCard
+              key={data.productId}
+              {...data}
+              imgBorderStyle="border-white"
+              priceBorderStyle="white"
+              originalPriceStyle="white"
+            />
+          ))}
+        </ul>
+      );
     case 'seasonalfruit':
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-84">
-          {productData.slice(0, 3).map((data) => (
+          {fruitProduct.map((data) => (
             <ProductCard
               key={data.productId}
               {...data}

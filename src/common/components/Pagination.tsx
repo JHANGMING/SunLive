@@ -48,7 +48,7 @@ const Pagination = ({
       {pageNumbers.map((number) => (
         <li
           key={number}
-          className={`cursor-pointer w-42 h-40 rounded-full flex justify-center items-center hover:opacity-60 ${currentPage === number ? 'bg-primary-green text-white ' : 'bg-white border border-lightGray'}`}
+          className={`cursor-pointer w-40 h-40 rounded-full flex justify-center items-center hover:opacity-60 ${currentPage === number ? 'bg-primary-green text-white ' : 'bg-white border border-lightGray'}`}
           onClick={() => {
             paginate(number);
             scrollToElement();

@@ -10,11 +10,18 @@ import { ProductShopProps } from '@/modules/ProductPage/data';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setAllProductsData } from '@/redux/features/productSlice';
-const ProductShop = ({ allproductsData}:ProductShopProps) => {
+
+const ProductShop = ({
+  allproductsData,
+  topSaleProduct,
+  promotionProduct,
+  fruitProduct,
+  vegetableProduct,
+}: ProductShopProps) => {
   const dispatch = useDispatch();
-   useEffect(() => {
-     dispatch(setAllProductsData(allproductsData));
-   }, [ allproductsData]);
+  useEffect(() => {
+    dispatch(setAllProductsData({allproductsData, topSaleProduct, promotionProduct, fruitProduct, vegetableProduct}));
+  }, [allproductsData]);
 
   return (
     <Layout pageCategory="productPage">
@@ -29,18 +36,48 @@ export default ProductShop;
 
 export async function getServerSideProps() {
   let allproductsData: AllproductsDataType = [];
+  let topSaleProduct = [];
+  let promotionProduct = [];
+  let fruitProduct = [];
+  let vegetableProduct = [];
+
   try {
     // 取得所有商品
-    const apiParams: ApiParamsType = {
+    const allParams: ApiParamsType = {
       apiPath: apiPaths['allproducts'],
       method: 'GET',
     };
-    allproductsData = await fetchApi(apiParams);
+
+    const allproductsResponse = await fetchApi(allParams);
+    if (allproductsResponse.statusCode === 200) {
+      allproductsData = allproductsResponse.data;
+    }
+
     
+    const otherCategoryParams: ApiParamsType = {
+      apiPath: apiPaths['otherCategory'],
+      method: 'GET',
+    };
+
+    const otherCategoryResponse = await fetchApi(otherCategoryParams);
+    if (otherCategoryResponse.statusCode === 200) {
+      const { data } = otherCategoryResponse;
+      topSaleProduct = data.topSaleProduct;
+      promotionProduct = data.promotionProduct;
+      fruitProduct = data.fruitProduct;
+      vegetableProduct = data.vegetableProduct;
+    }
   } catch (error) {
     console.error(error);
   }
   
-
-  return { props: { allproductsData } };
+  return {
+    props: {
+      allproductsData,
+      topSaleProduct,
+      promotionProduct,
+      fruitProduct,
+      vegetableProduct,
+    },
+  };
 }

@@ -5,13 +5,26 @@ import { BsFillGeoFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
 import ProductList from '@/common/components/product/ProductList';
 import { useProducts } from '@/common/hooks/ProductsRefContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const DiscountedSection = () => {
   const refs = useProducts();
-
+  const { promotionProduct } = useSelector((state: RootState) => state.product);
   if (!refs) return null;
   const { discountedProductsRef } = refs;
-
+  const firstPromotionProduct = promotionProduct[0];
+  const {
+    farmerImg,
+    farmerName,
+    origin,
+    productId,
+    productImg,
+    productSpecId,
+    productTitle,
+    smallOriginalPrice,
+    smallPromotionPrice,
+  } = firstPromotionProduct;
   return (
     <section className="bg-white py-60" ref={discountedProductsRef}>
       <div className="container">
@@ -20,8 +33,8 @@ const DiscountedSection = () => {
           <li className=" col-span-8">
             <div className=" relative">
               <Image
-                src="/images/productShop/discountedImg1.png"
-                alt="discountedImg1"
+                src={productImg.src}
+                alt={productImg.alt}
                 width={854}
                 height={381}
                 className="w-[854px] h-[381px] hover:opacity-50 border-dashed border-2 border-primary-red rounded-20 transition duration-800 ease-in-out"
@@ -41,7 +54,7 @@ const DiscountedSection = () => {
           <li className=" col-span-4 px-16 flex flex-col gap-24">
             <div className="flex gap-16 ">
               <LogoImg classProps="w-50 h-50" />
-              <h2>紫禧有機天使茄</h2>
+              <h2>{productTitle}</h2>
             </div>
             <p className=" text-18 ">
               採摘自有機農園，紫禧有機天使茄散發著深邃的紫色，宛如天使的羽翼。
@@ -57,7 +70,7 @@ const DiscountedSection = () => {
                   className="w-40 h-40 rounded-full border-2 border-primary-yellow"
                 />
                 <p>小農</p>
-                <h6 className=" text-16 font-normal">陳雅安</h6>
+                <h6 className=" text-16 font-normal">{farmerName}</h6>
               </li>
               <li className="flex gap-8 items-center">
                 <BsFillGeoFill
@@ -65,7 +78,7 @@ const DiscountedSection = () => {
                   className=" bg-primary-yellow rounded-full p-8"
                 />
                 <p>產地</p>
-                <h6 className=" text-16 font-normal">苗栗市</h6>
+                <h6 className=" text-16 font-normal">{origin}</h6>
               </li>
             </ul>
             <div className=" flex justify-between">
@@ -73,15 +86,17 @@ const DiscountedSection = () => {
                 <p className=" text-mediumGray py-6 px-20 rounded-8 border border-lightGray text-center font-bold">
                   價格
                 </p>
-                <h4 className=" text-primary-red">199</h4>
+                <h4 className=" text-primary-red">{smallPromotionPrice}</h4>
                 <span className=" text-lightGray text-18 line-through">
-                  399
+                  {smallOriginalPrice}
                 </span>
               </div>
               <Button
                 category="addCart"
                 btnStyle="bg-primary-red border-white"
-                textStyle="text-white">
+                textStyle="text-white"
+                productSpecId={productSpecId}
+                >
                 加入購物車
               </Button>
             </div>
