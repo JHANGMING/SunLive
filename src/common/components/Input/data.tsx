@@ -70,3 +70,8 @@ export type PersonInputProps = {
   isdisabled?: boolean;
   value?: string;
 };
+
+export type SearchInputProps = {
+  headerVisible?: boolean;
+  onClick?: () => void;
+};

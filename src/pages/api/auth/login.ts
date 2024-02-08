@@ -1,7 +1,7 @@
+import { setCookie } from 'cookies-next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { setCookie } from 'cookies-next';
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,6 +23,7 @@ export default async function handler(
       secure: true,
       sameSite: 'strict',
       path: '/',
+      maxAge: 24 * 60 * 60,
     });
     res.status(200).json(result);
   } catch (error) {

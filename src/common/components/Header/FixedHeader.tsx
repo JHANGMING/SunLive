@@ -39,7 +39,7 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
 
   return (
     <div
-      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0 hidden `}>
+      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0`}>
       <div className="container flex justify-between items-center ">
         <div className="w-400 flex ">
           <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />
@@ -53,7 +53,9 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
               <BsSearch className="text-20 text-mediumGray" />
             </div>
           ) : (
-            <SearchInput headerVisible={true} onClick={handleSearchClick} />
+            <SearchInput headerVisible={true} 
+            onClick={handleSearchClick} 
+            />
           )}
         </div>
         <div className="flex gap-40 items-center justify-end w-400">

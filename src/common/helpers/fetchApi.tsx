@@ -5,6 +5,7 @@ export type ApiParamsType = {
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
   data?: unknown;
   authToken?: string;
+  serchQuery?: string;
 };
 
 const fetchApi = async(apiParams : ApiParamsType) => {
@@ -20,6 +21,7 @@ const fetchApi = async(apiParams : ApiParamsType) => {
       data !== null && { body: JSON.stringify(data) }),
     ...(typeof data === 'string' && { body: data }),
   };
+
   try {
     const res = await fetch(url, requestOptions);
     const result = await res.json();
