@@ -14,6 +14,7 @@ const ProductShop = ({
   promotionProduct,
   fruitProduct,
   vegetableProduct,
+  topSaleProduct,
 }: ProductShopProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,6 +24,7 @@ const ProductShop = ({
         promotionProduct,
         fruitProduct,
         vegetableProduct,
+        topSaleProduct,
       })
     );
   }, [
@@ -30,6 +32,7 @@ const ProductShop = ({
     promotionProduct,
     fruitProduct,
     vegetableProduct,
+    topSaleProduct,
   ]);
 
   return (
@@ -48,7 +51,7 @@ export async function getServerSideProps() {
   let promotionProduct = [];
   let fruitProduct = [];
   let vegetableProduct = [];
-
+  let topSaleProduct = [];
   try {
     // 取得所有商品
     const allParams: ApiParamsType = {
@@ -73,6 +76,7 @@ export async function getServerSideProps() {
       promotionProduct = data.promotionProduct;
       fruitProduct = data.fruitProduct;
       vegetableProduct = data.vegetableProduct;
+      topSaleProduct = data.topSaleProduct;
     }
   } catch (error) {
     console.error(error);
@@ -84,6 +88,7 @@ export async function getServerSideProps() {
       promotionProduct,
       fruitProduct,
       vegetableProduct,
+      topSaleProduct,
     },
   };
 }

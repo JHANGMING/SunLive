@@ -3,22 +3,23 @@ import { RootState } from '@/redux/store';
 import { numberToChinese } from '@/common/helpers/numberToChinese';
 import PaginatedProductList from './PaginatedProductList';
 import ProductCard from './ProductCard';
-import { ProductListProps, productData } from './data';
+import { ProductListProps } from './data';
 import Loading from '../Loading';
 
 const ProductList = ({ category }: ProductListProps) => {
   const { searchData, allProductsData, topSaleProduct,fruitProduct,vegetableProduct,promotionProduct,productInfoByUser} = useSelector(
     (state: RootState) => state.product
   );
-    
-    
   switch (category) {
     case 'landingPage':
+      if (!topSaleProduct || topSaleProduct.length === 0) {
+        return <Loading />;
+      }
       return (
         <ul className="grid grid-cols-4 lg:grid-cols-12 auto-rows-min gap-x-24 gap-y-24 lg:gap-y-84">
-          {productData.map((data) => (
+          {topSaleProduct.map((data) => (
             <ProductCard
-              key={data.productTitle}
+              key={data.productId}
               {...data}
               imgBorderStyle="border-primary-yellow"
             />

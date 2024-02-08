@@ -49,7 +49,6 @@ export async function getServerSideProps() {
     if (otherCategoryResponse.statusCode === 200) {
       const { data } = otherCategoryResponse;
       topSaleProduct = data.topSaleProduct;
-
     }
   } catch (error) {
     console.error(error);

@@ -5,4 +5,5 @@ export type ProductShopProps = {
   promotionProduct: AllproductsDataType;
   fruitProduct: AllproductsDataType;
   vegetableProduct: AllproductsDataType;
+  topSaleProduct: AllproductsDataType;
 };

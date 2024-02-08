@@ -1,14 +1,17 @@
 import Image from '@/common/components/CustomImage';
 import { ProductDataProps } from './data';
+import { LiveProductItemType } from '@/constants/types/live/live';
 
-const UpcomingProduct = ({ ...data }: ProductDataProps) => {
+const UpcomingProduct = ({ ...data }:LiveProductItemType) => {
   const {
-    price,
-    title,
-    personName,
-    date,
-    productImage,
-    personImage,
+    liveId,
+    liveProductId,
+    liveProductName,
+    livePrice,
+    liveFarmer,
+    liveFarmerPic,
+    livePic,
+    liveTime,
     classStyle,
   } = data;
 
@@ -16,8 +19,9 @@ const UpcomingProduct = ({ ...data }: ProductDataProps) => {
     <li className={`flex gap-24 ${classStyle}`}>
       <div className=" relative">
         <Image
-          src={productImage.src}
-          alt={productImage.alt}
+          src={livePic === null ? '/images/product/product1.png' : livePic}
+          alt={liveProductName}
+          roundedStyle='object-cover rounded-20'
           className="border-2 border-dashed border-primary-red outline outline-8 outline-primary-red rounded-20 h-[200px] w-[240px] opacity-60"
         />
         <div className=" absolute left-0 top-0">
@@ -30,21 +34,25 @@ const UpcomingProduct = ({ ...data }: ProductDataProps) => {
       </div>
       <div className="flex flex-col gap-24">
         <p className="border border-dashed border-primary-red text-primary-red rounded-50 py-10 w-[67px] text-center">
-          $ {price}
+          $ {livePrice}
         </p>
         <h5 className="border-b border-black font-bold text-mediumGray">
-          {title}
+          {liveProductName}
         </h5>
         <div className="flex flex-col gap-8">
           <div className="flex gap-8 items-center">
             <Image
-              src={personImage.src}
-              alt={personImage.alt}
+              src={
+                liveFarmerPic === null
+                  ? '/images/home/live/liveComingPerson1.png'
+                  : liveFarmerPic
+              }
+              alt={liveFarmer}
               className="w-40 h-40"
             />
-            <p className=" text-primary-green">{personName}</p>
+            <p className=" text-primary-green">{liveProductName}</p>
           </div>
-          <time className="text-primary-green">{date}</time>
+          <time className="text-primary-green">{liveTime}</time>
         </div>
       </div>
     </li>

@@ -7,6 +7,7 @@ export type LiveProductItemType = {
   liveFarmerPic: string;
   livePic: string;
   liveTime: string;
+  classStyle?: string;
 };
 
 

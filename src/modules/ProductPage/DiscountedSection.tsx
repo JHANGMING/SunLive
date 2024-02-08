@@ -7,6 +7,8 @@ import ProductList from '@/common/components/product/ProductList';
 import { useProducts } from '@/common/hooks/ProductsRefContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import Loading from '@/common/components/Loading';
+import Link from 'next/link';
 
 const DiscountedSection = () => {
   const refs = useProducts();
@@ -14,14 +16,14 @@ const DiscountedSection = () => {
   if (!refs) return null;
   const { discountedProductsRef } = refs;
   if (!promotionProduct || promotionProduct.length === 0) {
-    return <div>No Promotion Products Found</div>;
+    return <Loading />;
   }
   const firstPromotionProduct = promotionProduct[0];
   const {
     // farmerImg,
     farmerName,
     origin,
-    // productId,
+    productId,
     productImg,
     productSpecId,
     productTitle,
@@ -34,9 +36,13 @@ const DiscountedSection = () => {
         <CategoryTitle title="特價農產品" gapStyle="mb-24" />
         <ul className="grid grid-cols-12 gap-24 items-center mb-60">
           <li className=" col-span-8">
-            <div className=" relative">
+            <Link href={`/productshop/${productId}`} className=" relative">
               <Image
-                src={productImg.src}
+                src={
+                  productImg.src === null
+                    ? '/images/productShop/comingSoon.svg'
+                    : productImg.src
+                }
                 alt={productImg.alt}
                 width={854}
                 height={381}
@@ -52,13 +58,13 @@ const DiscountedSection = () => {
               <h4 className="absolute left-0 bottom-0 w-full bg-primary-red h-60 opacity-80 flex justify-center items-center text-white rounded-bl-20 rounded-br-20">
                 限時折扣
               </h4>
-            </div>
+            </Link>
           </li>
           <li className=" col-span-4 px-16 flex flex-col gap-24">
-            <div className="flex gap-16 ">
+            <Link href={`/productshop/${productId}`} className="flex gap-16 ">
               <LogoImg classProps="w-50 h-50" />
               <h2>{productTitle}</h2>
-            </div>
+            </Link>
             <p className=" text-18 ">
               採摘自有機農園，紫禧有機天使茄散發著深邃的紫色，宛如天使的羽翼。
             </p>
@@ -98,8 +104,7 @@ const DiscountedSection = () => {
                 category="addCart"
                 btnStyle="bg-primary-red border-white"
                 textStyle="text-white"
-                productSpecId={productSpecId}
-                >
+                productSpecId={productSpecId}>
                 加入購物車
               </Button>
             </div>
