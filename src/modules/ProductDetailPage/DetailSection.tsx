@@ -17,9 +17,9 @@ const DetailSection = ({ detailProduct }:DetailSectionProps) => {
   const selectSpec = (spec: string) => {
     setSelectedSpec(spec);
   };
-  // const handlerAddCart = () => {
-  //   console.log("spec");
-  // };
+  const handlerAddCart = () => {
+    console.log(selectedSpec,qty);
+  };
   const handlerToBuy = () => {
     console.log('handlerToBuy');
   };
@@ -134,7 +134,7 @@ const DetailSection = ({ detailProduct }:DetailSectionProps) => {
           <div className="flex gap-24">
             <Button
               category="addCart"
-              // onClick={handlerAddCart}
+              onClick={handlerAddCart}
               showIcon={false}
               btnStyle="bg-white border-primary-red w-full flex justify-center items-center h-48"
               textStyle="text-primary-red">
