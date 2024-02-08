@@ -1,6 +1,6 @@
 export type ProductCardProps = {
   productTitle: string;
-  description: string;
+  description?: string;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
   productSpecId?: number;

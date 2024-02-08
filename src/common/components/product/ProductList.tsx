@@ -6,7 +6,10 @@ import ProductCard from './ProductCard';
 import { ProductListProps, allproductData, productData } from './data';
 
 const ProductList = ({ category }: ProductListProps) => {
-  const { data:searchData } = useSelector((state: RootState) => state.product);
+  const { searchData, allProductsData } = useSelector(
+    (state: RootState) => state.product
+  );
+
   switch (category) {
     case 'landingPage':
       return (
@@ -89,7 +92,7 @@ const ProductList = ({ category }: ProductListProps) => {
         </ul>
       );
     case 'all':
-      return <PaginatedProductList data={allproductData} itemsPerPage={9} />;
+      return <PaginatedProductList data={allProductsData} itemsPerPage={9} />;
 
     default:
       return null;

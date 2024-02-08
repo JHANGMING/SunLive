@@ -1,21 +1,16 @@
+import { AllproductsDataType } from '@/constants/types/product/allproducts';
+import { SearchDataType } from '@/constants/types/product/search';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface productImgType {
-  src: string;
-  alt: string;
-}
+interface InitialStateType{
+  searchData: SearchDataType;
+  allProductsData:AllproductsDataType;
+  searchTag: string;
 
-export interface productData {
-  productId: number;
-  productTitle: string;
-  description: string;
-  smallOriginalPrice: number;
-  smallPromotionPrice: number;
-  productImg: productImgType;
-  productSpecId: number;
-}
-const initialState: { data: productData[]; searchTag:string } = {
-  data: [],
+} 
+const initialState: InitialStateType = {
+  searchData: [],
+  allProductsData: [],
   searchTag: '',
 };
 
@@ -24,19 +19,20 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     setSearchData(state, action) {
-      console.log('action.payload.data', action.payload);
-      
-
-      // const { nickname, token } = action.payload
-      // return { ...state };
       return {
         ...state,
-        data: action.payload.data,
+        searchData: action.payload.data,
         searchTag: action.payload.searchTag,
       };
     },
+    setAllProductsData(state, action) {
+      return {
+        ...state,
+        allProductsData: action.payload.data,
+      };
+    }
   },
 });
 
-export const { setSearchData } = productSlice.actions;
+export const { setSearchData, setAllProductsData } = productSlice.actions;
 export default productSlice.reducer;

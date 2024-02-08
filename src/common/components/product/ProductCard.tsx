@@ -49,7 +49,7 @@ const ProductCard = ({
                   : productImg.src
               }
               alt={productImg.alt}
-              roundedStyle="rounded-20 h-full"
+              roundedStyle="rounded-20 h-full object-cover"
               className={`w-[148px] h-[136px] lg:w-[416px] lg:h-[381px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${imgBorderStyle}`}
             />
           </div>
