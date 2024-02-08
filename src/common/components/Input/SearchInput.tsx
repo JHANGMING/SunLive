@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,8 +23,6 @@ const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log(result);
-
       if (result.statusCode === 200) {
         dispatch(setSearchData({ data: result.data, searchTag: inputValue }));
         router.push('/search');

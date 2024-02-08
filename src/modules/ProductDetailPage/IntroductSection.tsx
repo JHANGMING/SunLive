@@ -71,7 +71,7 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
                     <p className="text-14 text-white">我想跟小農聊聊</p>
                   </div>
                 </div>
-                <div className=" text-primary-green bg-primary-yellow flex justify-center items-center gap-8 py-16 rounded-20 w-[421px]  mb-16">
+                <div className=" text-primary-green bg-primary-yellow flex  items-center gap-8 py-16 rounded-20 px-16  mb-16">
                   <LogoImg classProps="w-32 h-32" />
                   <p className="font-bold">{detailProduct.farmerVision}</p>
                 </div>

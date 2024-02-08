@@ -18,7 +18,7 @@ const DetailSection = ({ detailProduct }:DetailSectionProps) => {
     setSelectedSpec(spec);
   };
   // const handlerAddCart = () => {
-  //   console.log(spec);
+  //   console.log("spec");
   // };
   const handlerToBuy = () => {
     console.log('handlerToBuy');
