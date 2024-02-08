@@ -11,6 +11,7 @@ const ProductCard = ({
   description,
   smallOriginalPrice,
   smallPromotionPrice,
+  productSpecId,
   label,
   labelStyle,
   imgBorderStyle,
@@ -42,7 +43,11 @@ const ProductCard = ({
         <Link href="/productshop/11" className=" relative">
           <div className="flex justify-center">
             <Image
-              src={productImg.src===null?'/images/product/product1.png':productImg.src}
+              src={
+                productImg.src === null
+                  ? '/images/product/product1.png'
+                  : productImg.src
+              }
               alt={productImg.alt}
               roundedStyle="rounded-20 h-full"
               className={`w-[148px] h-[136px] lg:w-[416px] lg:h-[381px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${imgBorderStyle}`}
@@ -93,7 +98,8 @@ const ProductCard = ({
         <Button
           category="addCart"
           btnStyle={`${buttonAtBottom ? 'w-full flex justify-center bg-primary-red border-white' : 'bg-primary-red border-white'}`}
-          textStyle="text-white">
+          textStyle="text-white"
+          productSpecId={productSpecId}>
           加入購物車
         </Button>
       </div>

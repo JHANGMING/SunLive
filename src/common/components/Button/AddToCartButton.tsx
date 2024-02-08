@@ -8,14 +8,15 @@ const AddToCartButton = ({
   textStyle,
   showIcon = true,
   disabled = false,
+  productSpecId,
   // productId, // 新增 productId
 }: ButtonPropsType) => {
   const router = useRouter();
   const { authStatus } = useAuthStatus();
   const handleCartAddition = () => {
     if (disabled) return;
-    console.log('加入購物車11');
-    
+    console.log(productSpecId); //後端用這判斷產品
+
     if (!authStatus) {
       router.push('/auth/login');
       return;
@@ -34,7 +35,10 @@ const AddToCartButton = ({
       {showIcon && (
         <BsHandIndex className="hidden lg:block w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4" />
       )}
-      <p className={`${textStyle} text-12 lg:text-16 lg:font-bold tracking-widest`}>{children}</p>
+      <p
+        className={`${textStyle} text-12 lg:text-16 lg:font-bold tracking-widest`}>
+        {children}
+      </p>
     </button>
   );
 };
