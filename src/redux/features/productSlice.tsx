@@ -1,3 +1,4 @@
+import { LivesDataType } from '@/constants/types/live/live';
 import { AllproductsDataType } from '@/constants/types/product/allproducts';
 import { DetailproductItemType } from '@/constants/types/product/detail';
 import { PromotionDataType } from '@/constants/types/product/promotion';
@@ -13,6 +14,7 @@ interface InitialStateType {
   vegetableProduct: AllproductsDataType;
   detailProduct: DetailproductItemType;
   productInfoByUser: AllproductsDataType;
+  liveData: LivesDataType;
   searchTag: string;
 } 
 const initialState: InitialStateType = {
@@ -24,6 +26,7 @@ const initialState: InitialStateType = {
   vegetableProduct: [],
   detailProduct:{} as DetailproductItemType,
   productInfoByUser: [],
+  liveData: {} as LivesDataType,
   searchTag: '',
 };
 
@@ -47,8 +50,8 @@ export const productSlice = createSlice({
         vegetableProduct,
         detailProduct,
         productInfoByUser,
+        liveData,
       } = action.payload;
-      
       return {
         ...state,
         allProductsData: allproductsData,
@@ -58,6 +61,7 @@ export const productSlice = createSlice({
         vegetableProduct: vegetableProduct,
         detailProduct: detailProduct,
         productInfoByUser: productInfoByUser,
+        liveData: liveData,
       };
     }
   },

@@ -11,6 +11,9 @@ export const apiPaths = {
 
   //detail
   detail: '/api/product',
+
+  //live
+  live: '/api/live',
 };
 
 export const nextRoutes = {
