@@ -1,5 +1,8 @@
+
 import { AllproductsDataType } from "@/constants/types/product/allproducts";
-import { DetailproductDataType } from "@/constants/types/product/detail";
+import { DetailproductItemType } from "@/constants/types/product/detail";
+
+
 
 export const productData = [
   {
@@ -12,21 +15,25 @@ export const productData = [
   },
   {
     src: '/images/productShop/discountedImg3.png',
-    alt: 'product3',
+    alt: 'product33',
   },
   {
     src: '/images/product/product1.png',
-    alt: 'product3',
+    alt: 'product333',
   },
   {
     src: '/images/productShop/discountedImg1.png',
-    alt: 'product3',
+    alt: 'product33333',
   },
 ];
 
 export type ProductDetailProps = {
   detailData:{
-    detailProduct: DetailproductDataType;
+    detailProduct: DetailproductItemType;
     productInfoByUser: AllproductsDataType;
   }
+};
+
+export type DetailSectionProps = {
+  detailProduct: DetailproductItemType;
 };

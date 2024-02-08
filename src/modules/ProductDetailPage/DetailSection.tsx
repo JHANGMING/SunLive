@@ -3,11 +3,14 @@ import LogoImg from '@/common/components/Logo/LogoImg';
 import Image from 'next/image';
 import { useState } from 'react';
 import { BsDashCircleFill, BsPlusCircleFill } from 'react-icons/bs';
-import { productData } from './data';
+import { DetailSectionProps, productData } from './data';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
-const DetailSection = () => {
+const DetailSection = ({ detailProduct }:DetailSectionProps) => {
   const [qty, setQty] = useState(1);
   const [selectedSpec, setSelectedSpec] = useState('small');
+
   const updateCount = (isIncrement: boolean) => {
     setQty((prevCount) => (isIncrement ? prevCount + 1 : prevCount - 1));
   };
@@ -68,18 +71,24 @@ const DetailSection = () => {
         <div className="col-span-6 ml-16">
           <div className="flex items-center gap-16 mb-8">
             <LogoImg classProps="w-32 h-32" />
-            <h2 className=" text-primary-green">甜蜜時光有機草莓</h2>
+            <h2 className=" text-primary-green">
+              {detailProduct.productTitle}
+            </h2>
           </div>
-          <p className=" text-18 mb-16">
-            在我們溫網室內，透過完全無農藥的種植方式，獲得了友善驗證。
-            我們精心自製液肥，並以生物防治維持作物健康。
-          </p>
+          <p className=" text-18 mb-16">{detailProduct.productDescription}</p>
           <div className=" mb-16">
             <p className=" text-primary-green text-16 font-bold ">優惠價</p>
             <div className="flex items-center gap-8">
-              <h4 className="text-primary-red">$250</h4>
+              <h4 className="text-primary-red">
+                $
+                {selectedSpec === 'small'
+                  ? detailProduct.smallPromotionPrice
+                  : detailProduct.largePromotionPrice}
+              </h4>
               <span className=" text-lightGray font-bold text-14 line-through">
-                500
+                {selectedSpec === 'small'
+                  ? detailProduct.smallOriginalPrice
+                  : detailProduct.largeOriginalPrice}
               </span>
             </div>
           </div>
@@ -91,13 +100,13 @@ const DetailSection = () => {
                 type="button"
                 className={getButtonClass('small')}
                 onClick={() => selectSpec('small')}>
-                小份 (200g)
+                小份 ({detailProduct.smallWeight}g)
               </button>
               <button
                 type="button"
                 className={getButtonClass('large')}
                 onClick={() => selectSpec('large')}>
-                大份 (400g)
+                大份 ({detailProduct.largeWeight}g)
               </button>
             </div>
           </div>

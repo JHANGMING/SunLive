@@ -31,7 +31,6 @@ export default ProductDetail;
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const params = context.params;
   const productId = params ? params['productId'] : null;
-  console.log(productId);
   let detailData=[];
   try {
     // 取得商品細節

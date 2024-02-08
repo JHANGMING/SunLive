@@ -13,12 +13,15 @@ const DiscountedSection = () => {
   const { promotionProduct } = useSelector((state: RootState) => state.product);
   if (!refs) return null;
   const { discountedProductsRef } = refs;
+  if (!promotionProduct || promotionProduct.length === 0) {
+    return <div>No Promotion Products Found</div>;
+  }
   const firstPromotionProduct = promotionProduct[0];
   const {
-    farmerImg,
+    // farmerImg,
     farmerName,
     origin,
-    productId,
+    // productId,
     productImg,
     productSpecId,
     productTitle,

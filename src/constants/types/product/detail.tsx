@@ -30,4 +30,4 @@ export type DetailproductItemType = {
   };
 };
 
-export type DetailproductDataType = DetailproductItemType[];
+
