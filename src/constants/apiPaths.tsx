@@ -8,6 +8,9 @@ export const apiPaths = {
   search: '/api/product/search',
   allproducts: '/api/product/all',
   otherCategory: '/api/product',
+
+  //detail
+  detail: '/api/product',
 };
 
 export const nextRoutes = {

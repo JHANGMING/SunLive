@@ -1,3 +1,6 @@
+import { AllproductsDataType } from "@/constants/types/product/allproducts";
+import { DetailproductDataType } from "@/constants/types/product/detail";
+
 export const productData = [
   {
     src: '/images/productDetail/detailImg1.svg',
@@ -20,3 +23,10 @@ export const productData = [
     alt: 'product3',
   },
 ];
+
+export type ProductDetailProps = {
+  detailData:{
+    detailProduct: DetailproductDataType;
+    productInfoByUser: AllproductsDataType;
+  }
+};

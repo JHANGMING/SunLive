@@ -1,4 +1,3 @@
-
 import ProductPage from '@/modules/ProductPage';
 import { ProductsRefProvider } from '@/common/hooks/ProductsRefContext';
 import Layout from '@/common/components/Layout';
@@ -20,8 +19,22 @@ const ProductShop = ({
 }: ProductShopProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setAllProductsData({allproductsData, topSaleProduct, promotionProduct, fruitProduct, vegetableProduct}));
-  }, [allproductsData]);
+    dispatch(
+      setAllProductsData({
+        allproductsData,
+        topSaleProduct,
+        promotionProduct,
+        fruitProduct,
+        vegetableProduct,
+      })
+    );
+  }, [
+    allproductsData,
+    topSaleProduct,
+    promotionProduct,
+    fruitProduct,
+    vegetableProduct,
+  ]);
 
   return (
     <Layout pageCategory="productPage">
@@ -53,7 +66,7 @@ export async function getServerSideProps() {
       allproductsData = allproductsResponse.data;
     }
 
-    
+    // 取得其他分類商品
     const otherCategoryParams: ApiParamsType = {
       apiPath: apiPaths['otherCategory'],
       method: 'GET',
@@ -70,7 +83,7 @@ export async function getServerSideProps() {
   } catch (error) {
     console.error(error);
   }
-  
+
   return {
     props: {
       allproductsData,

@@ -104,11 +104,11 @@ const IntroductSection = () => {
             <div className="grid grid-cols-12 gap-24">
               <ul className=" col-start-2 col-end-11 flex flex-col gap-24">
                 <li>
-                  <p className="text-18 text-primary-green">規格</p>
+                  <p className="text-18 text-primary-green">產地</p>
                   <span>苗栗市</span>
                 </li>
                 <li>
-                  <p className="text-18 text-primary-green">產地</p>
+                  <p className="text-18 text-primary-green">規格</p>
                   <span>小份：200g / 大份：400g</span>
                 </li>
                 <li>

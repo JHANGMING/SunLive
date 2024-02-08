@@ -1,4 +1,5 @@
 import { AllproductsDataType } from '@/constants/types/product/allproducts';
+import { DetailproductDataType } from '@/constants/types/product/detail';
 import { PromotionDataType } from '@/constants/types/product/promotion';
 import { SearchDataType } from '@/constants/types/product/search';
 import { createSlice } from '@reduxjs/toolkit';
@@ -10,6 +11,8 @@ interface InitialStateType {
   promotionProduct: PromotionDataType;
   fruitProduct: AllproductsDataType;
   vegetableProduct: AllproductsDataType;
+  detailProduct: DetailproductDataType;
+  productInfoByUser: AllproductsDataType;
   searchTag: string;
 } 
 const initialState: InitialStateType = {
@@ -19,6 +22,8 @@ const initialState: InitialStateType = {
   promotionProduct: [],
   fruitProduct: [],
   vegetableProduct: [],
+  detailProduct: [],
+  productInfoByUser: [],
   searchTag: '',
 };
 
@@ -34,7 +39,15 @@ export const productSlice = createSlice({
       };
     },
     setAllProductsData(state, action) {
-      const{ allproductsData, topSaleProduct, promotionProduct, fruitProduct, vegetableProduct } = action.payload;
+      const {
+        allproductsData,
+        topSaleProduct,
+        promotionProduct,
+        fruitProduct,
+        vegetableProduct,
+        detailProduct,
+        productInfoByUser,
+      } = action.payload;
       
       return {
         ...state,
@@ -43,6 +56,8 @@ export const productSlice = createSlice({
         promotionProduct: promotionProduct,
         fruitProduct: fruitProduct,
         vegetableProduct: vegetableProduct,
+        detailProduct: detailProduct,
+        productInfoByUser: productInfoByUser,
       };
     }
   },
