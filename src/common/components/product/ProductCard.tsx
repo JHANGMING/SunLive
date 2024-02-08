@@ -26,9 +26,12 @@ const ProductCard = ({
   const originalPriceClass =
     originalPriceStyle === 'white' ? 'text-white' : 'text-lightGray';
   const cardGapStyle = cardGapThreeCol
-    ? 'col-span-2 lg:col-span-4'
+    ? 'col-span-2 col-span-4'
     : 'col-span-3';
   const cardTitleStyle = cardGapThreeCol || 'text-24';
+  const cardImageStyle = cardGapThreeCol
+    ? 'lg:w-[416px] lg:h-[381px]'
+    : 'lg:w-[306px] lg:h-[284px]';
   const [animation, setAnimation] = useState('product-card-enter');
 
   useEffect(() => {
@@ -51,7 +54,7 @@ const ProductCard = ({
               }
               alt={productImg.alt}
               roundedStyle="rounded-20 h-full object-cover"
-              className={`w-[148px] h-[136px] lg:w-[416px] lg:h-[381px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${imgBorderStyle}`}
+              className={`w-[148px] h-[136px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${cardImageStyle} ${imgBorderStyle}`}
             />
           </div>
           {label && (

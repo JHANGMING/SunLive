@@ -1,7 +1,8 @@
 import Image from 'next/image';
+import * as DOMPurify from 'dompurify';
 import CategoryTitle from '../ProductPage/CategoryTitle';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useScrollToElement from '@/common/hooks/useScrollToRef';
 import { DetailSectionProps } from './data';
 
@@ -10,7 +11,10 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
   const [farmerRef, scrollToFarmer] = useScrollToElement();
   const [productRef, scrollToProduct] = useScrollToElement();
   const [specificationRef, scrollToSpecification] = useScrollToElement();
-
+  const [cleanHtml, setCleanHtml] = useState('');
+  useEffect(() => {
+    setCleanHtml(DOMPurify.sanitize(detailProduct.introduction));
+  }, [detailProduct.introduction]);
   const isSelected = (name: string) => selected === name;
   return (
     <section className=" bg-detailBG pt-100 bg-repeat-x  ">
@@ -78,8 +82,10 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
           <li ref={productRef} className="mb-40">
             <CategoryTitle title="商品介紹" gapStyle="mb-24" />
             <div className="grid grid-cols-12 gap-24">
-              <div className="col-start-2 col-end-12 flex flex-col gap-y-24">
-                <Image
+              <div
+                className="col-start-2 col-end-12 flex flex-col gap-y-24"
+                dangerouslySetInnerHTML={{ __html: cleanHtml }}>
+                {/* <Image
                   src="/images/productDetail/introductImg_1.png"
                   alt="introductImg_1"
                   width={966}
@@ -92,7 +98,7 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
                   width={966}
                   height={988}
                   className="h-[988px] "
-                />
+                /> */}
               </div>
             </div>
           </li>

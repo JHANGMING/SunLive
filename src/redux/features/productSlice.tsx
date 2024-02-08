@@ -22,7 +22,7 @@ const initialState: InitialStateType = {
   promotionProduct: [],
   fruitProduct: [],
   vegetableProduct: [],
-  detailProduct: [],
+  detailProduct:{} as DetailproductItemType,
   productInfoByUser: [],
   searchTag: '',
 };
