@@ -20,8 +20,8 @@ const UpcomingProduct = ({ ...data }:LiveProductItemType) => {
       <div className=" relative">
         <Image
           src={livePic === null ? '/images/product/product1.png' : livePic}
-          alt={liveProductName}
-          roundedStyle='object-cover rounded-20'
+          alt={`liveProductName-${liveId}`}
+          roundedStyle="object-cover rounded-20"
           className="border-2 border-dashed border-primary-red outline outline-8 outline-primary-red rounded-20 h-[200px] w-[240px] opacity-60"
         />
         <div className=" absolute left-0 top-0">
@@ -47,7 +47,7 @@ const UpcomingProduct = ({ ...data }:LiveProductItemType) => {
                   ? '/images/home/live/liveComingPerson1.png'
                   : liveFarmerPic
               }
-              alt={liveFarmer}
+              alt={`liveFarmer-${liveId}`}
               className="w-40 h-40"
             />
             <p className=" text-primary-green">{liveProductName}</p>

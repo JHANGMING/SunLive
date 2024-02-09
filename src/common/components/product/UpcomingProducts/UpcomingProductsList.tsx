@@ -7,9 +7,7 @@ import { RootState } from '@/redux/store';
 
 const UpcomingProductsList = () => {
   const { liveData } = useSelector((state: RootState) => state.product);
-
-  const upcomingLive = liveData?.upcomingLive || [];
-
+  const upcomingLive = liveData?.data?.upcomingLive || [];
   const classStyles = ['ml-16', 'ml-102', 'ml-43'];
   const updatedUpcomingLive = upcomingLive.slice(0, 3).map((item, index) => {
     return {
