@@ -38,7 +38,7 @@ export async function getServerSideProps() {
 
     const liveResponse = await fetchApi(liveParams);
     if (liveResponse.statusCode === 200) {
-      liveData = liveResponse.data;
+      liveData = liveResponse;
     }
     // 取得熱門商品
     const otherCategoryParams: ApiParamsType = {

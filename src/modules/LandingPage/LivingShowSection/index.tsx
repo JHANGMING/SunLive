@@ -1,20 +1,23 @@
-import Image from '@/common/components/CustomImage';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import Image from '@/common/components/CustomImage';
+import { RootState } from '@/redux/store';
 import { BsHandIndex } from 'react-icons/bs';
 import LivingProduct from './LivingProduct';
 import YoutubeLiveIfram from './YoutubeLiveLink';
+import { LivingShowSectionProps } from './data';
 
-type LivingShowSectionProps = {
-  isLivePage?: boolean;
-};
 const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
+  const {liveData}=useSelector((state:RootState)=>state.product);
+  const living = liveData?.message === '沒有直播' ? false : true;
   const sectionStyle = isLivePage && '-mt-[180px] bg-white';
+  
   return (
     <>
       <section className="lg:hidden">
         <ul className="container flex flex-col items-center">
           <li className="mb-42">
-            <LivingProduct />
+            <LivingProduct living={living} liveData={liveData} />
           </li>
           <li className="mb-24">
             <YoutubeLiveIfram isLivePage={isLivePage} />
@@ -30,7 +33,7 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
               className="shiny-button text-primary-red bg-white py-8 px-16 lg:py-16 lg:px-24 flex rounded-20 items-center gap-8 lg:gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group">
               <BsHandIndex className=" rotate-90 w-20 h-20 lg:w-24 lg:h-24 transition-transform group-hover:translate-x-4 group-hover:text-mediumGray" />
               <h4 className="text-14 lg:text-24 group-hover:text-mediumGray">
-                立刻加入直播
+                {living ? '立刻加入直播' : '查看更多'}
               </h4>
             </Link>
           </div>
@@ -44,7 +47,7 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
           </li>
           <li className=" col-span-6">
             <div className="grid grid-cols-6 gap-y-116 gap-x-24">
-              <LivingProduct />
+              <LivingProduct living={living} liveData={liveData} />
               <div className="col-span-6 px-27 relative flex flex-col items-center">
                 <div className="absolute -top-155 right-0">
                   <Image
@@ -57,10 +60,12 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
                   「品味夏日，尋找自然的美好。我們自豪地呈獻陽光甘醇有機蕃茄，每一口都是大自然的悠然滋味，新鮮、有機，為您帶來健康美味的味覺饗宴。」
                 </p>
                 <Link
-                  href="/livestream/view"
+                  href={living ? '/livestream/view' : '/livestream/'}
                   className="shiny-button text-primary-red bg-white py-16 px-24 flex rounded-[20px] items-center gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group">
                   <BsHandIndex className=" rotate-90 w-24 h-24 transition-transform group-hover:translate-x-4 group-hover:text-mediumGray" />
-                  <h4 className="group-hover:text-mediumGray">立刻加入直播</h4>
+                  <h4 className="group-hover:text-mediumGray">
+                    {living ? '立刻加入直播' : '查看更多'}
+                  </h4>
                 </Link>
               </div>
             </div>

@@ -1,3 +1,5 @@
+import { LivesDataType } from "@/constants/types/live/live";
+
 export type liveCardProps = {
   title: string;
   farmerName: string;
@@ -7,6 +9,11 @@ export type liveCardProps = {
     alt: string;
   };
 };
+
+export type liveStreamProps = {
+  liveData: LivesDataType;
+};
+
 export const liveCardData: liveCardProps[] = [
   {
     title: '多汁天然有機鳳梨',
