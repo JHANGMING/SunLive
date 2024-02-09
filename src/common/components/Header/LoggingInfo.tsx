@@ -1,15 +1,15 @@
+import { useState } from 'react';
 import Link from 'next/link';
-import { LoggingInfoProps } from './data';
-import { removeAllCookies } from '@/common/helpers/getCookie';
-import LogoImg from '../Logo/LogoImg';
-import useAuth from '@/common/hooks/useAuth';
 import { useRouter } from 'next/router';
+import { setCookie } from 'cookies-next';
+import useAuth from '@/common/hooks/useAuth';
+import { removeAllCookies } from '@/common/helpers/getCookie';
 import { nextRoutes } from '@/constants/apiPaths';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { useEffect, useState } from 'react';
-import Toast from '../Toast';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { setCookie } from 'cookies-next';
+import LogoImg from '../Logo/LogoImg';
+import Toast from '../Toast';
+import { LoggingInfoProps } from './data';
 
 const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
   const [toastMessage, setToastMessage] = useState('');
@@ -18,8 +18,6 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
   const auth = useAuth();
 
   const handlerLoginOut = async () => {
-    // removeAllCookies();
-    // auth?.category === '0' ? router.reload() : router.push('/');
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['logout'],
       method: 'POST',
@@ -30,10 +28,14 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
         removeAllCookies();
         setCookie('authStatus', 'false',);
         auth?.category === '0' ? router.reload() : router.push('/');
-      } else {
+      } else if(result.statusCode === 409) {
+        removeAllCookies();
+        setCookie('authStatus', 'false');
+        router.push('/auth/login');
+        setToastMessage(`${result.message}`);
+      }else {
         setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
       }
-      console.log(result);
     } catch (error) {
       console.error('登入失败', error);
     }
