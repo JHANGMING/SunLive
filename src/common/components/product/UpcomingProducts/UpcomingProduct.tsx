@@ -47,7 +47,7 @@ const UpcomingProduct = ({ ...data }:LiveProductItemType) => {
                   ? '/images/home/live/liveComingPerson1.png'
                   : liveFarmerPic
               }
-              alt={liveFarmer}
+              alt={`liveFarmer-${liveId}`}
               className="w-40 h-40"
             />
             <p className=" text-primary-green">{liveProductName}</p>

@@ -60,7 +60,8 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
                   「品味夏日，尋找自然的美好。我們自豪地呈獻陽光甘醇有機蕃茄，每一口都是大自然的悠然滋味，新鮮、有機，為您帶來健康美味的味覺饗宴。」
                 </p>
                 <Link
-                  href={living ? '/livestream/view' : '/livestream/'}
+                  href={living ? '/livestream/' : '/livestream/view'}
+                  // href={living ? '/livestream/view' : '/livestream/'}
                   className="shiny-button text-primary-red bg-white py-16 px-24 flex rounded-[20px] items-center gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group">
                   <BsHandIndex className=" rotate-90 w-24 h-24 transition-transform group-hover:translate-x-4 group-hover:text-mediumGray" />
                   <h4 className="group-hover:text-mediumGray">
