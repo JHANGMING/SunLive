@@ -79,8 +79,8 @@ const YoutubeLiveIfram = ({
         <iframe
           ref={iframeRef}
           className={`${isViewPage && 'rounded-16'}`}
-          src="https://www.youtube.com/embed/6AGm5u58gRM?enablejsapi=1&mute=1"
-          title="[貳獎] 無人知曉的台灣小農"
+          src="https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM"
+          title="14th Rocket-Sunlive"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           onLoad={handleIframeLoad}></iframe>

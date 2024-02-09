@@ -1,15 +1,20 @@
 import Image from 'next/image';
+import * as DOMPurify from 'dompurify';
 import CategoryTitle from '../ProductPage/CategoryTitle';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useScrollToElement from '@/common/hooks/useScrollToRef';
+import { DetailSectionProps } from './data';
 
-const IntroductSection = () => {
+const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
   const [selected, setSelected] = useState('farmer');
   const [farmerRef, scrollToFarmer] = useScrollToElement();
   const [productRef, scrollToProduct] = useScrollToElement();
   const [specificationRef, scrollToSpecification] = useScrollToElement();
-
+  const [cleanHtml, setCleanHtml] = useState('');
+  useEffect(() => {
+    setCleanHtml(DOMPurify.sanitize(detailProduct.introduction));
+  }, [detailProduct.introduction]);
   const isSelected = (name: string) => selected === name;
   return (
     <section className=" bg-detailBG pt-100 bg-repeat-x  ">
@@ -55,7 +60,7 @@ const IntroductSection = () => {
               />
               <div className="col-start-5 col-end-11 -ml-[70px]">
                 <div className="flex gap-16 items-center mb-16">
-                  <h4>陳雅安</h4>
+                  <h4>{detailProduct.farmerName}</h4>
                   <div className=" bg-primary-green flex gap-8 h-[37px] px-8 items-center rounded-8 hover:opacity-60 cursor-pointer">
                     <Image
                       src="/images/productDetail/chatIcon.svg"
@@ -66,23 +71,21 @@ const IntroductSection = () => {
                     <p className="text-14 text-white">我想跟小農聊聊</p>
                   </div>
                 </div>
-                <div className=" text-primary-green bg-primary-yellow flex justify-center items-center gap-8 py-16 rounded-20 w-[421px]  mb-16">
+                <div className=" text-primary-green bg-primary-yellow flex  items-center gap-8 py-16 rounded-20 px-16  mb-16">
                   <LogoImg classProps="w-32 h-32" />
-                  <p className="font-bold">
-                    我希望自己的種植對環境好，對人的健康也好
-                  </p>
+                  <p className="font-bold">{detailProduct.farmerVision}</p>
                 </div>
-                <p className="text-18">
-                  我種植的草莓真的很好吃，品種繁多，包括了甜蜜時光、金莓、霓虹草莓等友善種植作品。我的草莓園地位於美麗的苗栗，充滿愛和專業的栽培，每一顆草莓都是經過細心呵護的結晶。
-                </p>
+                <p className="text-18">{detailProduct.farmerDescription}</p>
               </div>
             </div>
           </li>
           <li ref={productRef} className="mb-40">
             <CategoryTitle title="商品介紹" gapStyle="mb-24" />
             <div className="grid grid-cols-12 gap-24">
-              <div className="col-start-2 col-end-12 flex flex-col gap-y-24">
-                <Image
+              <div
+                className="col-start-2 col-end-12 flex flex-col gap-y-24"
+                dangerouslySetInnerHTML={{ __html: cleanHtml }}>
+                {/* <Image
                   src="/images/productDetail/introductImg_1.png"
                   alt="introductImg_1"
                   width={966}
@@ -95,7 +98,7 @@ const IntroductSection = () => {
                   width={966}
                   height={988}
                   className="h-[988px] "
-                />
+                /> */}
               </div>
             </div>
           </li>
@@ -104,16 +107,19 @@ const IntroductSection = () => {
             <div className="grid grid-cols-12 gap-24">
               <ul className=" col-start-2 col-end-11 flex flex-col gap-24">
                 <li>
-                  <p className="text-18 text-primary-green">規格</p>
-                  <span>苗栗市</span>
+                  <p className="text-18 text-primary-green">產地</p>
+                  <span>{detailProduct.origin}</span>
                 </li>
                 <li>
-                  <p className="text-18 text-primary-green">產地</p>
-                  <span>小份：200g / 大份：400g</span>
+                  <p className="text-18 text-primary-green">規格</p>
+                  <span>
+                    小份：{detailProduct.smallWeight}g / 大份：
+                    {detailProduct.largeWeight}g
+                  </span>
                 </li>
                 <li>
                   <p className="text-18 text-primary-green">保存方式</p>
-                  <span>冷藏保存</span>
+                  <span>{detailProduct.storage}</span>
                 </li>
               </ul>
             </div>

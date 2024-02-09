@@ -6,6 +6,7 @@ import { ProductCardProps } from './data';
 import LogoImg from '@/common/components/Logo/LogoImg';
 
 const ProductCard = ({
+  productId,
   productImg,
   productTitle,
   description,
@@ -25,9 +26,12 @@ const ProductCard = ({
   const originalPriceClass =
     originalPriceStyle === 'white' ? 'text-white' : 'text-lightGray';
   const cardGapStyle = cardGapThreeCol
-    ? 'col-span-2 lg:col-span-4'
+    ? 'col-span-2 col-span-4'
     : 'col-span-3';
   const cardTitleStyle = cardGapThreeCol || 'text-24';
+  const cardImageStyle = cardGapThreeCol
+    ? 'lg:w-[416px] lg:h-[381px]'
+    : 'lg:w-[306px] lg:h-[284px]';
   const [animation, setAnimation] = useState('product-card-enter');
 
   useEffect(() => {
@@ -40,7 +44,7 @@ const ProductCard = ({
   return (
     <li className={`${cardGapStyle} flex flex-col ${animation}`}>
       <div className="group flex flex-col gap-4 lg:gap-16">
-        <Link href="/productshop/11" className=" relative">
+        <Link href={`/productshop/${productId}`} className=" relative">
           <div className="flex justify-center">
             <Image
               src={
@@ -49,8 +53,8 @@ const ProductCard = ({
                   : productImg.src
               }
               alt={productImg.alt}
-              roundedStyle="rounded-20 h-full"
-              className={`w-[148px] h-[136px] lg:w-[416px] lg:h-[381px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${imgBorderStyle}`}
+              roundedStyle="rounded-20 h-full object-cover"
+              className={`w-[148px] h-[136px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${cardImageStyle} ${imgBorderStyle}`}
             />
           </div>
           {label && (
@@ -62,7 +66,7 @@ const ProductCard = ({
         </Link>
 
         <Link
-          href="/productshop/11"
+          href={`/productshop/${productId}`}
           className="flex gap-8 lg:gap-16 justify-center items-center mb-4 lg:mb-8">
           <LogoImg classProps="w-20 h-20 lg:w-32 lg:h-32 group-shake" />
           <h3

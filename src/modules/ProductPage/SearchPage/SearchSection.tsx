@@ -5,7 +5,9 @@ import SearchInput from '@/common/components/Input/SearchInput';
 import CategoryTitle from '../CategoryTitle';
 
 const SearchSection = () => {
-  const {data,searchTag} = useSelector((state: RootState) => state.product);
+  const { searchData, searchTag } = useSelector(
+    (state: RootState) => state.product
+  );
   
   return (
     <section className="bg-searchBannerBG bg-repeat-x -mt-[216px] pt-120  ">
@@ -17,9 +19,9 @@ const SearchSection = () => {
           </div>
           <h4 className="mb-24">
             {searchTag}的搜尋結果共{' '}
-            <span className=" text-primary-green">{data.length}</span> 筆
+            <span className=" text-primary-green">{searchData.length}</span> 筆
           </h4>
-          {data.length>0 ? (
+          {searchData.length > 0 ? (
             <ProductList category="search" />
           ) : (
             <p>

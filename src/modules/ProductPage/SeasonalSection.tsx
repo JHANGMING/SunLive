@@ -17,7 +17,7 @@ const SeasonalSection = () => {
             gapStyle="mb-24"
             backgroundStyle={false}
           />
-          <ProductList category="seasonalfruit" />
+          <ProductList category="seasonalVegetable" />
           <CategoryTitle
             title="當季蔬菜"
             gapStyle="mb-24 mt-60"
