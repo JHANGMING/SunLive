@@ -1,16 +1,20 @@
 import Button from '@/common/components/Button';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BsDashCircleFill, BsPlusCircleFill } from 'react-icons/bs';
 import { DetailSectionProps, productData } from './data';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+import { ProductImgType } from '@/constants/types/product/allproducts';
 
-const DetailSection = ({ detailProduct }:DetailSectionProps) => {
+const DetailSection = ({ detailProduct }: DetailSectionProps) => {
   const [qty, setQty] = useState(1);
   const [selectedSpec, setSelectedSpec] = useState('small');
-
+  const [selectedImage, setSelectedImage] = useState('');
+  useEffect(() => {
+    if (detailProduct.productImages && detailProduct.productImages.length > 0) {
+      setSelectedImage(detailProduct.productImages[0].src);
+    }
+  }, [detailProduct]);
   const updateCount = (isIncrement: boolean) => {
     setQty((prevCount) => (isIncrement ? prevCount + 1 : prevCount - 1));
   };
@@ -18,7 +22,7 @@ const DetailSection = ({ detailProduct }:DetailSectionProps) => {
     setSelectedSpec(spec);
   };
   const handlerAddCart = () => {
-    console.log(selectedSpec,qty);
+    console.log(selectedSpec, qty);
   };
   const handlerToBuy = () => {
     console.log('handlerToBuy');
@@ -30,9 +34,6 @@ const DetailSection = ({ detailProduct }:DetailSectionProps) => {
 
     return baseClass + (selectedSpec === spec ? selectedClass : defaultClass);
   };
-  const [selectedImage, setSelectedImage] = useState(
-    '/images/productDetail/detailImg1.svg'
-  );
 
   const handleImageSelect = (imageSrc: string) => {
     setSelectedImage(imageSrc);
@@ -55,8 +56,10 @@ const DetailSection = ({ detailProduct }:DetailSectionProps) => {
             className="h-[338px] object-cover  border-4 border-primary-yellow rounded-20 mb-24 "
           />
           <ul className="flex gap-8 ">
-            {productData.map((data) => (
-              <li key={data.alt} onClick={() => handleImageSelect(data.src)}>
+            {detailProduct.productImages?.slice(0, 5).map((data:ProductImgType, index:number) => (
+              <li
+                key={`${data.alt}-${index}`}
+                onClick={() => handleImageSelect(data.src)}>
                 <Image
                   src={data.src}
                   alt={data.alt}

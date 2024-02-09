@@ -2,8 +2,6 @@
 import { AllproductsDataType } from "@/constants/types/product/allproducts";
 import { DetailproductItemType } from "@/constants/types/product/detail";
 
-
-
 export const productData = [
   {
     src: '/images/productDetail/detailImg1.svg',

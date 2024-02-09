@@ -1,3 +1,8 @@
+export type ProductImgType={
+  src: string;
+  alt: string;
+};
+
 
 export type AllproductsItemType = {
   productId: number;
@@ -5,10 +10,7 @@ export type AllproductsItemType = {
   productTitle: string;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
-  productImg: {
-    src: string;
-    alt: string;
-  };
+  productImg: ProductImgType;
 };
 
 export type AllproductsDataType = AllproductsItemType[];
