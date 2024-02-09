@@ -11,7 +11,7 @@ const LiveProductSection = () => {
       <div className="container">
         <CategoryTitle title="當月直播" gapStyle="mb-40" />
         <ul className="grid grid-cols-12 gap-x-24 gap-y-80">
-          {upcomingLive.slice(0, 6).map((data) => (
+          {upcomingLive?.slice(0, 6).map((data) => (
             <li
               key={data.liveId}
               className=" col-span-4 border-4 border-mediumGray rounded-20">
@@ -22,7 +22,7 @@ const LiveProductSection = () => {
                       ? '/images/productShop/discountedImg3.png'
                       : data.livePic
                   }
-                  alt={data.liveProductId}
+                  alt={`data.liveProductId-${data.liveId}`}
                   roundedStyle="rounded-16 h-full w-full object-cover"
                   className="w-full h-[480px]"
                 />
