@@ -1,10 +1,9 @@
-import getAuthToken from './getAuthToken';
 
 export type apiParamsType = {
   apiPath: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
   data?: unknown;
-  authToken?: string;
+  authToken?: string | null;
 };
 
 export default async function fetchNextApi(apiParams: apiParamsType) {
@@ -16,11 +15,9 @@ export default async function fetchNextApi(apiParams: apiParamsType) {
       data !== null && { body: JSON.stringify(data) }),
     ...(typeof data === 'string' && { body: data }),
   };
-
   try {
     const res = await fetch(url, requestOptions);
     const result = await res.json();
-
     return result;
   } catch (error) {
     console.log(error);

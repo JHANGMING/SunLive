@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
 type ButtonType = 'button' | 'submit';
+
 export type ButtonPropsType = {
   category?: string;
   path?: string;
@@ -12,4 +13,5 @@ export type ButtonPropsType = {
   textStyle?: string;
   showIcon?: boolean;
   disabled?: boolean;
+  productSpecId?:number
 };

@@ -2,12 +2,12 @@ import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
 import Toast from '@/common/components/Toast';
-import { setAllCookies, setTokenCookie } from '@/common/helpers/getCookie';
+import { setAllCookies } from '@/common/helpers/getCookie';
 import { useGapClass } from '@/common/hooks/useGapClass';
 import { setUserData } from '@/redux/features/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { ROUTES } from './data';
@@ -19,13 +19,21 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const [toastMessage, setToastMessage] = useState('');
   const [loading, setLoading] = useState(false);
-   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
   const gapClass = useGapClass(errors);
+   useEffect(() => {
+     return () => {
+       if (timeoutId) {
+         clearTimeout(timeoutId);
+         setTimeoutId(null); 
+       }
+     };
+   }, [timeoutId]);
   const handlerToPasswordlessPage = () => {
     router.push('/auth/passwordlessLogin');
   };
@@ -43,10 +51,10 @@ const LoginPage = () => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        setLoading(true); 
-        dispatch(setUserData({ data: result.data, token: result.token }));
+        setLoading(true);
+        console.log(result);
+        // dispatch(setUserData({ data: result.data }));
         setAllCookies(result.data);
-        setTokenCookie(result.data.token);
         const id = setTimeout(async () => {
           const redirectTo = result.data.category
             ? ROUTES.DASHBOARD_ACCOUNT

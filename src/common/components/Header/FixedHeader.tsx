@@ -31,7 +31,7 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
   const heightClass = headerBehavior === 'always' ? 'h-[98px]' : 'h-60';
   const positionClass =
     headerBehavior === 'always'
-      ? 'flex justify-between items-center '
+      ? 'lg:flex justify-between items-center '
       : 'fixed top-0 left-1/2 transform -translate-x-1/2';
   const logoImgstyle = headerBehavior === 'always' ? 50 : 32;
 
@@ -42,7 +42,7 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
       className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0`}>
       <div className="container flex justify-between items-center ">
         <div className="w-400 flex ">
-          <Logo widthProps={logoImgstyle} heightProps={logoImgstyle} />
+          <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />
         </div>
         <div
           className={`w-400 flex justify-center ${pageCategory === 'dashboardPage' && 'hidden'}`}>
@@ -53,7 +53,9 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
               <BsSearch className="text-20 text-mediumGray" />
             </div>
           ) : (
-            <SearchInput headerVisible={true} onClick={handleSearchClick} />
+            <SearchInput headerVisible={true} 
+            onClick={handleSearchClick} 
+            />
           )}
         </div>
         <div className="flex gap-40 items-center justify-end w-400">

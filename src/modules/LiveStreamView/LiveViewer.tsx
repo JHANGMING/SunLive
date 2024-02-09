@@ -1,8 +1,8 @@
+import { BsCursorFill } from 'react-icons/bs';
 import Image from '@/common/components/CustomImage';
-import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 import GlobalLink from '@/common/components/GlobalLink';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import { BsCursorFill } from 'react-icons/bs';
+import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 const LiveViewer = () => {
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">
@@ -16,13 +16,13 @@ const LiveViewer = () => {
             <Image
               src="/images/home/live/liveComingPerson1.png"
               alt="liveComingPerson1"
-              className='w-40 h-40'
+              className="w-40 h-40"
             />
             <h3 className=" text-16 font-normal">黃小翰</h3>
           </div>
           <div className=" bg-primary-yellow py-24 pl-24 pr-60 rounded-20">
             <div className="flex items-center gap-16 mb-16">
-              <LogoImg widthProps={24} heightProps={24} />
+              <LogoImg classProps="w-24 h-24" />
               <p className="font-bold">
                 直播時間 :<span>2024.1.16 (二)</span>
               </p>
