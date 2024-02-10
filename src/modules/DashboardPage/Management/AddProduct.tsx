@@ -33,10 +33,9 @@ const AddProduct = () => {
     reset,
   } = useForm<FormValues>();
   useEffect(() => {
-    setValue('productState', "false"); 
+    setValue('productState', 'false');
   }, []);
   const onSubmit = async (data: FormValues) => {
-    //儲存日期格式
     const updateStateTime = format(new Date(), 'yyyy/MM/dd');
     const dataObj = {
       updateStateTime,
@@ -79,14 +78,14 @@ const AddProduct = () => {
 
       if (result.statusCode !== 200) {
         setToastMessage(`${result.message}`);
-        return; 
-      } 
+        return;
+      }
       const imgResponse = await fetch(url, imgParams);
       const imgResult = await imgResponse.json();
-      
+
       if (imgResult.statusCode !== 200) {
         setToastMessage(`${imgResult.message}`);
-         return; 
+        return;
       }
       if (result.statusCode === 200 && imgResult.statusCode === 200) {
         reset();
@@ -99,7 +98,6 @@ const AddProduct = () => {
     } catch (error) {
       console.log(error);
     }
-
   };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -138,7 +136,7 @@ const AddProduct = () => {
         <h3 className=" text-20 font-semibold mb-32">新增農產品</h3>
         <div className="flex items-center gap-16">
           {/* 上傳圖片 */}
-          <div className="mb-24">
+          <div className="mb-24 flex flex-col items-center">
             <p className="mb-8">農產品圖片</p>
             <div className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center">
               <input
@@ -157,22 +155,31 @@ const AddProduct = () => {
               />
             </div>
           </div>
-          {previewImages.map((previewImage, index) => (
-            <div key={index} className=" relative">
-              <Image
-                src={previewImage}
-                width={100}
-                height={100}
-                alt="Preview"
-                className="w-100 h-100"
-              />
-              <BsXCircleFill
-                size={24}
-                onClick={() => handleRemoveImage(index)}
-                className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
-              />
+          {previewImages.length > 0 && (
+            <div className="mb-24">
+              <p>
+                <span className=" text-primary-red">*</span>(限5張)
+              </p>
+              <ul className="flex gap-16">
+                {previewImages.map((previewImage, index) => (
+                  <li key={index} className=" relative mt-8">
+                    <Image
+                      src={previewImage}
+                      width={100}
+                      height={100}
+                      alt="Preview"
+                      className="w-100 h-100"
+                    />
+                    <BsXCircleFill
+                      size={24}
+                      onClick={() => handleRemoveImage(index)}
+                      className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
+                    />
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
+          )}
         </div>
         <form
           action=""

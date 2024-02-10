@@ -20,14 +20,12 @@ import Toast from '@/common/components/Toast';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Image from '@/common/components/CustomImage';
 
-
-const EditProduct = ({ detailData }:EditProductsProps) => {
-  
+const EditProduct = ({ detailData }: EditProductsProps) => {
   const [toastMessage, setToastMessage] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   const {
     control,
     register,
@@ -135,30 +133,10 @@ const EditProduct = ({ detailData }:EditProductsProps) => {
     setPreviewImages(newPreviewUrls);
   };
 
-  // 触发隐藏的input点击事件
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
 
-  // TODO: 实现上传逻辑
-  const uploadImages = async () => {
-    const formData = new FormData();
-    selectedFiles.forEach((file, index) => {
-      formData.append(`file${index}`, file);
-    });
-    const url = `/api${nextRoutes['uploadProductImg']}`;
-    const apiParams = {
-      method: 'POST',
-      body: formData,
-    };
-    try {
-      const response = await fetch(url, apiParams);
-      const result = await response.json();
-      console.log('Upload successful', result);
-    } catch (error) {
-      console.error('Upload failed', error);
-    }
-  };
   const handleRemoveImage = (index: number) => {
     // 移除選定的檔案
     const newSelectedFiles = selectedFiles.filter((_, i) => i !== index);
@@ -180,7 +158,7 @@ const EditProduct = ({ detailData }:EditProductsProps) => {
         <h3 className=" text-20 font-semibold mb-32">編輯農產品</h3>
         <div className="flex items-center gap-16">
           {/* 上傳圖片 */}
-          <div className="mb-24">
+          <div className="mb-24 flex flex-col items-center">
             <p className="mb-8">農產品圖片</p>
             <div className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center">
               <input
@@ -198,28 +176,31 @@ const EditProduct = ({ detailData }:EditProductsProps) => {
                 onClick={triggerFileInput}
               />
             </div>
-            {/* <button
-              type="button"
-              onClick={uploadImages}
-              className=" cursor-pointer">
-              上傳
-            </button> */}
           </div>
-          {detailData.photos?.map((previewImage) => (
-            <div key={previewImage.photoId} className=" relative">
-              <Image
-                src={previewImage.src}
-                alt="Preview"
-                className="w-100 h-100"
-                roundedStyle="object-cover"
-              />
-              <BsXCircleFill
-                size={24}
-                onClick={() => handleRemoveImage(Number(previewImage.photoId))}
-                className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
-              />
-            </div>
-          ))}
+          <div className="mb-24">
+            <p>
+              <span className=" text-primary-red">*</span>(限5張)
+            </p>
+            <ul className="flex gap-16">
+              {detailData.photos?.map((previewImage) => (
+                <div key={previewImage.photoId} className=" relative mt-8">
+                  <Image
+                    src={previewImage.src}
+                    alt="Preview"
+                    className="w-100 h-100"
+                    roundedStyle="object-cover"
+                  />
+                  <BsXCircleFill
+                    size={24}
+                    onClick={() =>
+                      handleRemoveImage(Number(previewImage.photoId))
+                    }
+                    className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
+                  />
+                </div>
+              ))}
+            </ul>
+          </div>
         </div>
         <form
           action=""
