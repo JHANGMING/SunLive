@@ -2,6 +2,8 @@ import { BsHandIndex } from 'react-icons/bs';
 import { ButtonPropsType } from './data';
 import { useRouter } from 'next/router';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
 const AddToCartButton = ({
   children,
   btnStyle,
@@ -9,20 +11,41 @@ const AddToCartButton = ({
   showIcon = true,
   disabled = false,
   productSpecId,
+  productId,
   onClick,
-  // productId, // 新增 productId
 }: ButtonPropsType) => {
   const router = useRouter();
   const { authStatus } = useAuthStatus();
-  const handleCartAddition = () => {
+  const handleCartAddition = async () => {
     if (disabled) return;
-    console.log(productSpecId); //後端用這判斷產品
-
     if (!authStatus) {
       router.push('/auth/login');
       return;
     }
-    // if (onClick) onClick();
+    const dataObj = {
+      productId,
+      productSpecId,
+      cartItemQty: 1,
+    };
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['addcart'],
+      method: 'POST',
+      data: dataObj,
+    };
+    
+    try {
+      const result = await fetchNextApi(apiParams);
+      console.log('ee', result);
+      
+      // if (result.statusCode === 200) {
+      //   router.push('/auth/login');
+      // } else {
+      //   // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+
   };
   const handleClick = () => {
     if (onClick) {

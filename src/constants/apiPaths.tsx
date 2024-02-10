@@ -16,8 +16,8 @@ export const apiPaths = {
   live: '/api/live',
 
   //cart
-  getlist: '/api/cart',
-  
+  cart: '/api/cart',
+
   //dashboard-product
   addproduct: '/api/farmer/product',
   editproduct: '/api/farmer/product',
@@ -36,9 +36,11 @@ export const nextRoutes = {
   search: '/product/search',
   allproducts: '/product/all',
 
+  //cart
+  addcart: '/cart/addcart',
+
   //dashboard-product
   addproduct: '/dashboard/addproduct',
-
 
   //uploadProductImg,
   uploadProductImg: '/dashboard/uploadProductImg',

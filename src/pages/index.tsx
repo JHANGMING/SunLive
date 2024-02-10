@@ -60,7 +60,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // 取得購物車
     if (token) {
       const cartParams: ApiParamsType = {
-        apiPath: apiPaths['getlist'],
+        apiPath: apiPaths['cart'],
         method: 'GET',
         authToken: token,
       };
