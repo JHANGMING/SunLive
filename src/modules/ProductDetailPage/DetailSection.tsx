@@ -1,10 +1,10 @@
-import Button from '@/common/components/Button';
-import LogoImg from '@/common/components/Logo/LogoImg';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { BsDashCircleFill, BsPlusCircleFill } from 'react-icons/bs';
-import { DetailSectionProps, productData } from './data';
+import Button from '@/common/components/Button';
+import LogoImg from '@/common/components/Logo/LogoImg';
+import Image from '@/common/components/CustomImage';
 import { ProductImgType } from '@/constants/types/product/allproducts';
+import { DetailSectionProps } from './data';
 
 const DetailSection = ({ detailProduct }: DetailSectionProps) => {
   const [qty, setQty] = useState(1);
@@ -12,7 +12,7 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
   const [selectedImage, setSelectedImage] = useState('');
   useEffect(() => {
     if (detailProduct.productImages && detailProduct.productImages.length > 0) {
-      setSelectedImage(detailProduct.productImages[0].src);
+      setSelectedImage(detailProduct.productImages[0]?.src);
     }
   }, [detailProduct]);
   const updateCount = (isIncrement: boolean) => {
@@ -48,27 +48,29 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
     <section className="container py-60">
       <div className="grid grid-cols-12 gap-24">
         <div className="col-span-6">
-          <Image
-            src={selectedImage}
-            alt="Selected Image"
-            width={636}
-            height={338}
-            className="h-[338px] object-cover  border-4 border-primary-yellow rounded-20 mb-24 "
-          />
+          {selectedImage && (
+            <Image
+              src={selectedImage}
+              alt="Selected Image"
+              roundedStyle="object-cover rounded-16"
+              className="w-[636px] h-[338px]  border-4 border-primary-yellow rounded-20 mb-24 "
+            />
+          )}
           <ul className="flex gap-8 ">
-            {detailProduct.productImages?.slice(0, 5).map((data:ProductImgType, index:number) => (
-              <li
-                key={`${data.alt}-${index}`}
-                onClick={() => handleImageSelect(data.src)}>
-                <Image
-                  src={data.src}
-                  alt={data.alt}
-                  width={120}
-                  height={100}
-                  className={getThumbnailClass(data.src)}
-                />
-              </li>
-            ))}
+            {detailProduct.productImages
+              ?.slice(0, 5)
+              .map((data: ProductImgType, index: number) => (
+                <li
+                  key={`${data.alt}-${index}`}
+                  onClick={() => handleImageSelect(data.src)}>
+                  <Image
+                    src={data.src}
+                    alt={data.alt}
+                    roundedStyle="object-cover rounded-8"
+                    className={getThumbnailClass(data.src)}
+                  />
+                </li>
+              ))}
           </ul>
         </div>
         <div className="col-span-6 ml-16">

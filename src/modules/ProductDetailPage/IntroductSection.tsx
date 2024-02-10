@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import * as DOMPurify from 'dompurify';
+import { useEffect, useState } from 'react';
 import CategoryTitle from '../ProductPage/CategoryTitle';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import { useEffect, useState } from 'react';
 import useScrollToElement from '@/common/hooks/useScrollToRef';
 import { DetailSectionProps } from './data';
 

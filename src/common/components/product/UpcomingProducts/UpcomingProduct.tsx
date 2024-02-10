@@ -1,5 +1,4 @@
 import Image from '@/common/components/CustomImage';
-import { ProductDataProps } from './data';
 import { LiveProductItemType } from '@/constants/types/live/live';
 
 const UpcomingProduct = ({ ...data }:LiveProductItemType) => {
