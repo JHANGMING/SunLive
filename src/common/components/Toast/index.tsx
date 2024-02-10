@@ -19,7 +19,7 @@ const Toast = ({ message, duration = 3000, onClose }:ToastProps) => {
   if (!show) return null; 
 
   return (
-    <div className="fixed top-0 right-0 flex gap-8 bg-primary-yellow rounded-tl-8 rounded-bl-8 p-12">
+    <div className="fixed top-0 right-0 flex gap-8 bg-primary-yellow rounded-tl-8 rounded-bl-8 p-12 z-50">
       <LogoImg classProps="w-24 h-24" />
       <p>{message}</p>
     </div>

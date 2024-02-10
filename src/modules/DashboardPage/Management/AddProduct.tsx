@@ -38,63 +38,68 @@ const AddProduct = () => {
   const onSubmit = async (data: FormValues) => {
     //儲存日期格式
     const updateStateTime = format(new Date(), 'yyyy/MM/dd');
-    // const productState = data.productState === '下架' ? false : true;
-    const {
-      productState,
-      description,
-      productTitle,
-      introduction,
-      largeOriginalPrice,
-      largePromotionPrice,
-      largeWeight,
-      largeStock,
-      smallOriginalPrice,
-      smallPromotionPrice,
-      smallWeight,
-      smallStock,
-      category,
-      period,
-      storage,
-      origin,
-    } = data;
     const dataObj = {
       updateStateTime,
-      productState: Boolean(productState),
-      category,
-      description: description.trim(),
-      productTitle: productTitle.trim(),
-      period,
-      origin,
-      storage,
-      introduction,
-      largeOriginalPrice: Number(largeOriginalPrice),
-      largePromotionPrice: Number(largePromotionPrice),
-      largeWeight: Number(largeWeight),
-      largeStock: Number(largeStock),
-      smallOriginalPrice: Number(smallOriginalPrice),
-      smallPromotionPrice: Number(smallPromotionPrice),
-      smallWeight: Number(smallWeight),
-      smallStock: Number(smallStock),
+      productState: Boolean(data.productState),
+      category: data.category,
+      description: data.description.trim(),
+      productTitle: data.productTitle.trim(),
+      period: data.period,
+      origin: data.origin,
+      storage: data.storage,
+      introduction: data.introduction,
+      largeOriginalPrice: Number(data.largeOriginalPrice),
+      largePromotionPrice: Number(data.largePromotionPrice),
+      largeWeight: Number(data.largeWeight),
+      largeStock: Number(data.largeStock),
+      smallOriginalPrice: Number(data.smallOriginalPrice),
+      smallPromotionPrice: Number(data.smallPromotionPrice),
+      smallWeight: Number(data.smallWeight),
+      smallStock: Number(data.smallStock),
     };
     console.log(dataObj);
+
+    const formData = new FormData();
+    selectedFiles.forEach((file, index) => {
+      formData.append(`file${index}`, file);
+    });
+
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['addproduct'],
       method: 'POST',
       data: dataObj,
     };
-    // try {
-    //   const result = await fetchNextApi(apiParams);
-    //   console.log('result', result);
+    const url = `/api${nextRoutes['uploadProductImg']}`;
+    const imgParams = {
+      method: 'POST',
+      body: formData,
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
 
-    //   if (result.statusCode === 200) {
-    //     setToastMessage(`${result.message}`);
-    //   } else {
-    //     setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // reset();
+      if (result.statusCode !== 200) {
+        setToastMessage(`${result.message}`);
+        return; 
+      } 
+      const imgResponse = await fetch(url, imgParams);
+      const imgResult = await imgResponse.json();
+      
+      if (imgResult.statusCode !== 200) {
+        setToastMessage(`${imgResult.message}`);
+         return; 
+      }
+      if (result.statusCode === 200 && imgResult.statusCode === 200) {
+        reset();
+        setSelectedFiles([]);
+        setPreviewImages([]);
+        setToastMessage(`${result.message}`);
+      } else {
+        setToastMessage(`${result.message || imgResult.message}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -112,25 +117,6 @@ const AddProduct = () => {
     fileInputRef.current?.click();
   };
 
-  // TODO: 实现上传逻辑
-  const uploadImages = async () => {
-    const formData = new FormData();
-    selectedFiles.forEach((file, index) => {
-      formData.append(`file${index}`, file);
-    });
-    const url = `/api${nextRoutes['uploadProductImg']}`;
-    const apiParams = {
-      method: 'POST',
-      body: formData,
-    };
-    try {
-      const response = await fetch(url, apiParams);
-      const result = await response.json();
-      console.log('Upload successful', result);
-    } catch (error) {
-      console.error('Upload failed', error);
-    }
-  };
   const handleRemoveImage = (index: number) => {
     // 移除選定的檔案
     const newSelectedFiles = selectedFiles.filter((_, i) => i !== index);
@@ -170,12 +156,6 @@ const AddProduct = () => {
                 onClick={triggerFileInput}
               />
             </div>
-            <button
-              type="button"
-              onClick={uploadImages}
-              className=" cursor-pointer">
-              上傳
-            </button>
           </div>
           {previewImages.map((previewImage, index) => (
             <div key={index} className=" relative">
