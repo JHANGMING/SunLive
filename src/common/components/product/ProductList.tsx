@@ -116,7 +116,7 @@ const ProductList = ({ category }: ProductListProps) => {
         return <Loading />;
       }
       return (
-        <ul className="grid grid-cols-12 auto-rows-min gap-24 ">
+        <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-68 ">
           {searchData.map((data) => (
             <ProductCard
               key={data.productId}
