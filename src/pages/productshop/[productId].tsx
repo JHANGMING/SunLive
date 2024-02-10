@@ -42,6 +42,8 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     const detailResponse = await fetchApi(detailParams);
     if (detailResponse.statusCode === 200) {
       detailData = detailResponse.data;
+    } else if (detailResponse.statusCode === 401) {
+      return { notFound: true };
     }
   } catch (error) {
     console.error(error);

@@ -14,6 +14,13 @@ export const apiPaths = {
 
   //live
   live: '/api/live',
+
+  //dashboard-product
+  addproduct: '/api/farmer/product',
+  editproduct: '/api/farmer/product',
+
+  //uploadProductImg,
+  uploadProductImg: '/api/farmer/product/pic',
 };
 
 export const nextRoutes = {
@@ -25,5 +32,12 @@ export const nextRoutes = {
   //products
   search: '/product/search',
   allproducts: '/product/all',
+
+  //dashboard-product
+  addproduct: '/dashboard/addproduct',
+
+
+  //uploadProductImg,
+  uploadProductImg: '/dashboard/uploadProductImg',
 };
 
