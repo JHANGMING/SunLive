@@ -1,10 +1,10 @@
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+
 import { apiPaths } from '@/constants/apiPaths';
 import { getCookie } from 'cookies-next';
 import type { NextApiRequest, NextApiResponse } from 'next';
 export const config = {
   api: {
-    bodyParser: false, // 關閉 Next.js 預設的 bodyParser
+    bodyParser: false, 
   },
 }
 
