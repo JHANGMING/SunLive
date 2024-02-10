@@ -49,7 +49,7 @@ const ProductList = ({ category }: ProductListProps) => {
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 ">
-          {topSaleProduct.map((data, index) => (
+          {topSaleProduct.slice(0, 3).map((data, index) => (
             <ProductCard
               key={data.productId}
               {...data}
@@ -83,7 +83,7 @@ const ProductList = ({ category }: ProductListProps) => {
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-84">
-          {fruitProduct.map((data) => (
+          {fruitProduct.slice(0, 3).map((data) => (
             <ProductCard
               key={data.productId}
               {...data}
