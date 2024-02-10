@@ -7,3 +7,7 @@ export type ProductShopProps = {
   vegetableProduct: AllproductsDataType;
   topSaleProduct: AllproductsDataType;
 };
+
+export type ProductSearchProps = {
+  allproductsData: AllproductsDataType;
+};

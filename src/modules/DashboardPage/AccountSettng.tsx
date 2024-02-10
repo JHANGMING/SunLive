@@ -1,9 +1,11 @@
 import Button from "@/common/components/Button";
 import PersonInput from "@/common/components/Input/PersonInput";
 import { FormValues } from "@/common/components/Input/data";
+import useAuth from "@/common/hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 const AccountSettng = () => {
+  const auth = useAuth();
   const {
     control,
     register,
@@ -41,6 +43,7 @@ const AccountSettng = () => {
             inputStyle="text-14 h-[53px]"
             id="email"
             isdisabled={true}
+            value={decodeURIComponent(auth?.account || '')}
           />
           <PersonInput
             type="tel"

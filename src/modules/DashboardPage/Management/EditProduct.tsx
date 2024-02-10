@@ -3,6 +3,7 @@ import ManagementSelect from '@/common/components/Select/ManagementSelect';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import { format } from 'date-fns';
 import {
+  EditProductsProps,
   categoryData,
   countyData,
   seasonData,
@@ -17,87 +18,108 @@ import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import Toast from '@/common/components/Toast';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 
-const AddProduct = () => {
+const EditProduct = ({ detailData }: EditProductsProps) => {
   const [toastMessage, setToastMessage] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
     reset,
+    setValue,
   } = useForm<FormValues>();
   useEffect(() => {
-    setValue('productState', 'false');
-  }, []);
+    if (detailData) {
+      setValue('category', detailData.category);
+      setValue('productTitle', detailData.productTitle);
+      setValue('description', detailData.description);
+      setValue('introduction', detailData.introduction);
+      setValue('productState', detailData.productState.toString());
+      setValue('largeOriginalPrice', detailData.largeOriginalPrice.toString());
+      setValue(
+        'largePromotionPrice',
+        detailData.largePromotionPrice.toString()
+      );
+      setValue('largeStock', detailData.largeStock.toString());
+      setValue('largeWeight', detailData.largeWeight.toString());
+      setValue('smallOriginalPrice', detailData.smallOriginalPrice.toString());
+      setValue(
+        'smallPromotionPrice',
+        detailData.smallPromotionPrice.toString()
+      );
+      setValue('smallStock', detailData.smallStock.toString());
+      setValue('smallWeight', detailData.smallWeight.toString());
+      setValue('origin', detailData.origin);
+      setValue('period', detailData.period);
+      setValue('storage', detailData.storage);
+    }
+  }, [detailData]);
   const onSubmit = async (data: FormValues) => {
+    //儲存日期格式
     const updateStateTime = format(new Date(), 'yyyy/MM/dd');
+    // const productState = data.productState === '下架' ? false : true;
+    const {
+      productState,
+      description,
+      productTitle,
+      introduction,
+      largeOriginalPrice,
+      largePromotionPrice,
+      largeWeight,
+      largeStock,
+      smallOriginalPrice,
+      smallPromotionPrice,
+      smallWeight,
+      smallStock,
+      category,
+      period,
+      storage,
+      origin,
+    } = data;
     const dataObj = {
       updateStateTime,
-      productState: Boolean(data.productState),
-      category: data.category,
-      description: data.description.trim(),
-      productTitle: data.productTitle.trim(),
-      period: data.period,
-      origin: data.origin,
-      storage: data.storage,
-      introduction: data.introduction,
-      largeOriginalPrice: Number(data.largeOriginalPrice),
-      largePromotionPrice: Number(data.largePromotionPrice),
-      largeWeight: Number(data.largeWeight),
-      largeStock: Number(data.largeStock),
-      smallOriginalPrice: Number(data.smallOriginalPrice),
-      smallPromotionPrice: Number(data.smallPromotionPrice),
-      smallWeight: Number(data.smallWeight),
-      smallStock: Number(data.smallStock),
+      productState: Boolean(productState),
+      category,
+      description: description.trim(),
+      productTitle: productTitle.trim(),
+      period,
+      origin,
+      storage,
+      introduction,
+      largeOriginalPrice: Number(largeOriginalPrice),
+      largePromotionPrice: Number(largePromotionPrice),
+      largeWeight: Number(largeWeight),
+      largeStock: Number(largeStock),
+      smallOriginalPrice: Number(smallOriginalPrice),
+      smallPromotionPrice: Number(smallPromotionPrice),
+      smallWeight: Number(smallWeight),
+      smallStock: Number(smallStock),
     };
     console.log(dataObj);
-
-    const formData = new FormData();
-    selectedFiles.forEach((file, index) => {
-      formData.append(`file${index}`, file);
-    });
-
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['addproduct'],
       method: 'POST',
       data: dataObj,
     };
-    const url = `/api${nextRoutes['uploadProductImg']}`;
-    const imgParams = {
-      method: 'POST',
-      body: formData,
-    };
-    try {
-      const result = await fetchNextApi(apiParams);
+    // try {
+    //   const result = await fetchNextApi(apiParams);
+    //   console.log('result', result);
 
-      if (result.statusCode !== 200) {
-        setToastMessage(`${result.message}`);
-        return;
-      }
-      const imgResponse = await fetch(url, imgParams);
-      const imgResult = await imgResponse.json();
-
-      if (imgResult.statusCode !== 200) {
-        setToastMessage(`${imgResult.message}`);
-        return;
-      }
-      if (result.statusCode === 200 && imgResult.statusCode === 200) {
-        reset();
-        setSelectedFiles([]);
-        setPreviewImages([]);
-        setToastMessage(`${result.message}`);
-      } else {
-        setToastMessage(`${result.message || imgResult.message}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   if (result.statusCode === 200) {
+    //     setToastMessage(`${result.message}`);
+    //   } else {
+    //     setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // reset();
   };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -133,7 +155,7 @@ const AddProduct = () => {
         <Toast message={toastMessage} onClose={() => setToastMessage('')} />
       )}
       <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
-        <h3 className=" text-20 font-semibold mb-32">新增農產品</h3>
+        <h3 className=" text-20 font-semibold mb-32">編輯農產品</h3>
         <div className="flex items-center gap-16">
           {/* 上傳圖片 */}
           <div className="mb-24 flex flex-col items-center">
@@ -155,31 +177,30 @@ const AddProduct = () => {
               />
             </div>
           </div>
-          {previewImages.length > 0 && (
-            <div className="mb-24">
-              <p>
-                <span className=" text-primary-red">*</span>(限5張)
-              </p>
-              <ul className="flex gap-16">
-                {previewImages.map((previewImage, index) => (
-                  <li key={index} className=" relative mt-8">
-                    <Image
-                      src={previewImage}
-                      width={100}
-                      height={100}
-                      alt="Preview"
-                      className="w-100 h-100"
-                    />
-                    <BsXCircleFill
-                      size={24}
-                      onClick={() => handleRemoveImage(index)}
-                      className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <div className="mb-24">
+            <p>
+              <span className=" text-primary-red">*</span>(限5張)
+            </p>
+            <ul className="flex gap-16">
+              {detailData.photos?.map((previewImage) => (
+                <div key={previewImage.photoId} className=" relative mt-8">
+                  <Image
+                    src={previewImage.src}
+                    alt="Preview"
+                    className="w-100 h-100"
+                    roundedStyle="object-cover"
+                  />
+                  <BsXCircleFill
+                    size={24}
+                    onClick={() =>
+                      handleRemoveImage(Number(previewImage.photoId))
+                    }
+                    className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
+                  />
+                </div>
+              ))}
+            </ul>
+          </div>
         </div>
         <form
           action=""
@@ -387,4 +408,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
