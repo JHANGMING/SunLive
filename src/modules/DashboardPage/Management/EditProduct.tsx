@@ -3,6 +3,7 @@ import ManagementSelect from '@/common/components/Select/ManagementSelect';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import { format } from 'date-fns';
 import {
+  EditProductsProps,
   categoryData,
   countyData,
   seasonData,
@@ -13,36 +14,60 @@ import { useForm } from 'react-hook-form';
 import { FormValues } from '@/common/components/Input/data';
 import Button from '@/common/components/Button';
 import Editor from '@/common/components/Editor';
-import { selectValueReturn } from '@/common/helpers/selectValueReturn';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import Toast from '@/common/components/Toast';
-import { ChangeEvent, useRef, useState } from 'react';
-import Image from 'next/image';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import Image from '@/common/components/CustomImage';
 
-const EditProduct = () => {
+
+const EditProduct = ({ detailData }:EditProductsProps) => {
+  
   const [toastMessage, setToastMessage] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<FormValues>();
+  useEffect(() => {
+    if (detailData) {
+      setValue('category', detailData.category);
+      setValue('productTitle', detailData.productTitle);
+      setValue('description', detailData.description);
+      setValue('introduction', detailData.introduction);
+      setValue('productState', detailData.productState.toString());
+      setValue('largeOriginalPrice', detailData.largeOriginalPrice.toString());
+      setValue(
+        'largePromotionPrice',
+        detailData.largePromotionPrice.toString()
+      );
+      setValue('largeStock', detailData.largeStock.toString());
+      setValue('largeWeight', detailData.largeWeight.toString());
+      setValue('smallOriginalPrice', detailData.smallOriginalPrice.toString());
+      setValue(
+        'smallPromotionPrice',
+        detailData.smallPromotionPrice.toString()
+      );
+      setValue('smallStock', detailData.smallStock.toString());
+      setValue('smallWeight', detailData.smallWeight.toString());
+      setValue('origin', detailData.origin);
+      setValue('period', detailData.period);
+      setValue('storage', detailData.storage);
+    }
+  }, [detailData]);
   const onSubmit = async (data: FormValues) => {
     //儲存日期格式
     const updateStateTime = format(new Date(), 'yyyy/MM/dd');
-    const State = selectValueReturn(data.productState);
-    const productState = State === '下架' ? false : true;
-    const category = selectValueReturn(data.category);
-    const period = selectValueReturn(data.period);
-    const origin = selectValueReturn(data.origin);
-    const storage = selectValueReturn(data.storage);
-
+    // const productState = data.productState === '下架' ? false : true;
     const {
+      productState,
       description,
       productTitle,
       introduction,
@@ -54,10 +79,14 @@ const EditProduct = () => {
       smallPromotionPrice,
       smallWeight,
       smallStock,
+      category,
+      period,
+      storage,
+      origin,
     } = data;
     const dataObj = {
       updateStateTime,
-      productState,
+      productState: Boolean(productState),
       category,
       description: description.trim(),
       productTitle: productTitle.trim(),
@@ -80,18 +109,18 @@ const EditProduct = () => {
       method: 'POST',
       data: dataObj,
     };
-    try {
-      const result = await fetchNextApi(apiParams);
-      console.log('result', result);
+    // try {
+    //   const result = await fetchNextApi(apiParams);
+    //   console.log('result', result);
 
-      if (result.statusCode === 200) {
-        setToastMessage(`${result.message}`);
-      } else {
-        setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   if (result.statusCode === 200) {
+    //     setToastMessage(`${result.message}`);
+    //   } else {
+    //     setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
     // reset();
   };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -169,25 +198,24 @@ const EditProduct = () => {
                 onClick={triggerFileInput}
               />
             </div>
-            <button
+            {/* <button
               type="button"
               onClick={uploadImages}
               className=" cursor-pointer">
               上傳
-            </button>
+            </button> */}
           </div>
-          {previewImages.map((previewImage, index) => (
-            <div key={index} className=" relative">
+          {detailData.photos?.map((previewImage) => (
+            <div key={previewImage.photoId} className=" relative">
               <Image
-                src={previewImage}
-                width={100}
-                height={100}
+                src={previewImage.src}
                 alt="Preview"
                 className="w-100 h-100"
+                roundedStyle="object-cover"
               />
               <BsXCircleFill
                 size={24}
-                onClick={() => handleRemoveImage(index)}
+                onClick={() => handleRemoveImage(Number(previewImage.photoId))}
                 className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
               />
             </div>
@@ -217,7 +245,6 @@ const EditProduct = () => {
               labelText="農產品狀態"
               data={statusData}
               control={control}
-              defaultValue={true}
               id="productState"
             />
           </div>

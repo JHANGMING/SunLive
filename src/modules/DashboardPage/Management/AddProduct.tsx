@@ -13,11 +13,10 @@ import { useForm } from 'react-hook-form';
 import { FormValues } from '@/common/components/Input/data';
 import Button from '@/common/components/Button';
 import Editor from '@/common/components/Editor';
-import { selectValueReturn } from '@/common/helpers/selectValueReturn';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import Toast from '@/common/components/Toast';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const AddProduct = () => {
@@ -30,19 +29,18 @@ const AddProduct = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     reset,
   } = useForm<FormValues>();
+  useEffect(() => {
+    setValue('productState', "false"); 
+  }, []);
   const onSubmit = async (data: FormValues) => {
     //儲存日期格式
     const updateStateTime = format(new Date(), 'yyyy/MM/dd');
-    const State = selectValueReturn(data.productState);
-    const productState = State === '下架' ? false : true;
-    const category = selectValueReturn(data.category);
-    const period = selectValueReturn(data.period);
-    const origin = selectValueReturn(data.origin);
-    const storage = selectValueReturn(data.storage);
-
+    // const productState = data.productState === '下架' ? false : true;
     const {
+      productState,
       description,
       productTitle,
       introduction,
@@ -54,10 +52,14 @@ const AddProduct = () => {
       smallPromotionPrice,
       smallWeight,
       smallStock,
+      category,
+      period,
+      storage,
+      origin,
     } = data;
     const dataObj = {
       updateStateTime,
-      productState,
+      productState: Boolean(productState),
       category,
       description: description.trim(),
       productTitle: productTitle.trim(),
@@ -80,18 +82,18 @@ const AddProduct = () => {
       method: 'POST',
       data: dataObj,
     };
-    try {
-      const result = await fetchNextApi(apiParams);
-      console.log('result', result);
+    // try {
+    //   const result = await fetchNextApi(apiParams);
+    //   console.log('result', result);
 
-      if (result.statusCode === 200) {
-        setToastMessage(`${result.message}`);
-      } else {
-        setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   if (result.statusCode === 200) {
+    //     setToastMessage(`${result.message}`);
+    //   } else {
+    //     setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
     // reset();
   };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -106,7 +108,6 @@ const AddProduct = () => {
     setPreviewImages(newPreviewUrls);
   };
 
-  // 触发隐藏的input点击事件
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
@@ -217,7 +218,6 @@ const AddProduct = () => {
               labelText="農產品狀態"
               data={statusData}
               control={control}
-              defaultValue={true}
               id="productState"
             />
           </div>

@@ -7,7 +7,6 @@ export type ManagementSelectProps = {
   placeholder?: string;
   id: keyof FormValues;
   data: OptionType[];
-  defaultValue?: boolean;
   errors?: FieldErrors<FormValues>;
   rules?: RegisterOptions;
 };

@@ -1,4 +1,5 @@
 import { locationData } from "@/constants/location";
+import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
 
 export type OptionType = {
   value: string;
@@ -9,15 +10,21 @@ export type OnSubmitType = {
   (data: FormData): void;
 };
 
+export type EditProductsProps = {
+  detailData:DetailproductDataType;
+};
+
+
 export const statusData: OptionType[] = [
-  { value: '下架', label: '下架' },
-  { value: '上架', label: '上架' },
+  { value: 'false', label: '下架' },
+  { value: 'true', label: '上架' },
 ];
 
 export const countyData: OptionType[] = locationData.map((item) => ({
   value: item.name,
   label: item.name,
 }));
+
 export type AllProductsProps = {
   onAddProductClick: () => void;
 };

@@ -9,7 +9,6 @@ const ManagementSelect = ({
   id,
   data,
   placeholder,
-  defaultValue = false,
   errors,
   rules,
 }: ManagementSelectProps) => {
@@ -46,14 +45,20 @@ const ManagementSelect = ({
         name={id}
         control={control}
         rules={rules}
-        defaultValue={defaultValue ? data[0] : ''}
         render={({ field }) => (
           <Select
             {...field}
             instanceId={id}
             options={data}
             styles={customStyles}
-            onChange={(val) => field.onChange(val)}
+            value={data.find((option) => option.value === field.value)}
+            onChange={(option) => {
+              if (typeof option === 'string' || option instanceof Date) {
+                field.onChange(option);
+              } else if (option && 'value' in option) {
+                field.onChange(option.value);
+              }
+            }}
             placeholder={placeholder}
           />
         )}
