@@ -7,8 +7,11 @@ import { LayoutPropsType } from '../Layout/data';
 import LoggingInfo from './LoggingInfo';
 import CartInfo from './CartInfo';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
+  const {cartData} =useSelector((state:RootState) => state.cart);
   const { authStatus } = useAuthStatus();
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
@@ -51,9 +54,11 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
             type="button"
             className="relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
             <LuShoppingCart className="text-20 lg:text-32" />
+          {authStatus && <CartItemCount cartData={cartData} />}
           </button>
-          {authStatus && <CartItemCount />}
-          {showCartDropdown && <CartInfo dropdownClass={dropdownClass} />}
+          {showCartDropdown && (
+            <CartInfo dropdownClass={dropdownClass} cartData={cartData} />
+          )}
         </div>
       ) : (
         <div className="relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">

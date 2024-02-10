@@ -15,6 +15,9 @@ export const apiPaths = {
   //live
   live: '/api/live',
 
+  //cart
+  getlist: '/api/cart',
+  
   //dashboard-product
   addproduct: '/api/farmer/product',
   editproduct: '/api/farmer/product',
