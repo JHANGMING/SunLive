@@ -5,6 +5,10 @@ export type OptionType = {
   label: string;
 };
 
+export type OnSubmitType = {
+  (data: FormData): void;
+};
+
 export const statusData: OptionType[] = [
   { value: '下架', label: '下架' },
   { value: '上架', label: '上架' },

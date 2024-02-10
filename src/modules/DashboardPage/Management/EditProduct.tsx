@@ -20,7 +20,7 @@ import Toast from '@/common/components/Toast';
 import { ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
 
-const AddProduct = () => {
+const EditProduct = () => {
   const [toastMessage, setToastMessage] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
@@ -148,7 +148,7 @@ const AddProduct = () => {
         <Toast message={toastMessage} onClose={() => setToastMessage('')} />
       )}
       <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
-        <h3 className=" text-20 font-semibold mb-32">新增農產品</h3>
+        <h3 className=" text-20 font-semibold mb-32">編輯農產品</h3>
         <div className="flex items-center gap-16">
           {/* 上傳圖片 */}
           <div className="mb-24">
@@ -400,4 +400,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
