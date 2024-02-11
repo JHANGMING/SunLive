@@ -4,12 +4,18 @@ import { numberToChinese } from '@/common/helpers/numberToChinese';
 import PaginatedProductList from './PaginatedProductList';
 import ProductCard from './ProductCard';
 import { ProductListProps } from './data';
-import Loading from '../Loading';
+import Loading from '../Loading/Loading';
 
 const ProductList = ({ category }: ProductListProps) => {
-  const { searchData, allProductsData, topSaleProduct,fruitProduct,vegetableProduct,promotionProduct,productInfoByUser} = useSelector(
-    (state: RootState) => state.product
-  );
+  const {
+    searchData,
+    allProductsData,
+    topSaleProduct,
+    fruitProduct,
+    vegetableProduct,
+    promotionProduct,
+    productInfoByUser,
+  } = useSelector((state: RootState) => state.product);
   switch (category) {
     case 'landingPage':
       if (!topSaleProduct || topSaleProduct.length === 0) {
@@ -28,7 +34,7 @@ const ProductList = ({ category }: ProductListProps) => {
       );
     case 'discounted':
       if (!promotionProduct || promotionProduct.length === 0) {
-        return <Loading />; 
+        return <Loading />;
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24">

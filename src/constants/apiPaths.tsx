@@ -3,6 +3,8 @@ export const apiPaths = {
   login: '/api/login/general',
   register: '/api/register',
   logout: '/api/logout',
+  passwordless: '/api/login/passwordless',
+  passwordlessVerify: '/api/login/passwordless/checkout',
 
   //products
   search: '/api/product/search',
@@ -31,6 +33,7 @@ export const nextRoutes = {
   login: '/auth/login',
   register: '/auth/register',
   logout: '/auth/logout',
+  passwordless: '/auth/passwordless',
 
   //products
   search: '/product/search',

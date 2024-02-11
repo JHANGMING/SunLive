@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { ROUTES } from './data';
 import { nextRoutes } from '@/constants/apiPaths';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import Loading from '@/common/components/Loading';
+import Loading from '@/common/components/Loading/Loading';
 const LoginPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -26,14 +26,14 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<FormValues>();
   const gapClass = useGapClass(errors);
-   useEffect(() => {
-     return () => {
-       if (timeoutId) {
-         clearTimeout(timeoutId);
-         setTimeoutId(null); 
-       }
-     };
-   }, [timeoutId]);
+  useEffect(() => {
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        setTimeoutId(null);
+      }
+    };
+  }, [timeoutId]);
   const handlerToPasswordlessPage = () => {
     router.push('/auth/passwordlessLogin');
   };
@@ -43,7 +43,7 @@ const LoginPage = () => {
       email: email.trim(),
       password: password.trim(),
     };
-    const apiParams:apiParamsType= {
+    const apiParams: apiParamsType = {
       apiPath: nextRoutes['login'],
       method: 'POST',
       data: dataObj,
@@ -62,13 +62,13 @@ const LoginPage = () => {
           await router.push(redirectTo);
           setLoading(false);
         }, 1500);
-        setTimeoutId(id); 
+        setTimeoutId(id);
       } else {
         setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
       }
     } catch (error) {
       console.error('登入失败', error);
-      setLoading(false); 
+      setLoading(false);
     }
   };
   return (

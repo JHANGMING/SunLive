@@ -1,6 +1,6 @@
 
 import { getCookies, setCookie, deleteCookie } from 'cookies-next';
-type ResultDataType = {
+export type ResultDataType = {
   [key: string]: string |  null;
 };
 
