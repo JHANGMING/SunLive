@@ -16,3 +16,9 @@ export type ButtonPropsType = {
   productSpecId?: number;
   productId?: number;
 };
+
+export type DeleteBtnPropsType = {
+  size: number;
+  className: string;
+  productSpecId?: number;
+};

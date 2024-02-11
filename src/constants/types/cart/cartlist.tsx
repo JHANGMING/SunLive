@@ -12,9 +12,16 @@ export type CartItemType = {
   productSpecId: number;
 };
 
+export type CartInfoItemType = {
+  totalOriginalPrice: number;
+  totalPromotionPrice: number;
+  totalDiscount: number;
+};
+
 export type CartDataType = {
   cartItemLength?: number;
   allOriginalPrice?: number;
   alltotalPrice?: number;
   cartItemInfo?: CartItemType[];
+  cartInfo: CartInfoItemType[];
 };

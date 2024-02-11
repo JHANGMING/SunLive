@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { BsX, BsCart2 } from 'react-icons/bs';
+import { BsCart2 } from 'react-icons/bs';
 import Image from '@/common/components/CustomImage';
 import { productData } from '@/modules/CartPage/data';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
 import { LoggingInfoProps } from './data';
 import { useEffect, useRef } from 'react';
+import DeleteBtn from '../Button/DeleteBtn';
 
 const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
   const { authStatus } = useAuthStatus();
@@ -19,27 +18,7 @@ const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
       listRef.current.scrollTop = listRef.current.scrollHeight;
     }
   }, [cartData]);
-  const handlerDeleteItem = async (productSpecId: number) => {
-    const dataObj = {
-      productSpecId: productSpecId,
-    };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['deletecart'],
-      method: 'POST',
-      data: dataObj,
-    };
-    try {
-      const result = await fetchNextApi(apiParams);
-      console.log('re', result);
-      // if (result.statusCode === 200) {
-      //   mutate('/api/cart/getcart')
-      // } else {
-      //   setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
-      // }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
   return (
     <div
       className={`${dropdownClass} fixed right-0 top-100 w-[304px] bg-white shadow-cartInfo z-50`}>
@@ -77,10 +56,10 @@ const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
                   </div>
 
                   <div className=" flex gap-40">
-                    <BsX
+                    <DeleteBtn
                       size={24}
-                      className=" text-darkGray cursor-pointer hover:opacity-70 "
-                      onClick={() => handlerDeleteItem(productSpecId)}
+                      className="text-darkGray cursor-pointer hover:opacity-70"
+                      productSpecId={productSpecId}
                     />
                   </div>
                 </li>

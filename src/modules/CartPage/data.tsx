@@ -24,6 +24,7 @@ export type CartProps={
   cartData:CartDataType;
 }
 
+
 export const productData: ProductCardProps[] = [
   {
     productID: 12434,

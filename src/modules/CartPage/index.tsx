@@ -15,7 +15,7 @@ const CartPage = () => {
         <CartEmpty />
       ) : (
         <>
-          <CartListSection />
+          <CartListSection cartData={cartData} />
           <CartFormSection />
         </>
       )}
