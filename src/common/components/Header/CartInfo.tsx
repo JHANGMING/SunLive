@@ -1,19 +1,24 @@
 import Link from 'next/link';
 import { BsX, BsCart2 } from 'react-icons/bs';
-
 import Image from '@/common/components/CustomImage';
 import { productData } from '@/modules/CartPage/data';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { LoggingInfoProps } from './data';
-import handler from '@/pages/api/hello';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
+import { LoggingInfoProps } from './data';
+import { useEffect, useRef } from 'react';
 
 const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
   const { authStatus } = useAuthStatus();
-  const cartLength = cartData?.cartItemLength;
+  const listRef = useRef<HTMLUListElement>(null);
+  const cartLength = cartData?.cartItemLength ?? 0;
   const productData = cartData?.cartItemInfo;
   
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+  }, [cartData]);
   const handlerDeleteItem = async (productSpecId: number) => {
     const dataObj = {
       productSpecId: productSpecId,
@@ -38,9 +43,11 @@ const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
   return (
     <div
       className={`${dropdownClass} fixed right-0 top-100 w-[304px] bg-white shadow-cartInfo z-50`}>
-      {authStatus && cartLength !== 0 ? (
+      {authStatus && cartLength > 0 ? (
         <>
-          <ul className="px-16 pb-16 cartlist">
+          <ul
+            className="px-16 pb-16 cartlist max-h-[350px] overflow-y-auto"
+            ref={listRef}>
             {productData?.map((data) => {
               const {
                 productId,

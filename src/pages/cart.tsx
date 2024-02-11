@@ -17,8 +17,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   () =>
     async ({ req, res }) => {
       const auth = getCookies({ req, res });
-
-      if (!auth.Token) {
+      if (!auth.token) {
         res.writeHead(302, { Location: '/auth/login' });
         res.end();
       }

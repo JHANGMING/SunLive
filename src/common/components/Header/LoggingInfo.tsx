@@ -27,7 +27,8 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
       if (result.statusCode === 200) {
         removeAllCookies();
         setCookie('authStatus', 'false',);
-        auth?.category === '0' ? router.reload() : router.push('/');
+        auth?.category === '1' && router.push('/');
+        router.reload();
       } else if(result.statusCode === 409) {
         removeAllCookies();
         setCookie('authStatus', 'false');

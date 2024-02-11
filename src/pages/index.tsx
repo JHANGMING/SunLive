@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { useDispatch } from 'react-redux';
+import { getCookie } from 'cookies-next';
 import Layout from '@/common/components/Layout';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
@@ -30,8 +31,10 @@ export default function Home({ liveData, topSaleProduct, cartData }: HomePropsTy
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const token = getCookie('token', { req: context.req, res: context.res });
   let liveData = [];
   let topSaleProduct = [];
+  let cartData = [];
   try {
     // 取得近期直播商品
     const liveParams: ApiParamsType = {
@@ -53,6 +56,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       const { data } = otherCategoryResponse;
       topSaleProduct = data.topSaleProduct;
     }
+
+    // 取得購物車
+    if (token) {
+      const cartParams: ApiParamsType = {
+        apiPath: apiPaths['cart'],
+        method: 'GET',
+        authToken: token,
+      };
+      const cartResponse = await fetchApi(cartParams);
+      if (cartResponse.statusCode === 200) {
+        cartData = cartResponse;
+      }
+    }
   } catch (error) {
     console.error(error);
   }
@@ -60,7 +76,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       liveData,
       topSaleProduct,
-
+      cartData,
     },
   };
 }

@@ -1,7 +1,6 @@
 
-import { CartDataType } from '@/constants/types/cart/cartlist';
-import { SearchDataType } from '@/constants/types/product/search';
 import { createSlice } from '@reduxjs/toolkit';
+import { CartDataType } from '@/constants/types/cart/cartlist';
 
 interface InitialStateType {
   cartData: CartDataType;

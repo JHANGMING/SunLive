@@ -1,28 +1,26 @@
 import { LuShoppingCart } from 'react-icons/lu';
 import { BsPersonCircle } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import Image from '@/common/components/CustomImage';
 import CartItemCount from './CartItemCount';
-import { useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { LayoutPropsType } from '../Layout/data';
 import LoggingInfo from './LoggingInfo';
 import CartInfo from './CartInfo';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
-import useSWR from 'swr';
-import { fetcher } from '@/common/helpers/fetcher';
-import { nextRoutes } from '@/constants/apiPaths';
 
 const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
   const { authStatus } = useAuthStatus();
   const cartData  = useSelector(
     (state: RootState) => state.cart.cartData || {}
   );
-
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   let leaveProfileTimer: ReturnType<typeof setTimeout>;
   let leaveCartTimer: ReturnType<typeof setTimeout>;
+
+
   const handleProfileMouseEnter = () => {
     clearTimeout(leaveProfileTimer);
     setShowProfileDropdown(true);
@@ -48,15 +46,14 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
     showCartDropdown || showProfileDropdown
       ? 'dropdown-enter'
       : 'dropdown-exit';
-
   return (
     <>
       {pageCategory !== 'dashboardPage' ? (
         <div
           className="relative"
           onMouseEnter={handleCartMouseEnter}
-          // onMouseLeave={handleCartMouseLeave}
-          >
+          onMouseLeave={handleCartMouseLeave}
+        >
           <button
             type="button"
             className="relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
@@ -72,8 +69,7 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
           <Image
             src="/images/dashBoard/notification.png"
             alt="notification"
-            width={32}
-            height={32}
+            className="w-32 h-32"
           />
           <p className="absolute right-10 top-10 w-15 rounded-full bg-mediumGray flex justify-center text-xs text-white">
             0
