@@ -1,3 +1,5 @@
+import { CartDataType } from "@/constants/types/cart/cartlist";
+
 type ProductImgType = {
   src: string;
   alt: string;
@@ -17,6 +19,10 @@ export type ProductCardProps = {
   spec: SpecType;
   total: number;
 };
+
+export type CartProps={
+  cartData:CartDataType;
+}
 
 export const productData: ProductCardProps[] = [
   {
