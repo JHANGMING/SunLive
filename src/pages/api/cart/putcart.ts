@@ -6,15 +6,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ error: string }>
 ) {
-  if (req.method === 'POST'){
+  if (req.method === 'POST') {
     try {
       const token = getCookie('token', { req, res });
       const apiParams: ApiParamsType = {
         apiPath: apiPaths['cart'],
-        method: 'DELETE',
+        method: 'PUT',
         data: req.body,
         authToken: token,
       };
+
       const result = await fetchApi(apiParams);
       res.status(200).json(result);
     } catch (error) {

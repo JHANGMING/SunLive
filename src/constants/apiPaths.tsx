@@ -43,6 +43,7 @@ export const nextRoutes = {
   getcart: '/cart/getcart',
   addcart: '/cart/addcart',
   deletecart: '/cart/deletecart',
+  putcart: '/cart/putcart',
 
   //dashboard-product
   addproduct: '/dashboard/addproduct',

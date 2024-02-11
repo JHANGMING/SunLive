@@ -23,5 +23,5 @@ export type CartDataType = {
   allOriginalPrice?: number;
   alltotalPrice?: number;
   cartItemInfo?: CartItemType[];
-  cartInfo: CartInfoItemType[];
+  cartInfo?: CartInfoItemType[];
 };

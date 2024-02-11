@@ -1,19 +1,42 @@
 import LogoImg from '@/common/components/Logo/LogoImg';
 import Image from 'next/image';
 import { useState } from 'react';
-import { BsChevronDown} from 'react-icons/bs';
+import { BsChevronDown } from 'react-icons/bs';
 import CartLink from './CartLink';
 import SpecSelect from '@/common/components/Select/SpecSelect';
 import { generateSpecData } from '@/common/components/Select/SpecSelect/data';
 import { CartProps, productData } from './data';
 import DeleteBtn from '@/common/components/Button/DeleteBtn';
-const CartListSection = ({ cartData }:CartProps) => {
-  const handlerQtyChange = (id: number, delta: number) => {
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
+const CartListSection = ({ cartData }: CartProps) => {
+  const handlerQtyChange = async (id: number, delta: number) => {
     console.log(id, delta);
+    console.log('QtyChange');
+    // const dataObj = {
+    //   productId: 0,
+    //   productSpecId: 0,
+    //   cartItemQty: 0,
+    // };
+    // const apiParams: apiParamsType = {
+    //   apiPath: nextRoutes['putcart'],
+    //   method: 'POST',
+    //   data: dataObj,
+    // };
+    // try {
+    //   const result = await fetchNextApi(apiParams);
+    //   console.log('QtyChange', result);
+    //   // if (result.statusCode === 200) {
+    //   //   mutate('/api/cart/getcart')
+    //   // } else {
+    //   //   setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+    //   // }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   // const productData = cartData?.cartItemInfo ?? [];
-  const priceData = cartData?.cartInfo[0] ?? null;
-
+  const priceData = cartData?.cartInfo?.[0] ?? null;
 
   return (
     <section className="container">
@@ -87,7 +110,6 @@ const CartListSection = ({ cartData }:CartProps) => {
                     <DeleteBtn
                       size={24}
                       className="text-darkGray cursor-pointer hover:opacity-70"
-
                     />
                   </div>
                 </li>

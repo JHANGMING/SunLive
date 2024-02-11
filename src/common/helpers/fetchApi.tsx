@@ -2,7 +2,7 @@
 
 export type ApiParamsType = {
   apiPath: string;
-  method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
+  method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
   data?: unknown;
   authToken?: string;
   serchQuery?: string;
