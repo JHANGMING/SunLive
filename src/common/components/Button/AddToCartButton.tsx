@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
+import { mutate } from 'swr';
 const AddToCartButton = ({
   children,
   btnStyle,
@@ -37,11 +38,12 @@ const AddToCartButton = ({
       const result = await fetchNextApi(apiParams);
       console.log('ee', result);
       
-      // if (result.statusCode === 200) {
-      //   router.push('/auth/login');
-      // } else {
-      //   // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
-      // }
+      if (result.statusCode === 200) {
+        mutate('/api/cart/getcart');
+        // router.push('/auth/login');
+      } else {
+        // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      }
     } catch (error) {
       console.log(error);
     }

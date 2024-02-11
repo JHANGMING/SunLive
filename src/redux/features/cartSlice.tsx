@@ -16,11 +16,9 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     setCartData(state, action) {
-      const { cartData } = action.payload;
-      
       return {
         ...state,
-        cartData: cartData,
+        cartData: action.payload.cartData?.data,
       };
     },
   },

@@ -40,7 +40,9 @@ export const nextRoutes = {
   allproducts: '/product/all',
 
   //cart
+  getcart: '/cart/getcart',
   addcart: '/cart/addcart',
+  deletecart: '/cart/deletecart',
 
   //dashboard-product
   addproduct: '/dashboard/addproduct',

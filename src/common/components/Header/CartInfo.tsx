@@ -1,47 +1,71 @@
 import Link from 'next/link';
-import { LoggingInfoProps } from './data';
-import { BsCart2 } from 'react-icons/bs';
-import Image from 'next/image';
-import { BsX } from 'react-icons/bs';
+import { BsX, BsCart2 } from 'react-icons/bs';
+
+import Image from '@/common/components/CustomImage';
 import { productData } from '@/modules/CartPage/data';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import { LoggingInfoProps } from './data';
+import handler from '@/pages/api/hello';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
 
 const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
   const { authStatus } = useAuthStatus();
-  const cartLength=Array.isArray(cartData) && cartData.length
+  const cartLength = cartData?.cartItemLength;
+  const productData = cartData?.cartItemInfo;
+  
+  const handlerDeleteItem = async (productSpecId: number) => {
+    const dataObj = {
+      productSpecId: productSpecId,
+    };
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['deletecart'],
+      method: 'POST',
+      data: dataObj,
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      console.log('re', result);
+      // if (result.statusCode === 200) {
+      //   mutate('/api/cart/getcart')
+      // } else {
+      //   setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       className={`${dropdownClass} fixed right-0 top-100 w-[304px] bg-white shadow-cartInfo z-50`}>
       {authStatus && cartLength !== 0 ? (
         <>
           <ul className="px-16 pb-16 cartlist">
-            {productData.map((data) => {
+            {productData?.map((data) => {
               const {
-                productID,
+                productId,
+                productSpecId,
                 productImg,
                 productTitle,
-                smallPromotionPrice,
-                qyt,
+                cartItemPromotionPrice,
+                cartItemQty,
               } = data;
               return (
-                <li key={productID} className="py-16 px-14 flex gap-12">
+                <li key={productId} className="py-16 px-14 flex gap-12">
                   <div className="flex gap-16 flex-grow">
                     <Image
                       src={productImg.src}
                       alt={productImg.alt}
-                      width={80}
-                      height={80}
+                      roundedStyle="object-cover"
                       className="w-80 h-80"
                     />
                     <div>
                       <h6 className=" text-16 text-darkGray mb-8">
                         {productTitle}
                       </h6>
-                      <div className="text-14 flex gap-8 items-center">
-                        <p>
-                          {qyt} x $<span>{smallPromotionPrice}</span>
-                        </p>
-                      </div>
+                      <p className="text-14  flex gap-8 items-center">
+                        {cartItemQty}x<span>${cartItemPromotionPrice}</span>
+                      </p>
                     </div>
                   </div>
 
@@ -49,6 +73,7 @@ const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
                     <BsX
                       size={24}
                       className=" text-darkGray cursor-pointer hover:opacity-70 "
+                      onClick={() => handlerDeleteItem(productSpecId)}
                     />
                   </div>
                 </li>

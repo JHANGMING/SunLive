@@ -4,17 +4,17 @@ export type CartImgType = {
 };
 
 export type CartItemType = {
-  // productId: number;
-  // productSpecId: number;
-  // productTitle: string;
-  // smallOriginalPrice: number;
-  // smallPromotionPrice: number;
-  // productImg: CartImgType;
+  productId: number;
+  productImg: CartImgType;
+  productTitle: string;
+  cartItemPromotionPrice: number;
+  cartItemQty: number;
+  productSpecId: number;
 };
 
 export type CartDataType = {
-  cartLength?: number;
+  cartItemLength?: number;
   allOriginalPrice?: number;
   alltotalPrice?: number;
-  productData?: CartItemType[];
+  cartItemInfo?: CartItemType[];
 };
