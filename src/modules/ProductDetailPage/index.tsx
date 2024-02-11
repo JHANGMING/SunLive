@@ -1,20 +1,16 @@
-
 import DetailBanner from '@/common/components/ProductDetailPage/DetailBanner';
 import DetailSection from './DetailSection';
 import IntroductSection from './IntroductSection';
 import RelatedSection from './RelatedSection';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import Loading from '@/common/components/Loading';
+import Loading from '@/common/components/Loading/Loading';
 
 const ProductDetailPage = () => {
-  const { detailProduct } = useSelector(
-    (state: RootState) => state.product
-  );
+  const { detailProduct } = useSelector((state: RootState) => state.product);
   if (!detailProduct) {
     return <Loading />;
   }
-
 
   return (
     <>
