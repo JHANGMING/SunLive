@@ -2,7 +2,6 @@ import LogoImg from "@/common/components/Logo/LogoImg";
 import { CartTotalPriceProps } from "./data";
 
 const CartTotalPrice = ({ priceData }:CartTotalPriceProps) => {
-  console.log('priceData', priceData);
   return (
     <div className="w-3/12">
       <div className="bg-white px-16 py-20 rounded-20 flex flex-col gap-8 items-center mb-32">

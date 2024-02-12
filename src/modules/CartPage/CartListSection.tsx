@@ -14,8 +14,6 @@ import CartTotalPrice from './CartTotalPrice';
 const CartListSection = ({ cartData }: CartProps) => {
   const productData = cartData?.cartItemProductInfo ?? [];
   const priceData = cartData?.cartInfo?.[0];
-  console.log(cartData);
-  
   const handlerQtyChange = async (
     productId: number,
     productSpecId: number,
