@@ -17,17 +17,20 @@ const AddToCartButton = ({
 }: ButtonPropsType) => {
   const router = useRouter();
   const { authStatus } = useAuthStatus();
+
   const handleCartAddition = async () => {
     if (disabled) return;
     if (!authStatus) {
       router.push('/auth/login');
       return;
     }
+    
     const dataObj = {
       productId,
       productSpecId,
       cartItemQty: 1,
     };
+    
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['addcart'],
       method: 'POST',

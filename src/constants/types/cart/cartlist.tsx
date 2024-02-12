@@ -10,6 +10,16 @@ export type CartItemType = {
   cartItemPromotionPrice: number;
   cartItemQty: number;
   productSpecId: number;
+  smallOriginalPrice: number;
+  smallPromotionPrice: number;
+  productSpecSize: number;
+  largeOriginalPrice: number;
+  largePromotionPrice: number;
+  subtotal: number;
+  smallWeight: number;
+  largeWeight: number;
+  smallProductSpecId: number;
+  largeProductSpecId: number;
 };
 
 export type CartInfoItemType = {
@@ -22,6 +32,6 @@ export type CartDataType = {
   cartItemLength?: number;
   allOriginalPrice?: number;
   alltotalPrice?: number;
-  cartItemInfo?: CartItemType[];
+  cartItemProductInfo?: CartItemType[];
   cartInfo?: CartInfoItemType[];
 };

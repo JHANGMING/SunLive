@@ -11,14 +11,13 @@ const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
   const { authStatus } = useAuthStatus();
   const listRef = useRef<HTMLUListElement>(null);
   const cartLength = cartData?.cartItemLength ?? 0;
-  const productData = cartData?.cartItemInfo;
-  
+  const productData = cartData?.cartItemProductInfo;
   useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight;
     }
   }, [cartData]);
-  
+
   return (
     <div
       className={`${dropdownClass} fixed right-0 top-100 w-[304px] bg-white shadow-cartInfo z-50`}>
@@ -40,7 +39,7 @@ const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
                 <li key={productId} className="py-16 px-14 flex gap-12">
                   <div className="flex gap-16 flex-grow">
                     <Image
-                      src={productImg.src}
+                      src={productImg.src===null?"/images/product/product1.png":productImg.src}
                       alt={productImg.alt}
                       roundedStyle="object-cover"
                       className="w-80 h-80"

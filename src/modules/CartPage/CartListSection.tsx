@@ -9,23 +9,51 @@ import { CartProps, productData } from './data';
 import DeleteBtn from '@/common/components/Button/DeleteBtn';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
+import { mutate } from 'swr';
 const CartListSection = ({ cartData }: CartProps) => {
-  const handlerQtyChange = async (id: any, delta: any) => {
-    console.log(id, delta);
-    console.log('QtyChange');
-    // const dataObj = {
-    //   productId: 0,
-    //   productSpecId: 0,
-    //   cartItemQty: 0,
-    // };
-    // const apiParams: apiParamsType = {
-    //   apiPath: nextRoutes['putcart'],
-    //   method: 'POST',
-    //   data: dataObj,
-    // };
+  const handlerQtyChange = async (
+    productId: number,
+    productSpecId: number,
+    cartItemQty: number
+  ) => {
+    if (cartItemQty < 1) return;
+
+    const dataObj = {
+      productId,
+      productSpecId,
+      cartItemQty,
+    };
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['putqty'],
+      method: 'POST',
+      data: dataObj,
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      console.log('QtyChange', result);
+      if (result.statusCode === 200) {
+        mutate('/api/cart/getcart')
+      } else {
+        // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handlerSpecChange = async (productId: any, specId: string) => {
+    
+    const dataObj = {
+    productId:productId,
+	  productSpecId:Number(specId),
+    };
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['putspec'],
+      method: 'POST',
+      data: dataObj,
+    };
     // try {
     //   const result = await fetchNextApi(apiParams);
-    //   console.log('QtyChange', result);
+    //   console.log('putspec', result);
     //   // if (result.statusCode === 200) {
     //   //   mutate('/api/cart/getcart')
     //   // } else {
@@ -35,8 +63,10 @@ const CartListSection = ({ cartData }: CartProps) => {
     //   console.log(error);
     // }
   };
-  // const productData = cartData?.cartItemInfo ?? [];
+  const productData = cartData?.cartItemProductInfo ?? [];
   const priceData = cartData?.cartInfo?.[0] ?? null;
+  // console.log('priceData', cartData);
+  
   return (
     <section className="container">
       <div className=" flex gap-40">
@@ -48,39 +78,69 @@ const CartListSection = ({ cartData }: CartProps) => {
           <ul className="cartlist form-transition">
             {productData.map((data) => {
               const {
-                productID,
+                productId,
                 productImg,
                 productTitle,
                 smallOriginalPrice,
                 smallPromotionPrice,
-                spec,
-                qyt,
-                total,
+                productSpecSize,
+                largeOriginalPrice,
+                largePromotionPrice,
+                cartItemQty,
+                subtotal,
+                smallWeight,
+                largeWeight,
+                smallProductSpecId,
+                largeProductSpecId,
               } = data;
+              const productSpecId=
+                        productSpecSize
+                          ? largeProductSpecId
+                          : smallProductSpecId
+                      
               return (
-                <li key={productID} className="p-24 flex gap-60">
+                <li key={productId} className="p-24 flex gap-60">
                   <div className="flex gap-16 flex-grow">
                     <Image
-                      src={productImg.src}
+                      src={
+                        productImg.src === null
+                          ? '/images/product/default.jpg'
+                          : productImg.src
+                      }
                       alt={productImg.alt}
-                      roundedStyle='object-cover'
+                      roundedStyle="object-cover"
                       className="w-80 h-80"
                     />
                     <div>
                       <h6 className=" font-normal mb-8">{productTitle}</h6>
                       <div className="text-14 flex gap-8 items-center">
                         <p>
-                          NT$<span>{smallPromotionPrice}</span>
+                          NT$
+                          <span>
+                            {productSpecSize
+                              ? largePromotionPrice
+                              : smallPromotionPrice}
+                          </span>
                         </p>
                         <p className=" text-lightGray line-through">
-                          {smallOriginalPrice}
+                          {productSpecSize
+                            ? largeOriginalPrice
+                            : smallOriginalPrice}
                         </p>
                       </div>
                     </div>
                   </div>
                   <SpecSelect
-                    optionsData={generateSpecData(spec)}
-                    onSpecChange={(option) => handlerQtyChange(productID,option)}
+                    optionsData={generateSpecData({
+                      smallWeight,
+                      largeWeight,
+                      smallProductSpecId,
+                      largeProductSpecId,
+                    })}
+                    onSpecChange={(option) =>
+                      handlerSpecChange(productId, option)
+                    }
+                    initialSelectIndex={productSpecSize ? 1 : 0}
                   />
                   <div>
                     <div className="flex gap-x-12 items-center">
@@ -88,25 +148,32 @@ const CartListSection = ({ cartData }: CartProps) => {
                         src="/images/cart/dec.png"
                         alt="dec"
                         className="w-20 h-20 cursor-pointer hover:opacity-70"
-                        onClick={() => handlerQtyChange(productID, qyt - 1)}
+                        onClick={() =>
+                          handlerQtyChange(productId,productSpecId, cartItemQty - 1)
+                        }
                       />
-                      <p className="text-18">{qyt}</p>
+                      <p className="text-18">{cartItemQty}</p>
                       <Image
                         src="/images/cart/plus.png"
                         alt="plus"
                         className="w-20 h-20 cursor-pointer hover:opacity-70"
-                        onClick={() => handlerQtyChange(productID, qyt + 1)}
+                        onClick={() =>
+                          handlerQtyChange(productId,productSpecId,cartItemQty + 1)
+                        }
                       />
                     </div>
                   </div>
                   <div className=" flex gap-40">
                     <h6 className=" font-normal">
                       <span>$</span>
-                      {total}
+                      {subtotal}
                     </h6>
                     <DeleteBtn
                       size={24}
                       className="text-darkGray cursor-pointer hover:opacity-70"
+                      productSpecId={
+                        productSpecId
+                      }
                     />
                   </div>
                 </li>
