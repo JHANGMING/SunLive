@@ -1,27 +1,22 @@
 import { useForm } from 'react-hook-form';
-import { BsChevronDown, BsChevronRight } from 'react-icons/bs';
-import { useRef, useState } from 'react';
+import { BsChevronDown } from 'react-icons/bs';
+import { useEffect, useRef, useState } from 'react';
 import DefaultInput from '@/common/components/Input';
 import LocationSelect from '@/common/components/Select/LocationSelect';
-import { getInitialDistrictOptions } from '@/common/components/Select/LocationSelect/data';
 import { FormValues } from '@/common/components/Input/data';
 
 const CartFormSection = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const initialDistrictOptions = getInitialDistrictOptions('新北市');
-  const initialDistrictValue =
-    initialDistrictOptions.length > 0 ? initialDistrictOptions[0] : null;
   const {
     control,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: {
-      county: { label: '新北市', value: '新北市' },
-      district: initialDistrictValue,
-    },
-  });
+  } = useForm<FormValues>({});
+  useEffect(() => {
+    setValue('city', '新北市' as any);
+  }, []);
   const handleFormSubmit = () => {
     if (formRef.current) {
       formRef.current.dispatchEvent(
@@ -64,7 +59,7 @@ const CartFormSection = () => {
                 page="cart"
                 type="text"
                 labelText="收貨人"
-                id="userName"
+                id="receiver"
                 inputText="請輸入姓名"
                 globalStyle="w-full"
                 register={register}
@@ -80,7 +75,7 @@ const CartFormSection = () => {
                 page="cart"
                 type="tel"
                 labelText="聯絡電話"
-                id="userPhone"
+                id="phone"
                 inputText="請輸入聯絡電話"
                 globalStyle="w-full"
                 register={register}
@@ -90,16 +85,25 @@ const CartFormSection = () => {
                     value: true,
                     message: '請輸入您的聯絡電話!',
                   },
+                  pattern: {
+                    value: /^\d+$/,
+                    message: '請輸入有效的數字',
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: '聯絡電話不能超過10位數',
+                  },
                 }}
               />
             </div>
             <LocationSelect
               control={control}
               id="location"
-              countyName="county"
+              countyName="city"
               districtName="district"
               errors={errors}
               register={register}
+              setValue={setValue}
             />
           </form>
         </div>

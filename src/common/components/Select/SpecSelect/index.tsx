@@ -3,14 +3,18 @@ import Select, { StylesConfig } from 'react-select';
 import { OptionType, SpecSelectProps } from './data';
 import useClient from '@/common/hooks/useClient';
 
-const SpecSelect = ({ optionsData }: SpecSelectProps) => {
+const SpecSelect = ({
+  optionsData,
+  onSpecChange,
+  initialSelectIndex = 0,
+}: SpecSelectProps) => {
   const isClient = useClient();
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
   useEffect(() => {
-    if (optionsData.length > 0) {
-      setSelectedOption(optionsData[0]);
+    if (optionsData.length > 0 && optionsData[initialSelectIndex]) {
+      setSelectedOption(optionsData[initialSelectIndex]);
     }
-  }, [optionsData]);
+  }, [optionsData, initialSelectIndex]);
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
@@ -31,11 +35,9 @@ const SpecSelect = ({ optionsData }: SpecSelectProps) => {
   };
 
   const handleChange = (option: OptionType | null) => {
-    setSelectedOption(option); // 更新选中的选项
-    if (option) {
-      // 执行额外的操作，例如调用API
-      console.log(`Selected value: ${option.value}`);
-      // fetchApi(option.value); // 假设这是调用API的函数
+    setSelectedOption(option);
+    if (option !== null) {
+      onSpecChange(option.value);
     }
   };
 

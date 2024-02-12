@@ -3,10 +3,25 @@ import { pageSet } from './data';
 import Logo from '@/common/components/Logo';
 import CartAndLogin from './CartAndLogin';
 import { LayoutPropsType } from '../Layout/data';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import useSWR from 'swr';
+import { fetcher } from '@/common/helpers/fetcher';
+import { nextRoutes } from '@/constants/apiPaths';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCartData } from '@/redux/features/cartSlice';
 
 const Header = ({ pageCategory }: LayoutPropsType) => {
   const headerBehavior = pageSet[pageCategory];
-
+  const { authStatus } = useAuthStatus();
+  const dispatch = useDispatch();
+  const { data } = useSWR(
+    authStatus ? `/api${nextRoutes['getcart']}` : null,
+    fetcher
+  );
+  useEffect(() => {
+    dispatch(setCartData({ cartData: data }));
+  }, [data]);
   switch (headerBehavior) {
     case 'header':
       return (

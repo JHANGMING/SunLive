@@ -1085,14 +1085,6 @@ export const locationData = [
         name: '大社區',
       },
       {
-        zip: '817',
-        name: '東沙群島',
-      },
-      {
-        zip: '819',
-        name: '南沙群島',
-      },
-      {
         zip: '820',
         name: '岡山區',
       },

@@ -1,53 +1,64 @@
 import Link from 'next/link';
-import { LoggingInfoProps } from './data';
 import { BsCart2 } from 'react-icons/bs';
-import Image from 'next/image';
-import { BsX } from 'react-icons/bs';
+import Image from '@/common/components/CustomImage';
 import { productData } from '@/modules/CartPage/data';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import { LoggingInfoProps } from './data';
+import { useEffect, useRef } from 'react';
+import DeleteBtn from '../Button/DeleteBtn';
 
-const CartInfo = ({ dropdownClass }: LoggingInfoProps) => {
+const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
   const { authStatus } = useAuthStatus();
+  const listRef = useRef<HTMLUListElement>(null);
+  const cartLength = cartData?.cartItemLength ?? 0;
+  const productData = cartData?.cartItemProductInfo;
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+  }, [cartData]);
+
   return (
     <div
       className={`${dropdownClass} fixed right-0 top-100 w-[304px] bg-white shadow-cartInfo z-50`}>
-      {authStatus ? (
+      {authStatus && cartLength > 0 ? (
         <>
-          <ul className="px-16 pb-16 cartlist">
-            {productData.map((data) => {
+          <ul
+            className="px-16 pb-16 cartlist max-h-[350px] overflow-y-auto"
+            ref={listRef}>
+            {productData?.map((data) => {
               const {
-                productID,
+                productId,
+                productSpecId,
                 productImg,
                 productTitle,
-                smallPromotionPrice,
-                qyt,
+                cartItemPromotionPrice,
+                cartItemQty,
               } = data;
               return (
-                <li key={productID} className="py-16 px-14 flex gap-12">
+                <li key={productId} className="py-16 px-14 flex gap-12">
                   <div className="flex gap-16 flex-grow">
                     <Image
-                      src={productImg.src}
+                      src={productImg.src===null?"/images/product/product1.png":productImg.src}
                       alt={productImg.alt}
-                      width={80}
-                      height={80}
+                      roundedStyle="object-cover"
                       className="w-80 h-80"
                     />
                     <div>
                       <h6 className=" text-16 text-darkGray mb-8">
                         {productTitle}
                       </h6>
-                      <div className="text-14 flex gap-8 items-center">
-                        <p>
-                          {qyt} x $<span>{smallPromotionPrice}</span>
-                        </p>
-                      </div>
+                      <p className="text-14  flex gap-8 items-center">
+                        {cartItemQty}x<span>${cartItemPromotionPrice}</span>
+                      </p>
                     </div>
                   </div>
 
                   <div className=" flex gap-40">
-                    <BsX
+                    <DeleteBtn
                       size={24}
-                      className=" text-darkGray cursor-pointer hover:opacity-70 "
+                      className="text-darkGray cursor-pointer hover:opacity-70"
+                      productSpecId={productSpecId}
                     />
                   </div>
                 </li>
