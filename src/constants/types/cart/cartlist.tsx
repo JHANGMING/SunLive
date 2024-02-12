@@ -28,10 +28,14 @@ export type CartInfoItemType = {
   totalDiscount: number;
 };
 
+export type PriceItemType = {
+  totalDiscount: number;
+  totalOriginalPrice: number;
+  totalPromotionPrice: number;
+};
+
 export type CartDataType = {
   cartItemLength?: number;
-  allOriginalPrice?: number;
-  alltotalPrice?: number;
   cartItemProductInfo?: CartItemType[];
-  cartInfo?: CartInfoItemType[];
+  cartInfo?: PriceItemType[] | undefined;
 };
