@@ -1,8 +1,7 @@
-import { Control } from 'react-hook-form';
-import { FormValues } from '../../Input/data';
 
 export type SpecSelectProps = {
   optionsData: OptionType[];
+  onSpecChange: (value: string) => void;
 };
 export type OptionType = {
   value: string;

@@ -1,5 +1,5 @@
 import LogoImg from '@/common/components/Logo/LogoImg';
-import Image from 'next/image';
+import Image from '@/common/components/CustomImage';
 import { useState } from 'react';
 import { BsChevronDown } from 'react-icons/bs';
 import CartLink from './CartLink';
@@ -10,7 +10,7 @@ import DeleteBtn from '@/common/components/Button/DeleteBtn';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 const CartListSection = ({ cartData }: CartProps) => {
-  const handlerQtyChange = async (id: number, delta: number) => {
+  const handlerQtyChange = async (id: any, delta: any) => {
     console.log(id, delta);
     console.log('QtyChange');
     // const dataObj = {
@@ -37,7 +37,6 @@ const CartListSection = ({ cartData }: CartProps) => {
   };
   // const productData = cartData?.cartItemInfo ?? [];
   const priceData = cartData?.cartInfo?.[0] ?? null;
-
   return (
     <section className="container">
       <div className=" flex gap-40">
@@ -64,8 +63,7 @@ const CartListSection = ({ cartData }: CartProps) => {
                     <Image
                       src={productImg.src}
                       alt={productImg.alt}
-                      width={80}
-                      height={80}
+                      roundedStyle='object-cover'
                       className="w-80 h-80"
                     />
                     <div>
@@ -80,14 +78,15 @@ const CartListSection = ({ cartData }: CartProps) => {
                       </div>
                     </div>
                   </div>
-                  <SpecSelect optionsData={generateSpecData(spec)} />
+                  <SpecSelect
+                    optionsData={generateSpecData(spec)}
+                    onSpecChange={(option) => handlerQtyChange(productID,option)}
+                  />
                   <div>
                     <div className="flex gap-x-12 items-center">
                       <Image
                         src="/images/cart/dec.png"
                         alt="dec"
-                        width={20}
-                        height={20}
                         className="w-20 h-20 cursor-pointer hover:opacity-70"
                         onClick={() => handlerQtyChange(productID, qyt - 1)}
                       />
@@ -95,8 +94,6 @@ const CartListSection = ({ cartData }: CartProps) => {
                       <Image
                         src="/images/cart/plus.png"
                         alt="plus"
-                        width={20}
-                        height={20}
                         className="w-20 h-20 cursor-pointer hover:opacity-70"
                         onClick={() => handlerQtyChange(productID, qyt + 1)}
                       />

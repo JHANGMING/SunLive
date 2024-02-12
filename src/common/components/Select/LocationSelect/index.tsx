@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
-import Select, { SingleValue, StylesConfig } from 'react-select';
+import Select, { SingleValue, StylesConfig, ActionMeta } from 'react-select';
 import useDistrictOptions from '@/common/hooks/useDistrictOptions';
 import useZipOptions from '@/common/hooks/useZipOptions';
 import { LocationSelectProps, OptionType, countyOptions } from './data';
@@ -14,6 +14,7 @@ const LocationSelect = ({
   districtName,
   register,
   errors,
+  setValue,
 }: LocationSelectProps) => {
   const isClient = useClient();
   const [selectedCounty, setSelectedCounty] = useState('新北市');
@@ -21,36 +22,38 @@ const LocationSelect = ({
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const zipOptions = useZipOptions(selectedDistrict);
 
-  const handleCountyChange = (
-    selectedOption: SingleValue<string | OptionType>
-  ) => {
-    if (
-      typeof selectedOption === 'object' &&
-      selectedOption !== null &&
-      'value' in selectedOption
-    ) {
-      setSelectedCounty(selectedOption.value);
-      setSelectedDistrict('');
-    }
-  };
+const handleCountyChange = (selectedOption:string) => {
+  if (selectedOption) {
+    const newValue = selectedOption;
+    setSelectedCounty(newValue);
+    // setValue(countyName, newValue); // 更新縣市名稱到React Hook Form狀態
+    setSelectedDistrict(''); // 重置鄉鎮市區選擇
+  }
+};
 
-  const handleDistrictChange = (
-    selectedOption: SingleValue<string | OptionType>
-  ) => {
-    if (
-      typeof selectedOption === 'object' &&
-      selectedOption !== null &&
-      'value' in selectedOption
-    ) {
-      setSelectedDistrict(selectedOption.value);
-    }
-  };
+// 處理鄉鎮市區變更
+const handleDistrictChange = (selectedOption: string) => {
+  if (selectedOption) {
+    const newValue = selectedOption;
+    setSelectedDistrict(newValue);
+    // setValue(districtName, newValue); // 更新鄉鎮市區名稱到React Hook Form狀態
+  }
+};
 
-  useEffect(() => {
-    if (districtOptions.length > 0 && !selectedDistrict) {
-      setSelectedDistrict(districtOptions[0].value);
-    }
-  }, [districtOptions]);
+useEffect(() => {
+  if (districtOptions.length > 0 && !selectedDistrict) {
+    const firstDistrictValue = districtOptions[0]?.value;
+    setSelectedDistrict(firstDistrictValue);
+    setValue('district', firstDistrictValue as any); // 自動設定第一個鄉鎮市區為選中值
+  }
+}, [districtOptions, districtName, setValue]);
+
+useEffect(() => {
+  if (zipOptions.length > 0) {
+    const zipCodeValue = zipOptions[0].value;
+    setValue('zipCode', zipCodeValue); // 更新郵遞區號到表單狀態
+  }
+}, [zipOptions, setValue]);
 
   const customStyles: StylesConfig<string | OptionType, false> = {
     control: (provided, state) => ({
@@ -81,7 +84,7 @@ const LocationSelect = ({
                 縣市
               </label>
               <Controller
-                name="county"
+                name="city"
                 control={control}
                 render={({ field }) => (
                   <Select
@@ -93,9 +96,17 @@ const LocationSelect = ({
                     menuPortalTarget={
                       typeof document === 'undefined' ? null : document.body
                     }
-                    onChange={(val) => {
-                      field.onChange(val);
-                      handleCountyChange(val);
+                    value={countyOptions.find(
+                      (option) => option.value  === selectedCounty 
+                    )} // 確保value與selectedCounty同步
+                    onChange={(
+                      option: SingleValue<string | OptionType>,
+                      actionMeta: ActionMeta<string | OptionType>
+                    ) => {
+                      if (option && typeof option !== 'string') {
+                        handleCountyChange(option ? option.value : '');
+                        field.onChange(option.value as string);
+                      }
                     }}
                   />
                 )}
@@ -115,17 +126,21 @@ const LocationSelect = ({
                     options={districtOptions}
                     styles={customStyles}
                     name={districtName}
-                    value={
-                      districtOptions.find(
-                        (option) => option.value === selectedDistrict
-                      ) || null
-                    }
                     menuPortalTarget={
                       typeof document === 'undefined' ? null : document.body
                     }
-                    onChange={(val) => {
-                      field.onChange(val);
-                      handleDistrictChange(val);
+                    value={districtOptions.find(
+                      (option) =>
+                        option.value === (field.value ? field.value : '')
+                    )}
+                    onChange={(
+                      option: SingleValue<string | OptionType>,
+                      actionMeta: ActionMeta<string | OptionType>
+                    ) => {
+                      if (option && typeof option !== 'string') {
+                        handleDistrictChange(option ? option.value : '');
+                        field.onChange(option ? option.value : '');
+                      }
                     }}
                   />
                 )}
@@ -139,9 +154,9 @@ const LocationSelect = ({
               </label>
               <input
                 className="w-full h-[59px] border border-lightGray rounded-8 px-16 focus-visible:outline-primary-green tracking-widest"
-                id="zip"
+                id="zipCode"
                 value={zipOptions.length > 0 ? zipOptions[0].value : ''}
-                {...(register && register('zip'))}
+                {...(register && register('zipCode'))}
                 readOnly
               />
             </div>

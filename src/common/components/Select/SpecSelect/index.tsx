@@ -3,7 +3,7 @@ import Select, { StylesConfig } from 'react-select';
 import { OptionType, SpecSelectProps } from './data';
 import useClient from '@/common/hooks/useClient';
 
-const SpecSelect = ({ optionsData }: SpecSelectProps) => {
+const SpecSelect = ({ optionsData, onSpecChange }: SpecSelectProps) => {
   const isClient = useClient();
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
   useEffect(() => {
@@ -31,11 +31,9 @@ const SpecSelect = ({ optionsData }: SpecSelectProps) => {
   };
 
   const handleChange = (option: OptionType | null) => {
-    setSelectedOption(option); // 更新选中的选项
-    if (option) {
-      // 执行额外的操作，例如调用API
-      console.log(`Selected value: ${option.value}`);
-      // fetchApi(option.value); // 假设这是调用API的函数
+    setSelectedOption(option); 
+    if (option !== null) {
+      onSpecChange(option.value);
     }
   };
 
