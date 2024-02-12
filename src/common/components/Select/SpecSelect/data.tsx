@@ -1,8 +1,8 @@
-import { Control } from 'react-hook-form';
-import { FormValues } from '../../Input/data';
 
 export type SpecSelectProps = {
   optionsData: OptionType[];
+  onSpecChange: (value: string) => void;
+  initialSelectIndex: number;
 };
 export type OptionType = {
   value: string;
@@ -12,11 +12,19 @@ export type OptionType = {
 type ProductDataType = {
   smallWeight: number;
   largeWeight: number;
+  smallProductSpecId: number;
+  largeProductSpecId: number;
 };
 
 export function generateSpecData(specData: ProductDataType): OptionType[] {
   return [
-    { value: '0', label: `小份 ${specData.smallWeight}g` },
-    { value: '1', label: `大份 ${specData.largeWeight}g` },
+    {
+      value: ` ${specData.smallProductSpecId}`,
+      label: `小份 ${specData.smallWeight}g`,
+    },
+    {
+      value: ` ${specData.largeProductSpecId}`,
+      label: `大份 ${specData.largeWeight}g`,
+    },
   ];
 }

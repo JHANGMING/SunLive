@@ -1,3 +1,5 @@
+
+import { CartDataType } from '@/constants/types/cart/cartlist';
 import { PageCategoryType } from '../Layout/data';
 
 export const navBarDatas = [
@@ -51,4 +53,9 @@ export type PageSet = {
 
 export type LoggingInfoProps = {
   dropdownClass: string;
+  cartData?: CartDataType;
+};
+
+export type CartItemCountProps = {
+  cartData:CartDataType;
 };

@@ -7,7 +7,7 @@ import ProductList from '@/common/components/product/ProductList';
 import { useProducts } from '@/common/hooks/ProductsRefContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import Loading from '@/common/components/Loading';
+import Loading from '@/common/components/Loading/Loading';
 import Link from 'next/link';
 
 const DiscountedSection = () => {

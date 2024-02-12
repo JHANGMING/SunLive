@@ -13,5 +13,12 @@ export type ButtonPropsType = {
   textStyle?: string;
   showIcon?: boolean;
   disabled?: boolean;
-  productSpecId?:number
+  productSpecId?: number;
+  productId?: number;
+};
+
+export type DeleteBtnPropsType = {
+  size: number;
+  className: string;
+  productSpecId?: number;
 };

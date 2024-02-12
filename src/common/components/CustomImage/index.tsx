@@ -7,9 +7,12 @@ const CustomImage = ({
   className,
   priority = false,
   roundedStyle,
+  onClick,
 }: CustomImageProps) => {
   return (
-    <div className={`relative flex-shrink-0 ${className}`}>
+    <div
+      className={`relative flex-shrink-0 ${className}`}
+      onClick={onClick ? onClick : undefined}>
       <Image
         src={src}
         alt={alt}

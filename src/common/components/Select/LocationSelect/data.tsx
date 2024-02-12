@@ -1,6 +1,6 @@
 import { locationData } from '@/constants/location';
 import { Control } from 'react-hook-form';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import { FormValues } from '../../Input/data';
 
 export type LocationSelectProps = {
@@ -10,12 +10,13 @@ export type LocationSelectProps = {
   districtName: string;
   register?: UseFormRegister<FormValues>;
   errors?: FieldErrors<FormValues>;
+  setValue: UseFormSetValue<FormValues>;
 };
 export type OptionType = {
   value: string;
   label: string;
 };
-export const countyOptions = locationData.map((city) => ({
+export const countyOptions: OptionType[] = locationData.map((city) => ({
   value: city.name,
   label: city.name,
 }));

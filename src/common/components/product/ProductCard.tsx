@@ -103,7 +103,8 @@ const ProductCard = ({
           category="addCart"
           btnStyle={`${buttonAtBottom ? 'w-full flex justify-center bg-primary-red border-white' : 'bg-primary-red border-white'}`}
           textStyle="text-white"
-          productSpecId={productSpecId}>
+          productSpecId={productSpecId}
+          productId={productId}>
           加入購物車
         </Button>
       </div>
