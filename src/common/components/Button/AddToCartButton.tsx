@@ -47,7 +47,8 @@ const AddToCartButton = ({
         mutate('/api/cart/getcart');
         if (toCart) router.push('/cart');
         // router.push('/auth/login');
-      } else {
+      } else if (result.statusCode === 409) {
+        router.push('/auth/login');
         // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
       }
     } catch (error) {

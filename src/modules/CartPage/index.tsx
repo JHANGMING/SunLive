@@ -8,6 +8,7 @@ import { RootState } from '@/redux/store';
 const CartPage = () => {
   const { cartData } = useSelector((state: RootState) => state.cart);
   const cartLength = cartData?.cartItemLength ?? 0;
+  
   return (
     <>
       <CartProcess />
@@ -16,7 +17,7 @@ const CartPage = () => {
       ) : (
         <>
           <CartListSection cartData={cartData} />
-          <CartFormSection />
+          <CartFormSection cartData={cartData} />
         </>
       )}
     </>

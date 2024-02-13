@@ -1,4 +1,4 @@
-import { CartDataType, PriceItemType } from "@/constants/types/cart/cartlist";
+import { CartDataType, CartItemType, PriceItemType } from "@/constants/types/cart/cartlist";
 
 type ProductImgType = {
   src: string;
@@ -27,6 +27,12 @@ export type CartProps={
 
 export type CartTotalPriceProps = {
   priceData: PriceItemType;
+};
+
+export type PaymentDataType = {
+  MerchantID?: string;
+  TradeInfo?: string;
+  TradeSha?: string;
 };
 
 export const productData: ProductCardProps[] = [
