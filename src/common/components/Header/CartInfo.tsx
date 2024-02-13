@@ -36,10 +36,14 @@ const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
                 cartItemQty,
               } = data;
               return (
-                <li key={productId} className="py-16 px-14 flex gap-12">
+                <li key={productSpecId} className="py-16 px-14 flex gap-12">
                   <div className="flex gap-16 flex-grow">
                     <Image
-                      src={productImg.src===null?"/images/product/product1.png":productImg.src}
+                      src={
+                        productImg.src === null
+                          ? '/images/product/product1.png'
+                          : productImg.src
+                      }
                       alt={productImg.alt}
                       roundedStyle="object-cover"
                       className="w-80 h-80"

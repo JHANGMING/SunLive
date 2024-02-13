@@ -11,7 +11,6 @@ const ProductDetailPage = () => {
   if (!detailProduct) {
     return <Loading />;
   }
-
   return (
     <>
       <DetailBanner />

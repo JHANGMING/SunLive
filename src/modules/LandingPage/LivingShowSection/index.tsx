@@ -62,7 +62,7 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
                 <Link
                   href={living ? '/livestream/' : '/livestream/view'}
                   // href={living ? '/livestream/view' : '/livestream/'}
-                  className="shiny-button text-primary-red bg-white py-16 px-24 flex rounded-[20px] items-center gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group">
+                  className="outline-offset shiny-button text-primary-red bg-white py-16 px-24 flex rounded-20 items-center gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group">
                   <BsHandIndex className=" rotate-90 w-24 h-24 transition-transform group-hover:translate-x-4 group-hover:text-mediumGray" />
                   <h4 className="group-hover:text-mediumGray">
                     {living ? '立刻加入直播' : '查看更多'}

@@ -15,6 +15,8 @@ export type ButtonPropsType = {
   disabled?: boolean;
   productSpecId?: number;
   productId?: number;
+  cartItemQty?: number;
+  toCart?: boolean;
 };
 
 export type DeleteBtnPropsType = {
