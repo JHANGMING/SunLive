@@ -19,6 +19,8 @@ const Header = ({ pageCategory }: LayoutPropsType) => {
     authStatus ? `/api${nextRoutes['getcart']}` : null,
     fetcher
   );
+  console.log('data', data);
+  
   useEffect(() => {
     dispatch(setCartData({ cartData: data }));
   }, [data]);

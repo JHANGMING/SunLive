@@ -7,7 +7,7 @@ const DeleteBtn = ({ size, className, productSpecId }:DeleteBtnPropsType) => {
   const handlerDeleteItem = async () => {
     console.log('delete');
     const dataObj = {
-      productSpecId: productSpecId,
+      productSpecId,
     };
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['deletecart'],
