@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from '@/common/components/CustomImage';
+import LogoImg from '@/common/components/Logo/LogoImg';
 import Button from '../Button';
 import { ProductCardProps } from './data';
-import LogoImg from '@/common/components/Logo/LogoImg';
 
 const ProductCard = ({
   productId,
@@ -54,7 +54,7 @@ const ProductCard = ({
               }
               alt={productImg.alt}
               roundedStyle="rounded-20 h-full object-cover"
-              className={`w-[148px] h-[136px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${cardImageStyle} ${imgBorderStyle}`}
+              className={`w-full h-[136px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${cardImageStyle} ${imgBorderStyle}`}
             />
           </div>
           {label && (

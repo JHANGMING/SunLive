@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import CategoryTitle from './CategoryTitle';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
 import { BsFillGeoFill } from 'react-icons/bs';
+import { RootState } from '@/redux/store';
+import Image from '@/common/components/CustomImage';
+import LogoImg from '@/common/components/Logo/LogoImg';
 import Button from '@/common/components/Button';
 import ProductList from '@/common/components/product/ProductList';
 import { useProducts } from '@/common/hooks/ProductsRefContext';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
 import Loading from '@/common/components/Loading/Loading';
-import Link from 'next/link';
+import CategoryTitle from './CategoryTitle';
 
 const DiscountedSection = () => {
   const refs = useProducts();
@@ -44,17 +44,16 @@ const DiscountedSection = () => {
                     : productImg.src
                 }
                 alt={productImg.alt}
-                width={854}
-                height={381}
-                className="w-[854px] h-[381px] hover:opacity-50 border-dashed border-2 border-primary-red rounded-20 transition duration-800 ease-in-out"
+                roundedStyle="object-cover"
+                className="w-full h-[381px] hover:opacity-50 border-dashed border-2 border-primary-red rounded-20 transition duration-800 ease-in-out"
               />
-              <Image
-                src="/images/productShop/todaySale.svg"
-                alt="UpcomingIcon"
-                width={120}
-                height={120}
-                className="absolute left-0 top-0"
-              />
+              <div className="absolute left-0 top-0">
+                <Image
+                  src="/images/productShop/todaySale.svg"
+                  alt="UpcomingIcon"
+                  className="w-120 h-120"
+                />
+              </div>
               <h4 className="absolute left-0 bottom-0 w-full bg-primary-red h-60 opacity-80 flex justify-center items-center text-white rounded-bl-20 rounded-br-20">
                 限時折扣
               </h4>
@@ -74,8 +73,7 @@ const DiscountedSection = () => {
                 <Image
                   src="/images/productDetail/farmer.png"
                   alt="farmerImg"
-                  width={40}
-                  height={40}
+                  roundedStyle="object-cover rounded-full"
                   className="w-40 h-40 rounded-full border-2 border-primary-yellow"
                 />
                 <p>小農</p>
