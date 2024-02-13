@@ -32,6 +32,7 @@ export const pageSet: PageSet = {
   authPage: 'logo',
   CartPage: 'never',
   searchPage: 'header',
+  errorPage: 'never',
 };
 
 export const fixedPageSet: PageSet = {
@@ -45,6 +46,7 @@ export const fixedPageSet: PageSet = {
   searchPage: 'scroll',
   dashboardPage: 'always',
   personInfoPage: 'always',
+  errorPage: 'always'
 };
 
 export type PageSet = {
