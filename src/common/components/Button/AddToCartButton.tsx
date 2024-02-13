@@ -13,6 +13,8 @@ const AddToCartButton = ({
   disabled = false,
   productSpecId,
   productId,
+  cartItemQty=1,
+  toCart=false,
   onClick,
 }: ButtonPropsType) => {
   const router = useRouter();
@@ -28,9 +30,9 @@ const AddToCartButton = ({
     const dataObj = {
       productId,
       productSpecId,
-      cartItemQty: 1,
+      cartItemQty,
     };
-    
+    console.log('dataObj', dataObj);
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['addcart'],
       method: 'POST',
@@ -43,6 +45,7 @@ const AddToCartButton = ({
       
       if (result.statusCode === 200) {
         mutate('/api/cart/getcart');
+        if (toCart) router.push('/cart');
         // router.push('/auth/login');
       } else {
         // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);

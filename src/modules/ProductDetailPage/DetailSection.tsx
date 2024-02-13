@@ -7,8 +7,11 @@ import { ProductImgType } from '@/constants/types/product/allproducts';
 import { DetailSectionProps } from './data';
 
 const DetailSection = ({ detailProduct }: DetailSectionProps) => {
+
   const [qty, setQty] = useState(1);
-  const [selectedSpec, setSelectedSpec] = useState('small');
+  const [selectedSpec, setSelectedSpec] = useState(
+    detailProduct.smallproductSpecId
+  );
   const [selectedImage, setSelectedImage] = useState('');
   useEffect(() => {
     if (detailProduct.productImages && detailProduct.productImages.length > 0) {
@@ -18,7 +21,7 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
   const updateCount = (isIncrement: boolean) => {
     setQty((prevCount) => (isIncrement ? prevCount + 1 : prevCount - 1));
   };
-  const selectSpec = (spec: string) => {
+  const selectSpec = (spec: number) => {
     setSelectedSpec(spec);
   };
   const handlerAddCart = () => {
@@ -27,7 +30,7 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
   const handlerToBuy = () => {
     console.log('handlerToBuy');
   };
-  const getButtonClass = (spec: string) => {
+  const getButtonClass = (spec: number) => {
     let baseClass = 'w-[160px] h-48 px-32 border rounded-8 ';
     let selectedClass = 'border-primary-red font-bold text-primary-red';
     let defaultClass = 'border-mediumGray';
@@ -86,12 +89,12 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
             <div className="flex items-center gap-8">
               <h4 className="text-primary-red">
                 $
-                {selectedSpec === 'small'
+                {selectedSpec === detailProduct.smallproductSpecId
                   ? detailProduct.smallPromotionPrice
                   : detailProduct.largePromotionPrice}
               </h4>
               <span className=" text-lightGray font-bold text-14 line-through">
-                {selectedSpec === 'small'
+                {selectedSpec === detailProduct.largeproductSpecId
                   ? detailProduct.smallOriginalPrice
                   : detailProduct.largeOriginalPrice}
               </span>
@@ -103,14 +106,14 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
             <div className="flex gap-24">
               <button
                 type="button"
-                className={getButtonClass('small')}
-                onClick={() => selectSpec('small')}>
+                className={getButtonClass(detailProduct.smallproductSpecId)}
+                onClick={() => selectSpec(detailProduct.smallproductSpecId)}>
                 小份 ({detailProduct.smallWeight}g)
               </button>
               <button
                 type="button"
-                className={getButtonClass('large')}
-                onClick={() => selectSpec('large')}>
+                className={getButtonClass(detailProduct.largeproductSpecId)}
+                onClick={() => selectSpec(detailProduct.largeproductSpecId)}>
                 大份 ({detailProduct.largeWeight}g)
               </button>
             </div>
@@ -139,17 +142,22 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
           <div className="flex gap-24">
             <Button
               category="addCart"
-              onClick={handlerAddCart}
               showIcon={false}
               btnStyle="bg-white border-primary-red w-full flex justify-center items-center h-48"
-              textStyle="text-primary-red">
+              textStyle="text-primary-red"
+              productId={detailProduct.productId}
+              productSpecId={selectedSpec}
+              cartItemQty={qty}>
               加入購物車
             </Button>
             <Button
               category="addCart"
-              onClick={handlerToBuy}
               btnStyle="bg-primary-red border-white w-full flex justify-center items-center h-48 "
-              textStyle="text-white">
+              textStyle="text-white"
+              productId={detailProduct.productId}
+              productSpecId={selectedSpec}
+              cartItemQty={qty}
+              toCart={true}>
               立即購買
             </Button>
           </div>
