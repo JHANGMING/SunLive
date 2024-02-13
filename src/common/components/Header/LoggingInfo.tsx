@@ -16,7 +16,6 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
   const router = useRouter();
   const { authStatus } = useAuthStatus();
   const auth = useAuth();
-
   const handlerLoginOut = async () => {
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['logout'],
@@ -25,10 +24,9 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        removeAllCookies();
         setCookie('authStatus', 'false',);
-        auth?.category === '1' && router.push('/');
-        router.reload();
+        router.push('/auth/login');
+        removeAllCookies();
       } else if(result.statusCode === 409) {
         removeAllCookies();
         setCookie('authStatus', 'false');
@@ -83,9 +81,13 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
             </Link>
           )}
           <Link
-            href="/personinfo?section=order"
+            href={
+              auth?.category === '1'
+                ? '/dashboard/orders/allorders'
+                : '/personinfo?section=order'
+            }
             className="hover:text-primary-green mb-8">
-            訂單查詢
+            {auth?.category === '1' ? '訂單管理' : '訂單查詢'}
           </Link>
           {authStatus && (
             <>

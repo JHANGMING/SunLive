@@ -17,6 +17,7 @@ export type LayoutPropsType = {
   children?: ReactNode;
   pageCategory: PageCategoryType;
   classStyle?: string;
+  isVisible?:boolean;
 };
 
 export type AuthLayoutProps = {

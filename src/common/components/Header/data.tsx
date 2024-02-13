@@ -54,6 +54,7 @@ export type PageSet = {
 export type LoggingInfoProps = {
   dropdownClass: string;
   cartData?: CartDataType;
+  isVisible?:boolean;
 };
 
 export type CartItemCountProps = {
