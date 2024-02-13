@@ -16,10 +16,12 @@ export type DetailproductItemType = {
   introduction: string;
   largeOriginalPrice: number;
   largePromotionPrice: number;
+  largeproductSpecId: number;
   largeWeight: number;
   largeStock: number;
   smallWeight: number;
   smallStock: number;
+  smallproductSpecId: number;
   productImages: productImgType[];
   farmerName: null;
   farmerVision: null;

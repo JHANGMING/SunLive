@@ -1,12 +1,22 @@
 import { useForm } from 'react-hook-form';
 import { BsChevronDown } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
+import { nextRoutes } from '@/constants/apiPaths';
 import DefaultInput from '@/common/components/Input';
 import LocationSelect from '@/common/components/Select/LocationSelect';
 import { FormValues } from '@/common/components/Input/data';
+import { transformDataToCartList } from '@/common/helpers/transDataToCartList';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { CartProps, PaymentDataType } from './data';
 
-const CartFormSection = () => {
+const CartFormSection = ({ cartData }: CartProps) => {
+  const productData = cartData?.cartItemProductInfo ?? [];
+  const orderSum = cartData?.cartInfo?.[0].totalPromotionPrice || 0;
+
+  const cartList = transformDataToCartList(productData);
   const formRef = useRef<HTMLFormElement>(null);
+  const payformRef = useRef<HTMLFormElement>(null);
+  const [paymentData, setPaymentData] = useState<PaymentDataType>({});
   const {
     control,
     register,
@@ -17,6 +27,17 @@ const CartFormSection = () => {
   useEffect(() => {
     setValue('city', '新北市' as any);
   }, []);
+  useEffect(() => {
+    console.log(paymentData);
+    
+     if (
+       paymentData.MerchantID &&
+       paymentData.TradeInfo &&
+       paymentData.TradeSha
+     ) {
+       payformRef.current?.submit();
+     }
+  }, [paymentData]);
   const handleFormSubmit = () => {
     if (formRef.current) {
       formRef.current.dispatchEvent(
@@ -24,18 +45,42 @@ const CartFormSection = () => {
       );
     }
   };
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     //送出時要一併將購物車資料一併送出
-    console.log(data);
+    const { zipCode, ...rest } = data;
+    const zipCodeNumber = Number(zipCode);
+    const dataObj = {
+      ...rest,
+      zipCode: zipCodeNumber,
+      orderSum: orderSum + 100,
+      cartList,
+    };
+    console.log(dataObj);
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['order'],
+      method: 'POST',
+      data: dataObj,
+    };
 
-    //  const { email, password, nickname } = data;
-    //  const dataObj = {
-    //    email: email.trim(),
-    //    password: password.trim(),
-    //    nickname: nickname.trim(),
-    //  };
-    //  console.log(dataObj);
+    try {
+      const result = await fetchNextApi(apiParams);
+      console.log('order', result);
+
+      if (result.statusCode === 200) {
+        // mutate('/api/cart/getcart');
+
+        setPaymentData(result.paymentData);
+      //   if (toCart) router.push('/cart');
+      //   // router.push('/auth/login');
+      // } else if (result.statusCode === 409) {
+      //   router.push('/auth/login');
+      //   // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <section className="container mb-[78px]">
       <div className="w-[73%]">
@@ -76,7 +121,7 @@ const CartFormSection = () => {
                 type="tel"
                 labelText="聯絡電話"
                 id="phone"
-                inputText="請輸入聯絡電話"
+                inputText="0910xxxxxxx"
                 globalStyle="w-full"
                 register={register}
                 errors={errors}
@@ -86,12 +131,8 @@ const CartFormSection = () => {
                     message: '請輸入您的聯絡電話!',
                   },
                   pattern: {
-                    value: /^\d+$/,
-                    message: '請輸入有效的數字',
-                  },
-                  maxLength: {
-                    value: 10,
-                    message: '聯絡電話不能超過10位數',
+                    value: /^09\d{8}$/,
+                    message: '手機號碼格式有誤',
                   },
                 }}
               />
@@ -121,6 +162,39 @@ const CartFormSection = () => {
           </div>
         </div>
       </div>
+      {/* <!-- 用表單送給藍新 --> */}
+      <form
+        name="Newebpay"
+        method="post"
+        action="https://ccore.newebpay.com/MPG/mpg_gateway"
+        ref={payformRef}>
+        {/* <!-- 設定 hidden 可以隱藏不用給使用者看的資訊 --> */}
+        {/* <!-- 藍新金流商店代號 --> */}
+        <input
+          type="hidden"
+          id="MerchantID"
+          name="MerchantID"
+          value={paymentData?.MerchantID}
+        />
+        {/* <!-- 交易資料透過 Key 及 IV 進行 AES 加密 --> */}
+        <input
+          type="hidden"
+          id="TradeInfo"
+          name="TradeInfo"
+          value={paymentData?.TradeInfo}
+        />
+        {/* <!-- 經過上述 AES 加密過的字串，透過商店 Key 及 IV 進行 SHA256 加密 --> */}
+        <input
+          type="hidden"
+          id="TradeSha"
+          name="TradeSha"
+          value={paymentData?.TradeSha}
+        />
+        {/* <!-- 串接程式版本 --> */}
+        <input type="hidden" id="Version" name="Version" value="2.0" />
+        {/* <!-- 直接執行送出 --> */}
+        <button type="submit"></button>
+      </form>
     </section>
   );
 };

@@ -21,6 +21,9 @@ export const apiPaths = {
   cart: '/api/cart',
   putspec: '/api/cart/specId',
 
+  //order
+  order: '/api/order',
+
   //dashboard-product
   addproduct: '/api/farmer/product',
   editproduct: '/api/farmer/product',
@@ -46,6 +49,9 @@ export const nextRoutes = {
   deletecart: '/cart/deletecart',
   putqty: '/cart/putqty',
   putspec: '/cart/putspec',
+
+  //order
+  order: '/order/add',
 
   //dashboard-product
   addproduct: '/dashboard/addproduct',

@@ -43,8 +43,8 @@ const CartListSection = ({ cartData }: CartProps) => {
       console.log(error);
     }
   };
+
   const handlerSpecChange = async (productId: any, specId: string) => {
-    
     const dataObj = {
     productId:productId,
 	  productSpecId:Number(specId),
@@ -100,7 +100,7 @@ const CartListSection = ({ cartData }: CartProps) => {
                 : smallProductSpecId;
 
               return (
-                <li key={productId} className="p-24 flex gap-60">
+                <li key={productSpecId} className="p-24 flex gap-60">
                   <div className="flex gap-16 flex-grow">
                     <Image
                       src={
@@ -131,52 +131,54 @@ const CartListSection = ({ cartData }: CartProps) => {
                       </div>
                     </div>
                   </div>
-                  <SpecSelect
-                    optionsData={generateSpecData({
-                      smallWeight,
-                      largeWeight,
-                      smallProductSpecId,
-                      largeProductSpecId,
-                    })}
-                    onSpecChange={(option) =>
-                      handlerSpecChange(productId, option)
-                    }
-                    initialSelectIndex={productSpecSize ? 1 : 0}
-                  />
-                  <div>
-                    <div className="flex gap-x-12 items-center">
-                      <Image
-                        src="/images/cart/dec.png"
-                        alt="dec"
-                        className="w-20 h-20 cursor-pointer hover:opacity-70"
-                        onClick={() =>
-                          handlerQtyChange(
-                            productId,
-                            productSpecId,
-                            cartItemQty - 1
-                          )
-                        }
-                      />
-                      <p className="text-18">{cartItemQty}</p>
-                      <Image
-                        src="/images/cart/plus.png"
-                        alt="plus"
-                        className="w-20 h-20 cursor-pointer hover:opacity-70"
-                        onClick={() =>
-                          handlerQtyChange(
-                            productId,
-                            productSpecId,
-                            cartItemQty + 1
-                          )
-                        }
-                      />
+                  <div className="flex items-center justify-between w-7/12">
+                    <SpecSelect
+                      optionsData={generateSpecData({
+                        smallWeight,
+                        largeWeight,
+                        smallProductSpecId,
+                        largeProductSpecId,
+                      })}
+                      onSpecChange={(option) =>
+                        handlerSpecChange(productId, option)
+                      }
+                      initialSelectIndex={productSpecSize ? 1 : 0}
+                    />
+                    <div className="flex-grow ml-50">
+                      <div className="flex gap-x-12 items-center">
+                        <Image
+                          src="/images/cart/dec.png"
+                          alt="dec"
+                          className="w-20 h-20 cursor-pointer hover:opacity-70"
+                          onClick={() =>
+                            handlerQtyChange(
+                              productId,
+                              productSpecId,
+                              cartItemQty - 1
+                            )
+                          }
+                        />
+                        <p className="text-18">{cartItemQty}</p>
+                        <Image
+                          src="/images/cart/plus.png"
+                          alt="plus"
+                          className="w-20 h-20 cursor-pointer hover:opacity-70"
+                          onClick={() =>
+                            handlerQtyChange(
+                              productId,
+                              productSpecId,
+                              cartItemQty + 1
+                            )
+                          }
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className=" flex gap-40">
-                    <h6 className=" font-normal">
-                      <span>$</span>
-                      {subtotal}
-                    </h6>
+                    <div className=" flex gap-40 flex-grow">
+                      <h6 className=" font-normal ">
+                        <span>$</span>
+                        {subtotal}
+                      </h6>
+                    </div>
                     <DeleteBtn
                       size={24}
                       className="text-darkGray cursor-pointer hover:opacity-70"
