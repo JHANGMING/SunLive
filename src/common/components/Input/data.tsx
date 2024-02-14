@@ -22,7 +22,7 @@ export type FormValues = {
   idea: string;
   introduce: string;
   liveName: string;
-  liveLink: string;
+  yturl: string;
   startTime: string;
   endTime: string;
   productTitle: string;

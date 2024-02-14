@@ -1,7 +1,17 @@
+import { format } from 'date-fns';
+import { useForm } from 'react-hook-form';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import PersonInput from '@/common/components/Input/PersonInput';
 import ManagementSelect from '@/common/components/Select/ManagementSelect';
-import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
-import { format } from 'date-fns';
+import { FormValues } from '@/common/components/Input/data';
+import Button from '@/common/components/Button';
+import Editor from '@/common/components/Editor';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
+import Image from '@/common/components/CustomImage';
+import { setToast } from '@/redux/features/messageSlice';
 import {
   categoryData,
   countyData,
@@ -9,16 +19,6 @@ import {
   statusData,
   storageData,
 } from './data';
-import { useForm } from 'react-hook-form';
-import { FormValues } from '@/common/components/Input/data';
-import Button from '@/common/components/Button';
-import Editor from '@/common/components/Editor';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
 
 const AddProduct = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -69,32 +69,33 @@ const AddProduct = () => {
       method: 'POST',
       data: dataObj,
     };
-    const url = `/api${nextRoutes['uploadProductImg']}`;
+   
     const imgParams = {
       method: 'POST',
       body: formData,
     };
     try {
       const result = await fetchNextApi(apiParams);
-
       if (result.statusCode !== 200) {
         dispatch(setToast({ message: result.message }));
         return;
       }
-      const imgResponse = await fetch(url, imgParams);
-      const imgResult = await imgResponse.json();
-
-      if (imgResult.statusCode !== 200) {
-        dispatch(setToast({ message: imgResult.message }));
-        return;
-      }
-      if (result.statusCode === 200 && imgResult.statusCode === 200) {
-        reset();
-        setSelectedFiles([]);
-        setPreviewImages([]);
-        dispatch(setToast({ message: result.message }));
-      } else {
-        dispatch(setToast({ message: result.message || imgResult.message }));
+      if (result.statusCode === 200){
+        const url = `/api${nextRoutes['uploadProductImg']}?id=${result.data.productId}`;
+        const imgResponse = await fetch(url, imgParams);
+        const imgResult = await imgResponse.json();
+        if (imgResult.statusCode !== 200) {
+          dispatch(setToast({ message: imgResult.message }));
+          return;
+        }
+        if (result.statusCode === 200 && imgResult.statusCode === 200) {
+          reset();
+          setSelectedFiles([]);
+          setPreviewImages([]);
+          dispatch(setToast({ message: result.message }));
+        } else {
+          dispatch(setToast({ message: result.message || imgResult.message }));
+        }
       }
     } catch (error) {
       console.log(error);
@@ -120,11 +121,9 @@ const AddProduct = () => {
     // 移除選定的檔案
     const newSelectedFiles = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(newSelectedFiles);
-
     // 移除對應的預覽圖片
     const newPreviewImages = previewImages.filter((_, i) => i !== index);
     setPreviewImages(newPreviewImages);
-
     // 釋放被刪除圖片的URL
     URL.revokeObjectURL(previewImages[index]);
   };
@@ -135,20 +134,21 @@ const AddProduct = () => {
         {/* 上傳圖片 */}
         <div className="mb-24 flex flex-col items-center">
           <p className="mb-8">農產品圖片</p>
-          <div className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center">
+          <div
+            className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center hover:opacity-70 cursor-pointer"
+            onClick={triggerFileInput}>
+            <BsPlusCircle
+              size={24}
+              className=" text-lightGray cursor-pointer"
+            />
             <input
               type="file"
               id="fileInput"
-              className="hidden"
+              className="hidden w-full h-full "
               onChange={handleFileChange}
               accept="image/*"
               multiple
               ref={fileInputRef}
-            />
-            <BsPlusCircle
-              size={24}
-              className=" text-lightGray cursor-pointer"
-              onClick={triggerFileInput}
             />
           </div>
         </div>
@@ -162,8 +162,6 @@ const AddProduct = () => {
                 <li key={index} className=" relative mt-8">
                   <Image
                     src={previewImage}
-                    width={100}
-                    height={100}
                     alt="Preview"
                     className="w-100 h-100"
                   />

@@ -1,3 +1,7 @@
+import { format } from 'date-fns';
+import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
 import DatePickerShow from '@/common/components/DatePicker';
 import PersonInput from '@/common/components/Input/PersonInput';
@@ -6,70 +10,50 @@ import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
 import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSelect';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
-import { useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
-import { format } from 'date-fns';
+import Image from '@/common/components/CustomImage';
 const LiveSettings = () => {
+   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [products, setProducts] = useState<any[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null); 
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
+
   } = useForm<FormValues>();
 
-  const fileInputRef = useRef<HTMLInputElement>(null); 
-  const handleFileInputChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
-      const formData = new FormData();
-      formData.append('file', file);
+  
 
-      try {
-        const response = await fetch('https://your-upload-endpoint.com', {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (response.ok) {
-          // 假设服务器返回的响应包含了图片的 URL
-          const data = await response.json(); // 或者根据服务器的响应格式调整
-          const imageURL = data.url; // 服务器返回的图片 URL
-
-          // 调用 handleImageUploadSuccess 并传入图片 URL
-          handleImageUploadSuccess(imageURL);
-          console.log('File uploaded successfully');
-        } else {
-          console.error('Upload failed');
-        }
-      } catch (error) {
-        console.error('Error during upload', error);
-      }
-    } else {
-      console.log('No file selected');
-    }
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
   };
-  const handleAddImageClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+     if (!event.target.files || event.target.files.length === 0) return;
+     const file = event.target.files[0];
+     setSelectedFile(file);
+     const previewUrl = URL.createObjectURL(file);
+     setPreviewImage(previewUrl);
+   };
+   const handleRemoveImage = () => {
+     setSelectedFile(null);
+     setPreviewImage(null);
+     if (previewImage) URL.revokeObjectURL(previewImage);
+   };
+  const onAddProductClick = () => {
+    setProducts([...products, {}]);
   };
-  const handleImageUploadSuccess = (imageURL:string) => {
-    // 使用 setValue 来更新 imageURL 字段的值
-    setValue('imageURL', imageURL);
-  };
+   const onDeleteProductClick = (index: number) => {
+     const updatedProducts = products.filter((_, idx) => idx !== index);
+     setProducts(updatedProducts);
+   };
   const onSubmit = (data: FormValues) => {
-    if (!data.imageURL) {
-      console.error('No image URL provided');
-      return; // 如果没有图片网址，则不提交
-    }
+
     //儲存日期格式
-    // const formattedDate = format(data.birthday, 'yyyy/MM/dd');
+    const formattedDate = format(data.datePicker, 'yyyy/MM/dd');
+    console.log(formattedDate);
 
     // const { email, password, identity } = data;
     // const dataObj = {
@@ -82,33 +66,42 @@ const LiveSettings = () => {
   };
   
 
-  const onAddProductClick = () => {
-    setProducts([...products, {}]);
-  };
-
-  const onDeleteProductClick = (index:number) => {
-    const updatedProducts = products.filter((_, idx) => idx !== index);
-    setProducts(updatedProducts); 
-  };
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
       <h3 className=" text-20 font-semibold mb-32">直播設定</h3>
       {/* 上傳圖片 */}
-      <div className="mb-24">
-        <p className="mb-8">直播圖片</p>
-        <div
-          className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center cursor-pointer hover:opacity-70"
-          // onClick={handleAddImageClick}
-          onClick={() => handleImageUploadSuccess("hggfgf")}>
-          <BsPlusCircle size={24} className=" text-lightGray" />
+      <div className="flex gap-16 items-center">
+        <div className="mb-24">
+          <p className="mb-8">直播圖片</p>
+          <div
+            className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center cursor-pointer hover:opacity-70"
+            // onClick={handleAddImageClick}
+            onClick={triggerFileInput}>
+            <BsPlusCircle size={24} className=" text-lightGray" />
+          </div>
+          {/* 隐藏的文件输入 */}
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            onChange={handleFileChange}
+          />
         </div>
-        {/* 隐藏的文件输入 */}
-        <input
-          type="file"
-          ref={fileInputRef}
-          className="hidden"
-          onChange={handleFileInputChange}
-        />
+        {previewImage && (
+          <div className="mt-4 relative">
+            <Image
+              src={previewImage}
+              alt="Preview"
+              className="w-100 h-100 "
+              roundedStyle="object-cover"
+            />
+            <BsXCircleFill
+              size={24}
+              onClick={handleRemoveImage}
+              className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
+            />
+          </div>
+        )}
       </div>
       <form
         action=""
@@ -168,7 +161,7 @@ const LiveSettings = () => {
           labelText="直播連結"
           inputText="輸入直播連結"
           inputStyle="text-14 w-full h-[53px]"
-          id="liveLink"
+          id="yturl"
           register={register}
           errors={errors}
           rules={{
