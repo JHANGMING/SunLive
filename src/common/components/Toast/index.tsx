@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import LogoImg from "../Logo/LogoImg";
 import { ToastProps } from "./data";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { hideToast } from "@/redux/features/messageSlice";
 
-const Toast = ({ message, duration = 3000, onClose }:ToastProps) => {
-  const [show, setShow] = useState(false);
+const Toast = () => {
+ const dispatch = useDispatch();
+ const { showMessage, message } = useSelector((state:RootState) => state.message);
+ useEffect(() => {
+   if (showMessage) {
+     const timer = setTimeout(() => {
+       dispatch(hideToast());
+     }, 3000);
+     return () => clearTimeout(timer);
+   }
+ }, [showMessage, dispatch]);
 
-  useEffect(() => {
-    if (message) {
-      setShow(true);
-      const timer = setTimeout(() => {
-        setShow(false); 
-        if (onClose) onClose(); 
-      }, duration);
-      return () => clearTimeout(timer); 
-    }
-  }, [message, duration, onClose]); 
-
-  if (!show) return null; 
+ if (!showMessage) return null;
 
   return (
     <div className="fixed top-0 right-0 flex gap-8 bg-primary-yellow rounded-tl-8 rounded-bl-8 p-12 z-50">

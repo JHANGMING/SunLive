@@ -3,11 +3,13 @@ import { createWrapper } from 'next-redux-wrapper'
 import authReducer from '../redux/features/authSlice'
 import productReducer from '../redux/features/productSlice';
 import cartReducer from '../redux/features/cartSlice';
+import messageReducer from '../redux/features/messageSlice';
 const store = configureStore({
   reducer: {
     auth: authReducer,
     product: productReducer,
     cart: cartReducer,
+    message: messageReducer,
   },
 });
 const wrapper = createWrapper(() => store, { debug: false })

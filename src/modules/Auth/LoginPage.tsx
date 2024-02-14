@@ -1,24 +1,21 @@
-import Button from '@/common/components/Button';
-import DefaultInput from '@/common/components/Input';
-import { FormValues } from '@/common/components/Input/data';
-import Toast from '@/common/components/Toast';
-import { setAllCookies } from '@/common/helpers/getCookie';
-import { useGapClass } from '@/common/hooks/useGapClass';
-import { setUserData } from '@/redux/features/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { ROUTES } from './data';
+import Button from '@/common/components/Button';
+import DefaultInput from '@/common/components/Input';
+import { FormValues } from '@/common/components/Input/data';
+import { setAllCookies } from '@/common/helpers/getCookie';
+import { useGapClass } from '@/common/hooks/useGapClass';
 import { nextRoutes } from '@/constants/apiPaths';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import Loading from '@/common/components/Loading/Loading';
+import { setToast, showLoading } from '@/redux/features/messageSlice';
+import { ROUTES } from './data';
+import { authTab } from '@/common/lib/authTab';
 const LoginPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [toastMessage, setToastMessage] = useState('');
-  const [loading, setLoading] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const {
     register,
@@ -51,32 +48,29 @@ const LoginPage = () => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        setLoading(true);
-        console.log(result);
-        // dispatch(setUserData({ data: result.data }));
+        dispatch(showLoading());
         setAllCookies(result.data);
         const id = setTimeout(async () => {
           const redirectTo = result.data.category
             ? ROUTES.DASHBOARD_ACCOUNT
             : ROUTES.HOME;
           await router.push(redirectTo);
-          setLoading(false);
         }, 1500);
         setTimeoutId(id);
+        dispatch(
+          setToast({
+            message: authTab["welcome"],
+          })
+        );
       } else {
-        setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
       console.error('登入失败', error);
-      setLoading(false);
     }
   };
   return (
     <>
-      {loading && <Loading />}
-      {toastMessage && (
-        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
-      )}
       <h2 className="text-center">會員登入</h2>
       <form
         className={`flex flex-col gap-24 px-55.5 ${gapClass}`}

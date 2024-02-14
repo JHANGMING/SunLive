@@ -9,40 +9,41 @@ import Toast from '@/common/components/Toast';
 import { LoginPrpos, ROUTES } from '@/modules/Auth/data';
 import { setAllCookies } from '@/common/helpers/getCookie';
 import { useRouter } from 'next/router';
-import Loading from '@/common/components/Loading/Loading';
+import { useDispatch } from 'react-redux';
+import { setToast, showLoading } from '@/redux/features/messageSlice';
+import { authTab } from '@/common/lib/authTab';
 
 const Login = ({ errorMessage, loginData }: LoginPrpos) => {
-  const [toastMessage, setToastMessage] = useState('');
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (errorMessage) {
-      setToastMessage(errorMessage);
+       dispatch(setToast({ message: errorMessage }));
     }
   }, [errorMessage]);
   useEffect(() => {
     if (loginData) {
       handleLoginData();
+      dispatch(showLoading());
+      dispatch(
+        setToast({
+          message: authTab['welcome'],
+        })
+      );
     }
   }, [loginData]);
   const handleLoginData = async () => {
-    setLoading(true);
     if (loginData) {
       setAllCookies(loginData); 
       const redirectTo = loginData.category
         ? ROUTES.DASHBOARD_ACCOUNT
         : ROUTES.HOME;
       await router.push(redirectTo);
-      setLoading(false);
     }
   };
 
   return (
     <Layout pageCategory="authPage" classStyle="px-110 pb-80">
-      {loading && <Loading />}
-      {toastMessage && (
-        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
-      )}
       <LoginPage />
     </Layout>
   );
