@@ -5,6 +5,9 @@ import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import { mutate } from 'swr';
+import { useDispatch } from 'react-redux';
+import { setToast } from '@/redux/features/messageSlice';
+import { cartTab } from '@/common/lib/cartTab';
 const AddToCartButton = ({
   children,
   btnStyle,
@@ -18,6 +21,7 @@ const AddToCartButton = ({
   onClick,
 }: ButtonPropsType) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { authStatus } = useAuthStatus();
 
   const handleCartAddition = async () => {
@@ -46,6 +50,11 @@ const AddToCartButton = ({
       if (result.statusCode === 200) {
         mutate('/api/cart/getcart');
         if (toCart) router.push('/cart');
+        dispatch(
+          setToast({
+            message: cartTab['add'],
+          })
+        );
         // router.push('/auth/login');
       } else if (result.statusCode === 409) {
         router.push('/auth/login');

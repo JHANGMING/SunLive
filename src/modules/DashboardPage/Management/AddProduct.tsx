@@ -15,15 +15,16 @@ import Button from '@/common/components/Button';
 import Editor from '@/common/components/Editor';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
-import Toast from '@/common/components/Toast';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useDispatch } from 'react-redux';
+import { setToast } from '@/redux/features/messageSlice';
 
 const AddProduct = () => {
-  const [toastMessage, setToastMessage] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useDispatch();
   const {
     control,
     register,
@@ -77,23 +78,23 @@ const AddProduct = () => {
       const result = await fetchNextApi(apiParams);
 
       if (result.statusCode !== 200) {
-        setToastMessage(`${result.message}`);
+        dispatch(setToast({ message: result.message }));
         return;
       }
       const imgResponse = await fetch(url, imgParams);
       const imgResult = await imgResponse.json();
 
       if (imgResult.statusCode !== 200) {
-        setToastMessage(`${imgResult.message}`);
+        dispatch(setToast({ message: imgResult.message }));
         return;
       }
       if (result.statusCode === 200 && imgResult.statusCode === 200) {
         reset();
         setSelectedFiles([]);
         setPreviewImages([]);
-        setToastMessage(`${result.message}`);
+        dispatch(setToast({ message: result.message }));
       } else {
-        setToastMessage(`${result.message || imgResult.message}`);
+        dispatch(setToast({ message: result.message || imgResult.message }));
       }
     } catch (error) {
       console.log(error);
@@ -128,262 +129,257 @@ const AddProduct = () => {
     URL.revokeObjectURL(previewImages[index]);
   };
   return (
-    <>
-      {toastMessage && (
-        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
-      )}
-      <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
-        <h3 className=" text-20 font-semibold mb-32">新增農產品</h3>
-        <div className="flex items-center gap-16">
-          {/* 上傳圖片 */}
-          <div className="mb-24 flex flex-col items-center">
-            <p className="mb-8">農產品圖片</p>
-            <div className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center">
-              <input
-                type="file"
-                id="fileInput"
-                className="hidden"
-                onChange={handleFileChange}
-                accept="image/*"
-                multiple
-                ref={fileInputRef}
-              />
-              <BsPlusCircle
-                size={24}
-                className=" text-lightGray cursor-pointer"
-                onClick={triggerFileInput}
-              />
-            </div>
+    <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
+      <h3 className=" text-20 font-semibold mb-32">新增農產品</h3>
+      <div className="flex items-center gap-16">
+        {/* 上傳圖片 */}
+        <div className="mb-24 flex flex-col items-center">
+          <p className="mb-8">農產品圖片</p>
+          <div className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center">
+            <input
+              type="file"
+              id="fileInput"
+              className="hidden"
+              onChange={handleFileChange}
+              accept="image/*"
+              multiple
+              ref={fileInputRef}
+            />
+            <BsPlusCircle
+              size={24}
+              className=" text-lightGray cursor-pointer"
+              onClick={triggerFileInput}
+            />
           </div>
-          {previewImages.length > 0 && (
-            <div className="mb-24">
-              <p>
-                <span className=" text-primary-red">*</span>(限5張)
-              </p>
-              <ul className="flex gap-16">
-                {previewImages.map((previewImage, index) => (
-                  <li key={index} className=" relative mt-8">
-                    <Image
-                      src={previewImage}
-                      width={100}
-                      height={100}
-                      alt="Preview"
-                      className="w-100 h-100"
-                    />
-                    <BsXCircleFill
-                      size={24}
-                      onClick={() => handleRemoveImage(index)}
-                      className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
-        <form
-          action=""
-          className="flex flex-col gap-24"
-          onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex gap-24">
-            <PersonInput
-              type="text"
-              labelText="農產品名稱"
-              inputText="輸入商品名稱"
-              inputStyle="text-14 w-full h-[53px]"
-              id="productTitle"
-              register={register}
-              errors={errors}
-              rules={{
-                required: {
-                  value: true,
-                  message: '請輸入農產品名稱!',
-                },
-              }}
-            />
-            <ManagementSelect
-              labelText="農產品狀態"
-              data={statusData}
-              control={control}
-              id="productState"
-            />
+        {previewImages.length > 0 && (
+          <div className="mb-24">
+            <p>
+              <span className=" text-primary-red">*</span>(限5張)
+            </p>
+            <ul className="flex gap-16">
+              {previewImages.map((previewImage, index) => (
+                <li key={index} className=" relative mt-8">
+                  <Image
+                    src={previewImage}
+                    width={100}
+                    height={100}
+                    alt="Preview"
+                    className="w-100 h-100"
+                  />
+                  <BsXCircleFill
+                    size={24}
+                    onClick={() => handleRemoveImage(index)}
+                    className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="flex gap-24">
-            <PersonInput
-              type="number"
-              labelText="規格 (小份)"
-              inputText="輸入小份規格 (斤)"
-              inputStyle="text-14 w-full h-[53px]"
-              id="smallWeight"
-              register={register}
-              errors={errors}
-              rules={{
-                required: {
-                  value: true,
-                  message: '請輸入規格!',
-                },
-              }}
-            />
-            <PersonInput
-              type="number"
-              labelText="原價"
-              inputText="輸入原價"
-              inputStyle="text-14 w-full h-[53px]"
-              id="smallOriginalPrice"
-              register={register}
-              errors={errors}
-              rules={{
-                required: {
-                  value: true,
-                  message: '請輸入金額!',
-                },
-              }}
-            />
-            <PersonInput
-              type="number"
-              labelText="促銷價"
-              inputText="輸入優惠價"
-              inputStyle="text-14 w-full h-[53px]"
-              id="smallPromotionPrice"
-              register={register}
-            />
-            <PersonInput
-              type="number"
-              labelText="農產品庫存"
-              inputText="輸入農產品庫存"
-              inputStyle="text-14 w-full h-[53px]"
-              id="smallStock"
-              register={register}
-              errors={errors}
-              rules={{
-                required: {
-                  value: true,
-                  message: '請輸入庫存量!',
-                },
-              }}
-            />
-          </div>
-          <div className="flex gap-24">
-            <PersonInput
-              type="number"
-              labelText="規格 (大份)"
-              inputText="輸入小份規格 (斤)"
-              inputStyle="text-14 w-full h-[53px]"
-              id="largeWeight"
-              register={register}
-            />
-            <PersonInput
-              type="number"
-              labelText="原價"
-              inputText="輸入原價"
-              inputStyle="text-14 w-full h-[53px]"
-              id="largeOriginalPrice"
-              register={register}
-            />
-            <PersonInput
-              type="number"
-              labelText="促銷價"
-              inputText="輸入優惠價"
-              inputStyle="text-14 w-full h-[53px]"
-              id="largePromotionPrice"
-              register={register}
-            />
-            <PersonInput
-              type="number"
-              labelText="農產品庫存"
-              inputText="輸入農產品庫存"
-              inputStyle="text-14 w-full h-[53px]"
-              id="largeStock"
-              register={register}
-            />
-          </div>
-          <div className="flex gap-24">
-            <ManagementSelect
-              labelText="產地"
-              data={countyData}
-              control={control}
-              placeholder="請選擇產地"
-              id="origin"
-              errors={errors}
-              rules={{
-                required: {
-                  value: true,
-                  message: '請選擇產地!',
-                },
-              }}
-            />
-            <ManagementSelect
-              labelText="保存方式"
-              placeholder="請選擇保存方式"
-              data={storageData}
-              control={control}
-              id="storage"
-              errors={errors}
-              rules={{
-                required: {
-                  value: true,
-                  message: '請選擇保存方式!',
-                },
-              }}
-            />
-          </div>
-          <div className="flex gap-24">
-            <ManagementSelect
-              labelText="產季"
-              data={seasonData}
-              control={control}
-              placeholder="請選擇產季"
-              id="period"
-              errors={errors}
-              rules={{
-                required: {
-                  value: true,
-                  message: '請選擇產季!',
-                },
-              }}
-            />
-            <ManagementSelect
-              labelText="類別"
-              placeholder="請選擇類別"
-              data={categoryData}
-              control={control}
-              id="category"
-              errors={errors}
-              rules={{
-                required: {
-                  value: true,
-                  message: '請選擇類別!',
-                },
-              }}
-            />
-          </div>
+        )}
+      </div>
+      <form
+        action=""
+        className="flex flex-col gap-24"
+        onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex gap-24">
           <PersonInput
             type="text"
-            labelText="農產品簡述"
-            inputText="輸入農產品簡述"
+            labelText="農產品名稱"
+            inputText="輸入商品名稱"
             inputStyle="text-14 w-full h-[53px]"
-            id="description"
+            id="productTitle"
             register={register}
             errors={errors}
             rules={{
               required: {
                 value: true,
-                message: '請輸入簡短描述!',
+                message: '請輸入農產品名稱!',
               },
             }}
           />
-          <div className="h-[403px] mb-[37px]">
-            <label htmlFor="editor" className="block mb-8">
-              農產品介紹
-            </label>
-            <Editor control={control} />
-          </div>
-          <Button category="submit" classStyle="self-end hover:opacity-70">
-            新增
-          </Button>
-        </form>
-      </div>
-    </>
+          <ManagementSelect
+            labelText="農產品狀態"
+            data={statusData}
+            control={control}
+            id="productState"
+          />
+        </div>
+        <div className="flex gap-24">
+          <PersonInput
+            type="number"
+            labelText="規格 (小份)"
+            inputText="輸入小份規格 (斤)"
+            inputStyle="text-14 w-full h-[53px]"
+            id="smallWeight"
+            register={register}
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請輸入規格!',
+              },
+            }}
+          />
+          <PersonInput
+            type="number"
+            labelText="原價"
+            inputText="輸入原價"
+            inputStyle="text-14 w-full h-[53px]"
+            id="smallOriginalPrice"
+            register={register}
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請輸入金額!',
+              },
+            }}
+          />
+          <PersonInput
+            type="number"
+            labelText="促銷價"
+            inputText="輸入優惠價"
+            inputStyle="text-14 w-full h-[53px]"
+            id="smallPromotionPrice"
+            register={register}
+          />
+          <PersonInput
+            type="number"
+            labelText="農產品庫存"
+            inputText="輸入農產品庫存"
+            inputStyle="text-14 w-full h-[53px]"
+            id="smallStock"
+            register={register}
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請輸入庫存量!',
+              },
+            }}
+          />
+        </div>
+        <div className="flex gap-24">
+          <PersonInput
+            type="number"
+            labelText="規格 (大份)"
+            inputText="輸入小份規格 (斤)"
+            inputStyle="text-14 w-full h-[53px]"
+            id="largeWeight"
+            register={register}
+          />
+          <PersonInput
+            type="number"
+            labelText="原價"
+            inputText="輸入原價"
+            inputStyle="text-14 w-full h-[53px]"
+            id="largeOriginalPrice"
+            register={register}
+          />
+          <PersonInput
+            type="number"
+            labelText="促銷價"
+            inputText="輸入優惠價"
+            inputStyle="text-14 w-full h-[53px]"
+            id="largePromotionPrice"
+            register={register}
+          />
+          <PersonInput
+            type="number"
+            labelText="農產品庫存"
+            inputText="輸入農產品庫存"
+            inputStyle="text-14 w-full h-[53px]"
+            id="largeStock"
+            register={register}
+          />
+        </div>
+        <div className="flex gap-24">
+          <ManagementSelect
+            labelText="產地"
+            data={countyData}
+            control={control}
+            placeholder="請選擇產地"
+            id="origin"
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請選擇產地!',
+              },
+            }}
+          />
+          <ManagementSelect
+            labelText="保存方式"
+            placeholder="請選擇保存方式"
+            data={storageData}
+            control={control}
+            id="storage"
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請選擇保存方式!',
+              },
+            }}
+          />
+        </div>
+        <div className="flex gap-24">
+          <ManagementSelect
+            labelText="產季"
+            data={seasonData}
+            control={control}
+            placeholder="請選擇產季"
+            id="period"
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請選擇產季!',
+              },
+            }}
+          />
+          <ManagementSelect
+            labelText="類別"
+            placeholder="請選擇類別"
+            data={categoryData}
+            control={control}
+            id="category"
+            errors={errors}
+            rules={{
+              required: {
+                value: true,
+                message: '請選擇類別!',
+              },
+            }}
+          />
+        </div>
+        <PersonInput
+          type="text"
+          labelText="農產品簡述"
+          inputText="輸入農產品簡述"
+          inputStyle="text-14 w-full h-[53px]"
+          id="description"
+          register={register}
+          errors={errors}
+          rules={{
+            required: {
+              value: true,
+              message: '請輸入簡短描述!',
+            },
+          }}
+        />
+        <div className="h-[403px] mb-[37px]">
+          <label htmlFor="editor" className="block mb-8">
+            農產品介紹
+          </label>
+          <Editor control={control} />
+        </div>
+        <Button category="submit" classStyle="self-end hover:opacity-70">
+          新增
+        </Button>
+      </form>
+    </div>
   );
 };
 

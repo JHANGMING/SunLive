@@ -1,25 +1,22 @@
 import { LuShoppingCart } from 'react-icons/lu';
 import { BsPersonCircle } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import { RootState } from '@/redux/store';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import Image from '@/common/components/CustomImage';
 import CartItemCount from './CartItemCount';
-import { useEffect, useRef, useState } from 'react';
 import { LayoutPropsType } from '../Layout/data';
 import LoggingInfo from './LoggingInfo';
 import CartInfo from './CartInfo';
 
-const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
+const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
   const { authStatus } = useAuthStatus();
-  const cartData  = useSelector(
-    (state: RootState) => state.cart.cartData || {}
-  );
+  const cartData = useSelector((state: RootState) => state.cart.cartData || {});
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   let leaveProfileTimer: ReturnType<typeof setTimeout>;
   let leaveCartTimer: ReturnType<typeof setTimeout>;
-
 
   const handleProfileMouseEnter = () => {
     clearTimeout(leaveProfileTimer);
@@ -53,7 +50,7 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
           className="relative"
           onMouseEnter={handleCartMouseEnter}
           onMouseLeave={handleCartMouseLeave}
-        >
+          >
           <button
             type="button"
             className="relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
@@ -61,7 +58,11 @@ const CartAndLogin = ({ pageCategory }: LayoutPropsType) => {
             {authStatus && <CartItemCount cartData={cartData} />}
           </button>
           {showCartDropdown && (
-            <CartInfo dropdownClass={dropdownClass} cartData={cartData} />
+            <CartInfo
+              dropdownClass={dropdownClass}
+              cartData={cartData}
+              isVisible={isVisible}
+            />
           )}
         </div>
       ) : (
