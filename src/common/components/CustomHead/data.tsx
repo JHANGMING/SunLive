@@ -17,7 +17,7 @@ export const dataSet: Record<string, dataType> = {
   landingPage: {
     title: '',
     desc: '',
-    url: '', //canonial
+    url: '', 
     image: '',
   },
   authPage: {
@@ -34,13 +34,13 @@ export const dataSet: Record<string, dataType> = {
   },
   liveStreamPage: {
     title: '直播特惠',
-    desc: '我们提供最新鲜的農產品直播銷售服務，确保質量和時效。',
+    desc: '我们提供最新鲜的農產品直播銷售服務，確保質量和時效。',
     url: '',
     image: '',
   },
   liveStreamView: {
     title: '現正直播',
-    desc: '我们提供最新鲜的農產品直播銷售服務，确保質量和時效。',
+    desc: '我们提供最新鲜的農產品直播銷售服務，確保質量和時效。',
     url: '',
     image: '',
   },
@@ -80,8 +80,8 @@ export const dataSet: Record<string, dataType> = {
     url: '',
     image: '',
   },
-  error: {
-    title: '',
+  errorPage: {
+    title: 'Error',
     desc: '',
     url: '',
     image: '',
