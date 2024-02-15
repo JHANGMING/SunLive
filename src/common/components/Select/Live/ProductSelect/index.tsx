@@ -17,7 +17,7 @@ const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
   useEffect(() => {
     const fetchProducts = async () => {
       const apiParams: apiParamsType = {
-        apiPath: nextRoutes['productlist'],
+        apiPath: nextRoutes['productlist_live'],
         method: 'GET',
       };
       try {
