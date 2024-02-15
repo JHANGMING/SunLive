@@ -11,6 +11,12 @@ import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect
 import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSelect';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
 import Image from '@/common/components/CustomImage';
+import { LiveDataType, transformLiveData } from '@/common/helpers/transDataForLiveSelect';
+import { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
+import { LiveListDataType } from '../data';
+
+
 const LiveSettings = () => {
    const [selectedFile, setSelectedFile] = useState<File | null>(null);
    const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -49,20 +55,32 @@ const LiveSettings = () => {
      const updatedProducts = products.filter((_, idx) => idx !== index);
      setProducts(updatedProducts);
    };
-  const onSubmit = (data: FormValues) => {
-
+  const onSubmit = (data:FormValues) => {
+    
     //儲存日期格式
-    const formattedDate = format(data.datePicker, 'yyyy/MM/dd');
-    console.log(formattedDate);
-
-    // const { email, password, identity } = data;
-    // const dataObj = {
-    //   email: email.trim(),
-    //   password: password.trim(),
-    //   identity,
+    let formattedDate = '';
+    if (data.datePicker) {
+      formattedDate = format(new Date(data.datePicker), 'yyyy/MM/dd');
+    }
+    const liveproduct = transformLiveData(data as unknown as LiveDataType);
+    const dataObj = {
+      liveName: data.liveName,
+      liveDate: formattedDate,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      yturl: data.yturl,
+      liveproduct,
+    };
+    // const apiParams: apiParamsType = {
+    //   apiPath: nextRoutes['addlive'],
+    //   method: 'POST',
+    //   data: dataObj,
     // };
-    console.log(data);
-    reset();
+    // const { email, password, identity } = data;
+    
+    console.log(dataObj);
+ 
+    // reset();
   };
   
 
@@ -188,18 +206,18 @@ const LiveSettings = () => {
             />
             <LiveProductSelect
               control={control}
-              id={'liveProduct-0' as keyof FormValues}
+              id={'liveProduct_0' as keyof FormValues}
             />
             <ProductSpecSelect
               control={control}
-              id={'liveProductSpec-0' as keyof FormValues}
+              id={'liveProductSpec_0' as keyof FormValues}
             />
             <PersonInput
               type="number"
               labelText="直播特惠價格"
               inputText="輸入直播特惠價格"
               inputStyle="text-14 w-full h-[53px]"
-              id={'liveSpectialPrice-0' as keyof FormValues}
+              id={'liveSpectialPrice_0' as keyof FormValues}
               register={register}
             />
           </div>
@@ -212,18 +230,18 @@ const LiveSettings = () => {
               />
               <LiveProductSelect
                 control={control}
-                id={`liveProduct-${index + 1}` as keyof FormValues}
+                id={`liveProduct_${index + 1}` as keyof FormValues}
               />
               <ProductSpecSelect
                 control={control}
-                id={`liveProductSpec-${index + 1}` as keyof FormValues}
+                id={`liveProductSpec_${index + 1}` as keyof FormValues}
               />
               <PersonInput
                 type="number"
                 labelText="直播特惠價格"
                 inputText="輸入直播特惠價格"
                 inputStyle="text-14 w-full h-[53px]"
-                id={`liveSpectialPrice-${index + 1}` as keyof FormValues}
+                id={`liveSpectialPrice_${index + 1}` as keyof FormValues}
                 register={register}
               />
             </div>

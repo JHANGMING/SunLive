@@ -47,7 +47,14 @@ const ProductSpecSelect = ({ control, id }: ProductSpecSelectProps) => {
                 placeholder="選擇規格"
                 options={productSpecData}
                 styles={customStyles}
-                onChange={(val) => field.onChange(val)}
+                value={productSpecData.find(
+                  (option) => option.value === field.value
+                )}
+                onChange={(val) => {
+                  if (typeof val === 'object' && val !== null) {
+                    field.onChange((val as OptionType).value);
+                  }
+                }}
               />
             )}
           />

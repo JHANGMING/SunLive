@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
-import { LiveProductSelectProps, OptionType, productData } from './data';
+import { LiveProductSelectProps, OptionType} from './data';
 import { FormValues } from '@/common/components/Input/data';
 import useClient from '@/common/hooks/useClient';
-
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
+import { useDispatch } from 'react-redux';
+import { setToast } from '@/redux/features/messageSlice';
+import { transformDataForSelect } from '@/common/helpers/transDataForLiveSelect';
 const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
   const isClient = useClient();
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState<OptionType[]>([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const apiParams: apiParamsType = {
+        apiPath: nextRoutes['productlist'],
+        method: 'GET',
+      };
+      try {
+        const result = await fetchNextApi(apiParams);
+        if (result.statusCode === 200) {
+            const data=transformDataForSelect(result.data);
+            console.log('Selectdata', data);
+            setProducts(data);
+        } else {
+          dispatch(setToast({ message: result.message }));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (isClient) {
+      fetchProducts();
+    }
+  }, [isClient]); 
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
@@ -46,9 +76,16 @@ const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
                 {...field}
                 instanceId="liveProduct"
                 placeholder="選擇產品"
-                options={productData}
+                options={products}
                 styles={customStyles}
-                onChange={(val) => field.onChange(val)}
+                value={products.find((option) => option.value === field.value)}
+                onChange={(val) => {
+                  let value = null;
+                  if (typeof val === 'object' && val !== null) {
+                    value = (val as { value: string; label: string }).value;
+                  }
+                  field.onChange(value);
+                }}
               />
             )}
           />
