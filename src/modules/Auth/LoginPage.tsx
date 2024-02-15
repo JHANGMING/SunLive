@@ -11,8 +11,8 @@ import { useGapClass } from '@/common/hooks/useGapClass';
 import { nextRoutes } from '@/constants/apiPaths';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { setToast, showLoading } from '@/redux/features/messageSlice';
-import { ROUTES } from './data';
 import { authTab } from '@/common/lib/authTab';
+import { ROUTES } from './data';
 const LoginPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();

@@ -1,23 +1,58 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import Button from "@/common/components/Button";
 import DefaultInput from "@/common/components/Input";
 import { FormValues } from "@/common/components/Input/data";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
+import { nextRoutes } from "@/constants/apiPaths";
+import { setToast} from "@/redux/features/messageSlice";
+import { ChangePasswordProps } from "./data";
 
-const ChangePasswordPage = () => {
+const ChangePasswordPage = ({ queryParams }:ChangePasswordProps) => {
+  const account = queryParams.account;
+  const guid = queryParams.guid;
+  const router = useRouter();
+  const dispatch = useDispatch();
   const {
     watch,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+
   const onSubmit = async (data: FormValues) => {
-    const {  password } = data;
+    const { password } = data;
     const dataObj = {
+      account,
+      guid,
       password: password.trim(),
     };
-    console.log(dataObj);
-    
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['resetpasswordVerify'],
+      method: 'POST',
+      data: dataObj,
+    };
+    try {
+      const result = await fetchNextApi(apiParams);    
+      if (result.statusCode === 200) {
+          router.push('/auth/login');
+          dispatch(
+            setToast({
+              message: result.message,
+            })
+          );
+      } else {
+        dispatch(
+          setToast({
+            message: `${result.message || '未知錯誤'}`,
+          })
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -72,7 +107,7 @@ const ChangePasswordPage = () => {
           type="submit"
           category="auth"
           btnStyle="mt-16 bg-primary-yellow text-black">
-          使用新密碼登入
+          重設新密碼
         </Button>
       </form>
       <div className="px-55.5">
@@ -87,6 +122,6 @@ const ChangePasswordPage = () => {
       </div>
     </>
   );
-}
+};
  
 export default ChangePasswordPage;
