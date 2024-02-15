@@ -38,5 +38,5 @@ export type CartDataType = {
   cartItemLength?: number;
   cartItemProductInfo?: CartItemType[];
   cartInfo?: PriceItemType[] | undefined;
-  cardId: number;
+  cardId?: number;
 };
