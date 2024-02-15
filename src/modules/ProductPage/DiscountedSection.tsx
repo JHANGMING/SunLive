@@ -44,7 +44,7 @@ const DiscountedSection = () => {
                     : productImg.src
                 }
                 alt={productImg.alt}
-                roundedStyle="object-cover"
+                roundedStyle="object-cover rounded-16"
                 className="w-full h-[381px] hover:opacity-50 border-dashed border-2 border-primary-red rounded-20 transition duration-800 ease-in-out"
               />
               <div className="absolute left-0 top-0">

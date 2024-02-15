@@ -1,17 +1,19 @@
-import LogoImg from '@/common/components/Logo/LogoImg';
-import Image from '@/common/components/CustomImage';
-import { useState } from 'react';
+
+import { mutate } from 'swr';
+import { useDispatch } from 'react-redux';
 import { BsChevronDown } from 'react-icons/bs';
-import CartLink from './CartLink';
+import Image from '@/common/components/CustomImage';
 import SpecSelect from '@/common/components/Select/SpecSelect';
 import { generateSpecData } from '@/common/components/Select/SpecSelect/data';
-import { CartProps, productData } from './data';
 import DeleteBtn from '@/common/components/Button/DeleteBtn';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
-import { mutate } from 'swr';
+import CartLink from './CartLink';
 import CartTotalPrice from './CartTotalPrice';
+import { CartProps, productData } from './data';
+import { setToast } from '@/redux/features/messageSlice';
 const CartListSection = ({ cartData }: CartProps) => {
+  const dispatch = useDispatch();
   const productData = cartData?.cartItemProductInfo ?? [];
   const priceData = cartData?.cartInfo?.[0];
   const handlerQtyChange = async (
@@ -33,11 +35,11 @@ const CartListSection = ({ cartData }: CartProps) => {
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('QtyChange', result);
+      console.log('QtyChange',dataObj, result);
       if (result.statusCode === 200) {
         mutate('/api/cart/getcart')
       } else {
-        // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }))
       }
     } catch (error) {
       console.log(error);
@@ -54,17 +56,16 @@ const CartListSection = ({ cartData }: CartProps) => {
       method: 'POST',
       data: dataObj,
     };
-    // try {
-    //   const result = await fetchNextApi(apiParams);
-    //   console.log('putspec', result);
-    //   // if (result.statusCode === 200) {
-    //   //   mutate('/api/cart/getcart')
-    //   // } else {
-    //   //   setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
-    //   // }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        mutate('/api/cart/getcart')
+      } else {
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   
   

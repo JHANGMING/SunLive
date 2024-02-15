@@ -113,8 +113,8 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
                 <li>
                   <p className="text-18 text-primary-green">規格</p>
                   <span>
-                    小份：{detailProduct.smallWeight}g / 大份：
-                    {detailProduct.largeWeight}g
+                    小份：{detailProduct.smallWeight}斤 / 大份：
+                    {detailProduct.largeWeight}斤
                   </span>
                 </li>
                 <li>
