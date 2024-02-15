@@ -1,14 +1,19 @@
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { format } from 'date-fns';
 import { FormValues } from '@/common/components/Input/data';
 import PersonInput from '@/common/components/Input/PersonInput';
 import Button from '@/common/components/Button';
 import DatePickerShow from '@/common/components/DatePicker';
-import { format } from 'date-fns';
 import GenderSelect from '@/common/components/Select/GenderSelect';
 import useAuth from '@/common/hooks/useAuth';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
+import { setToast } from '@/redux/features/messageSlice';
 
 const AccountSetting = () => {
   const auth = useAuth();
+  const dispatch = useDispatch();
   const genderDefaultValue = {
     value: auth?.sex === '1' ? '1' : '0',
     label: auth?.sex === '1' ? '女' : '男',
@@ -19,17 +24,40 @@ const AccountSetting = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
-  const onSubmit = (data: FormValues) => {
+  } = useForm<FormValues>({
+    defaultValues: {
+      email: decodeURIComponent(auth?.account || ''),
+      nickName: auth?.nickName || '',
+      userPhone: auth?.phone || '',
+    },
+  });
+  const onSubmit = async(data: FormValues) => {
     //儲存日期格式
-    // const formattedDate = format(data.birthday, 'yyyy/MM/dd');
-    // const { email, password, identity } = data;
-    // const dataObj = {
-    //   email: email.trim(),
-    //   password: password.trim(),
-    //   identity,
-    // };
-    console.log(data);
+    const birthday = format(data.datePicker, 'yyyy/MM/dd');
+    const sex = data.gender.value;
+    const dataObj = {
+      nickName: data.nickName,
+      phone: data.userPhone,
+      sex:Boolean(sex),
+      birthday,
+    };
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['account'],
+      method: 'POST',
+      data: dataObj,
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      console.log('acc', result);
+      if (result.statusCode === 200) {
+        dispatch(setToast({ message: result.message }));
+        // mutate('/api/cart/getcart');
+      } else {
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>

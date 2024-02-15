@@ -8,6 +8,9 @@ export const apiPaths = {
   resetpassword: '/api/login/forget',
   resetpasswordVerify: '/api/login/forget/reset',
 
+  //personinfo
+  account: '/api/user/info',
+
   //products
   search: '/api/product/search',
   allproducts: '/api/product/all',
@@ -45,6 +48,9 @@ export const nextRoutes = {
   passwordless: '/auth/passwordless',
   resetpassword: '/auth/resetpassword',
   resetpasswordVerify: '/auth/resetpasswordverify',
+
+  //personinfo
+  account: '/personinfo/account',
 
   //products
   search: '/product/search',
