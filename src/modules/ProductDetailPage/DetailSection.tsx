@@ -31,7 +31,7 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
     console.log('handlerToBuy');
   };
   const getButtonClass = (spec: number) => {
-    let baseClass = 'w-[160px] h-48 px-32 border rounded-8 ';
+    let baseClass = 'w-[180px] h-48 px-32 border rounded-8 ';
     let selectedClass = 'border-primary-red font-bold text-primary-red';
     let defaultClass = 'border-mediumGray';
 
@@ -108,13 +108,13 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
                 type="button"
                 className={getButtonClass(detailProduct.smallproductSpecId)}
                 onClick={() => selectSpec(detailProduct.smallproductSpecId)}>
-                小份 ({detailProduct.smallWeight}g)
+                小份 ({detailProduct.smallWeight}斤)
               </button>
               <button
                 type="button"
                 className={getButtonClass(detailProduct.largeproductSpecId)}
                 onClick={() => selectSpec(detailProduct.largeproductSpecId)}>
-                大份 ({detailProduct.largeWeight}g)
+                大份 ({detailProduct.largeWeight}斤)
               </button>
             </div>
           </div>

@@ -91,11 +91,11 @@ const ProductCard = ({
           </p>
           <h4 className=" text-primary-red text-12 lg:text-24">
             <span className="lg:hidden">$</span>
-            {smallOriginalPrice}
+            {smallPromotionPrice}
           </h4>
           <span
             className={`text-[10px] lg:text-18 line-through ${originalPriceClass}`}>
-            {smallPromotionPrice}
+            {smallOriginalPrice}
           </span>
         </div>
 
