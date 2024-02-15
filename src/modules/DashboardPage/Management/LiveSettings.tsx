@@ -12,7 +12,7 @@ import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSe
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
 import Image from '@/common/components/CustomImage';
 import { LiveDataType, transformLiveData } from '@/common/helpers/transDataForLiveSelect';
-import { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import { LiveListDataType } from '../data';
 
@@ -55,7 +55,7 @@ const LiveSettings = () => {
      const updatedProducts = products.filter((_, idx) => idx !== index);
      setProducts(updatedProducts);
    };
-  const onSubmit = (data:FormValues) => {
+  const onSubmit = async(data:FormValues) => {
     
     //儲存日期格式
     let formattedDate = '';
@@ -71,14 +71,25 @@ const LiveSettings = () => {
       yturl: data.yturl,
       liveproduct,
     };
-    // const apiParams: apiParamsType = {
-    //   apiPath: nextRoutes['addlive'],
-    //   method: 'POST',
-    //   data: dataObj,
-    // };
-    // const { email, password, identity } = data;
-    
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['addlive'],
+      method: 'POST',
+      data: dataObj,
+    };
+        
     console.log(dataObj);
+    try {
+      const result = await fetchNextApi(apiParams);
+      console.log('live', result);
+      // if (result.statusCode === 200) {
+      //   mutate('/api/cart/getcart');
+      // } else {
+      //   dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+
  
     // reset();
   };
