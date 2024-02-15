@@ -1,4 +1,4 @@
-import { CartDataType, CartItemType, PriceItemType } from "@/constants/types/cart/cartlist";
+import { CartDataType, PriceItemType } from "@/constants/types/cart/cartlist";
 
 type ProductImgType = {
   src: string;
