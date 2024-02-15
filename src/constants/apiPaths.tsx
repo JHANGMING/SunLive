@@ -29,6 +29,9 @@ export const apiPaths = {
   //order
   order: '/api/order',
 
+  //dashboard-farminfo
+  farminfo: '/api/farmer/info',
+
   //dashboard-product
   addproduct: '/api/farmer/product',
   editproduct: '/api/farmer/product',
@@ -36,8 +39,9 @@ export const apiPaths = {
   productlist: '/api/farmer/live/productlist',
   addlive: '/api/livesetting',
 
-  //uploadProductImg,
+  //uploadImg,
   uploadProductImg: '/api/farmer/product/pic',
+  uploadfarmerImg: '/api/farmer/pic',
 };
 
 export const nextRoutes = {
@@ -67,13 +71,18 @@ export const nextRoutes = {
   //order
   order: '/order/add',
 
+  //dashboard-farminfo
+  farminfo_set: '/dashboard/farminfo/set',
+  farminfo_get: '/dashboard/farminfo/get',
+
   //dashboard-product
   addproduct: '/dashboard/addproduct',
   //dashboard-live
   productlist: '/dashboard/live/productlist',
   addlive: '/dashboard/live/addlive',
 
-  //uploadProductImg,
+  //uploadImg,
   uploadProductImg: '/dashboard/uploadProductImg',
+  uploadfarmerImg: '/dashboard/uploadfarmerImg',
 };
 

@@ -18,6 +18,7 @@ export type FormValues = {
   gender: { value: string; label: string };
   nickName: string;
   // gender: string;
+  vision: string;
   zipCode: string;
   datePicker: Date;
   idea: string;
