@@ -1,3 +1,5 @@
+import { mutate } from 'swr';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
@@ -6,52 +8,66 @@ import PersonInput from '@/common/components/Input/PersonInput';
 import Button from '@/common/components/Button';
 import DatePickerShow from '@/common/components/DatePicker';
 import GenderSelect from '@/common/components/Select/GenderSelect';
-import useAuth from '@/common/hooks/useAuth';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
+import { AccountSettingProps } from './data';
 
-const AccountSetting = () => {
-  const auth = useAuth();
+
+const AccountSetting = ({ data }:AccountSettingProps) => {
   const dispatch = useDispatch();
-  const genderDefaultValue = {
-    value: auth?.sex === '1' ? '1' : '0',
-    label: auth?.sex === '1' ? '女' : '男',
-  };
-  const defaultBirthday = auth?.birthday ? new Date(auth.birthday) : new Date();
+  const authData = data?.data;
   const {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      email: decodeURIComponent(auth?.account || ''),
-      nickName: auth?.nickName || '',
-      userPhone: auth?.phone || '',
+      email: decodeURIComponent(authData?.account || ''),
+      nickName: authData?.nickName || '',
+      userPhone: authData?.phone || '',
     },
   });
-  const onSubmit = async(data: FormValues) => {
+  useEffect(() => {
+    if (authData) {
+      const birthday = authData.birthday
+        ? new Date(authData.birthday)
+        : undefined;
+      const genderDefaultValue = {
+        value: authData?.sex ? '1' : '0',
+        label: authData?.sex ? '女' : '男',
+      };
+      reset({
+        email: decodeURIComponent(authData.account || ''),
+        nickName: authData.nickName || '',
+        userPhone: authData.phone || '',
+        datePicker: birthday,
+        gender: genderDefaultValue,
+      });
+    }
+  }, [authData]);
+  const onSubmit = async (data: FormValues) => {
     //儲存日期格式
     const birthday = format(data.datePicker, 'yyyy/MM/dd');
     const sex = data.gender.value;
     const dataObj = {
       nickName: data.nickName,
       phone: data.userPhone,
-      sex:Boolean(sex),
+      sex: Boolean(sex),
       birthday,
     };
     const apiParams: apiParamsType = {
-      apiPath: nextRoutes['account'],
+      apiPath: nextRoutes['account_set'],
       method: 'POST',
       data: dataObj,
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('acc', result);
       if (result.statusCode === 200) {
         dispatch(setToast({ message: result.message }));
-        // mutate('/api/cart/getcart');
+        mutate('/api/personinfo/account_get');
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
@@ -71,7 +87,7 @@ const AccountSetting = () => {
           inputStyle="text-14"
           id="email"
           isdisabled={true}
-          value={decodeURIComponent(auth?.account || '')}
+          value={decodeURIComponent(authData?.account || '')}
         />
         <div className="flex gap-24">
           <PersonInput
@@ -82,7 +98,6 @@ const AccountSetting = () => {
             inputStyle="text-14 w-full"
             id="nickName"
             register={register}
-            value={auth?.nickName || ''}
           />
           <PersonInput
             type="tel"
@@ -93,7 +108,6 @@ const AccountSetting = () => {
             id="userPhone"
             errors={errors}
             register={register}
-            value={auth?.phone || ''}
             rules={{
               pattern: {
                 value: /^\d+$/,
@@ -107,17 +121,12 @@ const AccountSetting = () => {
           />
         </div>
         <div className="flex gap-24">
-          <GenderSelect
-            control={control}
-            labelText="性別"
-            id="gender"
-            defaultValue={genderDefaultValue}
-          />
+          <GenderSelect control={control} labelText="性別" id="gender" />
           <div className="w-full">
             <label htmlFor="" className="text-18 block mb-8">
               生日
             </label>
-            <DatePickerShow control={control} defaultValue={defaultBirthday} />
+            <DatePickerShow control={control} />
           </div>
         </div>
         <Button category="submit" classStyle="self-end hover:opacity-70">

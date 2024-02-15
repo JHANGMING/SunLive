@@ -5,7 +5,7 @@ export type GenderSelectProps = {
   control: Control<FormValues>;
   labelText: string;
   id: keyof FormValues;
-  defaultValue: OptionType;
+  defaultValue?: OptionType;
 };
 export type OptionType = {
   value: string;

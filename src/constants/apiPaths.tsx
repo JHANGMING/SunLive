@@ -50,7 +50,8 @@ export const nextRoutes = {
   resetpasswordVerify: '/auth/resetpasswordverify',
 
   //personinfo
-  account: '/personinfo/account',
+  account_set: '/personinfo/account_set',
+  account_get: '/personinfo/account_get',
 
   //products
   search: '/product/search',
