@@ -8,11 +8,16 @@ import { FormValues } from '@/common/components/Input/data';
 import { transformDataToCartList } from '@/common/helpers/transDataToCartList';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { CartProps, PaymentDataType } from './data';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setToast } from '@/redux/features/messageSlice';
 
 const CartFormSection = ({ cartData }: CartProps) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const productData = cartData?.cartItemProductInfo ?? [];
   const orderSum = cartData?.cartInfo?.[0].totalPromotionPrice || 0;
-
+  const cartId = cartData?.cardId || '';
   const cartList = transformDataToCartList(productData);
   const formRef = useRef<HTMLFormElement>(null);
   const payformRef = useRef<HTMLFormElement>(null);
@@ -28,15 +33,13 @@ const CartFormSection = ({ cartData }: CartProps) => {
     setValue('city', '新北市' as any);
   }, []);
   useEffect(() => {
-    console.log(paymentData);
-    
-     if (
-       paymentData.MerchantID &&
-       paymentData.TradeInfo &&
-       paymentData.TradeSha
-     ) {
-       payformRef.current?.submit();
-     }
+    if (
+      paymentData.MerchantID &&
+      paymentData.TradeInfo &&
+      paymentData.TradeSha
+    ) {
+      payformRef.current?.submit();
+    }
   }, [paymentData]);
   const handleFormSubmit = () => {
     if (formRef.current) {
@@ -46,7 +49,6 @@ const CartFormSection = ({ cartData }: CartProps) => {
     }
   };
   const onSubmit = async (data: FormValues) => {
-    //送出時要一併將購物車資料一併送出
     const { zipCode, ...rest } = data;
     const zipCodeNumber = Number(zipCode);
     const dataObj = {
@@ -54,6 +56,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
       zipCode: zipCodeNumber,
       orderSum: orderSum + 100,
       cartList,
+      cartId,
     };
     console.log(dataObj);
     const apiParams: apiParamsType = {
@@ -70,11 +73,11 @@ const CartFormSection = ({ cartData }: CartProps) => {
         // mutate('/api/cart/getcart');
 
         setPaymentData(result.paymentData);
-      //   if (toCart) router.push('/cart');
-      //   // router.push('/auth/login');
-      // } else if (result.statusCode === 409) {
-      //   router.push('/auth/login');
-      //   // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+      } else if (result.statusCode === 409) {
+        router.push('/auth/login');
+        dispatch(setToast({ message: result.message }));
+      } else {
+        dispatch(setToast({ message: result.message }));
       }
     } catch (error) {
       console.log(error);
