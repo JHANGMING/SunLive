@@ -32,7 +32,7 @@ const RegisterPage = () => {
     const dataObj = {
       account: email.trim(),
       password: password.trim(),
-      category: identity.value,
+      category: identity?.value,
     };
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['register'],
