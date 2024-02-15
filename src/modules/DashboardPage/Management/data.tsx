@@ -14,6 +14,20 @@ export type EditProductsProps = {
   detailData:DetailproductDataType;
 };
 
+export type LiveproductProps = {
+  productId: number;
+  productSize: boolean; // 小為false、大為 true
+  liveprice: number;
+};
+
+export type AddLiveDataType = {
+  datePicker?: string;
+  liveName: string;
+  liveDate: string;
+  startTime: string;
+  endTime: string;
+  yturl: string;
+};
 
 export const statusData: OptionType[] = [
   { value: 'false', label: '下架' },

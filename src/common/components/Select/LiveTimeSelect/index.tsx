@@ -70,9 +70,16 @@ const LiveTimeSelect = ({
                   options={optionsData}
                   styles={customStyles}
                   placeholder="選擇直播開始時間"
+                  value={optionsData.find(
+                    (option) => option.value === field.value
+                  )}
                   onChange={(val) => {
+                    let value = null;
+                    if (val) {
+                      value = (val as OptionType).value;
+                    }
                     setStartTime(val as OptionType);
-                    field.onChange(val);
+                    field.onChange(value);
                   }}
                 />
               )}
@@ -100,8 +107,12 @@ const LiveTimeSelect = ({
                   placeholder="選擇直播結束時間"
                   value={endTime}
                   onChange={(val) => {
+                    let value = null;
+                    if (val) {
+                      value = (val as OptionType).value;
+                    }
                     setEndTime(val as OptionType);
-                    field.onChange(val);
+                    field.onChange(value);
                   }}
                 />
               )}

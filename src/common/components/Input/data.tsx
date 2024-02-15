@@ -14,7 +14,7 @@ export type FormValues = {
   userPhone: string;
   phone: string;
   address: string;
-  identity: { value: string; label: string };
+  identity?: { value: string; label: string };
   nickName: string;
   gender: string;
   zipCode: string;
@@ -22,7 +22,7 @@ export type FormValues = {
   idea: string;
   introduce: string;
   liveName: string;
-  liveLink: string;
+  yturl: string;
   startTime: string;
   endTime: string;
   productTitle: string;

@@ -27,6 +27,9 @@ export const apiPaths = {
   //dashboard-product
   addproduct: '/api/farmer/product',
   editproduct: '/api/farmer/product',
+  //dashboard-live
+  productlist: '/api/farmer/live/productlist',
+  addlive: '/api/livesetting',
 
   //uploadProductImg,
   uploadProductImg: '/api/farmer/product/pic',
@@ -55,6 +58,9 @@ export const nextRoutes = {
 
   //dashboard-product
   addproduct: '/dashboard/addproduct',
+  //dashboard-live
+  productlist: '/dashboard/live/productlist',
+  addlive: '/dashboard/live/addlive',
 
   //uploadProductImg,
   uploadProductImg: '/dashboard/uploadProductImg',

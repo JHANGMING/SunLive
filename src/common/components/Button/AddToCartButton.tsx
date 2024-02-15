@@ -45,7 +45,7 @@ const AddToCartButton = ({
     
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('ee', result);
+      console.log('addcart', result);
       
       if (result.statusCode === 200) {
         mutate('/api/cart/getcart');
