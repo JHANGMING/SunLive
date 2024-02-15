@@ -1,3 +1,15 @@
+type AuthDataType = {
+  nickName: string;
+  phone: string;
+  sex: boolean;
+  birthday: string;
+  account: string;
+};
+
+export type AccountSettingProps = {
+  data: { data: AuthDataType };
+};
+
 export const ordersColumns = [
   { title: '訂單編號', dataIndex: 'id', key: 'id' },
   { title: '小農', dataIndex: 'farmer', key: 'farmer' },
