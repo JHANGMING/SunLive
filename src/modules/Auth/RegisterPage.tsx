@@ -1,22 +1,23 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
 import AuthSelect from '@/common/components/Select/AuthSelect';
-import Toast from '@/common/components/Toast';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { useGapClass } from '@/common/hooks/useGapClass';
+import { authTab } from '@/common/lib/authTab';
 import { nextRoutes } from '@/constants/apiPaths';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { setToast } from '@/redux/features/messageSlice';
 
 type OnSubmitType = {
   (data: FormValues): void;
 };
 const RegisterPage = () => {
-  const [toastMessage, setToastMessage] = useState('');
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     control,
     register,
@@ -30,7 +31,7 @@ const RegisterPage = () => {
     const dataObj = {
       account: email.trim(),
       password: password.trim(),
-      category: identity.value,
+      category: identity?.value,
     };
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['register'],
@@ -41,8 +42,13 @@ const RegisterPage = () => {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
         router.push('/auth/login');
+        dispatch(
+          setToast({
+            message: authTab['register'],
+          })
+        );
       } else {
-        setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
       console.log(error);
@@ -51,9 +57,6 @@ const RegisterPage = () => {
 
   return (
     <>
-      {toastMessage && (
-        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
-      )}
       <h2 className="text-center">電子郵件註冊</h2>
       <form
         className={`flex flex-col ${gapClass}`}

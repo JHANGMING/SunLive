@@ -1,19 +1,20 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
 import SendMailLoading from '@/common/components/Loading/SendMailLoading';
-import Toast from '@/common/components/Toast';
 import ArrowLeft from '@/common/components/arrowLeft';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
+import { setToast } from '@/redux/features/messageSlice';
 const PasswordlessLoginPage = () => {
   const [showLoading, setShowLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -30,17 +31,19 @@ const PasswordlessLoginPage = () => {
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log(result);
       if (result.statusCode === 200) {
         setShowLoading(true);
         const timer = setTimeout(() => {
           setShowLoading(false);
           router.push('/auth/login'); 
         }, 5000);
-
         return () => clearTimeout(timer);
       } else {
-        setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+        dispatch(
+          setToast({
+            message: `${result.message || '未知錯誤'}`,
+          })
+        );
       }
     } catch (error) {
       console.log(error);
@@ -49,9 +52,6 @@ const PasswordlessLoginPage = () => {
   return (
     <>
       {showLoading && <SendMailLoading />}
-      {toastMessage && (
-        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
-      )}
       <div className="flex flex-col justify-between h-full relative">
         <ArrowLeft />
         <form

@@ -7,11 +7,14 @@ import { LoggingInfoProps } from './data';
 import { useEffect, useRef } from 'react';
 import DeleteBtn from '../Button/DeleteBtn';
 
-const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
+const CartInfo = ({ dropdownClass, cartData, isVisible }: LoggingInfoProps) => {
   const { authStatus } = useAuthStatus();
   const listRef = useRef<HTMLUListElement>(null);
   const cartLength = cartData?.cartItemLength ?? 0;
   const productData = cartData?.cartItemProductInfo;
+  const fixedHeaderisVisible = isVisible
+    ? 'right-0 top-80'
+    : '-right-[200px] top-100';
   useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight;
@@ -20,7 +23,7 @@ const CartInfo = ({ dropdownClass, cartData }: LoggingInfoProps) => {
 
   return (
     <div
-      className={`${dropdownClass} fixed right-0 top-100 w-[304px] bg-white shadow-cartInfo z-50`}>
+      className={`${dropdownClass} ${fixedHeaderisVisible} fixed  w-[304px] bg-white shadow-cartInfo z-50`}>
       {authStatus && cartLength > 0 ? (
         <>
           <ul

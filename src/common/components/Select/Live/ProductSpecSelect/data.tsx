@@ -12,6 +12,6 @@ export type OptionType = {
 };
 
 export const productSpecData: OptionType[] = [
-  { value: '大份', label: '大份' },
-  { value: '小份', label: '小份' },
+  { value: 'false', label: '小份' },
+  { value: 'true', label: '大份' },
 ];

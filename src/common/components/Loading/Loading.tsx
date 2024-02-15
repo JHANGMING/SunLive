@@ -1,33 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import LogoImg from '../Logo/LogoImg';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { hideLoading } from '@/redux/features/messageSlice';
 
 const Loading = () => {
-  const [percent, setPercent] = useState(0);
-  const [completed, setCompleted] = useState(false);
-  const [hide, setHide] = useState(false);
+const isLoading = useSelector((state: RootState) => state.message.isLoading);
+const dispatch = useDispatch();
+const [percent, setPercent] = useState(0);
+const [completed, setCompleted] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
+  if (isLoading) {
+    let interval:NodeJS.Timeout | null = null
     const totalDuration = 1500;
-    const intervalTime = 20;
-    const increment = (100 * intervalTime) / totalDuration;
+    const increment = (100 * 20) / totalDuration;
 
-    const timer = setInterval(() => {
-      setPercent((prevPercent) => {
-        const newPercent = prevPercent + increment;
-        if (newPercent >= 100) {
-          clearInterval(timer);
+    interval = setInterval(() => {
+      setPercent((prev) => {
+        const nextPercent = prev + increment;
+        if (nextPercent >= 100 && interval !== null) {
+          clearInterval(interval);
           setCompleted(true);
-          setTimeout(() => setHide(true), 100);
+          // 1.5秒後關閉loading
+          setTimeout(() => {
+            dispatch(hideLoading()); 
+          }, 1500);
           return 100;
         }
-        return newPercent;
+        return nextPercent;
       });
-    }, intervalTime);
+    }, 20);
 
-    return () => clearInterval(timer);
-  }, []);
+    return () => {
+      if (interval !== null) {
+        clearInterval(interval);
+      }
+    };
+  }
+}, [isLoading, dispatch]);
 
-  if (hide) return null;
+// 如果不是在 loading 狀態或者已完成，則不顯示
+if (!isLoading || completed) return null;
+
 
   return (
     <div

@@ -11,6 +11,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ error: string }>
 ) {
+  const { id } = req.query;
   const buffers: Buffer[] = [];
   const dataReceived = new Promise((resolve, reject) => {
     req.on('data', (chunk) => {
@@ -25,7 +26,7 @@ export default async function handler(
     await dataReceived;
     const data = Buffer.concat(buffers);
     const token = getCookie('token', { req, res });
-    const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPaths['uploadProductImg']}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPaths['uploadProductImg']}/${id}`;
 
     const apiParams: RequestInit = {
       method: 'POST',

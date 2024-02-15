@@ -11,12 +11,14 @@ export type PageCategoryType =
   | 'authPage'
   | 'dashboardPage'
   | 'personInfoPage'
-  | 'mobile';
+  | 'mobile'
+  | 'errorPage';
 
 export type LayoutPropsType = {
   children?: ReactNode;
   pageCategory: PageCategoryType;
   classStyle?: string;
+  isVisible?:boolean;
 };
 
 export type AuthLayoutProps = {
@@ -38,6 +40,7 @@ type pageSetType = {
   dashboardPage: string;
   personInfoPage: string;
   mobile?: string;
+  errorPage: string;
 };
 export const colorWhiteSet: pageSetType = {
   authPage: 'bg-white',
@@ -47,6 +50,7 @@ export const colorWhiteSet: pageSetType = {
   searchPage: 'bg-white',
   productPage: 'bg-lightWhite',
   landingPage: 'bg-lightWhite',
+  errorPage: 'bg-lightWhite',
   CartPage: 'bg-dashboardGray',
   dashboardPage: 'bg-dashboardGray',
   personInfoPage: 'bg-dashboardGray',
@@ -64,7 +68,8 @@ export const footerSet: pageSetType = {
   searchPage: 'pt-60',
   dashboardPage: 'pt-0',
   personInfoPage: 'pt-0',
-  mobile:"p-24"
+  mobile:"p-24",
+  errorPage: 'pt-60',
 };
 
 export const notoTC = Noto_Sans_TC({

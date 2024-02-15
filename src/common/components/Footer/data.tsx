@@ -39,5 +39,6 @@ export const swiperSet: pageSetType = {
   productPage: true,
   landingPage: true,
   searchPage: true,
+  errorPage: true,
 };
 

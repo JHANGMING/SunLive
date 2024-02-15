@@ -18,8 +18,8 @@ const Header = ({ pageCategory }: LayoutPropsType) => {
   const { data } = useSWR(
     authStatus ? `/api${nextRoutes['getcart']}` : null,
     fetcher
-  );
-  console.log('data', data);
+  ); 
+  console.log('cartlist', data);
   
   useEffect(() => {
     dispatch(setCartData({ cartData: data }));

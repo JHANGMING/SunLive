@@ -5,6 +5,8 @@ export const apiPaths = {
   logout: '/api/logout',
   passwordless: '/api/login/passwordless',
   passwordlessVerify: '/api/login/passwordless/checkout',
+  resetpassword: '/api/login/forget',
+  resetpasswordVerify: '/api/login/forget/reset',
 
   //products
   search: '/api/product/search',
@@ -27,6 +29,9 @@ export const apiPaths = {
   //dashboard-product
   addproduct: '/api/farmer/product',
   editproduct: '/api/farmer/product',
+  //dashboard-live
+  productlist: '/api/farmer/live/productlist',
+  addlive: '/api/livesetting',
 
   //uploadProductImg,
   uploadProductImg: '/api/farmer/product/pic',
@@ -38,6 +43,8 @@ export const nextRoutes = {
   register: '/auth/register',
   logout: '/auth/logout',
   passwordless: '/auth/passwordless',
+  resetpassword: '/auth/resetpassword',
+  resetpasswordVerify: '/auth/resetpasswordverify',
 
   //products
   search: '/product/search',
@@ -55,6 +62,9 @@ export const nextRoutes = {
 
   //dashboard-product
   addproduct: '/dashboard/addproduct',
+  //dashboard-live
+  productlist: '/dashboard/live/productlist',
+  addlive: '/dashboard/live/addlive',
 
   //uploadProductImg,
   uploadProductImg: '/dashboard/uploadProductImg',

@@ -27,7 +27,11 @@ const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
           <li className="text-primary-green flex flex-col items-center mb-40">
             <div className="flex items-center justify-center gap-4 lg:block lg:text-center">
               <LogoImg classProps="w-24 h-24 lg:w-[32px] lg:h-[32px] lg:mx-auto lg:mb-8" />
-              <h3 className="text-16 lg:text-28">搶鮮購</h3>
+              <Image
+                src="/images/sunlive_logo.svg"
+                alt="sunLive-logo"
+                className="w-100 h-[42px]"
+              />
             </div>
             <p className=" text-14 py-8 hidden lg:block">
               freshgrab@contact.com
