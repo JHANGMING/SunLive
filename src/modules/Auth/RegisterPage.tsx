@@ -1,3 +1,7 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import { FormValues } from '@/common/components/Input/data';
@@ -7,11 +11,6 @@ import { useGapClass } from '@/common/hooks/useGapClass';
 import { authTab } from '@/common/lib/authTab';
 import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 
 type OnSubmitType = {
   (data: FormValues): void;
