@@ -50,7 +50,6 @@ const DashboardPage = () => {
       <div className="w-3/12">
         <div className=" bg-white rounded-20 flex flex-col justify-center items-center py-24 gap-8 mb-40">
           <ProfileImgSection />
-          <h2 className="text-24">jelly</h2>
         </div>
         <div className="bg-white px-16 pt-24 pb-[119px] flex flex-col gap-32 rounded-20">
           <Link

@@ -1,4 +1,4 @@
-import { mutate } from 'swr';
+import useSWR, { mutate } from 'swr';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -11,11 +11,17 @@ import GenderSelect from '@/common/components/Select/GenderSelect';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
-import { AccountSettingProps } from './data';
+import { fetcher } from '@/common/helpers/fetcher';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import { setUserData } from '@/redux/features/authSlice';
 
-
-const AccountSetting = ({ data }:AccountSettingProps) => {
+const AccountSetting = () => {
   const dispatch = useDispatch();
+  const { authStatus } = useAuthStatus();
+  const { data } = useSWR(
+    authStatus ? `/api${nextRoutes['account_get']}` : null,
+    fetcher
+  );
   const authData = data?.data;
   const {
     control,
@@ -66,8 +72,10 @@ const AccountSetting = ({ data }:AccountSettingProps) => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
+        console.log(result);
         dispatch(setToast({ message: result.message }));
-        mutate('/api/personinfo/account_get');
+        dispatch(setUserData(result.data.nickName));
+        mutate(`/api${nextRoutes['account_get']}`);
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }

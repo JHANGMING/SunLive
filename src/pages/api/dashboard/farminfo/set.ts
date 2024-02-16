@@ -9,8 +9,9 @@ export default async function handler(
   try {
     const token = getCookie('token', { req, res });
     const apiParams: ApiParamsType = {
-      apiPath: apiPaths['productlist_live'],
-      method: 'GET',
+      apiPath: apiPaths['farminfo'],
+      method: 'POST',
+      data: req.body,
       authToken: token,
     };
 

@@ -7,7 +7,6 @@ import { ProductImgType } from '@/constants/types/product/allproducts';
 import { DetailSectionProps } from './data';
 
 const DetailSection = ({ detailProduct }: DetailSectionProps) => {
-
   const [qty, setQty] = useState(1);
   const [selectedSpec, setSelectedSpec] = useState(
     detailProduct.smallproductSpecId
@@ -23,12 +22,6 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
   };
   const selectSpec = (spec: number) => {
     setSelectedSpec(spec);
-  };
-  const handlerAddCart = () => {
-    console.log(selectedSpec, qty);
-  };
-  const handlerToBuy = () => {
-    console.log('handlerToBuy');
   };
   const getButtonClass = (spec: number) => {
     let baseClass = 'w-[180px] h-48 px-32 border rounded-8 ';
