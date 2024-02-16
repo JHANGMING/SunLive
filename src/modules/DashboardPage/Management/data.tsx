@@ -1,6 +1,6 @@
 import { locationData } from "@/constants/location";
-import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
 import { ListDataType } from "@/constants/types/product/farmer_prodcut";
+import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
 
 export type OptionType = {
   value: string;
