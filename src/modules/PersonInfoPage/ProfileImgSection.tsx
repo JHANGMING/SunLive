@@ -7,7 +7,7 @@ import { setToast } from '@/redux/features/messageSlice';
 import useAuth from '@/common/hooks/useAuth';
 import { RootState } from '@/redux/store';
 const ProfileImgSection = () => {
-  const authName = useSelector((state:RootState) => state.auth);
+  const authData = useSelector((state:RootState) => state.auth);
   const [nickName, setNickName] = useState("");
   const auth=useAuth();
   const dispatch = useDispatch();
@@ -16,12 +16,14 @@ const ProfileImgSection = () => {
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
-  useEffect(() => {
-    if (auth?.photo && auth?.nickName) {
-      setImg(decodeURIComponent(auth.photo));
-      setNickName(decodeURIComponent(auth.nickName));
-    }
-  }, [auth?.photo,auth?.nickName]);
+    useEffect(() => {
+      if (authData?.photo) {
+        setImg(decodeURIComponent(authData.photo));
+      }
+      if (authData?.nickName) {
+        setNickName(decodeURIComponent(authData.nickName));
+      }
+    }, [authData]);
   const url =
     auth?.category === '0'
       ? `/api${nextRoutes['uploaduserImg']}`
@@ -78,7 +80,7 @@ const ProfileImgSection = () => {
           <BsPencilSquare size={10.5} />
         </div>
       </div>
-      <h2 className="text-24">{authName.nickName || nickName || "user"}</h2>
+      <h2 className="text-24">{ nickName || "user"}</h2>
     </>
   );
 };

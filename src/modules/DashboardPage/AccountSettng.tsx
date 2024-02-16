@@ -37,6 +37,9 @@ const AccountSettng = () => {
         vision: authData.vision || '',
         description: authData.description || '',
       });
+      dispatch(
+        setUserData({ nickName: authData.nickName, photo: authData.photo })
+      );
     }
   }, [authData]);
   const onSubmit = async (data: FormValues) => {
@@ -52,7 +55,7 @@ const AccountSettng = () => {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
         dispatch(setToast({ message: result.message }));
-        dispatch(setUserData(result.data.nickName));
+        dispatch(setUserData({nickName:result.data.nickName}));
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
