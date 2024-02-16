@@ -43,6 +43,7 @@ export const apiPaths = {
   //uploadImg,
   uploadProductImg: '/api/farmer/product/pic',
   uploadfarmerImg: '/api/farmer/pic',
+  uploaduserImg: '/api/user/pic',
 };
 
 export const nextRoutes = {
@@ -83,7 +84,8 @@ export const nextRoutes = {
   addlive: '/dashboard/live/addlive',
 
   //uploadImg,
-  uploadProductImg: '/dashboard/uploadProductImg',
-  uploadfarmerImg: '/dashboard/uploadfarmerImg',
+  uploadProductImg: '/upload/productImg',
+  uploadfarmerImg: '/upload/farmerImg',
+  uploaduserImg: '/upload/userImg',
 };
 

@@ -13,16 +13,10 @@ import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 
 const PersonInfoPage = () => {
   const authToken = useRequireAuth();
-  const { authStatus } = useAuthStatus();
   const auth = useAuth();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState('account');
-  const { data } = useSWR(
-    authStatus ? `/api${nextRoutes['account_get']}` : null,
-    fetcher
-  );
-  const nickName = data?.data.nickName || data?.data.account.substring(0, 5);
-  
+
   useEffect(() => {
     const section = Array.isArray(router.query.section)
       ? router.query.section[0]
@@ -47,7 +41,6 @@ const PersonInfoPage = () => {
         <div className="w-3/12">
           <div className=" bg-white rounded-20 flex flex-col justify-center items-center py-24 gap-8 mb-40">
             <ProfileImgSection />
-            <h2 className="text-24">{nickName}</h2>
           </div>
           <div className="bg-white px-16 pt-24 pb-[119px] flex flex-col rounded-20">
             <button
@@ -71,7 +64,7 @@ const PersonInfoPage = () => {
           </div>
         </div>
         <div className="w-9/12 bg-white rounded-20 p-32">
-          {activeSection === 'account' && <AccountSetting data={data} />}
+          {activeSection === 'account' && <AccountSetting />}
           {activeSection === 'order' && <AllOrders />}
         </div>
       </section>

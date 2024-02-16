@@ -6,6 +6,7 @@ import { fetcher } from '@/common/helpers/fetcher';
 import useAuth from '@/common/hooks/useAuth';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import { nextRoutes } from '@/constants/apiPaths';
+import { setUserData } from '@/redux/features/authSlice';
 import { setToast } from '@/redux/features/messageSlice';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -49,9 +50,9 @@ const AccountSettng = () => {
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log(result);
       if (result.statusCode === 200) {
         dispatch(setToast({ message: result.message }));
+        dispatch(setUserData(result.data.nickName));
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }

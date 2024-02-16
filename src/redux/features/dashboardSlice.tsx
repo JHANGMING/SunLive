@@ -7,6 +7,7 @@ interface InitialStateType {
 }
 const initialState: InitialStateType = {
   listData: [],
+
 };
 
 export const dashboardSlice = createSlice({
