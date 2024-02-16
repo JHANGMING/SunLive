@@ -45,6 +45,9 @@ export const apiPaths = {
   uploadfarmerImg: '/api/farmer/pic',
   uploaduserImg: '/api/user/pic',
   uploadliveImg: '/api/livesetting/pic',
+
+  //chat
+  check: '/api/chats/live/check',
 };
 
 export const nextRoutes = {
@@ -89,5 +92,8 @@ export const nextRoutes = {
   uploadfarmerImg: '/upload/farmerImg',
   uploaduserImg: '/upload/userImg',
   uploadliveImg: '/upload/liveImg',
+
+  //chat
+  check: '/chat/check',
 };
 
