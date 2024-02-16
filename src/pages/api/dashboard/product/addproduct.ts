@@ -10,7 +10,7 @@ export default async function handler(
   try {
     const token = getCookie('token', { req, res });
     const apiParams: ApiParamsType = {
-      apiPath: apiPaths['addproduct'],
+      apiPath: apiPaths['productSet'],
       method: 'POST',
       authToken: token,
       data: req.body,

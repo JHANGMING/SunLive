@@ -164,6 +164,7 @@ const AddProduct = () => {
                     src={previewImage}
                     alt="Preview"
                     className="w-100 h-100"
+                    roundedStyle="object-cover"
                   />
                   <BsXCircleFill
                     size={24}
