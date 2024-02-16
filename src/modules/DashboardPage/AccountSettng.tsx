@@ -2,31 +2,46 @@ import Button from '@/common/components/Button';
 import PersonInput from '@/common/components/Input/PersonInput';
 import { FormValues } from '@/common/components/Input/data';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { fetcher } from '@/common/helpers/fetcher';
 import useAuth from '@/common/hooks/useAuth';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { mutate } from 'swr';
+import useSWR, { mutate } from 'swr';
 
 const AccountSettng = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
+   const { authStatus } = useAuthStatus();
+  const { data } = useSWR(
+    authStatus ? `/api${nextRoutes['farminfo_get']}` : null,
+    fetcher
+  );
+  const authData = data?.data;
   const {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>();
+  useEffect(() => {
+    if (authData) {
+      reset({
+        nickName: authData.nickName || '',
+        phone: authData.phone || '',
+        vision: authData.vision || '',
+        description: authData.description || '',
+      });
+    }
+  }, [authData]);
   const onSubmit = async (data: FormValues) => {
-    //儲存日期格式
-    // const formattedDate = format(data.birthday, 'yyyy/MM/dd');
-    // const { email, password, identity } = data;
     const dataObj = {
       ...data,
-      photo: null,
     };
-    console.log(dataObj);
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['farminfo_set'],
       method: 'POST',
@@ -35,12 +50,11 @@ const AccountSettng = () => {
     try {
       const result = await fetchNextApi(apiParams);
       console.log(result);
-      // if (result.statusCode === 200) {
-      //   dispatch(setToast({ message: result.message }));
-      //   mutate('/api/personinfo/account_get');
-      // } else {
-      //   dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
-      // }
+      if (result.statusCode === 200) {
+        dispatch(setToast({ message: result.message }));
+      } else {
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -76,13 +90,13 @@ const AccountSettng = () => {
             errors={errors}
             register={register}
             rules={{
-              pattern: {
-                value: /^\d+$/,
-                message: '請輸入有效的數字',
+              required: {
+                value: true,
+                message: '請輸入您的手機電話!',
               },
-              maxLength: {
-                value: 10,
-                message: '聯絡電話不能超過10位數',
+              pattern: {
+                value: /^09\d{8}$/,
+                message: '手機號碼格式有誤',
               },
             }}
           />
