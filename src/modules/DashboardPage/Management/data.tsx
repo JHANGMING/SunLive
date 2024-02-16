@@ -1,4 +1,5 @@
 import { locationData } from "@/constants/location";
+import { ListDataType } from "@/constants/types/product/farmer_prodcut";
 import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
 
 export type OptionType = {
@@ -28,6 +29,10 @@ export type AddLiveDataType = {
   endTime: string;
   yturl: string;
 };
+
+export type ProductPorps = {
+  listData: ListDataType[];
+}
 
 export const statusData: OptionType[] = [
   { value: 'false', label: '下架' },

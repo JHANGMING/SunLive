@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 import { DynamicTableProps } from './data';
 
 const getCellClass = (columnDataIndex: string) => {
@@ -15,6 +17,9 @@ const ManagementTable = ({
   data,
   showCheckbox,
 }: DynamicTableProps) => {
+  const listData = useSelector((state: RootState) => state.dashboard.listData);
+  console.log('listss',listData);
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({});

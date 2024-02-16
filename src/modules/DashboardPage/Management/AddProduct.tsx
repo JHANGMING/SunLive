@@ -262,7 +262,7 @@ const AddProduct = () => {
           <PersonInput
             type="number"
             labelText="規格 (大份)"
-            inputText="輸入小份規格 (斤)"
+            inputText="輸入大份規格 (斤)"
             inputStyle="text-14 w-full h-[53px]"
             id="largeWeight"
             register={register}
