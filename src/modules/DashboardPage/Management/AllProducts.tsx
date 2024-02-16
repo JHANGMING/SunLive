@@ -5,6 +5,7 @@ import { productColumns, productData } from '../data';
 import Link from 'next/link';
 
 const AllProducts = () => {
+  
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
       <div className="flex justify-between items-center mb-24">
