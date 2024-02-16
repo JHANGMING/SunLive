@@ -7,6 +7,7 @@ import useScrollToElement from '@/common/hooks/useScrollToRef';
 import { DetailSectionProps } from './data';
 
 const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
+    console.log('detailProduct', detailProduct);
   const [selected, setSelected] = useState('farmer');
   const [farmerRef, scrollToFarmer] = useScrollToElement();
   const [productRef, scrollToProduct] = useScrollToElement();
@@ -52,7 +53,11 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
             <CategoryTitle title="小農介紹" gapStyle="mb-24" />
             <div className="grid grid-cols-12 gap-24">
               <Image
-                src="/images/productDetail/farmer.png"
+                src={
+                  detailProduct.farmerImg.src !== null
+                    ? detailProduct.farmerImg.src
+                    : '/images/productDetail/farmer.png'
+                }
                 alt="farmer"
                 width={200}
                 height={200}
