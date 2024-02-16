@@ -10,7 +10,7 @@ type dataType = {
 export const defaultMeta: Record<string, string> = {
   defaultTitle: 'SunLive | 搶鮮購',
   defaultDescription: '',
-  defaultImage: '',
+  defaultImage: '/images/sunLive.png',
 };
 
 export const dataSet: Record<string, dataType> = {
