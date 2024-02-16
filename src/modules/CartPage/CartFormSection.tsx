@@ -1,23 +1,23 @@
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { BsChevronDown } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import { nextRoutes } from '@/constants/apiPaths';
 import DefaultInput from '@/common/components/Input';
-import LocationSelect from '@/common/components/Select/LocationSelect';
+import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
+import LocationSelect from '@/common/components/Select/LocationSelect';
 import { transformDataToCartList } from '@/common/helpers/transDataToCartList';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { CartProps, PaymentDataType } from './data';
-import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
 
 const CartFormSection = ({ cartData }: CartProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const productData = cartData?.cartItemProductInfo ?? [];
   const orderSum = cartData?.cartInfo?.[0].totalPromotionPrice || 0;
-  const cartId = cartData?.cardId || '';
+  const cartId = cartData?.cartId || '';
   const cartList = transformDataToCartList(productData);
   const formRef = useRef<HTMLFormElement>(null);
   const payformRef = useRef<HTMLFormElement>(null);
