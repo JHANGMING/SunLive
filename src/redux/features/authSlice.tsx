@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export interface authData {
   nickName: string;
+  photo: string;
 }
 const initialState: authData = {
   nickName: '',
+  photo: '',
 };
 
 export const authSlice = createSlice({
@@ -14,7 +16,8 @@ export const authSlice = createSlice({
     setUserData(state, action) {
       return {
         ...state,
-        nickName: action.payload,
+        nickName: action.payload.nickName,
+        photo: action.payload.photo,
       };
     },
   },

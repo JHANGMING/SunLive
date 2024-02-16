@@ -52,6 +52,7 @@ const AccountSetting = () => {
         datePicker: birthday,
         gender: genderDefaultValue,
       });
+      dispatch(setUserData({nickName:authData.nickName,photo:authData.photo}));
     }
   }, [authData]);
   const onSubmit = async (data: FormValues) => {
@@ -74,7 +75,7 @@ const AccountSetting = () => {
       if (result.statusCode === 200) {
         console.log(result);
         dispatch(setToast({ message: result.message }));
-        dispatch(setUserData(result.data.nickName));
+        dispatch(setUserData({nickName:result.data.nickName}));
         mutate(`/api${nextRoutes['account_get']}`);
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
