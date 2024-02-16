@@ -20,8 +20,9 @@ import { nextRoutes } from '@/constants/apiPaths';
 import { LiveListDataType } from '../data';
 import { useDispatch } from 'react-redux';
 import { setToast } from '@/redux/features/messageSlice';
+import { EditLiveProps } from './data';
 
-const LiveSettings = () => {
+const EditLiveSettings = ({ detailData }:EditLiveProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [products, setProducts] = useState<any[]>([]);
@@ -293,4 +294,4 @@ const LiveSettings = () => {
   );
 };
 
-export default LiveSettings;
+export default EditLiveSettings;

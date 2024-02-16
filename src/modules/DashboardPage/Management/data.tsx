@@ -1,6 +1,7 @@
 import { locationData } from "@/constants/location";
 import { ListDataType } from "@/constants/types/product/farmer_prodcut";
 import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
+import { EditSettingType } from "@/constants/types/dashboard/liveSettings";
 
 export type OptionType = {
   value: string;
@@ -20,6 +21,10 @@ export type LiveproductProps = {
   productSize: boolean; // 小為false、大為 true
   liveprice: number;
 };
+
+export type EditLiveProps={
+  detailData: EditSettingType;
+}
 
 export type AddLiveDataType = {
   datePicker?: string;
