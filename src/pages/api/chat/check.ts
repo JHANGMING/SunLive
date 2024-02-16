@@ -9,9 +9,8 @@ export default async function handler(
   try {
     const token = getCookie('token', { req, res });
     const apiParams: ApiParamsType = {
-      apiPath: apiPaths['liveSet'],
-      method: 'POST',
-      data: req.body,
+      apiPath: apiPaths['check'],
+      method: 'GET',
       authToken: token,
     };
 

@@ -1,8 +1,9 @@
-import { BsCursorFill } from 'react-icons/bs';
+
 import Image from '@/common/components/CustomImage';
 import GlobalLink from '@/common/components/GlobalLink';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
+import LiveChat from './LiveChat';
 const LiveViewer = () => {
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">
@@ -33,12 +34,12 @@ const LiveViewer = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-4 border border-lightGray rounded-16">
+      <div className="col-span-4 border border-lightGray rounded-16 flex flex-col">
         <h6 className="font-normal p-16 border-b border-lightGray">
           重點聊天室訊息
         </h6>
         {/* 聊天室 */}
-        <div className="p-24 h-[640px]">
+        <div className="p-24 ">
           <div className=" bg-SoftGray rounded-20 p-16 flex gap-20 mb-16">
             <Image
               src="/images/home/live/liveComingImg1.png"
@@ -67,44 +68,8 @@ const LiveViewer = () => {
               </GlobalLink>
             </div>
           </div>
-          <ul className="flex flex-col gap-16">
-            <li className="flex items-center gap-16">
-              <Image
-                src="/images/liveStream/viewPerson2.png"
-                alt="viewPerson2"
-                className="w-24 h-24"
-              />
-              <h6 className="text-14 font-normal">Ann</h6>
-              <p className="text-14">哈囉哈囉</p>
-            </li>
-            <li className="flex items-center gap-16">
-              <Image
-                src="/images/liveStream/viewPerson2.png"
-                alt="viewPerson2"
-                className="w-24 h-24"
-              />
-              <h6 className="text-14 font-normal">Ann</h6>
-              <p className="text-14">哈囉哈囉</p>
-            </li>
-          </ul>
         </div>
-        <div className="border-t border-lightGray p-24 gap-16 flex items-center justify-between">
-          <Image
-            src="/images/liveStream/viewPerson1.png"
-            alt="viewPerson1"
-            className="w-24 h-24"
-          />
-          <input
-            type="text"
-            placeholder="輸入聊天訊息 ..."
-            className=" text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
-          />
-          {/* 要用token鎖住 */}
-          <BsCursorFill
-            size={24}
-            className=" text-primary-red cursor-pointer hover:opacity-60"
-          />
-        </div>
+        <LiveChat/>
       </div>
     </section>
   );

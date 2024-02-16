@@ -34,16 +34,20 @@ export const apiPaths = {
 
   //dashboard-product
   productlist: '/api/farmer/productlist',
-  addproduct: '/api/farmer/product',
-  editproduct: '/api/farmer/product',
+  productSet: '/api/farmer/product',
+
   //dashboard-live
   productlist_live: '/api/farmer/live/productlist',
-  addlive: '/api/livesetting',
+  liveSet: '/api/livesetting',
 
   //uploadImg,
   uploadProductImg: '/api/farmer/product/pic',
   uploadfarmerImg: '/api/farmer/pic',
   uploaduserImg: '/api/user/pic',
+  uploadliveImg: '/api/livesetting/pic',
+
+  //chat
+  check: '/api/chats/live/check',
 };
 
 export const nextRoutes = {
@@ -87,5 +91,9 @@ export const nextRoutes = {
   uploadProductImg: '/upload/productImg',
   uploadfarmerImg: '/upload/farmerImg',
   uploaduserImg: '/upload/userImg',
+  uploadliveImg: '/upload/liveImg',
+
+  //chat
+  check: '/chat/check',
 };
 
