@@ -1,29 +1,28 @@
 import { format } from 'date-fns';
-import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
 import Image from '@/common/components/CustomImage';
 import { FormValues } from '@/common/components/Input/data';
 import DatePickerShow from '@/common/components/DatePicker';
 import PersonInput from '@/common/components/Input/PersonInput';
+import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
 import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSelect';
-import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
 import {
   LiveDataType,
   transformLiveData,
 } from '@/common/helpers/transDataForLiveSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import { EditLiveProps } from './data';
-import { LiveListDataType } from '../data';
+
 
 const EditLiveSettings = ({ detailData }:EditLiveProps) => {
-  console.log('detailData', detailData);
   
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -47,7 +46,6 @@ const EditLiveSettings = ({ detailData }:EditLiveProps) => {
         liveName: detailData.liveName,
         datePicker: liveDate,
         startTime: detailData.startTime,
-        // endTime: detailData.endTime,
         yturl: detailData.yturl,
       });
     }
@@ -90,50 +88,23 @@ const EditLiveSettings = ({ detailData }:EditLiveProps) => {
       yturl: data.yturl,
       liveproduct,
     };
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append('image', selectedFile);
-      const apiParams: apiParamsType = {
-        apiPath: nextRoutes['addlive'],
-        method: 'POST',
-        data: dataObj,
-      };
 
-      const imgParams = {
-        method: 'POST',
-        body: formData,
-      };
-      try {
-        const result = await fetchNextApi(apiParams);
-        console.log('addlive', result);
-        if (result.statusCode !== 200) {
-          dispatch(setToast({ message: result.message }));
-          return;
-        }
-        if (result.statusCode === 200) {
-          const url = `/api${nextRoutes['uploadliveImg']}?id=${result.data.liveId}`;
-          const imgResponse = await fetch(url, imgParams);
-          const imgResult = await imgResponse.json();
-          console.log('imgResult', imgResult);
-          if (imgResult.statusCode !== 200) {
-            dispatch(setToast({ message: imgResult.message }));
-            return;
-          }
-          if (result.statusCode === 200 && imgResult.statusCode === 200) {
-            setSelectedFile(null);
-            setPreviewImage(null);
-            dispatch(setToast({ message: result.message }));
-            reset();
-          } else {
-            dispatch(
-              setToast({ message: result.message || imgResult.message })
-            );
-          }
-        }
-      } catch (error) {
-        console.log(error);
+      const apiParams: apiParamsType = {
+      apiPath: `${nextRoutes['editlive']}?id=${detailData.liveId}`,
+      method: 'POST',
+      data: dataObj,
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        dispatch(setToast({ message: result.message }));
+      } else {
+        dispatch(setToast({ message: result.message }));
       }
+    } catch (error) {
+      console.log(error);
     }
+
   };
 
   return (

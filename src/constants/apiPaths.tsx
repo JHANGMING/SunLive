@@ -88,6 +88,7 @@ export const nextRoutes = {
   //dashboard-live
   productlist_live: '/dashboard/live/productlist',
   addlive: '/dashboard/live/addlive',
+  editlive: '/dashboard/live/editlive',
 
   //uploadImg,
   uploadProductImg: '/upload/productImg',
