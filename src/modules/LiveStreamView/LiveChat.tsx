@@ -171,7 +171,7 @@ const LiveChat = () => {
                 ) : (
                   <BsPersonCircle size={24} className=" text-darkGray" />
                 )}
-                <p className="mr-2">{msg.nickName}</p>
+                <p className="mr-2 text-darkGray">{msg.nickName}</p>
               </>
             )}
             <p className="text-14">{msg.message}</p>
