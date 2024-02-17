@@ -158,7 +158,7 @@ const LiveChat = () => {
         {messages.map((msg, index) => (
           <li
             key={index}
-            className={`flex items-center gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
+            className={`flex gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
             {msg.userIdSender !== user.userIdSender ? (
               <>
                 {msg.photo !== null ? (
