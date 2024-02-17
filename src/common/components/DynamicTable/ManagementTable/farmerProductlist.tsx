@@ -1,5 +1,8 @@
-import { useState } from 'react';
-import { DynamicTableProps } from './data';
+import { useReducer, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { DynamicTableProps, ProductDataType } from './data';
+import { useRouter } from 'next/router';
 
 const getCellClass = (columnDataIndex: string) => {
   switch (columnDataIndex) {
@@ -10,23 +13,32 @@ const getCellClass = (columnDataIndex: string) => {
   }
 };
 
-const ManagementTable = ({
-  columns,
-  data,
-  showCheckbox,
-}: DynamicTableProps) => {
-
+const ProductlistTable = ({ columns, showCheckbox }: DynamicTableProps) => {
+  const router = useRouter();
+  const listData = useSelector((state: RootState) => state.dashboard.listData);
+  const data = listData;
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({});
-  const [hoveredRow, setHoveredRow] = useState<string | null>(null);
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const itemsPerPage = 5;
 
-  const maxPage =data? Math.ceil(data.length / itemsPerPage):0
-  const currentData =data? data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  ):[]
+ let maxPage = 0;
+ if (Array.isArray(data) || typeof data === 'string') {
+   maxPage = Math.ceil(data.length / itemsPerPage);
+ }
+
+ let currentData: any[] = [];
+ if (Array.isArray(data)) {
+   currentData = data.slice(
+     (currentPage - 1) * itemsPerPage,
+     currentPage * itemsPerPage
+   );
+ }
+ let dataLength = 0;
+ if (Array.isArray(data) || typeof data === 'string') {
+   dataLength = data.length;
+ }
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
@@ -34,9 +46,7 @@ const ManagementTable = ({
   const handleNext = () => {
     setCurrentPage((prev) => (prev < maxPage ? prev + 1 : prev));
   };
-  const handleStatusChange = (id: string, newStatus: string) => {
-    console.log(newStatus);
-  };
+
   // const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const newSelectedRows = {};
   //   data.forEach((item) => {
@@ -53,20 +63,14 @@ const ManagementTable = ({
   //     [id]: !prev[id],
   //   }));
   // };
-    const handleEdit = (id:string) => {
-      console.log('编辑: ', id);
-      // 编辑逻辑
-    };
+  const handleEdit = (id: number) => {
+    router.push(`/dashboard/products/${id}`);
+  };
 
-    const handleDelete = (id: string) => {
-      console.log('删除: ', id);
-      // 删除逻辑
-    };
+  const handleDelete = (id: string) => {
+    console.log('刪除: ', id);
+  };
 
-    const handleToggleStatus = (id: string) => {
-      console.log('切换上下架状态: ', id);
-      // 上下架切换逻辑
-    };
   return (
     <>
       <table
@@ -101,7 +105,9 @@ const ManagementTable = ({
         </thead>
         <tbody>
           {currentData.map((row) => (
-            <tr className="text-center border-b border-lightGray" key={row.id}>
+            <tr
+              className="text-center border-b border-lightGray"
+              key={row.productId}>
               {showCheckbox && (
                 <td className="py-[13px]">
                   <input
@@ -116,19 +122,18 @@ const ManagementTable = ({
                 const tdClass = getCellClass(column.dataIndex);
                 let cellContent;
 
-                if (column.dataIndex === 'productName') {
+                if (column.dataIndex === 'productTitle') {
                   cellContent = (
                     <div
-                      onMouseEnter={() => setHoveredRow(row.id)}
-                      onMouseLeave={() => setHoveredRow(null)}
-                      >
+                      onMouseEnter={() => setHoveredRow(row.productId)}
+                      onMouseLeave={() => setHoveredRow(null)}>
                       {row[column.dataIndex]}
-                      {hoveredRow === row.id && (
+                      {hoveredRow === row.productId && (
                         <div className="flex justify-center gap-4">
                           <button
                             type="button"
                             className="text-12 text-primary-green pr-4 border-r border-lightGray"
-                            onClick={() => handleEdit(row.id)}>
+                            onClick={() => handleEdit(row.productId)}>
                             編輯
                           </button>
                           <button
@@ -140,22 +145,15 @@ const ManagementTable = ({
                       )}
                     </div>
                   );
-                } else if (column.dataIndex === 'productstatus') {
-                  cellContent = (
-                    <select
-                      className="text-14"
-                      value={row[column.dataIndex]}
-                      onChange={(e) =>
-                        handleStatusChange(row.id, e.target.value)
-                      }>
-                      <option value="上架">上架</option>
-                      <option value="下架">下架</option>
-                    </select>
-                  );
+                } else if (column.dataIndex === 'productState') {
+                  const status = row[column.dataIndex] ? '上架' : '下架';
+                  cellContent = <p>{status}</p>;
+                }else if (column.dataIndex === 'productUpdatTime') {
+                  const data=row[column.dataIndex]?row[column.dataIndex]:"--";
+                  cellContent = <p>{data}</p>;
                 } else {
                   cellContent = row[column.dataIndex];
                 }
-
                 return (
                   <td className={tdClass} key={column.key}>
                     {cellContent}
@@ -167,7 +165,7 @@ const ManagementTable = ({
         </tbody>
       </table>
       <div className="w-full flex justify-between mt-20 text-darkGray pl-12 pr-24">
-        <p>共 {data?.length} 筆資料</p>
+        <p>共 {dataLength} 筆資料</p>
         <div className="flex gap-24">
           <p>{`${currentPage}/${maxPage}`}</p>
           <button
@@ -188,4 +186,4 @@ const ManagementTable = ({
   );
 };
 
-export default ManagementTable;
+export default ProductlistTable;

@@ -3,7 +3,8 @@ import { ListDataType } from '@/constants/types/product/farmer_prodcut';
 
 
 interface InitialStateType {
-  listData: ListDataType[];
+  // listData: ListDataType[];
+  [key: string]: string | string[] | number;
 }
 const initialState: InitialStateType = {
   listData: [],

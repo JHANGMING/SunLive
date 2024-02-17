@@ -3,7 +3,7 @@ import { ColumnType } from "../data";
 
 
 export type LiveListDataType = {
-  [key: string]: string | string[]; // 根据实际情况调整类型
+  [key: string]: string | string[] |number; // 根据实际情况调整类型
   id: string;
 };
 export type DynamicTableProps = {
