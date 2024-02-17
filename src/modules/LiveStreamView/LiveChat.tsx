@@ -172,11 +172,15 @@ const LiveChat = () => {
                   <BsPersonCircle size={24} className=" text-darkGray" />
                 )}
                 <p className="mr-2 text-darkGray">{msg.nickName}</p>
-                <p className="text-14 break-words">{msg.message}</p>
+                <p className="text-14 break-words w-full pr-24">
+                  {msg.message}
+                </p>
               </>
             ) : (
               <>
-                <p className="text-14 break-words">{msg.message}</p>
+                <p className="text-14 break-words w-full pl-24">
+                  {msg.message}
+                </p>
                 {user.photoSender ? (
                   <Image
                     src={user.photoSender}
@@ -184,7 +188,7 @@ const LiveChat = () => {
                     roundedStyle="rounded-full object-cover"
                     className="w-24 h-24"
                   />
-                ):(
+                ) : (
                   <BsPersonCircle size={24} className=" text-darkGray" />
                 )}
               </>
@@ -197,7 +201,8 @@ const LiveChat = () => {
           <Image
             src={user.photoSender}
             alt="viewPerson1"
-            className="w-24 h-24 rounded-full object-cover"
+            roundedStyle="rounded-full object-cover"
+            className="w-24 h-24"
           />
         ) : (
           <BsPersonCircle size={24} className="text-darkGray" />
