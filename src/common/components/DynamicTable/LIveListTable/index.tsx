@@ -1,11 +1,16 @@
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 import { useEffect, useState } from 'react';
-import { DynamicTableProps } from './data';
 import { BsLink45Deg } from 'react-icons/bs';
+import { DynamicTableProps } from './data';
 const LiveListTable = ({
   columns,
   initialData,
   showCheckbox,
 }: DynamicTableProps) => {
+  const listdata=useSelector((state:RootState)=>state)
+  console.log('listdata',listdata);
+  
   const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);

@@ -25,7 +25,7 @@ export const getServerSideProps = async (
   const liveId = params ? params['liveId'] : null;
   let detailData = [];
   try {
-    // 取得編輯農產品
+    // 取得編輯Live
     const detailParams: ApiParamsType = {
       apiPath: `${apiPaths['liveSet']}/${liveId}`,
       method: 'GET',
@@ -34,7 +34,7 @@ export const getServerSideProps = async (
     const detailResponse = await fetchApi(detailParams);
     if (detailResponse.statusCode === 200) {
       detailData = detailResponse.data;
-    } else if (detailResponse.statusCode === 401) {
+    } else if (detailData.length === 0) {
       return { notFound: true };
     }
   } catch (error) {

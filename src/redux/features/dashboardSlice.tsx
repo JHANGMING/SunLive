@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ListDataType } from '@/constants/types/product/farmer_prodcut';
+import { LivelistType } from '@/constants/types/dashboard/livelist';
 
 
 interface InitialStateType {
   listData: ListDataType[];
+  livelistData:LivelistType[];
 }
 const initialState: InitialStateType = {
   listData: [],
-
+  livelistData: [],
 };
 
 export const dashboardSlice = createSlice({
@@ -20,8 +22,16 @@ export const dashboardSlice = createSlice({
         listData: action.payload,
       };
     },
+    setLivelistData(state, action) {
+      console.log('action.payload', action.payload);
+      
+      return {
+        ...state,
+        livelistData: action.payload,
+      };
+    },
   },
 });
 
-export const { setProductlistData } = dashboardSlice.actions;
+export const { setProductlistData, setLivelistData } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

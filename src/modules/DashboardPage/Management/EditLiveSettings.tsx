@@ -1,28 +1,30 @@
 import { format } from 'date-fns';
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
+import Image from '@/common/components/CustomImage';
+import { FormValues } from '@/common/components/Input/data';
 import DatePickerShow from '@/common/components/DatePicker';
 import PersonInput from '@/common/components/Input/PersonInput';
-import { FormValues } from '@/common/components/Input/data';
 import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
 import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSelect';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
-import Image from '@/common/components/CustomImage';
 import {
   LiveDataType,
   transformLiveData,
 } from '@/common/helpers/transDataForLiveSelect';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
-import { LiveListDataType } from '../data';
-import { useDispatch } from 'react-redux';
 import { setToast } from '@/redux/features/messageSlice';
 import { EditLiveProps } from './data';
+import { LiveListDataType } from '../data';
 
 const EditLiveSettings = ({ detailData }:EditLiveProps) => {
+  console.log('detailData', detailData);
+  
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [products, setProducts] = useState<any[]>([]);
