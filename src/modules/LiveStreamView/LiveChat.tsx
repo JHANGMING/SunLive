@@ -159,7 +159,7 @@ const LiveChat = () => {
           <li
             key={index}
             className={`flex items-center gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
-            {msg.userIdSender === user.userIdSender && (
+            {msg.userIdSender !== user.userIdSender && (
               <>
                 {msg.photo !== null ? (
                   <Image
