@@ -1,19 +1,27 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { DynamicTableProps } from './data';
 import { BsLink45Deg } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 const LiveListTable = ({
   columns,
   initialData,
   showCheckbox,
 }: DynamicTableProps) => {
+  const listData = useSelector(
+    (state: RootState) => state.dashboard.livelistData
+  );
+  console.log('listss',listData);
+  
   const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({});
   const itemsPerPage = 5;
   useEffect(() => {
-    setData(initialData);
-  }, [initialData]);
+    if (!listData) return;
+    setData(listData);
+  }, [listData]);
 
   const maxPage = Math.ceil(data.length / itemsPerPage);
   const currentData = data.slice(
