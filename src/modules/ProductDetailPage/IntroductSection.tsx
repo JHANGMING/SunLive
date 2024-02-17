@@ -54,8 +54,8 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
             <div className="grid grid-cols-12 gap-24">
               <Image
                 src={
-                  detailProduct.farmerImg.src !== null
-                    ? detailProduct.farmerImg.src
+                  detailProduct?.farmerImg?.src !== null
+                    ? detailProduct?.farmerImg?.src
                     : '/images/productDetail/farmer.png'
                 }
                 alt="farmer"
