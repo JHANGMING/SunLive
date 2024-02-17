@@ -153,7 +153,7 @@ const LiveChat = () => {
             <div
               className={`message ${msg.userIdSender === user.userIdSender ? 'message-sender' : 'message-receiver'}`}>
               {/* 可以根据需要添加图片 */}
-              <p className="text-14">{msg.message}</p>
+              <p className="text-14">{user.nameSender}:{msg.message}</p>
             </div>
           </li>
         ))}
