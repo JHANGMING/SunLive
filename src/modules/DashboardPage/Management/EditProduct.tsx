@@ -83,9 +83,11 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
       storage,
       origin,
     } = data;
+    console.log('productState', Boolean(productState));
+    
     const dataObj = {
       updateStateTime,
-      productState: Boolean(productState),
+      productState,
       category,
       description: description.trim(),
       productTitle: productTitle.trim(),
@@ -104,23 +106,20 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
     };
     console.log(dataObj);
     const apiParams: apiParamsType = {
-      apiPath: nextRoutes['addproduct'],
+      apiPath: `${nextRoutes['editproduct']}?id=${detailData.productId}`,
       method: 'POST',
       data: dataObj,
     };
-    // try {
-    //   const result = await fetchNextApi(apiParams);
-    //   console.log('result', result);
-
-    //   if (result.statusCode === 200) {
-    //     setToastMessage(`${result.message}`);
-    //   } else {
-          // dispatch(setToast({ message: result.message }));
-    //     setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        dispatch(setToast({ message: result.message }));
+      } else {
+        dispatch(setToast({ message: result.message }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
     // reset();
   };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {

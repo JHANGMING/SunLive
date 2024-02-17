@@ -84,7 +84,8 @@ export const nextRoutes = {
 
   //dashboard-product
   addproduct: '/dashboard/product/addproduct',
-
+  editproduct: '/dashboard/product/editproduct',
+  
   //dashboard-live
   productlist_live: '/dashboard/live/productlist',
   addlive: '/dashboard/live/addlive',

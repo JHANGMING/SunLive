@@ -17,6 +17,8 @@ const DashboardPage = () => {
         ? router.query.orderId[0]
         : router.query.orderId;
       setSubPage(orderId);
+    } else if (page.startsWith('/dashboard/products/')) {
+      setActiveSection('products');
     } else {
       switch (page) {
         case '/dashboard/account':
@@ -40,7 +42,7 @@ const DashboardPage = () => {
           break;
         default:
           setActiveSection('');
-          setSubPage(''); 
+          setSubPage('');
       }
     }
   }, [router.pathname, router.query]);

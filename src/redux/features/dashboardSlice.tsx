@@ -4,8 +4,10 @@ import { LivelistType } from '@/constants/types/dashboard/livelist';
 
 
 interface InitialStateType {
-  listData: ListDataType[];
-  livelistData:LivelistType[];
+  // listData: ListDataType[];
+  // livelistData:LivelistType[];
+  // listData: ListDataType[];
+  [key: string]: string | string[] | number;
 }
 const initialState: InitialStateType = {
   listData: [],

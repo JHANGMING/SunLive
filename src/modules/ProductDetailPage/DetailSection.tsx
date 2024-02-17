@@ -87,7 +87,7 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
                   : detailProduct.largePromotionPrice}
               </h4>
               <span className=" text-lightGray font-bold text-14 line-through">
-                {selectedSpec === detailProduct.largeproductSpecId
+                {selectedSpec === detailProduct.smallproductSpecId
                   ? detailProduct.smallOriginalPrice
                   : detailProduct.largeOriginalPrice}
               </span>

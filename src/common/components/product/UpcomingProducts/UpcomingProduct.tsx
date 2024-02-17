@@ -47,6 +47,7 @@ const UpcomingProduct = ({ ...data }:LiveProductItemType) => {
                   : liveFarmerPic
               }
               alt={`liveFarmer-${liveId}`}
+              roundedStyle='object-cover rounded-full'
               className="w-40 h-40"
             />
             <p className=" text-primary-green">{liveProductName}</p>
