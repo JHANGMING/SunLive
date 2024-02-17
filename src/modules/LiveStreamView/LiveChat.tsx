@@ -1,6 +1,7 @@
 import { BsCursorFill } from 'react-icons/bs';
-import Image from '@/common/components/CustomImage';
+import { BsPersonCircle } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
+import Image from '@/common/components/CustomImage';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import { useDispatch } from 'react-redux';
@@ -8,6 +9,8 @@ import { setToast } from '@/redux/features/messageSlice';
 type Message = {
   userIdSender: number;
   message: string;
+  photo: string;
+  nickName: string;
 };
 const LiveChat = () => {
   const [chatroomId] = useState('live');
@@ -35,7 +38,7 @@ const LiveChat = () => {
     const setupSignalRConnection = async () => {
       try {
         const { hubConnection } = await import('signalr-no-jquery');
-        const connection = hubConnection("https://4.224.41.94");
+        const connection = hubConnection(apiUrl);
         const chatHubProxy = connection.createHubProxy(
           'chathub'
         ) as unknown as SignalR.Hub.Proxy;
@@ -72,34 +75,34 @@ const LiveChat = () => {
     }
   };
 
-    const callApi = async () => {
-      const apiParams: apiParamsType = {
-        apiPath: nextRoutes['check'],
-        method: 'GET',
-      };
-      try {
-        const result = await fetchNextApi(apiParams);
-        console.log('check', result);
-        if (result.statusCode === 200) {
-          setUser({
-            userIdSender: result.data.senderId,
-            nameSender: result.data.senderName,
-            photoSender: result.data.senderPhoto,
-          });
-          dispatch(setToast({ message: "歡迎來到直播特賣會" }));
-        } else {
-          dispatch(setToast({ message: `${result.message || '未知错误'}` }));
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
+  const callApi = async () => {
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['check'],
+      method: 'GET',
     };
-    const handleKeyPress = (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        handleSendMessage();
+    try {
+      const result = await fetchNextApi(apiParams);
+      console.log('check', result);
+      if (result.statusCode === 200) {
+        setUser({
+          userIdSender: result.data.senderId,
+          nameSender: result.data.senderName,
+          photoSender: result.data.senderPhoto,
+        });
+        dispatch(setToast({ message: '歡迎來到直播特賣會' }));
+      } else {
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
-    };
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !event.shiftKey && user.userIdSender) {
+      event.preventDefault();
+      handleSendMessage();
+    }
+  };
   const handleSendMessage = async () => {
     if (!isConnected || !user.userIdSender || newMessage.trim() === '') {
       console.error(
@@ -113,6 +116,8 @@ const LiveChat = () => {
         'SendMessageToLiveRoom',
         chatroomId,
         user.userIdSender,
+        user.nameSender,
+        user.photoSender,
         newMessage
       );
       console.log('Message sent successfully');
@@ -121,7 +126,7 @@ const LiveChat = () => {
       console.error('Failed to send message:', error);
     }
   };
-// {userIdSender: 7, message: 'aaaa'}
+  // {userIdSender: 7, message: 'aaaa'}
   return (
     <>
       <ul
@@ -145,16 +150,31 @@ const LiveChat = () => {
           <h6 className="text-14 font-normal">Ann</h6>
           <p className="text-14">哈囉哈囉</p>
         </li> */}
-        <p className='text-12 text-center text-darkGray'>歡迎{user.nameSender}進入聊天室</p>
+        {user.nameSender && (
+          <p className="text-12 text-center text-darkGray">
+            歡迎{user.nameSender}進入聊天室
+          </p>
+        )}
         {messages.map((msg, index) => (
           <li
             key={index}
-            className={`flex items-center gap-16 ${msg.userIdSender === user.userIdSender ? 'justify-end' : ''}`}>
-            <div
-              className={`message ${msg.userIdSender === user.userIdSender ? 'message-sender' : 'message-receiver'}`}>
-              {/* 可以根据需要添加图片 */}
-              <p className="text-14">{user.nameSender}:{msg.message}</p>
-            </div>
+            className={`flex items-center gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
+            {msg.userIdSender === user.userIdSender && (
+              <>
+                {msg.photo !== null ? (
+                  <Image
+                    src={msg.photo}
+                    alt="Sender"
+                    roundedStyle="rounded-full object-cover"
+                    className="w-24 h-24"
+                  />
+                ) : (
+                  <BsPersonCircle size={24} className=" text-darkGray" />
+                )}
+                <p className="mr-2">{msg.nickName}</p>
+              </>
+            )}
+            <p className="text-14">{msg.message}</p>
           </li>
         ))}
       </ul>
@@ -180,8 +200,8 @@ const LiveChat = () => {
         {/* 要用token鎖住 */}
         <BsCursorFill
           size={24}
-          className=" text-primary-red cursor-pointer hover:opacity-60"
-          onClick={handleSendMessage}
+          className={`${user.userIdSender ? 'text-primary-red hover:opacity-60' : 'text-darkGray'} cursor-pointer`}
+          onClick={user.userIdSender ? handleSendMessage : undefined}
         />
       </div>
     </>
