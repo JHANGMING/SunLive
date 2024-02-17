@@ -8,7 +8,8 @@ export type ProductDataType = {
 };
 export type DynamicTableProps = {
   columns: ColumnType[];
-  data: ProductDataType[];
+  data?: ProductDataType[];
   initialData?: ProductDataType[];
   showCheckbox: boolean;
 };
+

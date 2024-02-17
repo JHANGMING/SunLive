@@ -30,7 +30,7 @@ export default function CustomHead({ pageCategory }: CustomHeadProps) {
         <meta property="discord:invite_image:width" content="1200" />
         <meta property="discord:invite_image:height" content="600" />
         {/* Facebook */}
-        <meta property="og:site_name" content="搶先購" />
+        <meta property="og:site_name" content="搶鮮購" />
         <meta property="og:type" content="website" />
         <meta
           property="og:url"

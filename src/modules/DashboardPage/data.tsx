@@ -30,12 +30,16 @@ type ColumnType= {
   render?: (row: any) => JSX.Element; // 根据需要调整类型
 }
 export const productColumns: ColumnType[] = [
-  { title: '農產品名稱', dataIndex: 'productName', key: 'productName' },
-  { title: '原價', dataIndex: 'origialPrice', key: 'origialPrice' },
-  { title: '促銷價', dataIndex: 'discountPrice', key: 'discountPrice' },
-  { title: '庫存量', dataIndex: 'stock', key: 'stock' },
-  { title: '上架時間', dataIndex: 'createTime', key: 'createTime' },
-  { title: '商品狀態', dataIndex: 'productstatus', key: 'productstatus' },
+  { title: '農產品名稱', dataIndex: 'productTitle', key: 'productTitle' },
+  { title: '原價', dataIndex: 'smallOriginalPrice', key: 'smallOriginalPrice' },
+  {
+    title: '促銷價',
+    dataIndex: 'smallPromotionPrice',
+    key: 'smallPromotionPrice',
+  },
+  { title: '庫存量', dataIndex: 'smallStock', key: 'smallStock' },
+  { title: '上架時間', dataIndex: 'productUpdatTime', key: 'productUpdatTime' },
+  { title: '商品狀態', dataIndex: 'productState', key: 'productState' },
 ];
 
 export const productData: ProductDataType []= [

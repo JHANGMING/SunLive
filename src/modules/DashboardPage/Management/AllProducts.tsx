@@ -1,8 +1,8 @@
 import FarmerProductSearch from '@/common/components/Input/FarmerProductSearch';
-import ManagementTable from '@/common/components/DynamicTable/ManagementTable';
 import Button from '@/common/components/Button';
 import { productColumns, productData } from '../data';
 import Link from 'next/link';
+import ProductlistTable from '@/common/components/DynamicTable/ManagementTable/farmerProductlist';
 
 const AllProducts = () => {
   
@@ -21,9 +21,8 @@ const AllProducts = () => {
         <FarmerProductSearch />
       </div>
       <div className="mb-24 ">
-        <ManagementTable
+        <ProductlistTable
           columns={productColumns}
-          data={productData}
           showCheckbox={true}
         />
       </div>
