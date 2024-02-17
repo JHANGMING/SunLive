@@ -38,7 +38,7 @@ const LiveChat = () => {
     const setupSignalRConnection = async () => {
       try {
         const { hubConnection } = await import('signalr-no-jquery');
-        const connection = hubConnection(apiUrl);
+        const connection = hubConnection('https://4.224.41.94');
         const chatHubProxy = connection.createHubProxy(
           'chathub'
         ) as unknown as SignalR.Hub.Proxy;
