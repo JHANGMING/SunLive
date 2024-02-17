@@ -27,7 +27,7 @@ const AllLive = () => {
         <div className="mb-32">
           <LiveListTable
             columns={LiveListColumns}
-            initialData={LiveListData}
+            // initialData={LiveListData}
             showCheckbox={true}
           />
         </div>

@@ -9,6 +9,6 @@ export type LiveListDataType = {
 export type DynamicTableProps = {
   columns: ColumnType[];
   data?: LiveListDataType[];
-  initialData: LiveListDataType[];
+  initialData?: LiveListDataType[];
   showCheckbox: boolean;
 };
