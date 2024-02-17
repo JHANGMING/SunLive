@@ -159,7 +159,7 @@ const LiveChat = () => {
           <li
             key={index}
             className={`flex items-center gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
-            {msg.userIdSender !== user.userIdSender && (
+            {msg.userIdSender !== user.userIdSender ? (
               <>
                 {msg.photo !== null ? (
                   <Image
@@ -172,23 +172,36 @@ const LiveChat = () => {
                   <BsPersonCircle size={24} className=" text-darkGray" />
                 )}
                 <p className="mr-2 text-darkGray">{msg.nickName}</p>
+                <p className="text-14 break-words">{msg.message}</p>
+              </>
+            ) : (
+              <>
+                <p className="text-14 break-words">{msg.message}</p>
+                {user.photoSender ? (
+                  <Image
+                    src={user.photoSender}
+                    alt="Sender"
+                    roundedStyle="rounded-full object-cover"
+                    className="w-24 h-24"
+                  />
+                ):(
+                  <BsPersonCircle size={24} className=" text-darkGray" />
+                )}
               </>
             )}
-            <p className="text-14">{msg.message}</p>
           </li>
         ))}
       </ul>
       <div className="border-t border-lightGray p-24 gap-16 flex items-center justify-between">
-        <Image
-          src={
-            user.photoSender
-              ? user.photoSender
-              : '/images/liveStream/viewPerson1.png'
-          }
-          alt="viewPerson1"
-          className="w-24 h-24"
-          roundedStyle="rounded-full object-cover"
-        />
+        {user.photoSender ? (
+          <Image
+            src={user.photoSender}
+            alt="viewPerson1"
+            className="w-24 h-24 rounded-full object-cover"
+          />
+        ) : (
+          <BsPersonCircle size={24} className="text-darkGray" />
+        )}
         <input
           type="text"
           placeholder="輸入聊天訊息 ..."
