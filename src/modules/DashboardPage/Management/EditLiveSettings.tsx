@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
@@ -35,8 +35,23 @@ const EditLiveSettings = ({ detailData }:EditLiveProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     reset,
   } = useForm<FormValues>();
+  useEffect(() => {
+    if (detailData) {
+      const liveDate = detailData.liveDate
+        ? new Date(detailData.liveDate)
+        : undefined;
+      reset({
+        liveName: detailData.liveName,
+        datePicker: liveDate,
+        startTime: detailData.startTime,
+        // endTime: detailData.endTime,
+        yturl: detailData.yturl,
+      });
+    }
+  }, [detailData]);
 
   const triggerFileInput = () => {
     fileInputRef.current?.click();
@@ -123,7 +138,7 @@ const EditLiveSettings = ({ detailData }:EditLiveProps) => {
 
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
-      <h3 className=" text-20 font-semibold mb-32">直播設定</h3>
+      <h3 className=" text-20 font-semibold mb-32">編輯直播</h3>
       {/* 上傳圖片 */}
       <div className="flex gap-16 items-center">
         <div className="mb-24">
@@ -142,10 +157,10 @@ const EditLiveSettings = ({ detailData }:EditLiveProps) => {
             onChange={handleFileChange}
           />
         </div>
-        {previewImage && (
+        {detailData?.livepic && (
           <div className="mt-4 relative">
             <Image
-              src={previewImage}
+              src={detailData?.livepic}
               alt="Preview"
               className="w-100 h-100 "
               roundedStyle="object-cover"
