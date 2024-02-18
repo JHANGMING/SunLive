@@ -9,11 +9,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAllProductsData } from '@/redux/features/productSlice';
 
-const Livestreaming = ({ livedetailData }:LivestreamingProps) => {
+const Livestreaming = ({ liveDetailData }:LivestreamingProps) => {
     const dispatch = useDispatch();
     useEffect(() => {
-      dispatch(setAllProductsData(livedetailData));
-    }, [livedetailData]);
+      dispatch(setAllProductsData({liveDetailData}));
+    }, [liveDetailData]);
   return (
     <Layout pageCategory="liveStreamView">
       <LiveStreamView />
@@ -29,7 +29,7 @@ export const getServerSideProps = async (
   const params = context.params;
   const liveId = params ? params['liveId'] : null;
   
-  let livedetailData = [];
+  let liveDetailData = [];
   try {
     // 取得編輯Live 直播頁
     const liveParams: ApiParamsType = {
@@ -38,8 +38,8 @@ export const getServerSideProps = async (
     };
     const liveResponse = await fetchApi(liveParams);
     if (liveResponse.statusCode === 200) {
-      livedetailData = liveResponse.data;
-    } else if (livedetailData.length === 0) {
+      liveDetailData = liveResponse.data;
+    } else if (liveDetailData.length === 0) {
       return { notFound: true };
     }
   } catch (error) {
@@ -47,7 +47,7 @@ export const getServerSideProps = async (
   }
   return {
     props: {
-      livedetailData,
+      liveDetailData,
     },
   };
 };

@@ -2,9 +2,9 @@ import Image from '@/common/components/CustomImage';
 import CategoryTitle from '../ProductPage/CategoryTitle';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import Button from '@/common/components/Button';
-import { liveCardData } from './data';
+import { LivestreamingProps, liveCardData } from './data';
 
-const LiveSaleSection = () => {
+const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
   return (
     <section className=" bg-lightWhite pt-60 pb-[113px]">
       <div className="container relative">

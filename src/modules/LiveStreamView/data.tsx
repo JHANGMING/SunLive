@@ -13,7 +13,7 @@ export type liveCardProps = {
 
 
 export type LivestreamingProps = {
-  livedetailData:LivedetailDateType;
+  liveDetailData:LivedetailDateType;
 };
 
 export const liveCardData: liveCardProps[] = [

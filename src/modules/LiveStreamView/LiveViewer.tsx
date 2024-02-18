@@ -4,7 +4,10 @@ import GlobalLink from '@/common/components/GlobalLink';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 import LiveChat from './LiveChat';
-const LiveViewer = () => {
+import { LivestreamingProps } from './data';
+const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
+  console.log('liveDetailData', liveDetailData);
+  
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">
       <div className=" col-span-8">
@@ -45,7 +48,7 @@ const LiveViewer = () => {
               src="/images/home/live/liveComingImg1.png"
               alt="liveComingImg"
               className="w-80 h-80"
-              roundedStyle='rounded-20 object-cover'
+              roundedStyle="rounded-20 object-cover"
             />
             <div className="text-darkGray flex flex-col gap-8 w-full">
               <div className=" flex gap-8 items-center">
@@ -70,7 +73,7 @@ const LiveViewer = () => {
             </div>
           </div>
         </div>
-        <LiveChat/>
+        <LiveChat />
       </div>
     </section>
   );
