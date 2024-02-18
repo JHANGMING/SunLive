@@ -12,9 +12,9 @@ const NavBar = () => {
       <li>
         <Logo classProps="w-50 h-50" />
       </li>
-      <div className="text-primary-red font-bold live">
+      {/* <div className="text-primary-red font-bold live">
         <p className="neontext">Live</p>
-      </div>
+      </div> */}
       {navBarDatas.map((data) => {
         const { src, title, subTitle } = data;
         const isActive = router.pathname === src;
