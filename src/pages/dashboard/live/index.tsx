@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import wrapper from '@/redux/store';
 import { useDispatch } from 'react-redux';
 import { getCookies } from 'cookies-next';
+import wrapper from '@/redux/store';
 import { apiPaths } from '@/constants/apiPaths';
 import Layout from '@/common/components/Layout';
 import AllLive from '@/modules/DashboardPage/Management/AllLive';
@@ -13,7 +13,6 @@ const Live = ({ listData }: LiveListProps) => {
   useEffect(() => {
     dispatch(setLivelistData(listData));
   }, [listData]);
-
   return (
     <Layout pageCategory="dashboardPage">
       <AllLive />

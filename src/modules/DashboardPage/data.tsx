@@ -166,10 +166,11 @@ export const ordersData: OrderDataType[] = [
 ];
 
 export const LiveListColumns: ColumnType[] = [
-  { title: '直播名稱', dataIndex: 'liveNumber', key: 'liveNumber' },
+  { title: '直播名稱', dataIndex: 'liveName', key: 'liveName' },
   { title: '直播日期', dataIndex: 'liveDate', key: 'liveDate' },
   { title: '直播開始時間', dataIndex: 'startTime', key: 'tartTime' },
   { title: '直播連結', dataIndex: 'liveLink', key: 'liveLink' },
+  { title: '聊天室置頂商品', dataIndex: 'liveProudct', key: 'liveProudct' },
 ];
 
 export const LiveListData: LiveListDataType []= [

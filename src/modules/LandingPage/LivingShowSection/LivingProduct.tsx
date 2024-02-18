@@ -8,8 +8,9 @@ const LivingProduct = ({ living, liveData }:LivingProductProps) => {
         {living ? '正在進行的小農直播' : '即將到來的小農直播'}
       </h2>
       <h3 className="text-14 lg:text-28 text-primary-green ">
-        多汁天然有機鳳梨
-        {/* {living ? '正在進行的小農直播' : upcomingLive?.liveProductName} */}
+        {living
+          ? liveData?.data?.liveProductName
+          : upcomingLive?.liveProductName}
       </h3>
       <div className="flex gap-x-8 lg:gap-x-16 items-center">
         {living ? (

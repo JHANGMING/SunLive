@@ -4,33 +4,42 @@ import GlobalLink from '@/common/components/GlobalLink';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 import LiveChat from './LiveChat';
-const LiveViewer = () => {
+import { LivestreamingProps } from './data';
+const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
+  console.log('liveDetailData', liveDetailData);
+  
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">
       <div className=" col-span-8">
         <YoutubeLiveIfram isViewPage={true} />
         <div className="pt-24 flex flex-col gap-16">
           <h2 className="text-24">
-            陽光甘醇有機蕃茄<span>- 特價直播</span>
+            {liveDetailData?.liveName}
+            <span>- 特價直播</span>
           </h2>
           <div className="flex items-center gap-8">
             <Image
-              src="/images/home/live/liveComingPerson1.png"
+              src={
+                liveDetailData?.liveFarmerPic
+                  ? liveDetailData?.liveFarmerPic
+                  : '/images/home/live/liveComingPerson1.png'
+              }
               alt="liveComingPerson1"
               className="w-40 h-40"
+              roundedStyle="rounded-full object-cover"
             />
-            <h3 className=" text-16 font-normal">黃小翰</h3>
+            <h3 className=" text-16 font-normal">
+              {liveDetailData?.liveFarmer}
+            </h3>
           </div>
           <div className=" bg-primary-yellow py-24 pl-24 pr-60 rounded-20">
             <div className="flex items-center gap-16 mb-16">
               <LogoImg classProps="w-24 h-24" />
               <p className="font-bold">
-                直播時間 :<span>2024.1.16 (二)</span>
+                直播時間 :<span>{liveDetailData?.liveDate}</span>
               </p>
             </div>
-            <p>
-              「品味夏日，尋找自然的美好。我們自豪地呈獻陽光甘醇有機蕃茄，每一口都是大自然的悠然滋味，新鮮、有機，為您帶來健康美味的味覺饗宴。」
-            </p>
+            <p>{liveDetailData?.liveDescription}</p>
           </div>
         </div>
       </div>
@@ -42,34 +51,48 @@ const LiveViewer = () => {
         <div className="p-24 ">
           <div className=" bg-SoftGray rounded-20 p-16 flex gap-20 mb-16">
             <Image
-              src="/images/home/live/liveComingImg1.png"
+              src={
+                liveDetailData?.topProductPhoto
+                  ? liveDetailData?.topProductPhoto
+                  : '/images/home/live/liveComingImg.png'
+              }
               alt="liveComingImg"
               className="w-80 h-80"
+              roundedStyle="rounded-20 object-cover"
             />
             <div className="text-darkGray flex flex-col gap-8 w-full">
               <div className=" flex gap-8 items-center">
-                <h4 className="text-16">夢幻柳橙夏悠</h4>
+                <h4 className="text-16">{liveDetailData?.topProductName}</h4>
                 <h5 className=" text-mediumGray text-14 font-normal">
-                  <span>NT$</span>250
+                  <span>NT$</span>
+                  {liveDetailData?.topProductLivePrice}
                 </h5>
               </div>
               <p className="">
                 剩餘{' '}
                 <span className=" text-primary-red text-24 font-bold shiny-scale-effect">
-                  50
+                  {liveDetailData?.topProductStock}
                 </span>{' '}
                 組
               </p>
               <GlobalLink
                 href="/cart"
-                openInNewTab={true}
-                className="cursor-pointer bg-primary-red text-white w-full rounded-8 text-center hover:opacity-60 ">
-                加入購物車
+                openInNewTab={
+                  liveDetailData?.topProductStock === 0 ? false : true
+                }
+                isDisabled={liveDetailData?.topProductStock === 0}
+                className={` text-white w-full rounded-8 text-center  ${liveDetailData?.topProductStock === 0 ? 'bg-darkGray cursor-not-allowed' : 'bg-primary-red cursor-pointer hover:opacity-60'}`}
+                productSpecId={liveDetailData?.topSpecId}
+                productId={liveDetailData?.topProductId}
+                liveId={liveDetailData?.liveId}>
+                {liveDetailData?.topProductStock === 0
+                  ? '已賣光光'
+                  : '加入購物車'}
               </GlobalLink>
             </div>
           </div>
         </div>
-        <LiveChat/>
+        <LiveChat />
       </div>
     </section>
   );
