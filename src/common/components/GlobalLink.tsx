@@ -51,7 +51,6 @@ const GlobalLink = ({
       console.log('addcart', result);
 
       if (result.statusCode === 200) {
-        mutate(`${apiPaths['live']}/${liveId}`);
         dispatch(
           setToast({
             message: cartTab['add'],
