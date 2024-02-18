@@ -45,3 +45,47 @@
 .outline-offset:hover {
   outline-offset: 4px; 
 }
+
+.rotate-30 {
+  transform: rotate(30deg);
+}
+
+.live p{
+    animation: p 0.11s ease-in-out infinite alternate;
+    border: 0.2rem solid #fff;
+    padding: 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 2rem #3340b1,
+              0 0 0.8rem #2729a8,
+              0 0 2.8rem #431cc2,
+              inset 0 0 1.3rem #6765db;
+}
+
+@keyframes .live p {
+    
+    100% {
+        text-shadow:
+        0 0 4px #fff,
+        0 0 11px #fff,
+        0 0 19px #fff,
+        0 0 42px #0829be,
+      0 0 82px #0d2bb1,
+      0 0 92px #0c28a8,
+      0 0 102px #092086,
+      0 0 151px #050d33;
+    }}
+    
+.neontext{
+    @apply text-primary-red;
+  text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #0829be,
+      0 0 82px #0d2bb1,
+      0 0 92px #0c28a8,
+      0 0 102px #092086,
+      0 0 151px #050d33;
+}

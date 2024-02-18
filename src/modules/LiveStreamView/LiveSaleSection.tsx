@@ -12,7 +12,7 @@ const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
       <div className="container relative">
         <CategoryTitle title="直播商品" gapStyle="mb-40" />
         <ul className="grid grid-cols-12 gap-24">
-          {liveData.map((data, index) => (
+          {liveData?.map((data, index) => (
             <li
               key={data.productId}
               className="flex flex-col col-span-3 relative">

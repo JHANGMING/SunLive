@@ -5,9 +5,16 @@ import { apiPaths } from '@/constants/apiPaths';
 import LiveStreamView from '@/modules/LiveStreamView';
 import { LivestreamingProps } from '@/modules/LiveStreamView/data';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { setAllProductsData } from '@/redux/features/productSlice';
 
 
 const Livestreaming = ({ liveDetailData }:LivestreamingProps) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setAllProductsData({ liveDetailData }));
+  }, [liveDetailData]);
   return (
     <Layout pageCategory="liveStreamView">
       <LiveStreamView liveDetailData={liveDetailData} />
