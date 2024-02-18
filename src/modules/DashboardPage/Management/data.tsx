@@ -2,6 +2,7 @@ import { locationData } from "@/constants/location";
 import { ListDataType } from "@/constants/types/product/farmer_prodcut";
 import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
 import { EditSettingType } from "@/constants/types/dashboard/liveSettings";
+import { LivelistType } from "@/constants/types/dashboard/livelist";
 
 export type OptionType = {
   value: string;
@@ -25,6 +26,10 @@ export type LiveproductProps = {
 export type EditLiveProps={
   detailData: EditSettingType;
 }
+
+export type LiveListProps = {
+  listData: LivelistType[];
+};
 
 export type AddLiveDataType = {
   datePicker?: string;

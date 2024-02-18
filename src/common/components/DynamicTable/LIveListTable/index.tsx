@@ -1,25 +1,27 @@
-import { useEffect, useState } from 'react';
-import { DynamicTableProps } from './data';
+import Select from 'react-select';
 import { BsLink45Deg } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { nextRoutes } from '@/constants/apiPaths';
+import usePagination from '@/common/hooks/usePagination';
+import { setToast } from '@/redux/features/messageSlice';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { DynamicTableProps, OptionProductType } from './data';
+
 const LiveListTable = ({
   columns,
-  initialData,
-  showCheckbox,
 }: DynamicTableProps) => {
-  const [data, setData] = useState(initialData);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedRows, setSelectedRows] = useState({});
-  const itemsPerPage = 5;
-  useEffect(() => {
-    setData(initialData);
-  }, [initialData]);
-
-  const maxPage = Math.ceil(data.length / itemsPerPage);
-  const currentData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+  const listData = useSelector(
+    (state: RootState) => state.dashboard.livelistData
   );
+  const dispatch = useDispatch();
+  const data = listData;
+  const itemsPerPage = 5;
+  const { currentData, maxPage,dataLength, currentPage, setCurrentPage } = usePagination(
+    data,
+    itemsPerPage
+  );
+
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
@@ -27,57 +29,72 @@ const LiveListTable = ({
   const handleNext = () => {
     setCurrentPage((prev) => (prev < maxPage ? prev + 1 : prev));
   };
-  const handleStatusChange = (id: string, newStatus: string) => {
-    const updatedData = data.map((item) =>
-      item.id === id ? { ...item, orderStatus: newStatus } : item
-    );
-    setData(updatedData); // 更新数据
-  };
-  // const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const newSelectedRows = {};
-  //   data.forEach((item) => {
-  //     newSelectedRows[item.id] = e.target.checked;
-  //   });
-  //   setSelectedRows(newSelectedRows);
-  //   setSelectAll(e.target.checked);
-  // };
-  // const handleRowSelect = (id:string) => {
-  //   console.log(id);
 
-  //   setSelectedRows((prev) => ({
-  //     ...prev,
-  //     [id]: !prev[id],
-  //   }));
-  // };
+  const handleCopyLink = async (link: string) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(link);
+        dispatch(setToast({ message: '已複製連結' }));
+      } catch (err) {
+        dispatch(setToast({ message: '複製失敗' }));
+      }
+    }
+  };
+  const handleStatusChange = async (liveProductId: string, liveId: number) => {
+    console.log(liveProductId, liveId);
+    const dataObj = {
+      liveProductId,
+      liveId,
+    };
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['editliveproduct'],
+      method: 'POST',
+      data: dataObj,
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        dispatch(setToast({ message: result.message }));
+      } else {
+        dispatch(setToast({ message: result.message }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <table
-        className={`${showCheckbox ? ' w-full' : 'w-full'} table-fixed text-14 `}>
+        className="table-fixed text-14">
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
-            {showCheckbox && (
-              <th className="py-16 font-normal w-64">
-                <input
-                  type="checkbox"
-                  className="w-16 h-16"
-                  checked={
-                    selectAll && Object.values(selectedRows).every(Boolean)
-                  }
-                  // onChange={handleSelectAll}
-                />
-              </th>
-            )}
             {columns.map((column) => {
-              const thClass =
-                column.title === '直播日期'
-                  ? 'py-[13px] font-normal w-130'
-                  : 'py-[13px] font-normal';
-
+              let thClass = 'py-[13px] font-normal';
+              switch (column.title) {
+                case '直播日期':
+                  thClass = 'py-[13px] font-normal w-130';
+                  break;
+                case '直播名稱':
+                  thClass = 'py-[13px] font-normal w-130';
+                  break;
+                case '直播連結':
+                  thClass = 'py-[13px] font-normal w-130';
+                  break;
+                case '直播開始時間':
+                  thClass = 'py-[13px] font-normal w-130';
+                  break;
+                case '聊天置頂商品':
+                  thClass = 'py-[13px] font-normal ';
+                  break;
+                default:
+                  break;
+              }
               return (
                 <th className={thClass} key={column.key}>
                   {column.title === '直播連結' ? (
                     <div className="flex items-center justify-center gap-4">
-                      <BsLink45Deg size={20}/>
+                      <BsLink45Deg size={20} />
                       直播連結
                     </div>
                   ) : (
@@ -90,17 +107,9 @@ const LiveListTable = ({
         </thead>
         <tbody>
           {currentData.map((row) => (
-            <tr className="text-center border-b border-lightGray" key={row.id}>
-              {showCheckbox && (
-                <td className="py-[13px]">
-                  <input
-                    type="checkbox"
-                    className="w-16 h-16"
-                    // checked={selectedRows[row.id] || false}
-                    // onChange={() => handleRowSelect(row.id)}
-                  />
-                </td>
-              )}
+            <tr
+              className="text-center border-b border-lightGray h-60"
+              key={row.liveId}>
               {columns.map((column) => {
                 let cellContent;
                 if (
@@ -108,9 +117,46 @@ const LiveListTable = ({
                   column.title === '直播連結'
                 ) {
                   cellContent = (
-                    <div className='flex justify-center gap-4'>
+                    <div className="flex justify-center gap-4 ">
                       <BsLink45Deg size={20} />
-                      {row[column.dataIndex]}
+                      <span
+                        className="cursor-pointer hover:text-primary-green"
+                        onClick={() =>
+                          handleCopyLink(
+                            `https://sun-live.vercel.app/livestream/view/${row.liveId}`
+                          )
+                        }>
+                        複製連結
+                      </span>
+                    </div>
+                  );
+                } else if (column.dataIndex === 'liveProudct') {
+                  const options = row.liveProudct.map(
+                    (product: OptionProductType) => ({
+                      value: product.liveProductId,
+                      label: product.liveProductName,
+                    })
+                  );
+                  const defaultOption = {
+                    value: row.topLiveProductId,
+                    label: row.topProductName,
+                  };
+   
+                  cellContent = (
+                    <div className="flex justify-center items-center">
+                      <Select
+                        options={options}
+                        className=" text-14 w-[230px]"
+                        defaultValue={defaultOption}
+                        onChange={(selectedOption) => {
+                          if (selectedOption) {
+                            handleStatusChange(
+                              selectedOption.value,
+                              row.liveId
+                            );
+                          }
+                        }}
+                      />
                     </div>
                   );
                 } else {
@@ -123,7 +169,7 @@ const LiveListTable = ({
         </tbody>
       </table>
       <div className="w-full flex justify-between mt-20 text-darkGray pl-12 pr-24">
-        <p>共 {data.length} 筆資料</p>
+        <p>共 {dataLength} 筆資料</p>
         <div className="flex gap-24">
           <p>{`${currentPage}/${maxPage}`}</p>
           <button

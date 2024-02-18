@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
 import { DynamicTableProps } from './data';
 
 const getCellClass = (columnDataIndex: string) => {
@@ -17,20 +15,18 @@ const ManagementTable = ({
   data,
   showCheckbox,
 }: DynamicTableProps) => {
-  const listData = useSelector((state: RootState) => state.dashboard.listData);
-  console.log('listss',listData);
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({});
   const [hoveredRow, setHoveredRow] = useState<string | null>(null);
   const itemsPerPage = 5;
 
-  const maxPage = Math.ceil(data.length / itemsPerPage);
-  const currentData = data.slice(
+  const maxPage =data? Math.ceil(data.length / itemsPerPage):0
+  const currentData =data? data.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
-  );
+  ):[]
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
@@ -171,7 +167,7 @@ const ManagementTable = ({
         </tbody>
       </table>
       <div className="w-full flex justify-between mt-20 text-darkGray pl-12 pr-24">
-        <p>共 {data.length} 筆資料</p>
+        <p>共 {data?.length} 筆資料</p>
         <div className="flex gap-24">
           <p>{`${currentPage}/${maxPage}`}</p>
           <button

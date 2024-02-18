@@ -44,7 +44,6 @@ const LiveChat = () => {
         ) as unknown as SignalR.Hub.Proxy;
 
         chatHubProxy.on('receiveMessage', (message: Message) => {
-          console.log('Received message:', message);
           setMessages((prevMessages) => [...prevMessages, message]);
         });
 
@@ -58,9 +57,7 @@ const LiveChat = () => {
         console.error('Failed to connect to SignalR server:', error);
       }
     };
-
     setupSignalRConnection();
-
     return () => {
       chatHubProxyRef.current?.connection.stop();
     };
@@ -68,7 +65,6 @@ const LiveChat = () => {
   const JoinChatRoom = async (chatroomId: string) => {
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
-      console.log('JoinLiveRoom:', chatroomId);
       callApi();
     } catch (error) {
       console.error('ChatHubProxy is not initialized or join failed:', error);
@@ -82,7 +78,6 @@ const LiveChat = () => {
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('check', result);
       if (result.statusCode === 200) {
         setUser({
           userIdSender: result.data.senderId,
@@ -126,7 +121,6 @@ const LiveChat = () => {
       console.error('Failed to send message:', error);
     }
   };
-  // {userIdSender: 7, message: 'aaaa'}
   return (
     <>
       <ul

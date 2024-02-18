@@ -1,28 +1,29 @@
 import { format } from 'date-fns';
-import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
+import Image from '@/common/components/CustomImage';
+import { FormValues } from '@/common/components/Input/data';
 import DatePickerShow from '@/common/components/DatePicker';
 import PersonInput from '@/common/components/Input/PersonInput';
-import { FormValues } from '@/common/components/Input/data';
+import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
 import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSelect';
-import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
-import Image from '@/common/components/CustomImage';
 import {
   LiveDataType,
   transformLiveData,
 } from '@/common/helpers/transDataForLiveSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import { LiveListDataType } from '../data';
-import { useDispatch } from 'react-redux';
 import { setToast } from '@/redux/features/messageSlice';
 import { EditLiveProps } from './data';
 
+
 const EditLiveSettings = ({ detailData }:EditLiveProps) => {
+  
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [products, setProducts] = useState<any[]>([]);
@@ -33,8 +34,22 @@ const EditLiveSettings = ({ detailData }:EditLiveProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     reset,
   } = useForm<FormValues>();
+  useEffect(() => {
+    if (detailData) {
+      const liveDate = detailData.liveDate
+        ? new Date(detailData.liveDate)
+        : undefined;
+      reset({
+        liveName: detailData.liveName,
+        datePicker: liveDate,
+        startTime: detailData.startTime,
+        yturl: detailData.yturl,
+      });
+    }
+  }, [detailData]);
 
   const triggerFileInput = () => {
     fileInputRef.current?.click();
@@ -73,55 +88,28 @@ const EditLiveSettings = ({ detailData }:EditLiveProps) => {
       yturl: data.yturl,
       liveproduct,
     };
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append('image', selectedFile);
-      const apiParams: apiParamsType = {
-        apiPath: nextRoutes['addlive'],
-        method: 'POST',
-        data: dataObj,
-      };
 
-      const imgParams = {
-        method: 'POST',
-        body: formData,
-      };
-      try {
-        const result = await fetchNextApi(apiParams);
-        console.log('addlive', result);
-        if (result.statusCode !== 200) {
-          dispatch(setToast({ message: result.message }));
-          return;
-        }
-        if (result.statusCode === 200) {
-          const url = `/api${nextRoutes['uploadliveImg']}?id=${result.data.liveId}`;
-          const imgResponse = await fetch(url, imgParams);
-          const imgResult = await imgResponse.json();
-          console.log('imgResult', imgResult);
-          if (imgResult.statusCode !== 200) {
-            dispatch(setToast({ message: imgResult.message }));
-            return;
-          }
-          if (result.statusCode === 200 && imgResult.statusCode === 200) {
-            setSelectedFile(null);
-            setPreviewImage(null);
-            dispatch(setToast({ message: result.message }));
-            reset();
-          } else {
-            dispatch(
-              setToast({ message: result.message || imgResult.message })
-            );
-          }
-        }
-      } catch (error) {
-        console.log(error);
+      const apiParams: apiParamsType = {
+      apiPath: `${nextRoutes['editlive']}?id=${detailData.liveId}`,
+      method: 'POST',
+      data: dataObj,
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        dispatch(setToast({ message: result.message }));
+      } else {
+        dispatch(setToast({ message: result.message }));
       }
+    } catch (error) {
+      console.log(error);
     }
+
   };
 
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
-      <h3 className=" text-20 font-semibold mb-32">直播設定</h3>
+      <h3 className=" text-20 font-semibold mb-32">編輯直播</h3>
       {/* 上傳圖片 */}
       <div className="flex gap-16 items-center">
         <div className="mb-24">
@@ -140,10 +128,10 @@ const EditLiveSettings = ({ detailData }:EditLiveProps) => {
             onChange={handleFileChange}
           />
         </div>
-        {previewImage && (
+        {detailData?.livepic && (
           <div className="mt-4 relative">
             <Image
-              src={previewImage}
+              src={detailData?.livepic}
               alt="Preview"
               className="w-100 h-100 "
               roundedStyle="object-cover"

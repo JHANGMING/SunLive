@@ -9,7 +9,8 @@ type dataType = {
 
 export const defaultMeta: Record<string, string> = {
   defaultTitle: 'SunLive | 搶鮮購',
-  defaultDescription: '',
+  defaultDescription:
+    '品味新鮮，尋找自然的美好，我們自豪地呈獻陽光甘醇有機蔬果，每一口都是大自然的悠然滋味，為您帶來健康美味的味覺饗宴',
   defaultImage: '/images/sunLive.png',
 };
 
