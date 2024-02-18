@@ -20,5 +20,6 @@ export type LivedetailDateType = {
   topProductStock: number;
   topProductLivePrice: number;
   topProductPhoto: string;
+  topProductName: string;
   liveProductList: LiveProductItemType[];
 };
