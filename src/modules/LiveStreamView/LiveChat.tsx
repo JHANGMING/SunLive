@@ -31,7 +31,6 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
   }, [messages]);
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
     const setupSignalRConnection = async () => {
       try {
         const { hubConnection } = await import('signalr-no-jquery');

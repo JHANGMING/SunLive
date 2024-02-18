@@ -72,7 +72,7 @@ const GlobalLink = ({
         className={`flex justify-center gap-8 py-8 px-16  rounded-8 border border-dashed group transition duration-800 ease-in-out ${className}`}>
         <BsHandIndex className="w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4 " />
         <a
-          className="font-bold tracking-widest"
+          className="font-bold tracking-widest rounded-8"
           href={href}
           target={openInNewTab ? '_blank' : ''}
           rel="noopener noreferrer"

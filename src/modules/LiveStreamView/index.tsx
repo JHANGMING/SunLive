@@ -1,11 +1,11 @@
+import useSWR from 'swr';
+import { useRouter } from 'next/router';
+import { nextRoutes } from '@/constants/apiPaths';
+import { fetcher } from '@/common/helpers/fetcher';
 import ViewBanner from '@/common/components/LiveStreamPage/ViewBanner';
 import LiveViewer from './LiveViewer';
-import LiveSaleSection from './LiveSaleSection';
-import { useRouter } from 'next/router';
-import useSWR from 'swr';
-import { fetcher } from '@/common/helpers/fetcher';
-import { nextRoutes } from '@/constants/apiPaths';
 import { LivestreamingProps } from './data';
+import LiveSaleSection from './LiveSaleSection';
 
 const LiveStreamView = ({ liveDetailData }:LivestreamingProps) => {
   const router = useRouter();

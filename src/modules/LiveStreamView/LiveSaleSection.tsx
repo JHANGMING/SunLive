@@ -1,13 +1,11 @@
-import Image from '@/common/components/CustomImage';
-import CategoryTitle from '../ProductPage/CategoryTitle';
-import LogoImg from '@/common/components/Logo/LogoImg';
-import Button from '@/common/components/Button';
-import { LivestreamingProps } from './data';
-import GlobalLink from '@/common/components/GlobalLink';
 import Link from 'next/link';
+import Image from '@/common/components/CustomImage';
+import LogoImg from '@/common/components/Logo/LogoImg';
+import GlobalLink from '@/common/components/GlobalLink';
+import { LivestreamingProps } from './data';
+import CategoryTitle from '../ProductPage/CategoryTitle';
 
 const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
-  console.log('liveDetailData', liveDetailData);
   const liveData = liveDetailData?.liveProductList;
   return (
     <section className=" bg-lightWhite pt-60 pb-[113px]">
