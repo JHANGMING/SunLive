@@ -1,13 +1,14 @@
-import { BsHandIndex } from 'react-icons/bs';
-import { ButtonPropsType } from './data';
+import { mutate } from 'swr';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { BsHandIndex } from 'react-icons/bs';
+import { cartTab } from '@/common/lib/cartTab';
+import { setToast } from '@/redux/features/messageSlice';
+import { nextRoutes } from '@/constants/apiPaths';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import { mutate } from 'swr';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
-import { cartTab } from '@/common/lib/cartTab';
+import { ButtonPropsType } from './data';
+import { authTab } from '@/common/lib/authTab';
 const AddToCartButton = ({
   children,
   btnStyle,
@@ -55,10 +56,13 @@ const AddToCartButton = ({
             message: cartTab['add'],
           })
         );
-        // router.push('/auth/login');
       } else if (result.statusCode === 409) {
+        dispatch(
+          setToast({
+            message: authTab['noToken'],
+          })
+        );
         router.push('/auth/login');
-        // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
       }
     } catch (error) {
       console.log(error);

@@ -66,26 +66,26 @@ const LiveListTable = ({
   return (
     <>
       <table
-        className="table-fixed text-14">
+        className="table-fixed text-14 w-full">
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
             {columns.map((column) => {
               let thClass = 'py-[13px] font-normal';
               switch (column.title) {
                 case '直播日期':
-                  thClass = 'py-[13px] font-normal w-130';
+                  thClass = 'py-[13px] font-normal w-[140px]';
                   break;
                 case '直播名稱':
-                  thClass = 'py-[13px] font-normal w-130';
+                  thClass = 'py-[13px] font-normal w-[140px]';
                   break;
                 case '直播連結':
-                  thClass = 'py-[13px] font-normal w-130';
+                  thClass = 'py-[13px] font-normal w-[140px]';
                   break;
                 case '直播開始時間':
-                  thClass = 'py-[13px] font-normal w-130';
+                  thClass = 'py-[13px] font-normal w-[140px]';
                   break;
                 case '聊天置頂商品':
-                  thClass = 'py-[13px] font-normal ';
+                  thClass = 'py-[13px] font-normal';
                   break;
                 default:
                   break;

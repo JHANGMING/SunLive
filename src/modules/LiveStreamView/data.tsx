@@ -11,6 +11,16 @@ export type liveCardProps = {
   };
 };
 
+export type Message = {
+  userIdSender: number;
+  message: string;
+  photo: string;
+  nickName: string;
+};
+
+export type LiveChatProps = {
+  liveId: number;
+}
 
 export type LivestreamingProps = {
   liveDetailData:LivedetailDateType;

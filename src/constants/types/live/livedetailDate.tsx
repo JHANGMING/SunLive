@@ -3,7 +3,9 @@ type LiveProductItemType = {
   specId: number;
   productStock: number;
   productLivePrice: number;
+  productOriginPrice: number;
   productPhoto: string;
+  productName: string;
 };
 
 export type LivedetailDateType = {
