@@ -68,6 +68,9 @@ export const nextRoutes = {
   search: '/product/search',
   allproducts: '/product/all',
 
+  //live
+  live: '/live/get',
+
   //cart
   getcart: '/cart/getcart',
   addcart: '/cart/addcart',

@@ -54,7 +54,7 @@ const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
               src={
                 liveDetailData?.topProductPhoto
                   ? liveDetailData?.topProductPhoto
-                  : '/images/home/live/liveComingImg.png'
+                  : '/images/home/live/liveComingImg1.png'
               }
               alt="liveComingImg"
               className="w-80 h-80"
