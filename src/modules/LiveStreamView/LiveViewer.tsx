@@ -6,8 +6,7 @@ import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 import LiveChat from './LiveChat';
 import { LivestreamingProps } from './data';
 const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
-  console.log('liveDetailData', liveDetailData);
-  
+  const liveId = liveDetailData?.liveId;
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">
       <div className=" col-span-8">
@@ -92,7 +91,7 @@ const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
             </div>
           </div>
         </div>
-        <LiveChat />
+        <LiveChat liveId={liveId} />
       </div>
     </section>
   );

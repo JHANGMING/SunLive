@@ -1,22 +1,16 @@
 
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import LiveStreamView from '@/modules/LiveStreamView';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
+import LiveStreamView from '@/modules/LiveStreamView';
 import { LivestreamingProps } from '@/modules/LiveStreamView/data';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setAllProductsData } from '@/redux/features/productSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+
 
 const Livestreaming = ({ liveDetailData }:LivestreamingProps) => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(setAllProductsData({liveDetailData}));
-    }, [liveDetailData]);
   return (
     <Layout pageCategory="liveStreamView">
-      <LiveStreamView />
+      <LiveStreamView liveDetailData={liveDetailData} />
     </Layout>
   );
 };
@@ -38,7 +32,7 @@ export const getServerSideProps = async (
     };
     const liveResponse = await fetchApi(liveParams);
     if (liveResponse.statusCode === 200) {
-      liveDetailData = liveResponse.data;
+      liveDetailData = liveResponse;
     } else if (liveDetailData.length === 0) {
       return { notFound: true };
     }

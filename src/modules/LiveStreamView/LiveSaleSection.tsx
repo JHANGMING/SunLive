@@ -5,6 +5,8 @@ import Button from '@/common/components/Button';
 import { LivestreamingProps, liveCardData } from './data';
 
 const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
+  console.log('liveDetailData', liveDetailData);
+  
   return (
     <section className=" bg-lightWhite pt-60 pb-[113px]">
       <div className="container relative">

@@ -1,18 +1,15 @@
+import { mutate } from 'swr';
+import { useDispatch } from 'react-redux';
 import { BsCursorFill } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import Image from '@/common/components/CustomImage';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
-import { useDispatch } from 'react-redux';
 import { setToast } from '@/redux/features/messageSlice';
-type Message = {
-  userIdSender: number;
-  message: string;
-  photo: string;
-  nickName: string;
-};
-const LiveChat = () => {
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { LiveChatProps, Message } from './data';
+
+const LiveChat = ({ liveId }:LiveChatProps) => {
   const [chatroomId] = useState('live');
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
@@ -44,15 +41,22 @@ const LiveChat = () => {
         ) as unknown as SignalR.Hub.Proxy;
 
         chatHubProxy.on('receiveMessage', (message: Message) => {
+          mutate(`/api${nextRoutes['live']}?id=${liveId}`);
           setMessages((prevMessages) => [...prevMessages, message]);
         });
 
         chatHubProxyRef.current = chatHubProxy;
 
-        await connection.start();
-        console.log('Connected to SignalR server!');
-        setIsConnected(true);
-        JoinChatRoom(chatroomId);
+        await connection
+          .start()
+          .done(() => {
+            console.log('Connected to SignalR server!');
+            setIsConnected(true);
+            JoinChatRoom(chatroomId);
+          })
+          .fail((error: Error) => {
+            console.error('Failed to connect to SignalR server:', error);
+          });
       } catch (error) {
         console.error('Failed to connect to SignalR server:', error);
       }
