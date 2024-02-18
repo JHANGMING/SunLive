@@ -17,5 +17,5 @@ export type DynamicTableProps = {
   columns: ColumnType[];
   data: OrdersDataItemType[];
   initialData?: OrdersDataItemType[];
-  showCheckbox: boolean;
+  showCheckbox?: boolean;
 };

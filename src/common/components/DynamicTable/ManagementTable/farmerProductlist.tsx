@@ -1,44 +1,21 @@
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { DynamicTableProps, ProductDataType } from './data';
-import { useRouter } from 'next/router';
+import usePagination from '@/common/hooks/usePagination';
+import { getCellClass } from '@/common/helpers/getcellclass';
+import { DynamicTableProps} from './data';
 
-const getCellClass = (columnDataIndex: string) => {
-  switch (columnDataIndex) {
-    case 'discountPrice':
-      return 'py-[13px] text-primary-red';
-    default:
-      return 'py-[13px]';
-  }
-};
-
-const ProductlistTable = ({ columns, showCheckbox }: DynamicTableProps) => {
+const ProductlistTable = ({ columns }: DynamicTableProps) => {
   const router = useRouter();
   const listData = useSelector((state: RootState) => state.dashboard.listData);
-  const data = listData;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedRows, setSelectedRows] = useState({});
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const itemsPerPage = 5;
-
- let maxPage = 0;
- if (Array.isArray(data) || typeof data === 'string') {
-   maxPage = Math.ceil(data.length / itemsPerPage);
- }
-
- let currentData: any[] = [];
- if (Array.isArray(data)) {
-   currentData = data.slice(
-     (currentPage - 1) * itemsPerPage,
-     currentPage * itemsPerPage
-   );
- }
- let dataLength = 0;
- if (Array.isArray(data) || typeof data === 'string') {
-   dataLength = data.length;
- }
+  const data = listData;
+  const { currentData, maxPage,dataLength, currentPage, setCurrentPage } = usePagination(
+      data,
+      itemsPerPage
+    );
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
@@ -47,48 +24,16 @@ const ProductlistTable = ({ columns, showCheckbox }: DynamicTableProps) => {
     setCurrentPage((prev) => (prev < maxPage ? prev + 1 : prev));
   };
 
-  // const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const newSelectedRows = {};
-  //   data.forEach((item) => {
-  //     newSelectedRows[item.id] = e.target.checked;
-  //   });
-  //   setSelectedRows(newSelectedRows);
-  //   setSelectAll(e.target.checked);
-  // };
-  // const handleRowSelect = (id:string) => {
-  //   console.log(id);
-
-  //   setSelectedRows((prev) => ({
-  //     ...prev,
-  //     [id]: !prev[id],
-  //   }));
-  // };
   const handleEdit = (id: number) => {
     router.push(`/dashboard/products/${id}`);
-  };
-
-  const handleDelete = (id: string) => {
-    console.log('刪除: ', id);
   };
 
   return (
     <>
       <table
-        className={`${showCheckbox ? ' w-full' : 'w-full'} table-fixed text-14 `}>
+        className="table-fixed text-14 w-full">
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
-            {showCheckbox && (
-              <th className="py-16 font-normal w-64">
-                <input
-                  type="checkbox"
-                  className="w-16 h-16"
-                  checked={
-                    selectAll && Object.values(selectedRows).every(Boolean)
-                  }
-                  // onChange={handleSelectAll}
-                />
-              </th>
-            )}
             {columns.map((column) => {
               const thClass =
                 column.title === '農產品名稱'
@@ -108,16 +53,6 @@ const ProductlistTable = ({ columns, showCheckbox }: DynamicTableProps) => {
             <tr
               className="text-center border-b border-lightGray"
               key={row.productId}>
-              {showCheckbox && (
-                <td className="py-[13px]">
-                  <input
-                    type="checkbox"
-                    className="w-16 h-16"
-                    // checked={selectedRows[row.id] || false}
-                    // onChange={() => handleRowSelect(row.id)}
-                  />
-                </td>
-              )}
               {columns.map((column) => {
                 const tdClass = getCellClass(column.dataIndex);
                 let cellContent;

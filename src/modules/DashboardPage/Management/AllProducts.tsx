@@ -23,12 +23,11 @@ const AllProducts = () => {
       <div className="mb-24 ">
         <ProductlistTable
           columns={productColumns}
-          showCheckbox={true}
         />
       </div>
-      <Button category="default" classStyle="self-end">
+      {/* <Button category="default" classStyle="self-end">
         刪除
-      </Button>
+      </Button> */}
     </div>
   );
 };
