@@ -9,7 +9,7 @@ const LivingProduct = ({ living, liveData }:LivingProductProps) => {
       </h2>
       <h3 className="text-14 lg:text-28 text-primary-green ">
         {living
-          ? liveData?.data.liveProductName
+          ? liveData?.data?.liveProductName
           : upcomingLive?.liveProductName}
       </h3>
       <div className="flex gap-x-8 lg:gap-x-16 items-center">

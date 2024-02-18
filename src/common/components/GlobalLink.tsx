@@ -11,10 +11,10 @@ type GlobalLinkProps = {
   children: ReactNode;
   openInNewTab?: boolean;
   className?: string;
-  isDisabled: boolean;
-  productSpecId: number;
-  productId: number;
-  liveId: number;
+  isDisabled?: boolean;
+  productSpecId?: number;
+  productId?: number;
+  liveId?: number;
 };
 const GlobalLink = ({
   href,

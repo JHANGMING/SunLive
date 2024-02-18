@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import usePagination from '@/common/hooks/usePagination';
-import { getCellClass } from '@/common/helpers/getcellclass';
 import { DynamicTableProps} from './data';
+import usePagination from '@/common/hooks/usePagination';
+import { getCellClass } from '@/common/helpers/getCellClass';
 
 const ProductlistTable = ({ columns }: DynamicTableProps) => {
   const router = useRouter();

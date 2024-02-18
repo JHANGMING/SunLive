@@ -65,7 +65,7 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
                   // href={living ? '/productshop' : '/livestream/19'}
                   href={
                     living
-                      ? `/livestream/${liveData?.data.liveId}`
+                      ? `/livestream/${liveData?.data?.liveId}`
                       : '/productshop'
                   }
                   className="outline-offset shiny-button text-primary-red bg-white py-16 px-24 flex rounded-20 items-center gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group">
