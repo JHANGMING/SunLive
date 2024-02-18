@@ -1,4 +1,5 @@
 import { LivesDataType } from '@/constants/types/live/live';
+import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 import { AllproductsDataType } from '@/constants/types/product/allproducts';
 import { DetailproductItemType } from '@/constants/types/product/detail';
 import { PromotionDataType } from '@/constants/types/product/promotion';
@@ -15,6 +16,7 @@ interface InitialStateType {
   detailProduct: DetailproductItemType;
   productInfoByUser: AllproductsDataType;
   liveData: LivesDataType;
+  liveDetailData:LivedetailDateType;
   searchTag: string;
 } 
 const initialState: InitialStateType = {
@@ -24,9 +26,10 @@ const initialState: InitialStateType = {
   promotionProduct: [],
   fruitProduct: [],
   vegetableProduct: [],
-  detailProduct:{} as DetailproductItemType,
+  detailProduct: {} as DetailproductItemType,
   productInfoByUser: [],
   liveData: {} as LivesDataType,
+  liveDetailData: {} as LivedetailDateType,
   searchTag: '',
 };
 
@@ -51,17 +54,19 @@ export const productSlice = createSlice({
         detailProduct,
         productInfoByUser,
         liveData,
+        liveDetailData,
       } = action.payload;
       return {
         ...state,
         allProductsData: allproductsData,
-        topSaleProduct: topSaleProduct,
-        promotionProduct: promotionProduct,
-        fruitProduct: fruitProduct,
-        vegetableProduct: vegetableProduct,
-        detailProduct: detailProduct,
-        productInfoByUser: productInfoByUser,
-        liveData: liveData,
+        topSaleProduct,
+        promotionProduct,
+        fruitProduct,
+        vegetableProduct,
+        detailProduct,
+        productInfoByUser,
+        liveData,
+        liveDetailData,
       };
     }
   },

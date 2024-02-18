@@ -2,8 +2,18 @@
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
 import LiveStreamView from '@/modules/LiveStreamView';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import { apiPaths } from '@/constants/apiPaths';
+import { LivestreamingProps } from '@/modules/LiveStreamView/data';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setAllProductsData } from '@/redux/features/productSlice';
 
-const Livestreaming = () => {
+const Livestreaming = ({ livedetailData }:LivestreamingProps) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(setAllProductsData(livedetailData));
+    }, [livedetailData]);
   return (
     <Layout pageCategory="liveStreamView">
       <LiveStreamView />
@@ -18,28 +28,26 @@ export const getServerSideProps = async (
 ) => {
   const params = context.params;
   const liveId = params ? params['liveId'] : null;
-  console.log('liveId', liveId);
   
-  // let detailData = [];
-  // try {
-  //   // 取得編輯Live
-  //   const detailParams: ApiParamsType = {
-  //     apiPath: `${apiPaths['liveSet']}/${liveId}`,
-  //     method: 'GET',
-  //     authToken: token,
-  //   };
-  //   const detailResponse = await fetchApi(detailParams);
-  //   if (detailResponse.statusCode === 200) {
-  //     detailData = detailResponse.data;
-  //   } else if (detailData.length === 0) {
-  //     return { notFound: true };
-  //   }
-  // } catch (error) {
-  //   console.error(error);
-  // }
+  let livedetailData = [];
+  try {
+    // 取得編輯Live 直播頁
+    const liveParams: ApiParamsType = {
+      apiPath: `${apiPaths['live']}/${liveId}`,
+      method: 'GET',
+    };
+    const liveResponse = await fetchApi(liveParams);
+    if (liveResponse.statusCode === 200) {
+      livedetailData = liveResponse.data;
+    } else if (livedetailData.length === 0) {
+      return { notFound: true };
+    }
+  } catch (error) {
+    console.error(error);
+  }
   return {
     props: {
-      // detailData,
+      livedetailData,
     },
   };
 };

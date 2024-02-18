@@ -1,3 +1,5 @@
+import { LivedetailDateType } from "@/constants/types/live/livedetailDate";
+
 export type liveCardProps = {
   title: string;
   originalPrice: number;
@@ -8,6 +10,12 @@ export type liveCardProps = {
     alt: string;
   };
 };
+
+
+export type LivestreamingProps = {
+  livedetailData:LivedetailDateType;
+};
+
 export const liveCardData: liveCardProps[] = [
   {
     title: '紫禧有機天使茄',

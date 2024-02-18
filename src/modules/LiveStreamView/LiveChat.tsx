@@ -126,7 +126,6 @@ const LiveChat = () => {
       console.error('Failed to send message:', error);
     }
   };
-  // {userIdSender: 7, message: 'aaaa'}
   return (
     <>
       <ul

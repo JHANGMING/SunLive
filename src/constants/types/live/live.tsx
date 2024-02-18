@@ -13,12 +13,12 @@ export type LiveProductItemType = {
 
 export type LivesDataType = {
   message?: string;
-  liveId?: number;
-  liveProductId?: number;
-  liveProductName?: string;
-  livePrice?: number;
-  description?: string;
   data: {
+    liveId?: number;
+    liveProductId?: number;
+    liveProductName?: string;
+    livePrice?: number;
+    description?: string;
     upcomingLive: LiveProductItemType[];
   };
 };

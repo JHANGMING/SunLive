@@ -45,6 +45,7 @@ const LiveViewer = () => {
               src="/images/home/live/liveComingImg1.png"
               alt="liveComingImg"
               className="w-80 h-80"
+              roundedStyle='rounded-20 object-cover'
             />
             <div className="text-darkGray flex flex-col gap-8 w-full">
               <div className=" flex gap-8 items-center">
