@@ -10,7 +10,7 @@ import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
 
 const LiveChat = ({ liveId }:LiveChatProps) => {
-  const [chatroomId] = useState('live');
+  const [chatroomId] = useState(`live-${liveId}`);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [user, setUser] = useState({
@@ -129,24 +129,6 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
       <ul
         className="px-24 pb-16 flex flex-col gap-16 overflow-y-auto max-h-[445px] flex-grow"
         ref={messagesEndRef}>
-        {/* <li className="flex items-center gap-16">
-          <Image
-            src="/images/liveStream/viewPerson2.png"
-            alt="viewPerson2"
-            className="w-24 h-24"
-          />
-          <h6 className="text-14 font-normal">Ann</h6>
-          <p className="text-14">哈囉哈囉</p>
-        </li>
-        <li className="flex items-center gap-16">
-          <Image
-            src="/images/liveStream/viewPerson2.png"
-            alt="viewPerson2"
-            className="w-24 h-24"
-          />
-          <h6 className="text-14 font-normal">Ann</h6>
-          <p className="text-14">哈囉哈囉</p>
-        </li> */}
         {user.nameSender && (
           <p className="text-12 text-center text-darkGray">
             歡迎{user.nameSender}進入聊天室
