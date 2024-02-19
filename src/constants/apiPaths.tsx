@@ -50,6 +50,7 @@ export const apiPaths = {
   //chat
   check: '/api/chats/live/check',
   getmessage: '/api/chats/roomlist',
+  joinroom:"/api/chats/joinroom/"
 };
 
 export const nextRoutes = {
@@ -105,5 +106,6 @@ export const nextRoutes = {
   //chat
   check: '/chat/check',
   getmessage: '/chat/getmessage',
+  joinroom:"/chat/joinroom"
 };
 

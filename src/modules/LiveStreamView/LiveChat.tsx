@@ -9,7 +9,7 @@ import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
 
-const LiveChat = ({ liveId }:LiveChatProps) => {
+const LiveChat = ({ liveId }: LiveChatProps) => {
   const [chatroomId] = useState(`live-${liveId}`);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
@@ -103,9 +103,6 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
   };
   const handleSendMessage = async () => {
     if (!isConnected || !user.userIdSender || newMessage.trim() === '') {
-      console.error(
-        'SignalR connection is not established or message is empty.'
-      );
       return;
     }
 
@@ -189,7 +186,7 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
         <input
           type="text"
           placeholder="輸入聊天訊息 ..."
-          className=" text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
+          className="tracking-widest text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyPress={handleKeyPress}

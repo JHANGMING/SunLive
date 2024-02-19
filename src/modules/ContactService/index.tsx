@@ -19,6 +19,11 @@ const ContactService = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isChatExpanded, setIsChatExpanded] = useState(false);
   const [chatroomId, setChatroomId] = useState<number | null>(null);
+  const [farmer, setFarmer] = useState({
+    farmerId: 0,
+    farmerName: '',
+    farmerPhoto: '',
+  });
   const chatData = data?.chatList;
   console.log('chat', chatData);
   const toggleExpand = () => {
@@ -28,8 +33,19 @@ const ContactService = () => {
     }
   };
 
-  const handlerOpenChat = (id:number) => {
-    setChatroomId(id);
+  const handlerOpenChat = (
+    roomId: number,
+    farmerId: number,
+    nickName: string,
+    photo: string
+  ) => {
+    const farmer = {
+      farmerId,
+      farmerName: nickName,
+      farmerPhoto: photo,
+    };
+    setChatroomId(roomId);
+    setFarmer(farmer);
     setIsExpanded(true);
     setIsChatExpanded(true);
   };
@@ -67,7 +83,9 @@ const ContactService = () => {
           <ul className=" bg-SoftGray pl-36 pr-30 py-32  flex flex-col gap-16 h-[292px] overflow-y-auto pb-20">
             {chatData?.map((chat: ChatDataType) => (
               <>
-                <li className=" rounded-12 bg-white py-24 px-42">
+                <li
+                  className=" rounded-12 bg-white py-24 px-42"
+                  key={chat.farmerId}>
                   <div className=" flex justify-between mb-16 items-center">
                     <div className="flex gap-8 items-center">
                       <Image
@@ -89,7 +107,14 @@ const ContactService = () => {
                   <button
                     type="button"
                     className=" bg-primary-yellow font-bold py-10 w-full rounded-6"
-                    onClick={() => handlerOpenChat(chat.chatroomId)}>
+                    onClick={() =>
+                      handlerOpenChat(
+                        chat.chatroomId,
+                        chat.farmerId,
+                        chat.famrerNickName,
+                        chat.famrerPhoto
+                      )
+                    }>
                     開啟聊天室
                   </button>
                 </li>
@@ -99,11 +124,12 @@ const ContactService = () => {
           <div className="bg-SoftGray h-16 rounded-bl-20 rounded-br-20"></div>
         </div>
       )}
-      {isChatExpanded && chatroomId && (
+      {isChatExpanded && chatroomId && farmer.farmerId && (
         <PersonalChatRoom
           toggleExpand={toggleExpand}
           setIsChatExpanded={setIsChatExpanded}
-          id={chatroomId}
+          roomId={chatroomId}
+          farmer={farmer}
         />
       )}
     </div>
