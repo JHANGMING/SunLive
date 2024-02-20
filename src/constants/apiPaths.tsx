@@ -28,6 +28,7 @@ export const apiPaths = {
 
   //order
   order: '/api/order',
+  orderlist: '/api/user/orderlist',
 
   //dashboard-farminfo
   farminfo: '/api/farmer/info',
@@ -50,7 +51,7 @@ export const apiPaths = {
   //chat
   check: '/api/chats/live/check',
   getmessage: '/api/chats/roomlist',
-  joinroom:"/api/chats/joinroom/"
+  joinroom: '/api/chats/joinroom/',
 };
 
 export const nextRoutes = {
@@ -82,6 +83,7 @@ export const nextRoutes = {
 
   //order
   order: '/order/add',
+  orderlist: '/order/list',
 
   //dashboard-farminfo
   farminfo_set: '/dashboard/farminfo/set',
