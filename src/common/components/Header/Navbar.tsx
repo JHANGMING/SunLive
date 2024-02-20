@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BsDisplay } from 'react-icons/bs';
 import { navBarDatas } from './data';
 import Logo from '@/common/components/Logo';
 import { useRouter } from 'next/router';
@@ -12,9 +13,12 @@ const NavBar = () => {
       <li>
         <Logo classProps="w-50 h-50" />
       </li>
-      {/* <div className="text-primary-red font-bold live">
-        <p className="neontext">Live</p>
-      </div> */}
+      <div className=" relative">
+        <BsDisplay size={90} className=" text-primary-red" />
+        <p className=" font-bold text-24 text-primary-green absolute top-18 left-18 shiny-scale-effect">
+          Live
+        </p>
+      </div>
       {navBarDatas.map((data) => {
         const { src, title, subTitle } = data;
         const isActive = router.pathname === src;

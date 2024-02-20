@@ -1,8 +1,8 @@
+import { BsSearch, BsDisplay } from 'react-icons/bs';
 import { useEffect, useState, useCallback } from 'react';
-import { fixedPageSet } from './data';
 import Logo from '../Logo';
+import { fixedPageSet } from './data';
 import CartAndLogin from './CartAndLogin';
-import { BsSearch } from 'react-icons/bs';
 import SearchInput from '../Input/SearchInput';
 import { LayoutPropsType } from '../Layout/data';
 
@@ -43,6 +43,12 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
       <div className="container flex justify-between items-center ">
         <div className="w-400 flex ">
           <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />
+          <div className=" relative ml-24">
+            <BsDisplay size={65} className=" text-primary-red" />
+            <p className=" font-bold text-20 text-primary-green absolute top-10 left-10 shiny-scale-effect">
+              Live
+            </p>
+          </div>
         </div>
         <div
           className={`w-400 flex justify-center ${pageCategory === 'dashboardPage' && 'hidden'}`}>
