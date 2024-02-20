@@ -34,7 +34,7 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
     const setupSignalRConnection = async () => {
       try {
         const { hubConnection } = await import('signalr-no-jquery');
-        const connection = hubConnection('https://4.224.41.94');
+        const connection = hubConnection(apiUrl);
         const chatHubProxy = connection.createHubProxy(
           'chathub'
         ) as unknown as SignalR.Hub.Proxy;
@@ -64,8 +64,11 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
     return () => {
       chatHubProxyRef.current?.connection.stop();
     };
-  }, [apiUrl, chatroomId]);
+  }, [chatroomId]);
   const JoinChatRoom = async (chatroomId: string) => {
+    if (!chatHubProxyRef.current || !isConnected) {
+      return;
+    }
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
       callApi();
@@ -105,7 +108,6 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
     if (!isConnected || !user.userIdSender || newMessage.trim() === '') {
       return;
     }
-
     try {
       await chatHubProxyRef.current?.invoke(
         'SendMessageToLiveRoom',

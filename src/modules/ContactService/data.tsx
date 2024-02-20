@@ -4,6 +4,9 @@ export type ChatDataType = {
   famrerPhoto: string;
   lastMessageDate: string;
   farmerId: number;
+  userId: number;
+  userPhoto: string;
+  userNickName: string;
 };
 
 type FarmerDataType = {
@@ -16,8 +19,12 @@ type FarmerDataType = {
 export type PersonalChatRoomProps = {
   toggleExpand: () => void;
   setIsChatExpanded: (isExpanded: boolean) => void;
-  roomId: number;
-  farmer: FarmerDataType;
+  setFarmer: (farmer: FarmerDataType) => void;
+  setChatMessages(chatMessages: ChatcontentType[]): void;
+  farmerInfo: FarmerDataType;
+  chatMessages: ChatcontentType[];
+  userId: number;
+  chatroomId: number;
 };
 
 export type ChatcontentType = {
@@ -29,14 +36,3 @@ export type ChatcontentType = {
   senderPhoto: string;
 };
 
-
-
-export type Message = {
-  message: string;
-  sendDate: string;
-  sendTime: string;
-  senderId: number;
-  senderNickName: string;
-  senderPhoto: string;
-  chatcontent: ChatcontentType;
-};

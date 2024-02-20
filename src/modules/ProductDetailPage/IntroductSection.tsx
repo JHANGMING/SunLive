@@ -5,18 +5,24 @@ import CategoryTitle from '../ProductPage/CategoryTitle';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import useScrollToElement from '@/common/hooks/useScrollToRef';
 import { DetailSectionProps } from './data';
+import { useDispatch } from 'react-redux';
+import { setFamerId } from '@/redux/features/messageSlice';
 
 const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
-    console.log('detailProduct', detailProduct);
   const [selected, setSelected] = useState('farmer');
   const [farmerRef, scrollToFarmer] = useScrollToElement();
   const [productRef, scrollToProduct] = useScrollToElement();
   const [specificationRef, scrollToSpecification] = useScrollToElement();
   const [cleanHtml, setCleanHtml] = useState('');
+  const dispatach = useDispatch();
   useEffect(() => {
     setCleanHtml(DOMPurify.sanitize(detailProduct.introduction));
   }, [detailProduct.introduction]);
   const isSelected = (name: string) => selected === name;
+  const handlerFamerId = (id:number) => {
+    if(!id)return
+    dispatach(setFamerId(id));
+  }
   return (
     <section className=" bg-detailBG pt-100 bg-repeat-x  ">
       <div className="bg-lightWhite  ">
@@ -66,7 +72,7 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
               <div className="col-start-5 col-end-11 -ml-[70px]">
                 <div className="flex gap-16 items-center mb-16">
                   <h4>{detailProduct.farmerName}</h4>
-                  <div className=" bg-primary-green flex gap-8 h-[37px] px-8 items-center rounded-8 hover:opacity-60 cursor-pointer">
+                  <div className=" bg-primary-green flex gap-8 h-[37px] px-8 items-center rounded-8 hover:opacity-60 cursor-pointer" onClick={()=>handlerFamerId(detailProduct?.farmerId)}>
                     <Image
                       src="/images/productDetail/chatIcon.svg"
                       alt="chatIcon"

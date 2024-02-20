@@ -1,15 +1,20 @@
+import { ChatcontentType } from '@/modules/ContactService/data';
 import { createSlice } from '@reduxjs/toolkit';
 
 
 interface InitialStateType {
   isLoading: boolean;
   showMessage: boolean;
+  isReadyToShowChat:boolean;
   message: string;
+  farmerId: number;
 }
 const initialState: InitialStateType = {
   isLoading: false,
   showMessage: false,
+  isReadyToShowChat:false,
   message: '',
+  farmerId: 0,
 };
 
 export const messageSlice = createSlice({
@@ -30,9 +35,24 @@ export const messageSlice = createSlice({
       state.showMessage = false;
       state.message = '';
     },
+    setFamerId: (state, action) => {
+      state.farmerId = action.payload;
+      state.isReadyToShowChat = true;
+    },
+    clearFamerId: (state) => {
+      state.farmerId = 0;
+      state.isReadyToShowChat = false;
+    },
   },
 });
 
-export const { showLoading, hideLoading, setToast, hideToast } = messageSlice.actions;
+export const {
+  showLoading,
+  hideLoading,
+  setToast,
+  hideToast,
+  setFamerId,
+  clearFamerId,
+} = messageSlice.actions;
 
 export default messageSlice.reducer;

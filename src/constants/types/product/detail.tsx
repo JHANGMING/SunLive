@@ -5,6 +5,7 @@ type productImgType= {
 export type DetailproductItemType = {
   productId: number;
   productSpecId: number;
+  farmerId: number;
   productTitle: string;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
