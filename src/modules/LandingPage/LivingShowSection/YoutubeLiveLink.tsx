@@ -86,8 +86,11 @@ const YoutubeLiveIfram = ({
           // src={
           //   'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM'
           // }
-          src={isViewPage? url : 'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM'}
-            
+          src={
+            isViewPage
+              ? `https://www.youtube.com/embed/${url} `
+              : 'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM'
+          }
           title="14th Rocket-Sunlive"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
