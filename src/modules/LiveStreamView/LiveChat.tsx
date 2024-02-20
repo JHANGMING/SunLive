@@ -21,7 +21,7 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
   const [isConnected, setIsConnected] = useState(false);
   const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   const dispatch = useDispatch();
   useEffect(() => {
     if (messagesEndRef.current) {

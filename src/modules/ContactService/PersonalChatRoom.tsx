@@ -20,7 +20,7 @@ const PersonalChatRoom = ({
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
   const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
   const [messages, setMessages] = useState<ChatcontentType[]>(chatMessages);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
 
   useEffect(() => {
     if (messagesEndRef.current) {
