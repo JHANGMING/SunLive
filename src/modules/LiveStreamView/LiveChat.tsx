@@ -136,7 +136,19 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
             className={`flex gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
             {msg.userIdSender !== user.userIdSender ? (
               <>
-                {msg.photo !== null ? (
+                {msg.userIdSender === liveId ? (
+                  msg.photo ? (
+                    <Image
+                      src={msg.photo}
+                      alt="Live Host"
+                      roundedStyle="rounded-full object-cover"
+                      className="w-24 h-24 border-2 border-primary-yellow"
+                    />
+                  ) : (
+                    <BsPersonCircle size={24} className=" text-darkGray" />
+                  )
+                ) : 
+                msg.photo ? (
                   <Image
                     src={msg.photo}
                     alt="Sender"
@@ -156,7 +168,15 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
                 <p className="text-14 break-words w-full flex justify-end pl-24">
                   {msg.message}
                 </p>
-                {user.photoSender ? (
+                {liveId === user.userIdSender ? (
+                  <Image
+                    src={user.photoSender}
+                    alt="Live Host"
+                    roundedStyle="rounded-full object-cover"
+                    className="w-24 h-24 border-2 border-primary-yellow"
+                  />
+                ) : user.photoSender ? (
+                  // 一般用戶的圖片
                   <Image
                     src={user.photoSender}
                     alt="Sender"

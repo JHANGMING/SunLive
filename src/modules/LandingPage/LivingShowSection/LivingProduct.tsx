@@ -19,7 +19,8 @@ const LivingProduct = ({ living, liveData }:LivingProductProps) => {
               直播優惠價
             </p>
             <h4 className="text-14 lg:text-28 text-primary-red">
-              <span>$</span>299
+              <span>$</span>{' '}
+              {liveData?.data?.livePrice}
             </h4>
           </>
         ) : (

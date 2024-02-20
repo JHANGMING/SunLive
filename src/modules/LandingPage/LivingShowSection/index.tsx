@@ -62,7 +62,7 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
                   「品味夏日，尋找自然的美好。我們自豪地呈獻陽光甘醇有機蕃茄，每一口都是大自然的悠然滋味，新鮮、有機，為您帶來健康美味的味覺饗宴。」
                 </p>
                 <Link
-                  // href={living ? '/productshop' : '/livestream/19'}
+                  // href={living ? '/productshop' : '/livestream/'}
                   href={
                     living
                       ? `/livestream/${liveData?.data?.liveId}`
