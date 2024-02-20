@@ -1,15 +1,20 @@
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import { ordersColumns, ordersData } from './data';
-import DynamicTable from '@/common/components/DynamicTable';
+import DynamicTable from '@/common/components/DynamicTable/userOrderTable';
+import useSWR from 'swr';
+import { nextRoutes } from '@/constants/apiPaths';
+import { fetcher } from '@/common/helpers/fetcher';
 
 const AllOrders = () => {
+  const { authStatus } = useAuthStatus();
+  const { data } = useSWR(
+    authStatus ? `/api${nextRoutes['orderlist']}` : null,
+    fetcher
+  );
   return (
     <>
       <h3 className=" text-20 mb-40 font-semibold ">所有訂單</h3>
-      <DynamicTable
-        columns={ordersColumns}
-        data={ordersData}
-        showCheckbox={false}
-      />
+      <DynamicTable columns={ordersColumns} data={data?.data} showCheckbox={false} />
     </>
   );
 };

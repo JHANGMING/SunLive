@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { DynamicTableProps } from './data';
+import { DynamicTableProps } from '../data';
+import usePagination from '@/common/hooks/usePagination';
+import { transOrderData } from '@/common/helpers/transOrderData';
 
 const DynamicTable = ({ columns, data }: DynamicTableProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const transformData = transOrderData(data);
   const itemsPerPage = 5;
-  const maxPage = Math.ceil(data.length / itemsPerPage);
-  const currentData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+   const { currentData, maxPage, dataLength, currentPage, setCurrentPage } =
+     usePagination(transformData, itemsPerPage);
+
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
@@ -42,7 +42,7 @@ const DynamicTable = ({ columns, data }: DynamicTableProps) => {
         </tbody>
       </table>
       <div className="w-full flex justify-between mt-20 text-darkGray pl-12 pr-24">
-        <p>共 {data.length} 筆資料</p>
+        <p>共 {dataLength} 筆資料</p>
         <div className="flex gap-24">
           <p>{`${currentPage}/${maxPage}`}</p>
           <button
