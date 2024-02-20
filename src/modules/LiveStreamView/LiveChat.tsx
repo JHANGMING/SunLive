@@ -66,9 +66,6 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
     };
   }, [chatroomId]);
   const JoinChatRoom = async (chatroomId: string) => {
-    if (!chatHubProxyRef.current || !isConnected) {
-      return;
-    }
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
       callApi();
