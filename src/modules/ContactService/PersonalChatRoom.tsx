@@ -39,7 +39,6 @@ const PersonalChatRoom = ({
         ) as unknown as SignalR.Hub.Proxy;
 
         chatHubProxy.on('receiveMessage', (message) => {
-          console.log('Received message:', message);
           const newMessages = message.chatcontent;
           setMessages(newMessages);
         });
