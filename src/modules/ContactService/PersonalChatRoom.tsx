@@ -38,13 +38,11 @@ const PersonalChatRoom = ({
           'chathub'
         ) as unknown as SignalR.Hub.Proxy;
 
-        chatHubProxy.on(
-          'receiveMessage',
-          (message: { chatcontent: ChatcontentType[] }) => {
-            const newMessages = message.chatcontent;
-            setMessages(newMessages);
-          }
-        );
+        chatHubProxy.on('receiveMessage', (message) => {
+          console.log('Received message:', message);
+          const newMessages = message.chatcontent;
+          setMessages(newMessages);
+        });
 
         chatHubProxyRef.current = chatHubProxy;
 
@@ -108,7 +106,7 @@ const PersonalChatRoom = ({
       farmerName: '',
       farmerPhoto: '',
     });
-    setChatMessages([])
+    setChatMessages([]);
     setIsChatExpanded(false);
     mutate(`/api${nextRoutes['getmessage']}`);
   };
