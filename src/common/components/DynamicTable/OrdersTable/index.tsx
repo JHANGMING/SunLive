@@ -6,15 +6,23 @@ import { nextRoutes } from '@/constants/apiPaths';
 import { useDispatch } from 'react-redux';
 import { setToast } from '@/redux/features/messageSlice';
 import { mutate } from 'swr';
+import { useEffect, useState } from 'react';
 
 const OrdersTable = ({
   columns,
   initialData,
 }: DynamicTableProps) => {
   const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
-  const { currentData, maxPage, dataLength, currentPage, setCurrentPage } =
-    usePagination(initialData, itemsPerPage);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [initialData]);
+  const { currentData, maxPage, dataLength } = usePagination(
+    initialData,
+    itemsPerPage,
+    currentPage
+  );
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
