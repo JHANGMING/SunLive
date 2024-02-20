@@ -1,13 +1,15 @@
 
+import { ColumnType, FarmerOrderDataType } from '../data';
+export type OrderDataType = {
+  [key: string]: string | string[] |number;
 
-import { ColumnType } from '../data';
-export type OrderDataType ={
-  [key: string]: string | string[]; // 根据实际情况调整类型
-  id:string;
-}
+};
 export type DynamicTableProps = {
   columns: ColumnType[];
-  data?: OrderDataType[];
-  initialData: OrderDataType[];
-  showCheckbox: boolean;
+  initialData: FarmerOrderDataType[];
 };
+
+export const shipmentOptions = [
+  { value: true, label: '已出貨' },
+  { value: false, label: '未出貨' },
+];

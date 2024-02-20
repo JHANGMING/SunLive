@@ -44,6 +44,7 @@ export const apiPaths = {
 
   //dashboard-order
   getorderlist: '/api/farmer/orderlist',
+  putorder: '/api/farmer/order',
 
   //uploadImg,
   uploadProductImg: '/api/farmer/product/pic',
@@ -104,6 +105,7 @@ export const nextRoutes = {
 
   //dashboard-order
   getorderlist: '/dashboard/order/getorderlist',
+  putorder: '/dashboard/order/putorder',
 
   //uploadImg,
   uploadProductImg: '/upload/productImg',

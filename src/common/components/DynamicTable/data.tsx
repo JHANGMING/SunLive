@@ -13,12 +13,12 @@ export type OrderDataType = {
 };
 
 export type FarmerOrderDataType = {
-  creatTime: string;
   userNickName: string;
+  creatTime: string;
+  ispay: string;
   orderId: number;
   orderSum: number;
   shipment: boolean;
-  ispay: boolean;
 };
 
 export type DynamicTableProps = {

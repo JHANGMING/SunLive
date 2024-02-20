@@ -100,12 +100,12 @@ export const productData: ProductDataType []= [
 ];
 
 export const ordersColumns: ColumnType[] = [
-  { title: '訂單編號', dataIndex: 'orderNumber', key: 'orderNumber' },
-  { title: '顧客', dataIndex: 'custom', key: 'custom' },
-  { title: '金額', dataIndex: 'orderPrice', key: 'orderPrice' },
-  { title: '訂單建立時間', dataIndex: 'orderTime', key: 'orderTime' },
-  { title: '付款狀態', dataIndex: 'payStatus', key: 'payStatus' },
-  { title: '出貨狀態', dataIndex: 'orderStatus', key: 'orderStatus' },
+  { title: '訂單編號', dataIndex: 'orderId', key: 'orderId' },
+  { title: '顧客', dataIndex: 'userNickName', key: 'userNickName' },
+  { title: '金額', dataIndex: 'orderSum', key: 'orderSum' },
+  { title: '訂單建立時間', dataIndex: 'creatTime', key: 'creatTime' },
+  { title: '付款狀態', dataIndex: 'ispay', key: 'ispay' },
+  { title: '出貨狀態', dataIndex: 'shipment', key: 'shipment' },
 ];
 
 export const ordersData: OrderDataType[] = [

@@ -13,8 +13,8 @@ export const transOrderData = (data: OrderDataType[]) => {
 export const transFarmerOrderData = (data: FarmerOrderDataType[]) => {
   return data?.map((item) => ({
     ...item,
+    userNickName: item.userNickName === null ? 'user' : item.userNickName,
     creatTime: format(new Date(item.creatTime), 'yyyy/MM/dd'),
-    shipment: item.shipment ? '已出貨' : '未出貨',
     ispay: item.ispay ? '已付款' : '未付款',
   }));
 };
