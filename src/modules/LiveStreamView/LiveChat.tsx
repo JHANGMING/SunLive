@@ -9,8 +9,8 @@ import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
 
-const LiveChat = ({ liveId }:LiveChatProps) => {
-  const [chatroomId] = useState('live');
+const LiveChat = ({ liveId }: LiveChatProps) => {
+  const [chatroomId] = useState(`live-${liveId}`);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [user, setUser] = useState({
@@ -34,7 +34,7 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
     const setupSignalRConnection = async () => {
       try {
         const { hubConnection } = await import('signalr-no-jquery');
-        const connection = hubConnection('https://4.224.41.94');
+        const connection = hubConnection(apiUrl);
         const chatHubProxy = connection.createHubProxy(
           'chathub'
         ) as unknown as SignalR.Hub.Proxy;
@@ -64,8 +64,11 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
     return () => {
       chatHubProxyRef.current?.connection.stop();
     };
-  }, [apiUrl, chatroomId]);
+  }, [chatroomId]);
   const JoinChatRoom = async (chatroomId: string) => {
+    if (!chatHubProxyRef.current || !isConnected) {
+      return;
+    }
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
       callApi();
@@ -103,12 +106,8 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
   };
   const handleSendMessage = async () => {
     if (!isConnected || !user.userIdSender || newMessage.trim() === '') {
-      console.error(
-        'SignalR connection is not established or message is empty.'
-      );
       return;
     }
-
     try {
       await chatHubProxyRef.current?.invoke(
         'SendMessageToLiveRoom',
@@ -129,24 +128,6 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
       <ul
         className="px-24 pb-16 flex flex-col gap-16 overflow-y-auto max-h-[445px] flex-grow"
         ref={messagesEndRef}>
-        {/* <li className="flex items-center gap-16">
-          <Image
-            src="/images/liveStream/viewPerson2.png"
-            alt="viewPerson2"
-            className="w-24 h-24"
-          />
-          <h6 className="text-14 font-normal">Ann</h6>
-          <p className="text-14">哈囉哈囉</p>
-        </li>
-        <li className="flex items-center gap-16">
-          <Image
-            src="/images/liveStream/viewPerson2.png"
-            alt="viewPerson2"
-            className="w-24 h-24"
-          />
-          <h6 className="text-14 font-normal">Ann</h6>
-          <p className="text-14">哈囉哈囉</p>
-        </li> */}
         {user.nameSender && (
           <p className="text-12 text-center text-darkGray">
             歡迎{user.nameSender}進入聊天室
@@ -207,7 +188,7 @@ const LiveChat = ({ liveId }:LiveChatProps) => {
         <input
           type="text"
           placeholder="輸入聊天訊息 ..."
-          className=" text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
+          className="tracking-widest text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyPress={handleKeyPress}
