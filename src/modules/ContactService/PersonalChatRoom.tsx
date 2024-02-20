@@ -66,9 +66,6 @@ const PersonalChatRoom = ({
     };
   }, []);
   const JoinChatRoom = async (chatroomId: number) => {
-    if (!chatHubProxyRef.current || !isConnected) {
-      return;
-    }
     try {
       await chatHubProxyRef.current?.invoke('JoinChatRoom', chatroomId);
     } catch (error) {
