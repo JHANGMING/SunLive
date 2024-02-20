@@ -1,17 +1,34 @@
 import OrdersTable from '@/common/components/DynamicTable/OrdersTable';
 import OrdersSearch from '@/common/components/Input/OrdersSearch';
-import { ordersColumns, ordersData } from '../data';
-import Button from '@/common/components/Button';
-import { useEffect, useState } from 'react';
-import { AllOrdersProps } from '../Management/data';
-import OrdersDashboard from '.';
+import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { nextRoutes } from '@/constants/apiPaths';
+import { fetcher } from '@/common/helpers/fetcher';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import { transFarmerOrderData } from '@/common/helpers/transOrderData';
+import OrdersDashboard from '.';
+import { ordersColumns} from '../data';
+import { FarmerOrderDataType } from '@/common/components/DynamicTable/data';
 
 const AllOrders = () => {
-  const [filteredData, setFilteredData] = useState(ordersData);
+  const { authStatus } = useAuthStatus();
+  const { data } = useSWR(
+    authStatus ? `/api${nextRoutes['getorderlist']}` : null,
+    fetcher
+  );
+  const transOrderData = transFarmerOrderData(data?.data);
+  const [filteredData, setFilteredData] = useState<FarmerOrderDataType[] | null>(null);
   const router = useRouter();
   const { orderId } = router.query;
   const [tabTitle, setTabTitle] = useState('所有訂單');
+  useEffect(() => {
+    if (data) {
+      const transOrderData = transFarmerOrderData(data.data);
+      console.log('transOrderData', transOrderData);
+      setFilteredData(transOrderData);
+    }
+  }, [data]);
   useEffect(() => {
     switch (orderId) {
       case 'allorders':
@@ -31,12 +48,13 @@ const AllOrders = () => {
 
   useEffect(() => {
     if (!orderId || orderId === 'allorders') {
-      setFilteredData(ordersData);
+      setFilteredData(transOrderData);
     } else {
-      const status = orderId === 'unshippedorders' ? '未出貨' : '已出貨'; 
-      setFilteredData(
-        ordersData.filter((order) => order.orderStatus === status)
-      );
+      const isUnshipped = orderId === 'unshippedorders';
+      const filtered = transOrderData.filter((order) => {
+        return isUnshipped ? !order.shipment : order.shipment;
+      });
+      setFilteredData(filtered);
     }
   }, [orderId]); 
     return (
@@ -47,15 +65,13 @@ const AllOrders = () => {
             <OrdersSearch />
           </div>
           <div className="mb-32">
-            <OrdersTable
-              columns={ordersColumns}
-              initialData={filteredData}
-              showCheckbox={true}
-            />
+            {filteredData && (
+              <OrdersTable
+                columns={ordersColumns}
+                initialData={filteredData}
+              />
+            )}
           </div>
-          <Button category="default" classStyle="self-end">
-            儲存
-          </Button>
         </div>
       </OrdersDashboard>
     );

@@ -28,6 +28,7 @@ export const apiPaths = {
 
   //order
   order: '/api/order',
+  orderlist: '/api/user/orderlist',
 
   //dashboard-farminfo
   farminfo: '/api/farmer/info',
@@ -41,6 +42,10 @@ export const apiPaths = {
   liveSet: '/api/livesetting',
   livelist: '/api/farmer/livelist',
 
+  //dashboard-order
+  getorderlist: '/api/farmer/orderlist',
+  putorder: '/api/farmer/order',
+
   //uploadImg,
   uploadProductImg: '/api/farmer/product/pic',
   uploadfarmerImg: '/api/farmer/pic',
@@ -50,7 +55,7 @@ export const apiPaths = {
   //chat
   check: '/api/chats/live/check',
   getmessage: '/api/chats/roomlist',
-  joinroom:"/api/chats/joinroom/"
+  joinroom: '/api/chats/joinroom/',
 };
 
 export const nextRoutes = {
@@ -82,6 +87,7 @@ export const nextRoutes = {
 
   //order
   order: '/order/add',
+  orderlist: '/order/list',
 
   //dashboard-farminfo
   farminfo_set: '/dashboard/farminfo/set',
@@ -96,6 +102,10 @@ export const nextRoutes = {
   addlive: '/dashboard/live/addlive',
   editlive: '/dashboard/live/editlive',
   editliveproduct: '/dashboard/live/editliveproduct',
+
+  //dashboard-order
+  getorderlist: '/dashboard/order/getorderlist',
+  putorder: '/dashboard/order/putorder',
 
   //uploadImg,
   uploadProductImg: '/upload/productImg',

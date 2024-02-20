@@ -41,7 +41,6 @@ const LiveListTable = ({
     }
   };
   const handleStatusChange = async (liveProductId: string, liveId: number) => {
-    console.log(liveProductId, liveId);
     const dataObj = {
       liveProductId,
       liveId,
