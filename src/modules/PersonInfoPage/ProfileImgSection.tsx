@@ -1,21 +1,30 @@
-import { useEffect, useRef, useState } from 'react';
+import useSWR from 'swr';
+import { useDispatch} from 'react-redux';
 import { BsPencilSquare } from 'react-icons/bs';
-import Image from '@/common/components/CustomImage';
-import { nextRoutes } from '@/constants/apiPaths';
-import { useDispatch, useSelector } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
+import { useEffect, useRef, useState } from 'react';
 import useAuth from '@/common/hooks/useAuth';
-import { RootState } from '@/redux/store';
+import { nextRoutes } from '@/constants/apiPaths';
+import { fetcher } from '@/common/helpers/fetcher';
+import Image from '@/common/components/CustomImage';
+import { setToast } from '@/redux/features/messageSlice';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 const ProfileImgSection = () => {
-  const authData = useSelector((state:RootState) => state.auth);
-  const [nickName, setNickName] = useState("");
   const auth=useAuth();
   const dispatch = useDispatch();
+  const { authStatus } = useAuthStatus();
+  const [nickName, setNickName] = useState("");
+  const [img, setImg] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [img, setImg] = useState("");
+  
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
+  const authUrl =
+    auth?.category === '0'
+      ? `/api${nextRoutes['account_get']}`
+      : `/api${nextRoutes['farminfo_get']}`;
+  const { data } = useSWR(authStatus ? authUrl : null, fetcher);
+  const authData = data?.data;
     useEffect(() => {
       if (authData?.photo) {
         setImg(decodeURIComponent(authData.photo));
@@ -33,7 +42,7 @@ const ProfileImgSection = () => {
   ) => {
     if (!event.target.files || event.target.files.length === 0) return;
     const file = event.target.files[0];
-    // 创建 FormData
+    // 創建 FormData
     const formData = new FormData();
     formData.append('file', file);
         const imgParams = {

@@ -43,8 +43,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
           authToken: token,
         };
         const liveResponse = await fetchApi(liveParams);
-        console.log('liveResponse', liveResponse);
-
         if (liveResponse.statusCode === 200) {
           listData = liveResponse.data;
         }

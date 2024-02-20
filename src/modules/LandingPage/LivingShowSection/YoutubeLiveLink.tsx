@@ -3,12 +3,16 @@ import { useEffect, useRef } from 'react';
 type YoutubeLiveIframProps = {
   isViewPage?: boolean;
   isLivePage?: boolean;
+  url?: string;
 };
 const YoutubeLiveIfram = ({
   isViewPage = false,
   isLivePage,
+  url,
 }: YoutubeLiveIframProps) => {
-  const iframeContainerStyle = isViewPage ? 'h-[530px]' : 'w-[320px] h-[200px] lg:w-full lg:h-full';
+  const iframeContainerStyle = isViewPage
+    ? 'h-[530px]'
+    : 'w-[320px] h-[200px] lg:w-full lg:h-full';
   const iframeBorderStyle = isViewPage
     ? 'border-4  border-primary-red rounded-20'
     : 'border-[20px] border-white rounded-20 outline outline-4 outline-mediumGray';
@@ -79,7 +83,11 @@ const YoutubeLiveIfram = ({
         <iframe
           ref={iframeRef}
           className={`${isViewPage && 'rounded-16'}`}
-          src="https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM"
+          // src={
+          //   'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM'
+          // }
+          src={isViewPage? url : 'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM'}
+            
           title="14th Rocket-Sunlive"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen

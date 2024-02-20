@@ -1,25 +1,23 @@
 import { format } from 'date-fns';
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
+import Image from '@/common/components/CustomImage';
+import { setToast } from '@/redux/features/messageSlice';
 import DatePickerShow from '@/common/components/DatePicker';
-import PersonInput from '@/common/components/Input/PersonInput';
 import { FormValues } from '@/common/components/Input/data';
+import PersonInput from '@/common/components/Input/PersonInput';
+import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
-import ProductToChatSelect from '@/common/components/Select/Live/ProductToChatSelect';
-import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
-import Image from '@/common/components/CustomImage';
 import {
   LiveDataType,
   transformLiveData,
 } from '@/common/helpers/transDataForLiveSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import { LiveListDataType } from '../data';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
 
 const LiveSettings = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -280,10 +278,6 @@ const LiveSettings = () => {
               />
             </div>
           ))}
-        </div>
-        <div className="flex flex-col gap-32">
-          <h3 className=" text-20 font-semibold ">選擇直播聊天室置頂農產品</h3>
-          <ProductToChatSelect control={control} />
         </div>
         <Button category="submit" classStyle="self-end hover:opacity-70">
           儲存

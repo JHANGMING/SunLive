@@ -1,11 +1,12 @@
 
 import { ReactNode } from 'react';
-import fetchNextApi, { apiParamsType } from '../helpers/fetchNextApi';
-import { apiPaths, nextRoutes } from '@/constants/apiPaths';
-import { mutate } from 'swr';
 import { useDispatch } from 'react-redux';
+import { BsHandIndex } from 'react-icons/bs';
+import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import { cartTab } from '../lib/cartTab';
+import { authTab } from '../lib/authTab';
+import fetchNextApi, { apiParamsType } from '../helpers/fetchNextApi';
 type GlobalLinkProps = {
   href: string;
   children: ReactNode;
@@ -15,6 +16,7 @@ type GlobalLinkProps = {
   productSpecId?: number;
   productId?: number;
   liveId?: number;
+  category?: string;
 };
 const GlobalLink = ({
   href,
@@ -25,21 +27,20 @@ const GlobalLink = ({
   productSpecId,
   productId,
   liveId,
+  category,
 }: GlobalLinkProps) => {
   const dispatch = useDispatch();
-  const handerAddtoCart = async(e: React.MouseEvent) => {
+  const handerAddtoCart = async (e: React.MouseEvent) => {
     if (isDisabled) {
       e.preventDefault();
-      return; 
+      return;
     }
-    console.log('嫁入購物車');
     const dataObj = {
       productId,
       productSpecId,
       liveId,
       cartItemQty: 1,
     };
-    console.log('dataObj', dataObj);
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['addcart'],
       method: 'POST',
@@ -48,24 +49,39 @@ const GlobalLink = ({
 
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('addcart', result);
-
       if (result.statusCode === 200) {
         dispatch(
           setToast({
             message: cartTab['add'],
           })
         );
-        // router.push('/auth/login');
       } else if (result.statusCode === 409) {
-        // router.push('/auth/login');
-        // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+        dispatch(
+          setToast({
+            message: authTab['noToken'],
+          })
+        );
       }
     } catch (error) {
       console.log(error);
     }
-    
   };
+  if (category === 'liveAddCart') {
+    return (
+      <div
+        className={`flex justify-center gap-8 py-8 px-16  rounded-8 border border-dashed group transition duration-800 ease-in-out ${className}`}>
+        <BsHandIndex className="w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4 " />
+        <a
+          className="font-bold tracking-widest rounded-8"
+          href={href}
+          target={openInNewTab ? '_blank' : ''}
+          rel="noopener noreferrer"
+          onClick={handerAddtoCart}>
+          {children}
+        </a>
+      </div>
+    );
+  }
   return (
     <a
       className={className}

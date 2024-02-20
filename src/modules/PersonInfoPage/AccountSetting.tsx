@@ -1,19 +1,18 @@
-import useSWR, { mutate } from 'swr';
+import { format } from 'date-fns';
 import { useEffect } from 'react';
+import useSWR, { mutate } from 'swr';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { format } from 'date-fns';
-import { FormValues } from '@/common/components/Input/data';
-import PersonInput from '@/common/components/Input/PersonInput';
 import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
+import { fetcher } from '@/common/helpers/fetcher';
+import { setToast } from '@/redux/features/messageSlice';
+import { FormValues } from '@/common/components/Input/data';
 import DatePickerShow from '@/common/components/DatePicker';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import PersonInput from '@/common/components/Input/PersonInput';
 import GenderSelect from '@/common/components/Select/GenderSelect';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import { setToast } from '@/redux/features/messageSlice';
-import { fetcher } from '@/common/helpers/fetcher';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { setUserData } from '@/redux/features/authSlice';
 
 const AccountSetting = () => {
   const dispatch = useDispatch();
@@ -52,7 +51,6 @@ const AccountSetting = () => {
         datePicker: birthday,
         gender: genderDefaultValue,
       });
-      dispatch(setUserData({nickName:authData.nickName,photo:authData.photo}));
     }
   }, [authData]);
   const onSubmit = async (data: FormValues) => {
@@ -73,9 +71,7 @@ const AccountSetting = () => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        console.log(result);
         dispatch(setToast({ message: result.message }));
-        dispatch(setUserData({nickName:result.data.nickName}));
         mutate(`/api${nextRoutes['account_get']}`);
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));

@@ -1,29 +1,26 @@
+import useSWR from 'swr';
+import { useRouter } from 'next/router';
+import { nextRoutes } from '@/constants/apiPaths';
+import { fetcher } from '@/common/helpers/fetcher';
 import ViewBanner from '@/common/components/LiveStreamPage/ViewBanner';
 import LiveViewer from './LiveViewer';
+import { LivestreamingProps } from './data';
 import LiveSaleSection from './LiveSaleSection';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import { RootState } from '@/redux/store';
-import useSWR from 'swr';
-import { fetcher } from '@/common/helpers/fetcher';
-import { useEffect } from 'react';
-import { nextRoutes } from '@/constants/apiPaths';
 
-const LiveStreamView = () => {
-   const router = useRouter();
-   const { liveId } = router.query;
-  // const liveDetailData = useSelector(
-  //   (state: RootState) => state.product.liveDetailData
-  // ); 
-  const { data: liveDetailData } = useSWR(
+const LiveStreamView = ({ liveDetailData }:LivestreamingProps) => {
+  const router = useRouter();
+  const { liveId } = router.query;
+  const { data } = useSWR(
     liveId ? `/api${nextRoutes['live']}?id=${liveId}` : null,
-    fetcher
+    fetcher,
+    { fallbackData: liveDetailData }
   );
+
   return (
     <>
       <ViewBanner />
-      <LiveViewer liveDetailData={liveDetailData?.data} />
-      <LiveSaleSection liveDetailData={liveDetailData?.data} />
+      <LiveViewer liveDetailData={data?.data} />
+      <LiveSaleSection liveDetailData={data?.data} />
     </>
   );
 };

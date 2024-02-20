@@ -1,19 +1,16 @@
+import { mutate } from 'swr';
+import { useDispatch } from 'react-redux';
 import { BsCursorFill } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import Image from '@/common/components/CustomImage';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
-import { useDispatch } from 'react-redux';
 import { setToast } from '@/redux/features/messageSlice';
-type Message = {
-  userIdSender: number;
-  message: string;
-  photo: string;
-  nickName: string;
-};
-const LiveChat = () => {
-  const [chatroomId] = useState('live');
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { LiveChatProps, Message } from './data';
+
+const LiveChat = ({ liveId }: LiveChatProps) => {
+  const [chatroomId] = useState(`live-${liveId}`);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [user, setUser] = useState({
@@ -24,7 +21,7 @@ const LiveChat = () => {
   const [isConnected, setIsConnected] = useState(false);
   const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   const dispatch = useDispatch();
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -34,25 +31,31 @@ const LiveChat = () => {
   }, [messages]);
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
     const setupSignalRConnection = async () => {
       try {
         const { hubConnection } = await import('signalr-no-jquery');
-        const connection = hubConnection('https://4.224.41.94');
+        const connection = hubConnection(apiUrl);
         const chatHubProxy = connection.createHubProxy(
           'chathub'
         ) as unknown as SignalR.Hub.Proxy;
 
         chatHubProxy.on('receiveMessage', (message: Message) => {
+          mutate(`/api${nextRoutes['live']}?id=${liveId}`);
           setMessages((prevMessages) => [...prevMessages, message]);
         });
 
         chatHubProxyRef.current = chatHubProxy;
 
-        await connection.start();
-        console.log('Connected to SignalR server!');
-        setIsConnected(true);
-        JoinChatRoom(chatroomId);
+        await connection
+          .start()
+          .done(() => {
+            console.log('Connected to SignalR server!');
+            setIsConnected(true);
+            JoinChatRoom(chatroomId);
+          })
+          .fail((error: Error) => {
+            console.error('Failed to connect to SignalR server:', error);
+          });
       } catch (error) {
         console.error('Failed to connect to SignalR server:', error);
       }
@@ -61,8 +64,11 @@ const LiveChat = () => {
     return () => {
       chatHubProxyRef.current?.connection.stop();
     };
-  }, [apiUrl, chatroomId]);
+  }, [chatroomId]);
   const JoinChatRoom = async (chatroomId: string) => {
+    if (!chatHubProxyRef.current || !isConnected) {
+      return;
+    }
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
       callApi();
@@ -100,12 +106,8 @@ const LiveChat = () => {
   };
   const handleSendMessage = async () => {
     if (!isConnected || !user.userIdSender || newMessage.trim() === '') {
-      console.error(
-        'SignalR connection is not established or message is empty.'
-      );
       return;
     }
-
     try {
       await chatHubProxyRef.current?.invoke(
         'SendMessageToLiveRoom',
@@ -126,24 +128,6 @@ const LiveChat = () => {
       <ul
         className="px-24 pb-16 flex flex-col gap-16 overflow-y-auto max-h-[445px] flex-grow"
         ref={messagesEndRef}>
-        {/* <li className="flex items-center gap-16">
-          <Image
-            src="/images/liveStream/viewPerson2.png"
-            alt="viewPerson2"
-            className="w-24 h-24"
-          />
-          <h6 className="text-14 font-normal">Ann</h6>
-          <p className="text-14">哈囉哈囉</p>
-        </li>
-        <li className="flex items-center gap-16">
-          <Image
-            src="/images/liveStream/viewPerson2.png"
-            alt="viewPerson2"
-            className="w-24 h-24"
-          />
-          <h6 className="text-14 font-normal">Ann</h6>
-          <p className="text-14">哈囉哈囉</p>
-        </li> */}
         {user.nameSender && (
           <p className="text-12 text-center text-darkGray">
             歡迎{user.nameSender}進入聊天室
@@ -204,7 +188,7 @@ const LiveChat = () => {
         <input
           type="text"
           placeholder="輸入聊天訊息 ..."
-          className=" text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
+          className="tracking-widest text-darkGray bg-SoftGray py-8 pl-16 rounded-8 w-[287px] focus-visible:outline-none "
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyPress={handleKeyPress}
