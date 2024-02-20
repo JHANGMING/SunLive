@@ -39,7 +39,6 @@ const PersonalChatRoom = ({
         ) as unknown as SignalR.Hub.Proxy;
 
         chatHubProxy.on('receiveMessage', (message) => {
-          console.log('Received message:', message);
           const newMessages = message.chatcontent;
           setMessages(newMessages);
         });
@@ -66,9 +65,6 @@ const PersonalChatRoom = ({
     };
   }, []);
   const JoinChatRoom = async (chatroomId: number) => {
-    if (!chatHubProxyRef.current || !isConnected) {
-      return;
-    }
     try {
       await chatHubProxyRef.current?.invoke('JoinChatRoom', chatroomId);
     } catch (error) {
