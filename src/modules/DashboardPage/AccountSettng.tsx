@@ -1,17 +1,16 @@
-import Button from '@/common/components/Button';
-import PersonInput from '@/common/components/Input/PersonInput';
-import { FormValues } from '@/common/components/Input/data';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { fetcher } from '@/common/helpers/fetcher';
-import useAuth from '@/common/hooks/useAuth';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { nextRoutes } from '@/constants/apiPaths';
-import { setUserData } from '@/redux/features/authSlice';
-import { setToast } from '@/redux/features/messageSlice';
 import { useEffect } from 'react';
+import useSWR, { mutate } from 'swr';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import useSWR, { mutate } from 'swr';
+import useAuth from '@/common/hooks/useAuth';
+import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
+import { fetcher } from '@/common/helpers/fetcher';
+import { setToast } from '@/redux/features/messageSlice';
+import { FormValues } from '@/common/components/Input/data';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import PersonInput from '@/common/components/Input/PersonInput';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 
 const AccountSettng = () => {
   const dispatch = useDispatch();
@@ -37,9 +36,6 @@ const AccountSettng = () => {
         vision: authData.vision || '',
         description: authData.description || '',
       });
-      dispatch(
-        setUserData({ nickName: authData.nickName, photo: authData.photo })
-      );
     }
   }, [authData]);
   const onSubmit = async (data: FormValues) => {
@@ -55,7 +51,7 @@ const AccountSettng = () => {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
         dispatch(setToast({ message: result.message }));
-        dispatch(setUserData({nickName:result.data.nickName}));
+        mutate(`/api${nextRoutes['farminfo_get']}`);
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
