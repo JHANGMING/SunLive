@@ -12,9 +12,17 @@ export type OrderDataType = {
   shipment: boolean;
 };
 
+export type FarmerOrderDataType = {
+  creatTime: string;
+  userNickName: string;
+  orderId: number;
+  orderSum: number;
+  shipment: boolean;
+  ispay: boolean;
+};
+
 export type DynamicTableProps = {
   columns: ColumnType[];
   data: OrderDataType[];
-  // initialData?: OrdersDataItemType[];
   showCheckbox?: boolean;
 };

@@ -31,7 +31,9 @@ const DynamicTable = ({ columns, data }: DynamicTableProps) => {
         </thead>
         <tbody>
           {currentData.map((row) => (
-            <tr className="text-center border-b border-lightGray" key={row.id}>
+            <tr
+              className="text-center border-b border-lightGray"
+              key={row.orderId}>
               {columns.map((column) => (
                 <td className="py-[13px]" key={column.key}>
                   {row[column.dataIndex]}

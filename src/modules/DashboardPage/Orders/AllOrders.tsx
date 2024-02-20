@@ -6,8 +6,19 @@ import { useEffect, useState } from 'react';
 import { AllOrdersProps } from '../Management/data';
 import OrdersDashboard from '.';
 import { useRouter } from 'next/router';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import useSWR from 'swr';
+import { nextRoutes } from '@/constants/apiPaths';
+import { fetcher } from '@/common/helpers/fetcher';
 
 const AllOrders = () => {
+  const { authStatus } = useAuthStatus();
+  const { data } = useSWR(
+    authStatus ? `/api${nextRoutes['getorderlist']}` : null,
+    fetcher
+  );
+  console.log('data', data.data);
+  
   const [filteredData, setFilteredData] = useState(ordersData);
   const router = useRouter();
   const { orderId } = router.query;

@@ -42,6 +42,9 @@ export const apiPaths = {
   liveSet: '/api/livesetting',
   livelist: '/api/farmer/livelist',
 
+  //dashboard-order
+  getorderlist: '/api/farmer/orderlist',
+
   //uploadImg,
   uploadProductImg: '/api/farmer/product/pic',
   uploadfarmerImg: '/api/farmer/pic',
@@ -98,6 +101,9 @@ export const nextRoutes = {
   addlive: '/dashboard/live/addlive',
   editlive: '/dashboard/live/editlive',
   editliveproduct: '/dashboard/live/editliveproduct',
+
+  //dashboard-order
+  getorderlist: '/dashboard/order/getorderlist',
 
   //uploadImg,
   uploadProductImg: '/upload/productImg',
