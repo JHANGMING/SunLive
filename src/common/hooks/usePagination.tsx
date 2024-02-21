@@ -1,12 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
+
 
 type DataType = Array<any> | string | number | null;
 function usePagination(
   data: DataType,
-  itemsPerPage: number
+  itemsPerPage: number,
+  currentPage: number 
 ) {
-  const [currentPage, setCurrentPage] = useState(1);
-
   const maxPage = useMemo(() => {
     if (Array.isArray(data) || typeof data === 'string') {
       return Math.ceil(data.length / itemsPerPage);
@@ -29,7 +29,7 @@ function usePagination(
     return 0;
   }, [data]);
 
-  return { currentData, maxPage, dataLength, currentPage, setCurrentPage };
+  return { currentData, maxPage, dataLength };
 }
 
 export default usePagination;

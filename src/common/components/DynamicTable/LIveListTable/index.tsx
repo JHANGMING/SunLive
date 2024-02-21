@@ -7,19 +7,23 @@ import usePagination from '@/common/hooks/usePagination';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { DynamicTableProps, OptionProductType } from './data';
+import { useEffect, useState } from 'react';
 
-const LiveListTable = ({
-  columns,
-}: DynamicTableProps) => {
+const LiveListTable = ({ columns }: DynamicTableProps) => {
   const listData = useSelector(
     (state: RootState) => state.dashboard.livelistData
   );
   const dispatch = useDispatch();
   const data = listData;
   const itemsPerPage = 5;
-  const { currentData, maxPage,dataLength, currentPage, setCurrentPage } = usePagination(
+  const [currentPage, setCurrentPage] = useState(1);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
+  const { currentData, maxPage, dataLength } = usePagination(
     data,
-    itemsPerPage
+    itemsPerPage,
+    currentPage
   );
 
   const handlePrevious = () => {
@@ -64,8 +68,7 @@ const LiveListTable = ({
 
   return (
     <>
-      <table
-        className="table-fixed text-14 w-full">
+      <table className="table-fixed text-14 w-full">
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
             {columns.map((column) => {
@@ -140,7 +143,7 @@ const LiveListTable = ({
                     value: row.topLiveProductId,
                     label: row.topProductName,
                   };
-   
+
                   cellContent = (
                     <div className="flex justify-center items-center">
                       <Select

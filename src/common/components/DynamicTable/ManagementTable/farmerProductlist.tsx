@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { DynamicTableProps} from './data';
+import { DynamicTableProps } from './data';
 import usePagination from '@/common/hooks/usePagination';
 import { getCellClass } from '@/common/helpers/getCellClass';
 
@@ -12,10 +12,15 @@ const ProductlistTable = ({ columns }: DynamicTableProps) => {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const itemsPerPage = 5;
   const data = listData;
-  const { currentData, maxPage,dataLength, currentPage, setCurrentPage } = usePagination(
-      data,
-      itemsPerPage
-    );
+  const [currentPage, setCurrentPage] = useState(1);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
+  const { currentData, maxPage, dataLength } = usePagination(
+    data,
+    itemsPerPage,
+    currentPage
+  );
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
@@ -30,8 +35,7 @@ const ProductlistTable = ({ columns }: DynamicTableProps) => {
 
   return (
     <>
-      <table
-        className="table-fixed text-14 w-full">
+      <table className="table-fixed text-14 w-full">
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
             {columns.map((column) => {
@@ -83,8 +87,10 @@ const ProductlistTable = ({ columns }: DynamicTableProps) => {
                 } else if (column.dataIndex === 'productState') {
                   const status = row[column.dataIndex] ? '上架' : '下架';
                   cellContent = <p>{status}</p>;
-                }else if (column.dataIndex === 'productUpdatTime') {
-                  const data=row[column.dataIndex]?row[column.dataIndex]:"--";
+                } else if (column.dataIndex === 'productUpdatTime') {
+                  const data = row[column.dataIndex]
+                    ? row[column.dataIndex]
+                    : '--';
                   cellContent = <p>{data}</p>;
                 } else {
                   cellContent = row[column.dataIndex];

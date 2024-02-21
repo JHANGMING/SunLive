@@ -3,8 +3,8 @@ import {
   UseFormRegister,
   FieldErrors,
   RegisterOptions,
-  SetValueConfig,
 } from 'react-hook-form';
+
 export type FormValues = {
   email: string;
   password: string;
@@ -83,4 +83,8 @@ export type PersonInputProps = {
 export type SearchInputProps = {
   headerVisible?: boolean;
   onClick?: () => void;
+};
+
+export type OrdersSearchProps = {
+  placeholder:string
 };
