@@ -1,24 +1,27 @@
+import Select from 'react-select';
+import { DynamicTableProps, shipmentOptions } from './data';
+import usePagination from '@/common/hooks/usePagination';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/apiPaths';
+import { useDispatch } from 'react-redux';
+import { setToast } from '@/redux/features/messageSlice';
+import { mutate } from 'swr';
 import { useEffect, useState } from 'react';
-import { DynamicTableProps } from './data';
 
 const OrdersTable = ({
   columns,
   initialData,
-  showCheckbox,
 }: DynamicTableProps) => {
-  const [data, setData] = useState(initialData);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedRows, setSelectedRows] = useState({});
   const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch();
   useEffect(() => {
-    setData(initialData);
+    setCurrentPage(1);
   }, [initialData]);
-
-  const maxPage = Math.ceil(data.length / itemsPerPage);
-  const currentData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+  const { currentData, maxPage, dataLength } = usePagination(
+    initialData,
+    itemsPerPage,
+    currentPage
   );
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
@@ -27,51 +30,50 @@ const OrdersTable = ({
   const handleNext = () => {
     setCurrentPage((prev) => (prev < maxPage ? prev + 1 : prev));
   };
-  const handleStatusChange = (id: string, newStatus: string) => {
-    const updatedData = data.map((item) =>
-      item.id === id ? { ...item, orderStatus: newStatus } : item
-    );
-    setData(updatedData); // 更新数据
+  const handleStatusChange = async(orderId:number) => {
+    const apiParams: apiParamsType = {
+      apiPath: `${nextRoutes['putorder']}?id=${orderId}`,
+      method: 'POST',
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        mutate(`/api${nextRoutes['getorderlist']}`)
+        dispatch(setToast({ message: result.message }));
+      } else {
+        dispatch(setToast({ message: result.message }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
-  // const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const newSelectedRows = {};
-  //   data.forEach((item) => {
-  //     newSelectedRows[item.id] = e.target.checked;
-  //   });
-  //   setSelectedRows(newSelectedRows);
-  //   setSelectAll(e.target.checked);
-  // };
-  // const handleRowSelect = (id:string) => {
-  //   console.log(id);
-
-  //   setSelectedRows((prev) => ({
-  //     ...prev,
-  //     [id]: !prev[id],
-  //   }));
-  // };
   return (
     <>
       <table
-        className={`${showCheckbox ? ' w-full' : 'w-full'} table-fixed text-14 `}>
+        className="w-full table-fixed text-14">
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
-            {showCheckbox && (
-              <th className="py-16 font-normal w-64">
-                <input
-                  type="checkbox"
-                  className="w-16 h-16"
-                  checked={
-                    selectAll && Object.values(selectedRows).every(Boolean)
-                  }
-                  // onChange={handleSelectAll}
-                />
-              </th>
-            )}
             {columns.map((column) => {
-              const thClass =
-                column.title === '訂單建立時間'
-                  ? 'py-[13px] font-normal w-130'
-                  : 'py-[13px] font-normal';
+              let thClass = 'py-[13px] font-normal';
+              switch (column.title) {
+                case '訂單建立時間':
+                  thClass += ' w-150';
+                  break;
+                case '訂單編號':
+                  thClass += ' w-120';
+                  break;
+                case '顧客':
+                  thClass += ' w-120';
+                  break;
+                case '金額':
+                  thClass += ' w-120';
+                  break;
+                case '付款狀態':
+                  thClass += ' w-130';
+                  break;
+                default:
+                  break;
+              }
 
               return (
                 <th className={thClass} key={column.key}>
@@ -82,30 +84,29 @@ const OrdersTable = ({
           </tr>
         </thead>
         <tbody>
-          {currentData.map((row) => (
-            <tr className="text-center border-b border-lightGray" key={row.id}>
-              {showCheckbox && (
-                <td className="py-[13px]">
-                  <input
-                    type="checkbox"
-                    className="w-16 h-16"
-                    // checked={selectedRows[row.id] || false}
-                    // onChange={() => handleRowSelect(row.id)}
-                  />
-                </td>
-              )}
+          {currentData?.map((row) => (
+            <tr
+              className="text-center border-b border-lightGray h-60"
+              key={row.orderId}>
               {columns.map((column) => {
+                const isPaid = row.ispay ==="已付款" ? true : false;
                 const cellContent =
-                  column.dataIndex === 'orderStatus' ? (
-                    <select
-                      className="text-14"
-                      value={row[column.dataIndex]}
-                      onChange={(e) =>
-                        handleStatusChange(row.id, e.target.value)
-                      }>
-                      <option value="未出貨">未出貨</option>
-                      <option value="已出貨">已出貨</option>
-                    </select>
+                  column.dataIndex === 'shipment' ? (
+                    <div className="flex justify-center items-center ">
+                      <Select
+                        options={shipmentOptions}
+                        isDisabled={!isPaid}
+                        className=" text-14 w-[150px]"
+                        defaultValue={shipmentOptions.find(
+                          (option) => option.value === row[column.dataIndex]
+                        )}
+                        onChange={(selectedOption) => {
+                          if (selectedOption) {
+                            handleStatusChange(row.orderId);
+                          }
+                        }}
+                      />
+                    </div>
                   ) : (
                     row[column.dataIndex]
                   );
@@ -117,7 +118,7 @@ const OrdersTable = ({
         </tbody>
       </table>
       <div className="w-full flex justify-between mt-20 text-darkGray pl-12 pr-24">
-        <p>共 {data.length} 筆資料</p>
+        <p>共 {dataLength} 筆資料</p>
         <div className="flex gap-24">
           <p>{`${currentPage}/${maxPage}`}</p>
           <button

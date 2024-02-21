@@ -11,11 +11,11 @@ export type AccountSettingProps = {
 };
 
 export const ordersColumns = [
-  { title: '訂單編號', dataIndex: 'id', key: 'id' },
-  { title: '小農', dataIndex: 'farmer', key: 'farmer' },
-  { title: '金額', dataIndex: 'amount', key: 'amountr' },
-  { title: '訂單建立時間', dataIndex: 'createTime', key: 'createTime' },
-  { title: '出貨狀態', dataIndex: 'status', key: 'status' },
+  { title: '訂單編號', dataIndex: 'orderId', key: 'orderId' },
+  { title: '小農', dataIndex: 'farmerNickName', key: 'farmerNickName' },
+  { title: '金額', dataIndex: 'orderSum', key: 'orderSum' },
+  { title: '訂單建立時間', dataIndex: 'creatTime', key: 'creatTime' },
+  { title: '出貨狀態', dataIndex: 'shipment', key: 'shipment' },
 ];
 
 export const ordersData = [

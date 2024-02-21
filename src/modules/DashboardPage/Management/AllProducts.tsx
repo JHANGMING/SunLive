@@ -1,6 +1,5 @@
 import FarmerProductSearch from '@/common/components/Input/FarmerProductSearch';
-import Button from '@/common/components/Button';
-import { productColumns, productData } from '../data';
+import { productColumns} from '../data';
 import Link from 'next/link';
 import ProductlistTable from '@/common/components/DynamicTable/ManagementTable/farmerProductlist';
 
@@ -25,9 +24,6 @@ const AllProducts = () => {
           columns={productColumns}
         />
       </div>
-      {/* <Button category="default" classStyle="self-end">
-        刪除
-      </Button> */}
     </div>
   );
 };

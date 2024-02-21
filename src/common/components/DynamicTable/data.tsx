@@ -4,18 +4,25 @@ export type ColumnType = {
   key: string;
 };
 
-type OrdersDataItemType = {
-  id: string;
-  farmer: string;
-  amount: string;
-  createTime: string;
-  status: string;
-  [key: string]: string;
+export type OrderDataType = {
+  creatTime: string;
+  farmerNickName: string;
+  orderId: number;
+  orderSum: number;
+  shipment: boolean;
+};
+
+export type FarmerOrderDataType = {
+  userNickName: string;
+  creatTime: string;
+  ispay: string;
+  orderId: number;
+  orderSum: number;
+  shipment: boolean;
 };
 
 export type DynamicTableProps = {
   columns: ColumnType[];
-  data: OrdersDataItemType[];
-  initialData?: OrdersDataItemType[];
+  data: OrderDataType[];
   showCheckbox?: boolean;
 };

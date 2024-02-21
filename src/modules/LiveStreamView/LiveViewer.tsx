@@ -8,7 +8,7 @@ import { LivestreamingProps } from './data';
 const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
   const liveId = liveDetailData?.liveId;
   const url=liveDetailData?.yturl;
-  
+  const liveFarmerId=liveDetailData?.liveFarmerId;
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">
       <div className=" col-span-8">
@@ -93,7 +93,7 @@ const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
             </div>
           </div>
         </div>
-        <LiveChat liveId={liveId} />
+        <LiveChat liveId={liveId} liveFarmerId={liveFarmerId} />
       </div>
     </section>
   );

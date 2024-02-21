@@ -1,13 +1,13 @@
 
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
 import { apiPaths } from '@/constants/apiPaths';
 import LiveStreamView from '@/modules/LiveStreamView';
 import { LivestreamingProps } from '@/modules/LiveStreamView/data';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { setAllProductsData } from '@/redux/features/productSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
 
 const Livestreaming = ({ liveDetailData }:LivestreamingProps) => {

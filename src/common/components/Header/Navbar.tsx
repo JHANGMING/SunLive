@@ -2,19 +2,16 @@ import Link from 'next/link';
 import { navBarDatas } from './data';
 import Logo from '@/common/components/Logo';
 import { useRouter } from 'next/router';
+import LiveIcon from './LIveIcon';
 const NavBar = () => {
   const router = useRouter();
-  // const liveDetailData = useSelector(
-  //   (state: RootState) => state.product.liveDetailData
-  // );
+ 
   return (
     <ul className="flex w-824 items-center justify-between">
       <li>
         <Logo classProps="w-50 h-50" />
       </li>
-      {/* <div className="text-primary-red font-bold live">
-        <p className="neontext">Live</p>
-      </div> */}
+      <LiveIcon/>
       {navBarDatas.map((data) => {
         const { src, title, subTitle } = data;
         const isActive = router.pathname === src;

@@ -1,9 +1,9 @@
-import Button from '@/common/components/Button';
+
+import Link from 'next/link';
+import { useState } from 'react';
 import LiveListTable from '@/common/components/DynamicTable/LIveListTable';
 import OrdersSearch from '@/common/components/Input/OrdersSearch';
-import { useState } from 'react';
 import { LiveListColumns } from '../data';
-import Link from 'next/link';
 
 const AllLive = () => {
   const [selectedTab, setSelectedTab] = useState('所有直播');
@@ -35,14 +35,11 @@ const AllLive = () => {
       <div className="bg-white rounded-20 p-32 flex flex-col">
         <div className="flex justify-between mb-24">
           <h3 className=" text-20 font-semibold ">所有直播</h3>
-          <OrdersSearch />
+          <OrdersSearch placeholder='尋找直播'/>
         </div>
         <div className="mb-32">
           <LiveListTable columns={LiveListColumns} />
         </div>
-        {/* <Button category="default" classStyle="self-end">
-          儲存
-        </Button> */}
       </div>
     </div>
   );

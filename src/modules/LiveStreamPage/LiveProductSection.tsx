@@ -1,7 +1,7 @@
-import Image from '@/common/components/CustomImage';
-import CategoryTitle from '../ProductPage/CategoryTitle';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import Image from '@/common/components/CustomImage';
+import CategoryTitle from '../ProductPage/CategoryTitle';
 
 const LiveProductSection = () => {
    const { liveData } = useSelector((state: RootState) => state.product);

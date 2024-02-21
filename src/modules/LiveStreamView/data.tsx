@@ -20,7 +20,8 @@ export type Message = {
 
 export type LiveChatProps = {
   liveId: number;
-}
+  liveFarmerId: number;
+};
 
 export type LivestreamingProps = {
   liveDetailData:LivedetailDateType;
