@@ -158,7 +158,9 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
                 ) : (
                   <BsPersonCircle size={24} className=" text-darkGray" />
                 )}
-                <p className="mr-2 text-darkGray">{msg.nickName}</p>
+                <div className="flex flex-col mr-2 text-darkGray">
+                  <span className="whitespace-nowrap">{msg.nickName}</span>
+                </div>
                 <p className="text-14 break-words w-full pr-24">
                   {msg.message}
                 </p>
