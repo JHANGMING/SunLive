@@ -7,6 +7,7 @@ const SpecSelect = ({
   optionsData,
   onSpecChange,
   initialSelectIndex = 0,
+  isLive=false
 }: SpecSelectProps) => {
   const isClient = useClient();
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
@@ -46,6 +47,7 @@ const SpecSelect = ({
       {isClient && (
         <Select
           instanceId="spec"
+          isDisabled={isLive}
           value={selectedOption}
           options={optionsData}
           styles={customStyles}

@@ -3,6 +3,7 @@ export type SpecSelectProps = {
   optionsData: OptionType[];
   onSpecChange: (value: string) => void;
   initialSelectIndex: number;
+  isLive?: boolean;
 };
 export type OptionType = {
   value: string;
