@@ -20,6 +20,7 @@ export type CartItemType = {
   largeWeight: number;
   smallProductSpecId: number;
   largeProductSpecId: number;
+  cartItemLivePrice: number;
 };
 
 export type CartInfoItemType = {

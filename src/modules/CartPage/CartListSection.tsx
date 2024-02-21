@@ -68,8 +68,6 @@ const CartListSection = ({ cartData }: CartProps) => {
     }
   };
   
-  
-  
   return (
     <section className="container">
       <div className=" flex gap-40">
@@ -81,6 +79,7 @@ const CartListSection = ({ cartData }: CartProps) => {
           <ul className="cartlist form-transition">
             {productData.map((data) => {
               const {
+                cartItemLivePrice,
                 productId,
                 productImg,
                 productTitle,
@@ -102,7 +101,7 @@ const CartListSection = ({ cartData }: CartProps) => {
 
               return (
                 <li key={productSpecId} className="p-24 flex gap-60">
-                  <div className="flex gap-16 flex-grow">
+                  <div className="flex gap-16 flex-grow relative">
                     <Image
                       src={
                         productImg.src === null
@@ -112,16 +111,27 @@ const CartListSection = ({ cartData }: CartProps) => {
                       alt={productImg.alt}
                       roundedStyle="object-cover"
                       className="w-80 h-80"
-                    />
+                      />
+                      {cartItemLivePrice && (
+                        <div className=" absolute -left-[28px] -top-[20px]">
+                          <Image
+                            src="/images/productShop/todaySale.svg"
+                            alt="UpcomingIcon"
+                            className="w-50 h-50"
+                          />
+                        </div>
+                      )}
                     <div>
                       <h6 className=" font-normal mb-8">{productTitle}</h6>
                       <div className="text-14 flex gap-8 items-center">
                         <p>
                           NT$
                           <span>
-                            {productSpecSize
-                              ? largePromotionPrice
-                              : smallPromotionPrice}
+                            {cartItemLivePrice
+                              ? cartItemLivePrice
+                              : productSpecSize
+                                ? largePromotionPrice
+                                : smallPromotionPrice}
                           </span>
                         </p>
                         <p className=" text-lightGray line-through">
@@ -144,6 +154,7 @@ const CartListSection = ({ cartData }: CartProps) => {
                         handlerSpecChange(productId, option)
                       }
                       initialSelectIndex={productSpecSize ? 1 : 0}
+                      isLive={cartItemLivePrice ? true : false}
                     />
                     <div className="flex-grow ml-50">
                       <div className="flex gap-x-12 items-center">
