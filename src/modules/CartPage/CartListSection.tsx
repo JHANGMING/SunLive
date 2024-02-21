@@ -10,7 +10,7 @@ import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import CartLink from './CartLink';
 import CartTotalPrice from './CartTotalPrice';
-import { CartProps, productData } from './data';
+import { CartProps } from './data';
 import { setToast } from '@/redux/features/messageSlice';
 const CartListSection = ({ cartData }: CartProps) => {
   const dispatch = useDispatch();

@@ -1,8 +1,8 @@
-import { BsSearch } from 'react-icons/bs';
 import { useEffect, useState, useCallback } from 'react';
-import Logo from '../Logo';
 import { fixedPageSet } from './data';
+import Logo from '../Logo';
 import CartAndLogin from './CartAndLogin';
+import { BsSearch } from 'react-icons/bs';
 import SearchInput from '../Input/SearchInput';
 import { LayoutPropsType } from '../Layout/data';
 import LiveIcon from './LIveIcon';
@@ -37,10 +37,9 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
   const logoImgstyle = headerBehavior === 'always' ? 50 : 32;
 
   if (headerBehavior === 'never') return null;
-
   return (
     <div
-      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0`}>
+      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-50 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0`}>
       <div className="container flex justify-between items-center ">
         <div className="w-400 flex gap-24">
           <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />

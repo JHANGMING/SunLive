@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 import { BsCursorFill } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
-import Image from '@/common/components/CustomImage';
 import { nextRoutes } from '@/constants/apiPaths';
+import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
 
-const LiveChat = ({ liveId }: LiveChatProps) => {
+const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
   const [chatroomId] = useState(`live-${liveId}`);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
@@ -137,19 +137,18 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
             className={`flex gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
             {msg.userIdSender !== user.userIdSender ? (
               <>
-                {msg.userIdSender === liveId ? (
+                {msg.userIdSender === liveFarmerId ? (
                   msg.photo ? (
                     <Image
                       src={msg.photo}
                       alt="Live Host"
                       roundedStyle="rounded-full object-cover"
-                      className="w-24 h-24 border-2 border-primary-yellow"
+                      className="w-24 h-24 border-[2px] border-primary-yellow rounded-full flashing-border "
                     />
                   ) : (
                     <BsPersonCircle size={24} className=" text-darkGray" />
                   )
-                ) : 
-                msg.photo ? (
+                ) : msg.photo ? (
                   <Image
                     src={msg.photo}
                     alt="Sender"
@@ -169,12 +168,12 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
                 <p className="text-14 break-words w-full flex justify-end pl-24">
                   {msg.message}
                 </p>
-                {liveId === user.userIdSender ? (
+                {liveFarmerId === user.userIdSender ? (
                   <Image
                     src={user.photoSender}
                     alt="Live Host"
                     roundedStyle="rounded-full object-cover"
-                    className="w-24 h-24 border-2 border-primary-yellow"
+                    className="w-24 h-24 border-[2px] border-primary-yellow rounded-full flashing-border "
                   />
                 ) : user.photoSender ? (
                   // 一般用戶的圖片

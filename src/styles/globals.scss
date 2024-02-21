@@ -103,6 +103,7 @@
   @apply text-14 text-darkGray tracking-widest
 }
 
+// living
 @keyframes gradient-shift {
     0% {
         background-position: 0% 50%;
@@ -132,4 +133,19 @@
     background: linear-gradient(to right, #399953, #fbb300, #d53e33, #377af5, #399953); 
     background-size: 200% 200%;
     animation: gradient-shift 3s ease infinite;
+}
+
+//chat farmerImage
+@keyframes flash {
+  0%, 100% { border-color: transparent; }
+  28% { border-color: #FEE26B; } 
+  56% { border-color: #DE3C2B } 
+  98% { border-color: #47835A; } /* 紫 */
+}
+
+.flashing-border {
+  display: inline-block;
+  border-radius: 50%;
+  animation: flash 4s infinite; /* 1s是动画周期，你可以调整 */
+  border: 3px solid transparent; /* 初始透明边框 */
 }
