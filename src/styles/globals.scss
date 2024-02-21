@@ -81,7 +81,7 @@
   }
   50% {
     transform: scale(1.3);
-    text-shadow: 0px 0px 8px rgba(254, 226, 107, 0.7);
+    text-shadow: 0px 0px 8px rgba(254, 226, 107, 0.8);
   }
   100% {
     transform: scale(1);
@@ -101,4 +101,51 @@
 
 .react-datepicker__input-container input::placeholder {
   @apply text-14 text-darkGray tracking-widest
+}
+
+// living
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.rainbow {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    border: 3px solid transparent;
+    @apply pb-16; 
+}
+
+.rainbow::before {
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    height: 10px; 
+    background: linear-gradient(to right, #399953, #fbb300, #d53e33, #377af5, #399953); 
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+}
+
+//chat farmerImage
+@keyframes flash {
+  0%, 100% { border-color: transparent; }
+  28% { border-color: #FEE26B; } 
+  56% { border-color: #DE3C2B } 
+  98% { border-color: #47835A; } /* 紫 */
+}
+
+.flashing-border {
+  display: inline-block;
+  border-radius: 50%;
+  animation: flash 4s infinite; /* 1s是动画周期，你可以调整 */
+  border: 3px solid transparent; /* 初始透明边框 */
 }

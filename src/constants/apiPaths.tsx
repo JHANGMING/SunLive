@@ -77,6 +77,7 @@ export const nextRoutes = {
 
   //live
   live: '/live/get',
+  liveing: '/live/liveing',
 
   //cart
   getcart: '/cart/getcart',
