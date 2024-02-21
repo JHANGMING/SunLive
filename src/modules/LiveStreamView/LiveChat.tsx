@@ -41,6 +41,7 @@ const LiveChat = ({ liveId }: LiveChatProps) => {
 
         chatHubProxy.on('receiveMessage', (message: Message) => {
           mutate(`/api${nextRoutes['live']}?id=${liveId}`);
+          console.log('Received message:', message);
           setMessages((prevMessages) => [...prevMessages, message]);
         });
 

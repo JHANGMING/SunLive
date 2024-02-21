@@ -1,10 +1,11 @@
-import { BsSearch, BsDisplay } from 'react-icons/bs';
+import { BsSearch } from 'react-icons/bs';
 import { useEffect, useState, useCallback } from 'react';
 import Logo from '../Logo';
 import { fixedPageSet } from './data';
 import CartAndLogin from './CartAndLogin';
 import SearchInput from '../Input/SearchInput';
 import { LayoutPropsType } from '../Layout/data';
+import LiveIcon from './LIveIcon';
 
 const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
   const headerBehavior = fixedPageSet[pageCategory];
@@ -41,14 +42,9 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
     <div
       className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0`}>
       <div className="container flex justify-between items-center ">
-        <div className="w-400 flex ">
+        <div className="w-400 flex gap-24">
           <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />
-          <div className=" relative ml-24">
-            <BsDisplay size={65} className=" text-primary-red" />
-            <p className=" font-bold text-20 text-primary-green absolute top-10 left-10 shiny-scale-effect">
-              Live
-            </p>
-          </div>
+          <LiveIcon/>
         </div>
         <div
           className={`w-400 flex justify-center ${pageCategory === 'dashboardPage' && 'hidden'}`}>

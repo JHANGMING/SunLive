@@ -88,7 +88,7 @@ const YoutubeLiveIfram = ({
           // }
           src={
             isViewPage
-              ? `https://www.youtube.com/embed/${url}?autoplay=1 `
+              ? `https://www.youtube.com/embed/${url}?autoplay=1&mute=1 `
               : 'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM'
           }
           title="14th Rocket-Sunlive"

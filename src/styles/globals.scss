@@ -102,3 +102,34 @@
 .react-datepicker__input-container input::placeholder {
   @apply text-14 text-darkGray tracking-widest
 }
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.rainbow {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    border: 3px solid transparent;
+    @apply pb-16; 
+}
+
+.rainbow::before {
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    height: 10px; 
+    background: linear-gradient(to right, #399953, #fbb300, #d53e33, #377af5, #399953); 
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+}

@@ -1,20 +1,20 @@
-import NavBar from './Navbar';
-import { pageSet } from './data';
-import Logo from '@/common/components/Logo';
-import CartAndLogin from './CartAndLogin';
-import { LayoutPropsType } from '../Layout/data';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import useSWR from 'swr';
-import { fetcher } from '@/common/helpers/fetcher';
-import { nextRoutes } from '@/constants/apiPaths';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import Logo from '@/common/components/Logo';
+import { fetcher } from '@/common/helpers/fetcher';
+import { nextRoutes } from '@/constants/apiPaths';
 import { setCartData } from '@/redux/features/cartSlice';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import NavBar from './Navbar';
+import { pageSet } from './data';
+import CartAndLogin from './CartAndLogin';
+import { LayoutPropsType } from '../Layout/data';
 
 const Header = ({ pageCategory }: LayoutPropsType) => {
   const headerBehavior = pageSet[pageCategory];
-  const { authStatus } = useAuthStatus();
   const dispatch = useDispatch();
+  const { authStatus } = useAuthStatus();
   const { data } = useSWR(
     authStatus ? `/api${nextRoutes['getcart']}` : null,
     fetcher
