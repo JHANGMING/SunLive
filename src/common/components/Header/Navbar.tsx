@@ -11,7 +11,7 @@ const NavBar = () => {
       <li>
         <Logo classProps="w-50 h-50" />
       </li>
-      <LiveIcon/>
+      <LiveIcon size={60}/>
       {navBarDatas.map((data) => {
         const { src, title, subTitle } = data;
         const isActive = router.pathname === src;

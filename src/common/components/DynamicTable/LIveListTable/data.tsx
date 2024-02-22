@@ -10,7 +10,3 @@ export type DynamicTableProps = {
   columns: ColumnType[];
 };
 
-export type OptionProductType = {
-  liveProductId: string;
-  liveProductName: string;
-};

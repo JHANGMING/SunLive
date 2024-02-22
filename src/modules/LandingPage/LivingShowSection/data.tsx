@@ -10,3 +10,9 @@ export type LivingProductProps = {
   liveData?: LivesDataType;
   };
 
+export type YoutubeLiveIframProps = {
+  isViewPage?: boolean;
+  isLivePage?: boolean;
+  isFarmer?: boolean;
+  url?: string;
+};

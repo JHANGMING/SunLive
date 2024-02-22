@@ -21,23 +21,23 @@ const ContactService = () => {
   const { data } = useSWR(
     authStatus ? `/api${nextRoutes['getmessage']}` : null,
     fetcher
-  );
-  const { isReadyToShowChat, farmerId } = useSelector(
-    (state: RootState) => state?.message
-  );
-  const dispatch = useDispatch();
-  const [userId, setUserId] = useState(0);
-  const [chatroomId, setChatroomId] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isChatExpanded, setIsChatExpanded] = useState(false);
-  const [chatMessages, setChatMessages] = useState<ChatcontentType[]>([]);
-  const [farmer, setFarmer] = useState({
-    farmerId: 0,
-    farmerName: '',
-    farmerPhoto: '',
-  });
-  const isFarmer = auth?.category === '1';
-  const chatData = data?.chatList;
+    );
+    const { isReadyToShowChat, farmerId } = useSelector(
+      (state: RootState) => state?.message
+      );
+      const dispatch = useDispatch();
+      const [userId, setUserId] = useState(0);
+      const [chatroomId, setChatroomId] = useState(0);
+      const [isExpanded, setIsExpanded] = useState(false);
+      const [isChatExpanded, setIsChatExpanded] = useState(false);
+      const [chatMessages, setChatMessages] = useState<ChatcontentType[]>([]);
+      const [farmer, setFarmer] = useState({
+        farmerId: 0,
+        farmerName: '',
+        farmerPhoto: '',
+      });
+      const isFarmer = auth?.category === '1';
+      const chatData = data?.chatList;
   useEffect(() => {
     if (!isReadyToShowChat) return;
     setFarmer((prevFarmer) => ({
@@ -97,6 +97,7 @@ const ContactService = () => {
     setIsChatExpanded(true);
     getChatApi(farmerId);
   };
+  if (!authStatus) return null;
   return (
     <div className="fixed bottom-0 right-[72px] z-50">
       {!isExpanded && (

@@ -62,3 +62,8 @@ export type LoggingInfoProps = {
 export type CartItemCountProps = {
   cartData:CartDataType;
 };
+
+export type LiveIconProps = {
+  size: number;
+  isLivingSection?: boolean;
+};

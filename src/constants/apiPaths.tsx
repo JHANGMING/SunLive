@@ -103,6 +103,7 @@ export const nextRoutes = {
   addlive: '/dashboard/live/addlive',
   editlive: '/dashboard/live/editlive',
   editliveproduct: '/dashboard/live/editliveproduct',
+  livelist: '/dashboard/live/livelist',
 
   //dashboard-order
   getorderlist: '/dashboard/order/getorderlist',

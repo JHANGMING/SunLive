@@ -1,20 +1,26 @@
-import Select from 'react-select';
 import { BsLink45Deg } from 'react-icons/bs';
+import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { nextRoutes } from '@/constants/apiPaths';
 import usePagination from '@/common/hooks/usePagination';
 import { setToast } from '@/redux/features/messageSlice';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { DynamicTableProps, OptionProductType } from './data';
+import { DynamicTableProps} from './data';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
+import { updateLiveDataWithFutureFlag } from '@/common/helpers/updatedLiveDat';
+import { useRouter } from 'next/router';
 
 const LiveListTable = ({ columns }: DynamicTableProps) => {
-  const listData = useSelector(
+  const listData= useSelector(
     (state: RootState) => state.dashboard.livelistData
   );
+  const updataListData = updateLiveDataWithFutureFlag(
+    listData as unknown as LivedetailDateType[]
+  );
+  const router= useRouter();
   const dispatch = useDispatch();
-  const data = listData;
+  const data = updataListData;
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
@@ -44,28 +50,10 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
       }
     }
   };
-  const handleStatusChange = async (liveProductId: string, liveId: number) => {
-    const dataObj = {
-      liveProductId,
-      liveId,
-    };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['editliveproduct'],
-      method: 'POST',
-      data: dataObj,
-    };
-    try {
-      const result = await fetchNextApi(apiParams);
-      if (result.statusCode === 200) {
-        dispatch(setToast({ message: result.message }));
-      } else {
-        dispatch(setToast({ message: result.message }));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
+  const handerToLive = (liveId: string) => {
+    router.push(`/dashboard/live/${liveId}`);
+  };
   return (
     <>
       <table className="table-fixed text-14 w-full">
@@ -125,7 +113,7 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
                         className="cursor-pointer hover:text-primary-green"
                         onClick={() =>
                           handleCopyLink(
-                            `https://sun-live.vercel.app/livestream/view/${row.liveId}`
+                            `https://sun-live.vercel.app/livestream/${row.liveId}`
                           )
                         }>
                         複製連結
@@ -133,32 +121,15 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
                     </div>
                   );
                 } else if (column.dataIndex === 'liveProudct') {
-                  const options = row.liveProudct.map(
-                    (product: OptionProductType) => ({
-                      value: product.liveProductId,
-                      label: product.liveProductName,
-                    })
-                  );
-                  const defaultOption = {
-                    value: row.topLiveProductId,
-                    label: row.topProductName,
-                  };
-
                   cellContent = (
-                    <div className="flex justify-center items-center">
-                      <Select
-                        options={options}
-                        className=" text-14 w-[230px]"
-                        defaultValue={defaultOption}
-                        onChange={(selectedOption) => {
-                          if (selectedOption) {
-                            handleStatusChange(
-                              selectedOption.value,
-                              row.liveId
-                            );
-                          }
-                        }}
-                      />
+                    <div className="flex justify-center">
+                      <button
+                        type="button"
+                        className={`text-white w-2/4 rounded-8 text-14 leading-[30px] py-[5px] px-26 ${!row.isFuture ? 'bg-lightGray cursor-not-allowed' : 'bg-primary-green hover:opacity-70'}`}
+                        disabled={!row.isFuture}
+                        onClick={() => handerToLive(row.liveId)}>
+                        開始直播
+                      </button>
                     </div>
                   );
                 } else {

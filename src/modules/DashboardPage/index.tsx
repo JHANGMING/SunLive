@@ -19,6 +19,8 @@ const DashboardPage = () => {
       setSubPage(orderId);
     } else if (page.startsWith('/dashboard/products/')) {
       setActiveSection('products');
+    } else if (page.startsWith('/dashboard/live/')) {
+      setActiveSection('live');
     } else {
       switch (page) {
         case '/dashboard/account':
