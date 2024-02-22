@@ -24,4 +24,5 @@ export type LivedetailDateType = {
   topProductPhoto: string;
   topProductName: string;
   liveProductList: LiveProductItemType[];
+  isFuture?: boolean;
 };

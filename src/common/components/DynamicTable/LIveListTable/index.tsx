@@ -1,4 +1,5 @@
 import { BsLink45Deg } from 'react-icons/bs';
+import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import usePagination from '@/common/hooks/usePagination';
@@ -6,14 +7,20 @@ import { setToast } from '@/redux/features/messageSlice';
 import { DynamicTableProps} from './data';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
+import { updateLiveDataWithFutureFlag } from '@/common/helpers/updatedLiveDat';
+import { useRouter } from 'next/router';
 
 const LiveListTable = ({ columns }: DynamicTableProps) => {
-  const listData = useSelector(
+  const listData= useSelector(
     (state: RootState) => state.dashboard.livelistData
   );
-
+  const updataListData = updateLiveDataWithFutureFlag(
+    listData as unknown as LivedetailDateType[]
+  );
+  const router= useRouter();
   const dispatch = useDispatch();
-  const data = listData;
+  const data = updataListData;
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
@@ -44,6 +51,9 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
     }
   };
 
+  const handerToLive = (liveId: string) => {
+    router.push(`/dashboard/live/${liveId}`);
+  };
   return (
     <>
       <table className="table-fixed text-14 w-full">
@@ -113,11 +123,13 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
                 } else if (column.dataIndex === 'liveProudct') {
                   cellContent = (
                     <div className="flex justify-center">
-                      <Link
-                        href={`/dashboard/live/${row.liveId}`}
-                        className="w-2/4 text-white bg-primary-green rounded-8 text-14 leading-[30px] py-[5px] px-26 hover:opacity-70">
+                      <button
+                        type="button"
+                        className={`text-white w-2/4 rounded-8 text-14 leading-[30px] py-[5px] px-26 ${!row.isFuture ? 'bg-lightGray cursor-not-allowed' : 'bg-primary-green hover:opacity-70'}`}
+                        disabled={!row.isFuture}
+                        onClick={() => handerToLive(row.liveId)}>
                         開始直播
-                      </Link>
+                      </button>
                     </div>
                   );
                 } else {
