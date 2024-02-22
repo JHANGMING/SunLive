@@ -6,7 +6,6 @@
 @import 'productShop';
 @layer base {
   body {
-    // max-width: 1440px;
     margin: 0 auto;
     line-height: 1.5;
     scroll-behavior: smooth;
@@ -140,12 +139,24 @@
   0%, 100% { border-color: transparent; }
   28% { border-color: #FEE26B; } 
   56% { border-color: #DE3C2B } 
-  98% { border-color: #47835A; } /* 紫 */
+  98% { border-color: #47835A; } 
 }
 
 .flashing-border {
   display: inline-block;
   border-radius: 50%;
-  animation: flash 4s infinite; /* 1s是动画周期，你可以调整 */
-  border: 3px solid transparent; /* 初始透明边框 */
+  animation: flash 4s infinite; 
+  border: 3px solid transparent; 
 }
+
+//liveIocn  scale
+@keyframes scale-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.animate-scale-bounce {
+  animation: scale-bounce 2s ease-in-out infinite;
+}
+
+

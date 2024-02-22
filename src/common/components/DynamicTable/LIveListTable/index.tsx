@@ -1,18 +1,17 @@
-import Select from 'react-select';
 import { BsLink45Deg } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { nextRoutes } from '@/constants/apiPaths';
 import usePagination from '@/common/hooks/usePagination';
 import { setToast } from '@/redux/features/messageSlice';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { DynamicTableProps, OptionProductType } from './data';
+import { DynamicTableProps} from './data';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const LiveListTable = ({ columns }: DynamicTableProps) => {
   const listData = useSelector(
     (state: RootState) => state.dashboard.livelistData
   );
+
   const dispatch = useDispatch();
   const data = listData;
   const itemsPerPage = 5;
@@ -42,27 +41,6 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
       } catch (err) {
         dispatch(setToast({ message: '複製失敗' }));
       }
-    }
-  };
-  const handleStatusChange = async (liveProductId: string, liveId: number) => {
-    const dataObj = {
-      liveProductId,
-      liveId,
-    };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['editliveproduct'],
-      method: 'POST',
-      data: dataObj,
-    };
-    try {
-      const result = await fetchNextApi(apiParams);
-      if (result.statusCode === 200) {
-        dispatch(setToast({ message: result.message }));
-      } else {
-        dispatch(setToast({ message: result.message }));
-      }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -125,7 +103,7 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
                         className="cursor-pointer hover:text-primary-green"
                         onClick={() =>
                           handleCopyLink(
-                            `https://sun-live.vercel.app/livestream/view/${row.liveId}`
+                            `https://sun-live.vercel.app/livestream/${row.liveId}`
                           )
                         }>
                         複製連結
@@ -133,32 +111,13 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
                     </div>
                   );
                 } else if (column.dataIndex === 'liveProudct') {
-                  const options = row.liveProudct.map(
-                    (product: OptionProductType) => ({
-                      value: product.liveProductId,
-                      label: product.liveProductName,
-                    })
-                  );
-                  const defaultOption = {
-                    value: row.topLiveProductId,
-                    label: row.topProductName,
-                  };
-
                   cellContent = (
-                    <div className="flex justify-center items-center">
-                      <Select
-                        options={options}
-                        className=" text-14 w-[230px]"
-                        defaultValue={defaultOption}
-                        onChange={(selectedOption) => {
-                          if (selectedOption) {
-                            handleStatusChange(
-                              selectedOption.value,
-                              row.liveId
-                            );
-                          }
-                        }}
-                      />
+                    <div className="flex justify-center">
+                      <Link
+                        href={`/dashboard/live/${row.liveId}`}
+                        className="w-2/4 text-white bg-primary-green rounded-8 text-14 leading-[30px] py-[5px] px-26 hover:opacity-70">
+                        開始直播
+                      </Link>
                     </div>
                   );
                 } else {

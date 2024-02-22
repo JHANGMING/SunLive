@@ -3,6 +3,9 @@ import { ListDataType } from "@/constants/types/product/farmer_prodcut";
 import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
 import { EditSettingType } from "@/constants/types/dashboard/liveSettings";
 import { LivelistType } from "@/constants/types/dashboard/livelist";
+import { LivesDataType } from "@/constants/types/live/live";
+import { LivedetailDateType } from "@/constants/types/live/livedetailDate";
+
 
 export type OptionType = {
   value: string;
@@ -23,9 +26,9 @@ export type LiveproductProps = {
   liveprice: number;
 };
 
-export type EditLiveProps={
-  detailData: EditSettingType;
-}
+export type EditLiveProps = {
+  liveDetailData: LivedetailDateType;
+};
 
 export type LiveListProps = {
   listData: LivelistType[];
@@ -43,6 +46,18 @@ export type AddLiveDataType = {
 export type ProductPorps = {
   listData: ListDataType[];
 }
+
+export type EditLiveProductProps = {
+  liveId: number;
+}
+
+export type LiveProductType = {
+  liveProductId: string;
+  liveProductName: string;
+  liveProductPhoto: string;
+  liveProductPrice: number;
+  liveProductStock: number;
+};
 
 export const statusData: OptionType[] = [
   { value: 'false', label: '下架' },

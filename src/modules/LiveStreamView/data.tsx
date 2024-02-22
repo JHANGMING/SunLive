@@ -27,6 +27,14 @@ export type LivestreamingProps = {
   liveDetailData:LivedetailDateType;
 };
 
+export type ChatAndProductPorps = {
+  liveDetailData: LivedetailDateType;
+  liveId: number;
+  liveFarmerId: number;
+  isFarmer?: boolean;
+};
+
+
 export const liveCardData: liveCardProps[] = [
   {
     title: '紫禧有機天使茄',

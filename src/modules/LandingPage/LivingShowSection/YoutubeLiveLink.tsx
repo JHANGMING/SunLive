@@ -1,18 +1,21 @@
 import LogoImg from '@/common/components/Logo/LogoImg';
 import { useEffect, useRef } from 'react';
-type YoutubeLiveIframProps = {
-  isViewPage?: boolean;
-  isLivePage?: boolean;
-  url?: string;
-};
+import { YoutubeLiveIframProps } from './data';
+
 const YoutubeLiveIfram = ({
   isViewPage = false,
+  isFarmer = false,
   isLivePage,
   url,
 }: YoutubeLiveIframProps) => {
-  const iframeContainerStyle = isViewPage
-    ? 'h-[530px]'
-    : 'w-[320px] h-[200px] lg:w-full lg:h-full';
+  let iframeContainerStyle;
+  if ( isFarmer) {
+    iframeContainerStyle = 'h-[350px]'; 
+  } else if (isViewPage) {
+    iframeContainerStyle = 'h-[500px]';
+  } else {
+    iframeContainerStyle = 'w-[320px] h-[200px] lg:w-full lg:h-full';
+  }
   const iframeBorderStyle = isViewPage
     ? 'border-4  border-primary-red rounded-20'
     : 'border-[20px] border-white rounded-20 outline outline-4 outline-mediumGray';
@@ -83,9 +86,6 @@ const YoutubeLiveIfram = ({
         <iframe
           ref={iframeRef}
           className={`${isViewPage && 'rounded-16'}`}
-          // src={
-          //   'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&loop=1&playlist=5NFpRgeGfkM'
-          // }
           src={
             isViewPage
               ? `https://www.youtube.com/embed/${url}?autoplay=1&mute=1 `

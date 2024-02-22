@@ -41,8 +41,10 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
 
         chatHubProxy.on('receiveMessage', (message: Message) => {
           mutate(`/api${nextRoutes['live']}?id=${liveId}`);
-          console.log('Received message:', message);
           setMessages((prevMessages) => [...prevMessages, message]);
+        });
+        chatHubProxy.on('receivePeople', (message) => {
+          console.log('receivePeople:', message);
         });
 
         chatHubProxyRef.current = chatHubProxy;
@@ -161,13 +163,13 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
                 <div className="flex flex-col mr-2 text-darkGray">
                   <span className="whitespace-nowrap">{msg.nickName}</span>
                 </div>
-                <p className="text-14 break-words w-full pr-24">
+                <p className="break-all text-14 break-words w-full">
                   {msg.message}
                 </p>
               </>
             ) : (
               <>
-                <p className="text-14 break-words w-full flex justify-end pl-24">
+                <p className="break-all text-14 break-words w-full flex justify-end">
                   {msg.message}
                 </p>
                 {liveFarmerId === user.userIdSender ? (
