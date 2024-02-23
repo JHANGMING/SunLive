@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
+import { BsInfoCircleFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsFillXCircleFill, BsChatText } from 'react-icons/bs';
 import { RootState } from '@/redux/store';
@@ -21,23 +22,25 @@ const ContactService = () => {
   const { data } = useSWR(
     authStatus ? `/api${nextRoutes['getmessage']}` : null,
     fetcher
-    );
-    const { isReadyToShowChat, farmerId } = useSelector(
-      (state: RootState) => state?.message
-      );
-      const dispatch = useDispatch();
-      const [userId, setUserId] = useState(0);
-      const [chatroomId, setChatroomId] = useState(0);
-      const [isExpanded, setIsExpanded] = useState(false);
-      const [isChatExpanded, setIsChatExpanded] = useState(false);
-      const [chatMessages, setChatMessages] = useState<ChatcontentType[]>([]);
-      const [farmer, setFarmer] = useState({
-        farmerId: 0,
-        farmerName: '',
-        farmerPhoto: '',
-      });
-      const isFarmer = auth?.category === '1';
-      const chatData = data?.chatList;
+  );
+  console.log('messdata:', data);
+  
+  const { isReadyToShowChat, farmerId } = useSelector(
+    (state: RootState) => state?.message
+  );
+  const dispatch = useDispatch();
+  const [userId, setUserId] = useState(0);
+  const [chatroomId, setChatroomId] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isChatExpanded, setIsChatExpanded] = useState(false);
+  const [chatMessages, setChatMessages] = useState<ChatcontentType[]>([]);
+  const [farmer, setFarmer] = useState({
+    farmerId: 0,
+    farmerName: '',
+    farmerPhoto: '',
+  });
+  const isFarmer = auth?.category === '1';
+  const chatData = data?.chatList;
   useEffect(() => {
     if (!isReadyToShowChat) return;
     setFarmer((prevFarmer) => ({
@@ -145,7 +148,13 @@ const ContactService = () => {
               <li
                 className=" rounded-12 bg-white py-24 px-42"
                 key={`${isFarmer ? chat.userId : chat.farmerId}-${index}`}>
-                <div className=" flex justify-between mb-16 items-center">
+                <div className=" flex justify-between mb-16 items-center relative">
+                  {chat.isRead || (
+                    <BsInfoCircleFill
+                      size={30}
+                      className=" text-primary-red absolute -top-16 -right-24"
+                    />
+                  )}
                   <div className="flex gap-8 items-center">
                     <Image
                       src={
@@ -169,7 +178,7 @@ const ContactService = () => {
                 </div>
                 <button
                   type="button"
-                  className=" bg-primary-yellow font-bold py-10 w-full rounded-6"
+                  className=" bg-primary-yellow font-bold py-10 w-full rounded-6 hover:opacity-70"
                   onClick={() =>
                     handlerOpenChat(
                       isFarmer ? chat.userId : chat.farmerId,

@@ -1,4 +1,5 @@
 import { mutate } from 'swr';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { BsCursorFill } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
@@ -9,7 +10,8 @@ import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
 
-const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
+const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
+  const router = useRouter();
   const [chatroomId] = useState(`live-${liveId}`);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
@@ -44,7 +46,7 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
           setMessages((prevMessages) => [...prevMessages, message]);
         });
         chatHubProxy.on('receivePeople', (message) => {
-          console.log('receivePeople:', message);
+          setViewerCount(message);
         });
 
         chatHubProxyRef.current = chatHubProxy;
@@ -68,6 +70,18 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
       chatHubProxyRef.current?.connection.stop();
     };
   }, [chatroomId]);
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      if (!url.includes('/livestream')) {
+        chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
+      }
+    };
+    router.events.on('routeChangeStart', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router]);
   const JoinChatRoom = async (chatroomId: string) => {
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);

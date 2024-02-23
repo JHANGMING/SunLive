@@ -42,7 +42,6 @@ const PersonalChatRoom = ({
           const newMessages = message.chatcontent;
           setMessages(newMessages);
         });
-
         chatHubProxyRef.current = chatHubProxy;
 
         await connection
