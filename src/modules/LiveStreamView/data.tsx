@@ -21,6 +21,7 @@ export type Message = {
 export type LiveChatProps = {
   liveId: number;
   liveFarmerId: number;
+  setViewerCount: (count: number) => void;
 };
 
 export type LivestreamingProps = {

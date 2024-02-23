@@ -7,6 +7,7 @@ export type ChatDataType = {
   userId: number;
   userPhoto: string;
   userNickName: string;
+  isRead: boolean;
 };
 
 type FarmerDataType = {
