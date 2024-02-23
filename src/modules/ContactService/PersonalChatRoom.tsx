@@ -104,6 +104,7 @@ const PersonalChatRoom = ({
     setChatMessages([]);
     setIsChatExpanded(false);
     mutate(`/api${nextRoutes['getmessage']}`);
+    mutate(`/api${nextRoutes['notify']}`);
   };
   return (
     <>

@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { BsCursorFill } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
-import { useEffect, useRef, useState } from 'react';
 import { nextRoutes } from '@/constants/apiPaths';
+import { useEffect, useRef, useState } from 'react';
 import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
@@ -71,6 +71,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     };
   }, [chatroomId]);
 
+  //判斷是否離開頁面
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       if (!url.includes('/livestream')) {
@@ -80,8 +81,10 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     router.events.on('routeChangeStart', handleRouteChange);
     return () => {
       router.events.off('routeChangeStart', handleRouteChange);
+      leaveChatRoom(); 
     };
   }, [router]);
+
   const JoinChatRoom = async (chatroomId: string) => {
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
@@ -91,6 +94,16 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     }
   };
 
+  const leaveChatRoom = async () => {
+    if (!isConnected || !chatHubProxyRef.current) return;
+    try {
+      await chatHubProxyRef.current.invoke('LeftLiveRoom', chatroomId);
+      console.log('Left the room successfully');
+    } catch (error) {
+      console.error('Failed to leave the room:', error);
+    }
+  };
+  
   const callApi = async () => {
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['check'],
@@ -112,6 +125,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       console.error('Error fetching user data:', error);
     }
   };
+
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && user.userIdSender) {
       event.preventDefault();

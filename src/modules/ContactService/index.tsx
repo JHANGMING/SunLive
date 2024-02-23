@@ -23,8 +23,13 @@ const ContactService = () => {
     authStatus ? `/api${nextRoutes['getmessage']}` : null,
     fetcher
   );
-  console.log('messdata:', data);
-  
+  const { data: notify } = useSWR(
+    authStatus ? `/api${nextRoutes['notify']}` : null,
+    fetcher,
+    // { refreshInterval: 10000 }
+  );
+
+  const isReady = notify?.haveUnreadMessage;
   const { isReadyToShowChat, farmerId } = useSelector(
     (state: RootState) => state?.message
   );
@@ -105,10 +110,16 @@ const ContactService = () => {
     <div className="fixed bottom-0 right-[72px] z-50">
       {!isExpanded && (
         <div
-          className="w-[240px] h-[48px] bg-primary-yellow rounded-tl-20 rounded-tr-20 py-12 flex justify-center items-center gap-16 cursor-pointer"
+          className="w-[240px] h-[48px] bg-primary-yellow rounded-tl-20 rounded-tr-20 py-12 flex justify-center items-center gap-16 cursor-pointer relative"
           onClick={toggleExpand}>
           <LogoImg classProps="w-24 h-24" />
           <p>即時聊聊</p>
+          {isReady && (
+            <BsInfoCircleFill
+              size={30}
+              className=" text-primary-red absolute -top-[7px] right-10"
+            />
+          )}
         </div>
       )}
 
