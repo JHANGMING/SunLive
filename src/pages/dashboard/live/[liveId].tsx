@@ -7,10 +7,10 @@ import { apiPaths } from '@/constants/apiPaths';
 import EditLiveSettings from '@/modules/DashboardPage/Management/EditLiveSettings';
 import { EditLiveProps } from '@/modules/DashboardPage/Management/data';
 
-const EditLive = ({ detailData }: EditLiveProps) => {
+const EditLive = ({ liveDetailData }: EditLiveProps) => {
   return (
     <Layout pageCategory="dashboardPage">
-      <EditLiveSettings detailData={detailData} />
+      <EditLiveSettings liveDetailData={liveDetailData} />
     </Layout>
   );
 };
@@ -20,21 +20,19 @@ export default EditLive;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const token = getCookie('token', { req: context.req, res: context.res });
   const params = context.params;
   const liveId = params ? params['liveId'] : null;
-  let detailData = [];
+  let liveDetailData = [];
   try {
-    // 取得編輯Live
-    const detailParams: ApiParamsType = {
-      apiPath: `${apiPaths['liveSet']}/${liveId}`,
+    // 取得編輯Live 直播頁
+    const liveParams: ApiParamsType = {
+      apiPath: `${apiPaths['live']}/${liveId}`,
       method: 'GET',
-      authToken: token,
     };
-    const detailResponse = await fetchApi(detailParams);
-    if (detailResponse.statusCode === 200) {
-      detailData = detailResponse.data;
-    } else if (detailData.length === 0) {
+    const liveResponse = await fetchApi(liveParams);  
+    if (liveResponse.statusCode === 200) {
+      liveDetailData = liveResponse;
+    } else if (liveDetailData.length === 0) {
       return { notFound: true };
     }
   } catch (error) {
@@ -42,7 +40,7 @@ export const getServerSideProps = async (
   }
   return {
     props: {
-      detailData,
+      liveDetailData,
     },
   };
 };

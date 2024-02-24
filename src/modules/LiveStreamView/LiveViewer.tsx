@@ -1,13 +1,12 @@
 
 import Image from '@/common/components/CustomImage';
-import GlobalLink from '@/common/components/GlobalLink';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
-import LiveChat from './LiveChat';
 import { LivestreamingProps } from './data';
+import ChatAndProduct from './ChatAndProduct';
 const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
-  const liveId = liveDetailData?.liveId;
   const url=liveDetailData?.yturl;
+  const liveId = liveDetailData?.liveId;
   const liveFarmerId=liveDetailData?.liveFarmerId;
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">
@@ -45,57 +44,66 @@ const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
         </div>
       </div>
       <div className="col-span-4 border border-lightGray rounded-16 flex flex-col">
-        <h6 className="font-normal p-16 border-b border-lightGray">
-          重點聊天室訊息
-        </h6>
-        {/* 聊天室 */}
-        <div className="p-24 ">
-          <div className=" bg-SoftGray rounded-20 p-16 flex gap-20 mb-16">
-            <Image
-              src={
-                liveDetailData?.topProductPhoto
-                  ? liveDetailData?.topProductPhoto
-                  : '/images/home/live/liveComingImg1.png'
-              }
-              alt="liveComingImg"
-              className="w-80 h-80"
-              roundedStyle="rounded-20 object-cover"
-            />
-            <div className="text-darkGray flex flex-col gap-8 w-full">
-              <div className=" flex gap-8 items-center">
-                <h4 className="text-16">{liveDetailData?.topProductName}</h4>
-                <h5 className=" text-mediumGray text-14 font-normal">
-                  <span>NT$</span>
-                  {liveDetailData?.topProductLivePrice}
-                </h5>
-              </div>
-              <p className="">
-                剩餘{' '}
-                <span className=" text-primary-red text-24 font-bold shiny-scale-effect">
-                  {liveDetailData?.topProductStock}
-                </span>{' '}
-                組
-              </p>
-              <GlobalLink
-                href="/cart"
-                openInNewTab={
-                  liveDetailData?.topProductStock === 0 ? false : true
-                }
-                isDisabled={liveDetailData?.topProductStock === 0}
-                className={` text-white w-full rounded-8 text-center  ${liveDetailData?.topProductStock === 0 ? 'bg-darkGray cursor-not-allowed' : 'bg-primary-red cursor-pointer hover:opacity-60'}`}
-                productSpecId={liveDetailData?.topSpecId}
-                productId={liveDetailData?.topProductId}
-                liveId={liveDetailData?.liveId}>
-                {liveDetailData?.topProductStock === 0
-                  ? '已賣光光'
-                  : '加入購物車'}
-              </GlobalLink>
-            </div>
-          </div>
-        </div>
-        <LiveChat liveId={liveId} liveFarmerId={liveFarmerId} />
+        <ChatAndProduct
+          liveDetailData={liveDetailData}
+          liveId={liveId}
+          liveFarmerId={liveFarmerId}
+        />
       </div>
     </section>
+    // <div className="col-span-4 border border-lightGray rounded-16 flex flex-col">
+    //   <h6 className="font-normal p-16 border-b border-lightGray">
+    //     重點聊天室訊息
+    //   </h6>
+    //   {/* 聊天室 */}
+    //   <div className="p-24 ">
+    //     <div className=" bg-SoftGray rounded-20 p-16 flex gap-20 mb-16">
+    //       <Image
+    //         src={
+    //           liveDetailData?.topProductPhoto
+    //             ? liveDetailData?.topProductPhoto
+    //             : '/images/home/live/liveComingImg1.png'
+    //         }
+    //         alt="liveComingImg"
+    //         className="w-80 h-80"
+    //         roundedStyle="rounded-20 object-cover"
+    //       />
+    //       <div className="text-darkGray flex flex-col gap-8 w-full">
+    //         <div className=" flex gap-8 items-center">
+    //           <h4 className="text-16">{liveDetailData?.topProductName}</h4>
+    //           <h5 className=" text-mediumGray text-14 font-normal">
+    //             <span>NT$</span>
+    //             {liveDetailData?.topProductLivePrice}
+    //           </h5>
+    //         </div>
+    //         <p className="">
+    //           剩餘{' '}
+    //           <span className=" text-primary-red text-24 font-bold shiny-scale-effect">
+    //             {liveDetailData?.topProductStock}
+    //           </span>{' '}
+    //           組
+    //         </p>
+    //         <GlobalLink
+    //           href="/cart"
+    //           openInNewTab={
+    //             liveDetailData?.topProductStock === 0 ? false : true
+    //           }
+    //           isDisabled={liveDetailData?.topProductStock === 0}
+    //           className={` text-white w-full rounded-8 text-center  ${liveDetailData?.topProductStock === 0 ? 'bg-darkGray cursor-not-allowed' : 'bg-primary-red cursor-pointer hover:opacity-60'}`}
+    //           productSpecId={liveDetailData?.topSpecId}
+    //           productId={liveDetailData?.topProductId}
+    //           liveId={liveDetailData?.liveId}>
+    //           {liveDetailData?.topProductStock === 0
+    //             ? '已賣光光'
+    //             : '加入購物車'}
+    //         </GlobalLink>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <LiveChat liveId={liveId} liveFarmerId={liveFarmerId} />
+    // </div>
+
+    // </section>
   );
 };
 

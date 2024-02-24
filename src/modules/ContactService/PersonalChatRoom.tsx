@@ -42,7 +42,6 @@ const PersonalChatRoom = ({
           const newMessages = message.chatcontent;
           setMessages(newMessages);
         });
-
         chatHubProxyRef.current = chatHubProxy;
 
         await connection
@@ -105,6 +104,7 @@ const PersonalChatRoom = ({
     setChatMessages([]);
     setIsChatExpanded(false);
     mutate(`/api${nextRoutes['getmessage']}`);
+    mutate(`/api${nextRoutes['notify']}`);
   };
   return (
     <>
@@ -157,7 +157,7 @@ const PersonalChatRoom = ({
                       ) : (
                         <BsPersonCircle size={50} className=" text-darkGray" />
                       )}
-                      <p className="text-14 bg-white p-8 rounded-12 rounded-tl-none flex items-center">
+                      <p className="text-14 bg-white p-8 rounded-12 rounded-tl-none flex items-center break-all">
                         {msg.message}
                       </p>
                     </div>
@@ -172,7 +172,7 @@ const PersonalChatRoom = ({
                   </>
                 ) : (
                   <>
-                    <p className="text-14 bg-primary-yellow p-8 rounded-12 rounded-tr-none flex items-center">
+                    <p className="text-14 bg-primary-yellow p-8 rounded-12 rounded-tr-none flex items-center break-all">
                       {msg.message}
                     </p>
                     <div className="flex flex-col justify-end">

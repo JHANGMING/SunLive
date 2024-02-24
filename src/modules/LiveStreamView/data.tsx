@@ -21,11 +21,20 @@ export type Message = {
 export type LiveChatProps = {
   liveId: number;
   liveFarmerId: number;
+  setViewerCount: (count: number) => void;
 };
 
 export type LivestreamingProps = {
   liveDetailData:LivedetailDateType;
 };
+
+export type ChatAndProductPorps = {
+  liveDetailData: LivedetailDateType;
+  liveId: number;
+  liveFarmerId: number;
+  isFarmer?: boolean;
+};
+
 
 export const liveCardData: liveCardProps[] = [
   {

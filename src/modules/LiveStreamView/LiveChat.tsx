@@ -1,15 +1,17 @@
 import { mutate } from 'swr';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { BsCursorFill } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
-import { useEffect, useRef, useState } from 'react';
 import { nextRoutes } from '@/constants/apiPaths';
+import { useEffect, useRef, useState } from 'react';
 import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
 
-const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
+const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
+  const router = useRouter();
   const [chatroomId] = useState(`live-${liveId}`);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
@@ -41,8 +43,10 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
 
         chatHubProxy.on('receiveMessage', (message: Message) => {
           mutate(`/api${nextRoutes['live']}?id=${liveId}`);
-          console.log('Received message:', message);
           setMessages((prevMessages) => [...prevMessages, message]);
+        });
+        chatHubProxy.on('receivePeople', (message) => {
+          setViewerCount(message);
         });
 
         chatHubProxyRef.current = chatHubProxy;
@@ -66,6 +70,21 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
       chatHubProxyRef.current?.connection.stop();
     };
   }, [chatroomId]);
+
+  //判斷是否離開頁面
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      if (!url.includes('/livestream')) {
+        chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
+      }
+    };
+    router.events.on('routeChangeStart', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+      leaveChatRoom(); 
+    };
+  }, [router]);
+
   const JoinChatRoom = async (chatroomId: string) => {
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
@@ -75,6 +94,16 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
     }
   };
 
+  const leaveChatRoom = async () => {
+    if (!isConnected || !chatHubProxyRef.current) return;
+    try {
+      await chatHubProxyRef.current.invoke('LeftLiveRoom', chatroomId);
+      console.log('Left the room successfully');
+    } catch (error) {
+      console.error('Failed to leave the room:', error);
+    }
+  };
+  
   const callApi = async () => {
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['check'],
@@ -96,6 +125,7 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
       console.error('Error fetching user data:', error);
     }
   };
+
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && user.userIdSender) {
       event.preventDefault();
@@ -161,13 +191,13 @@ const LiveChat = ({ liveId, liveFarmerId }: LiveChatProps) => {
                 <div className="flex flex-col mr-2 text-darkGray">
                   <span className="whitespace-nowrap">{msg.nickName}</span>
                 </div>
-                <p className="text-14 break-words w-full pr-24">
+                <p className="break-all text-14 break-words w-full">
                   {msg.message}
                 </p>
               </>
             ) : (
               <>
-                <p className="text-14 break-words w-full flex justify-end pl-24">
+                <p className="break-all text-14 break-words w-full flex justify-end">
                   {msg.message}
                 </p>
                 {liveFarmerId === user.userIdSender ? (

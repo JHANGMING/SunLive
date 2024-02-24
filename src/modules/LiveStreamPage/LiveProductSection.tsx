@@ -9,7 +9,7 @@ const LiveProductSection = () => {
   return (
     <section className="pt-120 pb-85 mb-135 bg-liveStreamBG bg-repeat-x bg-bottom">
       <div className="container">
-        <CategoryTitle title="當月直播" gapStyle="mb-40" />
+        <CategoryTitle title="近期直播" gapStyle="mb-40" />
         <ul className="grid grid-cols-12 gap-x-24 gap-y-80">
           {upcomingLive?.slice(0, 6).map((data) => (
             <li
