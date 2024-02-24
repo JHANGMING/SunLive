@@ -1,14 +1,12 @@
 
 import Image from '@/common/components/CustomImage';
-import GlobalLink from '@/common/components/GlobalLink';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
-import LiveChat from './LiveChat';
 import { LivestreamingProps } from './data';
 import ChatAndProduct from './ChatAndProduct';
 const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
-  const liveId = liveDetailData?.liveId;
   const url=liveDetailData?.yturl;
+  const liveId = liveDetailData?.liveId;
   const liveFarmerId=liveDetailData?.liveFarmerId;
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">

@@ -69,7 +69,7 @@ const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
                 </GlobalLink>
               </div>
               {index === liveData.length - 1 && (
-                <div className="absolute right-16 top-40 z-10 transform translate-x-full -translate-y-full">
+                <div className="absolute right-[28px] top-40 z-10 transform translate-x-full -translate-y-full">
                   <Image
                     src="/images/liveStream/limitTimeSale_view.svg"
                     alt="limitTimeSale_view"

@@ -1,14 +1,38 @@
+import { useEffect, useState } from 'react';
 import Image from '@/common/components/CustomImage';
 import GlobalLink from '@/common/components/GlobalLink';
 import LiveChat from './LiveChat';
 import { ChatAndProductPorps } from './data';
 
 const ChatAndProduct = ({ liveDetailData, liveId, liveFarmerId,isFarmer=false  }:ChatAndProductPorps) => {
+  const [viewerCount, setViewerCount] = useState(0);
+  const [prevCount, setPrevCount] = useState(viewerCount);
+  const prevCountString = String(prevCount);
+  useEffect(() => {
+    if (viewerCount !== prevCount) {
+      setPrevCount(viewerCount);
+    }
+  }, [viewerCount, prevCount]);
   return (
     <>
-      <h6 className="font-normal p-16 border-b border-lightGray">
-        重點聊天室訊息
-      </h6>
+      <div className="flex items-center justify-between border-b border-lightGray">
+        <h6 className="font-normal p-16 ">重點聊天室訊息</h6>
+        <div className="flex items-center p-16 gap-8">
+          {String(viewerCount)
+            .split('')
+            .map((num, index) => {
+              const flip = prevCountString[index] === num;
+              return (
+                <div
+                  key={index}
+                  className={`bg-black text-white font-bold px-4 ${flip ? 'flip-animation' : ''}`}>
+                  {num}
+                </div>
+              );
+            })}
+          <div className="text-darkGray">人正在觀看</div>
+        </div>
+      </div>
       {/* 聊天室 */}
       <div className={`${isFarmer ? 'px-24 py-8' : 'p-24'}`}>
         <div
@@ -66,7 +90,11 @@ const ChatAndProduct = ({ liveDetailData, liveId, liveFarmerId,isFarmer=false  }
           </div>
         </div>
       </div>
-      <LiveChat liveId={liveId} liveFarmerId={liveFarmerId} />
+      <LiveChat
+        liveId={liveId}
+        liveFarmerId={liveFarmerId}
+        setViewerCount={setViewerCount}
+      />
     </>
   );
 };
