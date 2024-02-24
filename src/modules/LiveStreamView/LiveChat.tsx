@@ -73,9 +73,16 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
 
   //判斷是否離開頁面
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
+    const handleRouteChange = async (url: string) => {
       if (!url.includes('/livestream')) {
-        chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
+        if (!chatHubProxyRef.current) return;
+        if (isConnected) {
+          try {
+            await chatHubProxyRef.current.invoke('LeftLiveRoom', chatroomId);
+          } catch (error) {
+            console.error('Error invoking LeftLiveRoom:', error);
+          }
+        }
       }
     };
     router.events.on('routeChangeStart', handleRouteChange);

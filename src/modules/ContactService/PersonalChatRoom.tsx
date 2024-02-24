@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { BsFillXCircleFill, BsChevronLeft, BsCursorFill } from 'react-icons/bs';
 import { nextRoutes } from '@/constants/apiPaths';
 import Image from '@/common/components/CustomImage';
-import { ChatcontentType, PersonalChatRoomProps } from './data';
+import { PersonalChatRoomProps } from './data';
 const PersonalChatRoom = ({
   toggleExpand,
   setIsChatExpanded,
@@ -14,62 +14,17 @@ const PersonalChatRoom = ({
   chatMessages,
   chatroomId,
   userId,
+  chatHubProxyRef,
 }: PersonalChatRoomProps) => {
   const [newMessage, setNewMessage] = useState('');
-  const [isConnected, setIsConnected] = useState(false);
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
-  const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
-  const [messages, setMessages] = useState<ChatcontentType[]>(chatMessages);
-  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
 
   useEffect(() => {
     if (messagesEndRef.current) {
       const { current: messagesContainer } = messagesEndRef;
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
-  }, [messages]);
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const setupSignalRConnection = async () => {
-      try {
-        const { hubConnection } = await import('signalr-no-jquery');
-        const connection = hubConnection(apiUrl);
-        const chatHubProxy = connection.createHubProxy(
-          'chathub'
-        ) as unknown as SignalR.Hub.Proxy;
-
-        chatHubProxy.on('receiveMessage', (message) => {
-          const newMessages = message.chatcontent;
-          setMessages(newMessages);
-        });
-        chatHubProxyRef.current = chatHubProxy;
-
-        await connection
-          .start()
-          .done(() => {
-            console.log('Connected to SignalR server!');
-            setIsConnected(true);
-            JoinChatRoom(chatroomId);
-          })
-          .fail((error: Error) => {
-            console.error('Failed to connect to SignalR server:', error);
-          });
-      } catch (error) {
-        console.error('Failed to connect to SignalR server:', error);
-      }
-    };
-    setupSignalRConnection();
-    return () => {
-      chatHubProxyRef.current?.connection.stop();
-    };
-  }, []);
-  const JoinChatRoom = async (chatroomId: number) => {
-    try {
-      await chatHubProxyRef.current?.invoke('JoinChatRoom', chatroomId);
-    } catch (error) {
-      console.error('Failed to join chat room:', error);
-    }
-  };
+  }, [chatMessages]);
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && userId) {
@@ -78,12 +33,12 @@ const PersonalChatRoom = ({
     }
   };
   const handleSendMessage = async () => {
-    if (!isConnected || !userId || newMessage.trim() === '') {
+    if (!userId || newMessage.trim() === '') {
       return;
     }
 
     try {
-      await chatHubProxyRef.current?.invoke(
+      await chatHubProxyRef?.invoke(
         'SendMessageToRoom',
         chatroomId,
         userId,
@@ -137,7 +92,7 @@ const PersonalChatRoom = ({
         <ul
           className=" bg-SoftGray py-24 pl-24 pr-12  flex flex-col gap-16 h-[294px] overflow-y-auto"
           ref={messagesEndRef}>
-          {messages?.map((msg, index) => {
+          {chatMessages?.map((msg, index) => {
             return (
               <li
                 key={index}

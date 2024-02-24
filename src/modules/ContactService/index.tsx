@@ -1,5 +1,5 @@
-import useSWR from 'swr';
-import { useEffect, useState } from 'react';
+import useSWR, { mutate } from 'swr';
+import { useEffect, useRef, useState } from 'react';
 import { BsInfoCircleFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsFillXCircleFill, BsChatText } from 'react-icons/bs';
@@ -15,6 +15,7 @@ import { clearFamerId } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { ChatDataType, ChatcontentType } from './data';
 import PersonalChatRoom from './PersonalChatRoom';
+import { JoinChatRoom } from './signalRService';
 
 const ContactService = () => {
   const auth = useAuth();
@@ -25,10 +26,9 @@ const ContactService = () => {
   );
   const { data: notify } = useSWR(
     authStatus ? `/api${nextRoutes['notify']}` : null,
-    fetcher,
-    // { refreshInterval: 10000 }
+    fetcher
   );
-
+  
   const isReady = notify?.haveUnreadMessage;
   const { isReadyToShowChat, farmerId } = useSelector(
     (state: RootState) => state?.message
@@ -37,7 +37,9 @@ const ContactService = () => {
   const [userId, setUserId] = useState(0);
   const [chatroomId, setChatroomId] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
   const [isChatExpanded, setIsChatExpanded] = useState(false);
+  const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
   const [chatMessages, setChatMessages] = useState<ChatcontentType[]>([]);
   const [farmer, setFarmer] = useState({
     farmerId: 0,
@@ -46,6 +48,7 @@ const ContactService = () => {
   });
   const isFarmer = auth?.category === '1';
   const chatData = data?.chatList;
+  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   useEffect(() => {
     if (!isReadyToShowChat) return;
     setFarmer((prevFarmer) => ({
@@ -56,6 +59,49 @@ const ContactService = () => {
     setIsExpanded(true);
     setIsChatExpanded(true);
   }, [isReadyToShowChat]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const setupSignalRConnection = async () => {
+      try {
+        const { hubConnection } = await import('signalr-no-jquery');
+        const connection = hubConnection(apiUrl);
+        const chatHubProxy = connection.createHubProxy(
+          'chathub'
+        ) as unknown as SignalR.Hub.Proxy;
+
+        chatHubProxy.on('receiveMessage', (message) => {
+          const newMessages = message.chatcontent;
+          mutate(`/api${nextRoutes['notify']}`);
+          setChatMessages(newMessages);
+        });
+        chatHubProxy.on('receivePeople', (message) => {
+          console.log('receivePeople111:', message);
+        });
+        chatHubProxyRef.current = chatHubProxy;
+
+        await connection
+          .start()
+          .done(() => {
+            console.log('Connected to SignalR server!');
+            console.log('chatroomId:', chatroomId);
+            setIsConnected(true);
+            if (chatroomId) {
+              JoinChatRoom(chatHubProxyRef.current, chatroomId);
+            }
+          })
+          .fail((error: Error) => {
+            console.error('Failed to connect to SignalR server:', error);
+          });
+      } catch (error) {
+        console.error('Failed to connect to SignalR server:', error);
+      }
+    };
+    setupSignalRConnection();
+    return () => {
+      chatHubProxyRef.current?.connection.stop();
+    };
+  }, [chatroomId]);
 
   const getChatApi = async (farmerId: number) => {
     const apiParams: apiParamsType = {
@@ -207,7 +253,6 @@ const ContactService = () => {
       )}
       {isChatExpanded && (
         <PersonalChatRoom
-          key={Date.now()}
           toggleExpand={toggleExpand}
           setIsChatExpanded={setIsChatExpanded}
           setChatMessages={setChatMessages}
@@ -216,6 +261,7 @@ const ContactService = () => {
           farmerInfo={farmer}
           chatroomId={chatroomId}
           setFarmer={setFarmer}
+          chatHubProxyRef={chatHubProxyRef.current}
         />
       )}
     </div>
