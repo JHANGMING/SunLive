@@ -121,13 +121,9 @@ export const nextRoutes = {
   //chat
   check: '/chat/check',
   getmessage: '/chat/getmessage',
-<<<<<<< HEAD
   joinroom:"/chat/joinroom",
 
   test: "/test",
-=======
-  joinroom: '/chat/joinroom',
   notify: '/chat/notify',
->>>>>>> dev
 };
 
