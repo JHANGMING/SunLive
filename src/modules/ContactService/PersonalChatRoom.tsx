@@ -10,6 +10,8 @@ const PersonalChatRoom = ({
   setIsChatExpanded,
   setChatMessages,
   setFarmer,
+  setupSignalRConnection,
+  isConnected,
   farmerInfo,
   chatMessages,
   chatroomId,
@@ -18,13 +20,35 @@ const PersonalChatRoom = ({
 }: PersonalChatRoomProps) => {
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
-
   useEffect(() => {
     if (messagesEndRef.current) {
-      const { current: messagesContainer } = messagesEndRef;
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     }
   }, [chatMessages]);
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          if (messagesEndRef.current) {
+            messagesEndRef.current.scrollTop =
+              messagesEndRef.current.scrollHeight;
+          }
+        }
+      }
+    });
+
+    if (messagesEndRef.current) {
+      observer.observe(messagesEndRef.current, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+      });
+    }
+    return () => {
+      observer.disconnect();
+    };
+  }, []); 
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && userId) {
@@ -36,7 +60,9 @@ const PersonalChatRoom = ({
     if (!userId || newMessage.trim() === '') {
       return;
     }
-
+    if (!isConnected) {
+      setupSignalRConnection();
+    }
     try {
       await chatHubProxyRef?.invoke(
         'SendMessageToRoom',

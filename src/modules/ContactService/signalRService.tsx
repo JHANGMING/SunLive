@@ -1,4 +1,3 @@
-
 export const JoinChatRoom = async (
   chatHubProxyRef: SignalR.Hub.Proxy | null,
   chatroomId: number

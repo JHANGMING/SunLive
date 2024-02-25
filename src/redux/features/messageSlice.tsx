@@ -1,20 +1,22 @@
-import { ChatcontentType } from '@/modules/ContactService/data';
+
 import { createSlice } from '@reduxjs/toolkit';
 
 
 interface InitialStateType {
   isLoading: boolean;
   showMessage: boolean;
-  isReadyToShowChat:boolean;
+  isReadyToShowChat: boolean;
   message: string;
   farmerId: number;
+  livechatroomId: number;
 }
 const initialState: InitialStateType = {
   isLoading: false,
   showMessage: false,
-  isReadyToShowChat:false,
+  isReadyToShowChat: false,
   message: '',
   farmerId: 0,
+  livechatroomId: 0,
 };
 
 export const messageSlice = createSlice({
@@ -35,6 +37,9 @@ export const messageSlice = createSlice({
       state.showMessage = false;
       state.message = '';
     },
+    setLiveRoomId: (state, action) => {
+      state.livechatroomId = action.payload;
+    },
     setFamerId: (state, action) => {
       state.farmerId = action.payload;
       state.isReadyToShowChat = true;
@@ -53,6 +58,7 @@ export const {
   hideToast,
   setFamerId,
   clearFamerId,
+  setLiveRoomId,
 } = messageSlice.actions;
 
 export default messageSlice.reducer;

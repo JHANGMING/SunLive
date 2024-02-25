@@ -11,11 +11,11 @@ import { fetcher } from '@/common/helpers/fetcher';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { clearFamerId } from '@/redux/features/messageSlice';
+import { clearFamerId} from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { ChatDataType, ChatcontentType } from './data';
 import PersonalChatRoom from './PersonalChatRoom';
 import { JoinChatRoom } from './signalRService';
+import { ChatDataType, ChatcontentType } from './data';
 
 const ContactService = () => {
   const auth = useAuth();
@@ -33,6 +33,7 @@ const ContactService = () => {
   const { isReadyToShowChat, farmerId } = useSelector(
     (state: RootState) => state?.message
   );
+
   const dispatch = useDispatch();
   const [userId, setUserId] = useState(0);
   const [chatroomId, setChatroomId] = useState(0);
@@ -46,6 +47,8 @@ const ContactService = () => {
     farmerName: '',
     farmerPhoto: '',
   });
+
+  const id= auth?.id;
   const isFarmer = auth?.category === '1';
   const chatData = data?.chatList;
   const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
@@ -62,46 +65,57 @@ const ContactService = () => {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const setupSignalRConnection = async () => {
-      try {
-        const { hubConnection } = await import('signalr-no-jquery');
-        const connection = hubConnection(apiUrl);
-        const chatHubProxy = connection.createHubProxy(
-          'chathub'
-        ) as unknown as SignalR.Hub.Proxy;
-
-        chatHubProxy.on('receiveMessage', (message) => {
-          const newMessages = message.chatcontent;
-          mutate(`/api${nextRoutes['notify']}`);
-          setChatMessages(newMessages);
-        });
-        chatHubProxy.on('receivePeople', (message) => {
-          console.log('receivePeople111:', message);
-        });
-        chatHubProxyRef.current = chatHubProxy;
-
-        await connection
-          .start()
-          .done(() => {
-            console.log('Connected to SignalR server!');
-            console.log('chatroomId:', chatroomId);
-            setIsConnected(true);
-            if (chatroomId) {
-              JoinChatRoom(chatHubProxyRef.current, chatroomId);
-            }
-          })
-          .fail((error: Error) => {
-            console.error('Failed to connect to SignalR server:', error);
-          });
-      } catch (error) {
-        console.error('Failed to connect to SignalR server:', error);
-      }
-    };
     setupSignalRConnection();
     return () => {
       chatHubProxyRef.current?.connection.stop();
+      setIsConnected(false);
     };
   }, [chatroomId]);
+
+  useEffect(() => {
+    if (!isConnected) {
+      setupSignalRConnection();
+    }
+  }, [isConnected]);
+
+   const setupSignalRConnection = async () => {
+    if (chatHubProxyRef.current && isConnected) {
+      return;
+    }
+    try {
+      const { hubConnection } = await import('signalr-no-jquery');
+      const connection = hubConnection(apiUrl);
+      const chatHubProxy = connection.createHubProxy('chathub');
+
+      chatHubProxy.on('receiveMessage', (message) => {
+        const newMessages = message.chatcontent;
+        mutate(`/api${nextRoutes['notify']}`);
+        setChatMessages(newMessages);
+      });
+
+      chatHubProxyRef.current = chatHubProxy as any;
+      await connection
+        .start()
+        .done(() => {
+          console.log('Connected to SignalR server!');
+          setIsConnected(true);
+          if (chatroomId ) {
+            JoinChatRoom(
+              chatHubProxyRef.current,
+              chatroomId
+            );
+          }
+        })
+        .fail((error:Error) => {
+          setIsConnected(false);
+        });
+        connection.disconnected(() => {
+          setIsConnected(false); 
+        });
+    } catch (error) {
+      setIsConnected(false);
+    }
+  };
 
   const getChatApi = async (farmerId: number) => {
     const apiParams: apiParamsType = {
@@ -131,12 +145,14 @@ const ContactService = () => {
   const toggleExpand = () => {
     dispatch(clearFamerId());
     setIsExpanded((prevState) => !prevState);
+    mutate(`/api${nextRoutes['notify']}`);
+    mutate(`/api${nextRoutes['getmessage']}`);
     if (isChatExpanded) {
       setIsChatExpanded(false);
     }
   };
-
-  const handlerOpenChat = (
+  
+  const handlerOpenChat = async (
     farmerId: number,
     nickName: string,
     photo: string
@@ -256,11 +272,13 @@ const ContactService = () => {
           toggleExpand={toggleExpand}
           setIsChatExpanded={setIsChatExpanded}
           setChatMessages={setChatMessages}
+          setupSignalRConnection={setupSignalRConnection}
           userId={userId}
           chatMessages={chatMessages}
           farmerInfo={farmer}
           chatroomId={chatroomId}
           setFarmer={setFarmer}
+          isConnected={isConnected}
           chatHubProxyRef={chatHubProxyRef.current}
         />
       )}
