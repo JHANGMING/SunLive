@@ -41,6 +41,8 @@ export const apiPaths = {
   productlist_live: '/api/farmer/live/productlist',
   liveSet: '/api/livesetting',
   livelist: '/api/farmer/livelist',
+  identity: '/api/livesetting/google',
+  verify: '/api/livesetting/authcode',
 
   //dashboard-order
   getorderlist: '/api/farmer/orderlist',
@@ -107,6 +109,8 @@ export const nextRoutes = {
   editlive: '/dashboard/live/editlive',
   editliveproduct: '/dashboard/live/editliveproduct',
   livelist: '/dashboard/live/livelist',
+  identity: '/dashboard/live/identity',
+  verify: '/dashboard/live/verify',
 
   //dashboard-order
   getorderlist: '/dashboard/order/getorderlist',
@@ -121,9 +125,9 @@ export const nextRoutes = {
   //chat
   check: '/chat/check',
   getmessage: '/chat/getmessage',
-  joinroom:"/chat/joinroom",
+  joinroom: '/chat/joinroom',
 
-  test: "/test",
+  test: '/test',
   notify: '/chat/notify',
 };
 
