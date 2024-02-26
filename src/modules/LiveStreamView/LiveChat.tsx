@@ -47,9 +47,13 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
 
   //判斷是否離開頁面
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      if (!url.includes('/livestream') && chatHubProxyRef.current) {
-        chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
+    const handleRouteChange = async(url: string) => {
+      if (!url.includes('/livestream')) {
+        try {
+          chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
+        } catch (error) {
+          console.error('Error leaving live room:', error);
+        }
       }
     };
     router.events.on('routeChangeStart', handleRouteChange);
@@ -68,7 +72,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         'chathub'
       ) as unknown as SignalR.Hub.Proxy;
 
-      chatHubProxy.on('receiveMessage', (message: Message) => {
+      chatHubProxy.on('receiveLiveMessage', (message: Message) => {
         mutate(`/api${nextRoutes['live']}?id=${liveId}`);
         setMessages((prevMessages) => [...prevMessages, message]);
       });
@@ -147,7 +151,6 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         user.photoSender,
         newMessage
       );
-      console.log('Message sent successfully');
       setNewMessage('');
     } catch (error) {
       console.error('Failed to send message:', error);
@@ -244,7 +247,6 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyPress={handleKeyPress}
         />
-        {/* 要用token鎖住 */}
         <BsCursorFill
           size={24}
           className={`${user.userIdSender ? 'text-primary-red hover:opacity-60' : 'text-darkGray'} cursor-pointer`}

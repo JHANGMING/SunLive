@@ -1,6 +1,6 @@
 import useSWR, { mutate } from 'swr';
-import { useEffect, useRef, useState } from 'react';
 import { BsInfoCircleFill } from 'react-icons/bs';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsFillXCircleFill, BsChatText } from 'react-icons/bs';
 import { RootState } from '@/redux/store';
@@ -11,10 +11,10 @@ import { fetcher } from '@/common/helpers/fetcher';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { clearFamerId} from '@/redux/features/messageSlice';
+import { clearFamerId, setToast} from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import PersonalChatRoom from './PersonalChatRoom';
 import { JoinChatRoom } from './signalRService';
+import PersonalChatRoom from './PersonalChatRoom';
 import { ChatDataType, ChatcontentType } from './data';
 
 const ContactService = () => {
@@ -48,7 +48,8 @@ const ContactService = () => {
     farmerPhoto: '',
   });
 
-  const id= auth?.id;
+  const id= Number(auth?.id);
+
   const isFarmer = auth?.category === '1';
   const chatData = data?.chatList;
   const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
@@ -92,13 +93,18 @@ const ContactService = () => {
         mutate(`/api${nextRoutes['notify']}`);
         setChatMessages(newMessages);
       });
+      chatHubProxy.on('notifyMessage', (message) => {
+        dispatch(setToast({message:message}));
+      });
 
       chatHubProxyRef.current = chatHubProxy as any;
       await connection
         .start()
         .done(() => {
-          console.log('Connected to SignalR server!');
           setIsConnected(true);
+          if(id){
+            chatHubProxyRef.current?.invoke('AddintoSocket', id);
+          }
           if (chatroomId ) {
             JoinChatRoom(
               chatHubProxyRef.current,
