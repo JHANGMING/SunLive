@@ -1,15 +1,13 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
-import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import usePagination from '@/common/hooks/usePagination';
 import { setToast } from '@/redux/features/messageSlice';
-import { DynamicTableProps} from './data';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 import { updateLiveDataWithFutureFlag } from '@/common/helpers/updatedLiveDat';
-import { useRouter } from 'next/router';
+import { DynamicTableProps} from './data';
 
 const LiveListTable = ({ columns }: DynamicTableProps) => {
   const listData= useSelector(
@@ -23,9 +21,6 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
   const data = updataListData;
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [data]);
   const { currentData, maxPage, dataLength } = usePagination(
     data,
     itemsPerPage,
