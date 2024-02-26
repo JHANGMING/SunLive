@@ -6,7 +6,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { nextRoutes } from '@/constants/apiPaths';
 import { useEffect, useRef, useState } from 'react';
 import Image from '@/common/components/CustomImage';
-import { setToast } from '@/redux/features/messageSlice';
+import { setLiveRoomId, setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
 
@@ -21,7 +21,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     photoSender: '',
   });
   const [isConnected, setIsConnected] = useState(false);
-  const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
+   const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
   const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   const dispatch = useDispatch();
@@ -32,78 +32,84 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     }
   }, [messages]);
   useEffect(() => {
+    if(!liveId) return;
+    dispatch(setLiveRoomId(liveId));
+  }, [liveId]);
+  useEffect(() => {
     if (typeof window === 'undefined') return;
-    const setupSignalRConnection = async () => {
-      try {
-        const { hubConnection } = await import('signalr-no-jquery');
-        const connection = hubConnection(apiUrl);
-        const chatHubProxy = connection.createHubProxy(
-          'chathub'
-        ) as unknown as SignalR.Hub.Proxy;
-
-        chatHubProxy.on('receiveMessage', (message: Message) => {
-          mutate(`/api${nextRoutes['live']}?id=${liveId}`);
-          setMessages((prevMessages) => [...prevMessages, message]);
-        });
-        chatHubProxy.on('receivePeople', (message) => {
-          setViewerCount(message);
-        });
-
-        chatHubProxyRef.current = chatHubProxy;
-
-        await connection
-          .start()
-          .done(() => {
-            console.log('Connected to SignalR server!');
-            setIsConnected(true);
-            JoinChatRoom(chatroomId);
-          })
-          .fail((error: Error) => {
-            console.error('Failed to connect to SignalR server:', error);
-          });
-      } catch (error) {
-        console.error('Failed to connect to SignalR server:', error);
-      }
-    };
     setupSignalRConnection();
     return () => {
       chatHubProxyRef.current?.connection.stop();
+      setIsConnected(false);
     };
   }, [chatroomId]);
 
+
   //判斷是否離開頁面
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
+    const handleRouteChange = async(url: string) => {
       if (!url.includes('/livestream')) {
-        chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
+        try {
+          chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
+        } catch (error) {
+          console.error('Error leaving live room:', error);
+        }
       }
     };
     router.events.on('routeChangeStart', handleRouteChange);
     return () => {
       router.events.off('routeChangeStart', handleRouteChange);
-      leaveChatRoom(); 
     };
   }, [router]);
+  const setupSignalRConnection = async () => {
+    if (chatHubProxyRef.current && isConnected) {
+      return;
+    }
+    try {
+      const { hubConnection } = await import('signalr-no-jquery');
+      const connection = hubConnection(apiUrl);
+      const chatHubProxy = connection.createHubProxy(
+        'chathub'
+      ) as unknown as SignalR.Hub.Proxy;
 
+      chatHubProxy.on('receiveLiveMessage', (message: Message) => {
+        mutate(`/api${nextRoutes['live']}?id=${liveId}`);
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
+      chatHubProxy.on('receivePeople', (message) => {
+        setViewerCount(message);
+      });
+
+      chatHubProxyRef.current = chatHubProxy;
+
+      await connection
+        .start()
+        .done(() => {
+          console.log('Connected to SignalR server!');
+          setIsConnected(true);
+          JoinChatRoom(chatroomId)
+            .then(() => callApi())
+            .catch((error) => console.error(error));
+        })
+        .fail((error: Error) => {
+          setIsConnected(false);
+        });
+        
+    } catch (error) {
+      console.error('Failed to connect to SignalR server:', error);
+    }
+  };
   const JoinChatRoom = async (chatroomId: string) => {
+    if (!chatHubProxyRef.current) {
+      return;
+    }
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
-      callApi();
     } catch (error) {
-      console.error('ChatHubProxy is not initialized or join failed:', error);
+      
     }
   };
 
-  const leaveChatRoom = async () => {
-    if (!isConnected || !chatHubProxyRef.current) return;
-    try {
-      await chatHubProxyRef.current.invoke('LeftLiveRoom', chatroomId);
-      console.log('Left the room successfully');
-    } catch (error) {
-      console.error('Failed to leave the room:', error);
-    }
-  };
-  
   const callApi = async () => {
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['check'],
@@ -145,12 +151,30 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         user.photoSender,
         newMessage
       );
-      console.log('Message sent successfully');
       setNewMessage('');
     } catch (error) {
       console.error('Failed to send message:', error);
     }
   };
+  const handerShare=async()=>{
+    const farmerMsg =
+      `歡迎揪親朋好友來加入我的直播特賣: https://sun-live.vercel.app/livestream/${liveId}`;
+    if (!isConnected || !user.userIdSender) {
+      return;
+    }
+    try {
+      await chatHubProxyRef.current?.invoke(
+        'SendMessageToLiveRoom',
+        chatroomId,
+        user.userIdSender,
+        user.nameSender,
+        user.photoSender,
+        farmerMsg
+      );
+    } catch (error) {
+      console.error('Failed to send message:', error);
+    }
+  }
   return (
     <>
       <ul
@@ -223,6 +247,16 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
           </li>
         ))}
       </ul>
+      {user.userIdSender===liveFarmerId && (
+      <div className=" text-end mb-8 mr-8">
+        <button
+          type="button"
+          className="text-white bg-primary-green rounded-8 text-14 leading-[30px] py-[5px] px-26 hover:opacity-80"
+          onClick={handerShare}>
+          分享網址
+        </button>
+      </div>
+      )}
       <div className="border-t border-lightGray p-24 gap-16 flex items-center justify-between">
         {user.photoSender ? (
           <Image
@@ -242,7 +276,6 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyPress={handleKeyPress}
         />
-        {/* 要用token鎖住 */}
         <BsCursorFill
           size={24}
           className={`${user.userIdSender ? 'text-primary-red hover:opacity-60' : 'text-darkGray'} cursor-pointer`}

@@ -26,6 +26,9 @@ export type PersonalChatRoomProps = {
   chatMessages: ChatcontentType[];
   userId: number;
   chatroomId: number;
+  chatHubProxyRef: SignalR.Hub.Proxy | null;
+  setupSignalRConnection: () => void;
+  isConnected: boolean;
 };
 
 export type ChatcontentType = {

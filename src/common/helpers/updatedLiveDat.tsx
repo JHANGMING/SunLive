@@ -7,10 +7,9 @@ export const updateLiveDataWithFutureFlag = (listData: LivedetailDateType[]) => 
   return listData.map((event) => {
     const eventDate = new Date(event.liveDate.replace(/\//g, '-'));
     eventDate.setHours(0, 0, 0, 0);
-
     return {
       ...event,
-      isFuture: eventDate >= today,
+      isFuture: eventDate.getTime() === today.getTime(),
     };
   });
 };

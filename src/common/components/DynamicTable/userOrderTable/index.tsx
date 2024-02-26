@@ -1,15 +1,12 @@
-import { useEffect, useState } from 'react';
-import { DynamicTableProps } from '../data';
+import { useState } from 'react';
 import usePagination from '@/common/hooks/usePagination';
 import { transOrderData } from '@/common/helpers/transOrderData';
+import { DynamicTableProps } from '../data';
 
 const DynamicTable = ({ columns, data }: DynamicTableProps) => {
   const transformData = transOrderData(data);
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [transformData]);
   const { currentData, maxPage, dataLength } = usePagination(
     transformData,
     itemsPerPage,
