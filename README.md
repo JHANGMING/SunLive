@@ -98,7 +98,7 @@
       5. 前往前台 `直播特惠` 頁面，瀏覽 `近期直播` 直播場次
 
 ## 技術規格 
-<h2 align="center">設計工具</h2>
+<h2 align="center">UI端</h2>
  <p>
   <img alt="Figma" src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
   <img alt="Canva" src="https://img.shields.io/badge/Canva-%2300C4CC.svg?&style=for-the-badge&logo=Canva&logoColor=white" />
@@ -111,7 +111,7 @@
 
 * 設計稿製作：Figma
     * 用於製作線稿、精稿及 prototype。
-    * 方便團隊之間協作，理解產品操作流程
+    * 強化團隊合作與溝通，使成員能夠清晰掌握產品的設計理念和用戶體驗路徑。
 
 * 繪圖工具：Procreate
    - 用於繪製插圖及 loading 動畫
