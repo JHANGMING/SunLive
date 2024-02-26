@@ -41,6 +41,7 @@ const LiveSettings = () => {
   } = useForm<FormValues>();
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
+      console.log('Received message:', event);
       const expectedOrigin = 'https://sun-live.vercel.app';
       if (event.origin !== expectedOrigin) {
         console.warn('Received message from unexpected origin:', event.origin);
