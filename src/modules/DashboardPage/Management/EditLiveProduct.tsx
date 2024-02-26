@@ -43,7 +43,7 @@ const EditLiveProduct = ({ liveId }:EditLiveProductProps) => {
   };
   return (
     <ul className="flex gap-10 justify-between w-full flex-wrap mt-32">
-      {liveProudctData?.map((data:LiveProductType) => (
+      {liveProudctData?.map((data: LiveProductType) => (
         <li className="w-[49%]" key={data.liveProductId}>
           <div className=" bg-SoftGray rounded-20 p-16 flex gap-16">
             <div className="flex flex-col items-center gap-8">
@@ -64,7 +64,9 @@ const EditLiveProduct = ({ liveId }:EditLiveProductProps) => {
             </div>
             <div className="text-darkGray flex flex-col gap-8 w-full">
               <div className=" flex gap-8 items-center">
-                <h4 className="text-16 min-h-[50px]">{data?.liveProductName}</h4>
+                <h4 className="text-16 min-h-[50px]">
+                  {data?.liveProductName}
+                </h4>
               </div>
               <p className="">
                 剩餘{' '}
@@ -75,8 +77,9 @@ const EditLiveProduct = ({ liveId }:EditLiveProductProps) => {
               </p>
               <button
                 type="button"
-                className="text-white w-full rounded-8 text-center bg-primary-red cursor-pointer mt-8 hover:opacity-60"
-                onClick={() => handerToTopChat(data.liveProductId)}>
+                className={`${data?.liveProductStock === 0 ? 'bg-blueGray cursor-not-allowed' : 'bg-primary-red cursor-pointer hover:opacity-60'} text-white w-full rounded-8 text-center  mt-8 `}
+                onClick={() => handerToTopChat(data.liveProductId)}
+                disabled={data?.liveProductStock === 0}>
                 加入置頂聊天室
               </button>
             </div>
