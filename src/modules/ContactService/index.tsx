@@ -96,6 +96,9 @@ const ContactService = () => {
       chatHubProxy.on('notifyMessage', (message) => {
         dispatch(setToast({message:message}));
       });
+      chatHubProxy.on('notifyShipment', (message) => {
+        dispatch(setToast({ message: message }));
+      });
 
       chatHubProxyRef.current = chatHubProxy as any;
       await connection
