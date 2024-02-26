@@ -41,13 +41,21 @@ const LiveSettings = () => {
   } = useForm<FormValues>();
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.data.type === 'auth') {
+      const expectedOrigin = 'https://sun-live.vercel.app';
+      if (event.origin !== expectedOrigin) {
+        console.warn('Received message from unexpected origin:', event.origin);
+        return;
+      }
+      if (event.data && event.data.type === 'auth') {
         console.log('Received token:', event.data.token);
-
       }
     };
+
     window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
   }, []);
   const triggerFileInput = () => {
     fileInputRef.current?.click();
