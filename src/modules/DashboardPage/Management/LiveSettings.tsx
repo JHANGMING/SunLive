@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
@@ -18,13 +18,20 @@ import {
   LiveDataType,
   transformLiveData,
 } from '@/common/helpers/transDataForLiveSelect';
+import { useRouter } from 'next/router';
+import useAuth from '@/common/hooks/useAuth';
 
 const LiveSettings = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [products, setProducts] = useState<any[]>([]);
+  const [accessToken, setAccessToken] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
+  const auth=useAuth();
+  console.log('auth:', auth);
+  
+  const router=useRouter();
   const {
     control,
     register,
@@ -32,7 +39,16 @@ const LiveSettings = () => {
     formState: { errors },
     reset,
   } = useForm<FormValues>();
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data.type === 'auth') {
+        console.log('Received token:', event.data.token);
 
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
@@ -85,7 +101,6 @@ const LiveSettings = () => {
       };
       try {
         const result = await fetchNextApi(apiParams);
-        console.log('addlive', result);
         if (result.statusCode !== 200) {
           dispatch(setToast({ message: result.message }));
           return;
@@ -94,7 +109,6 @@ const LiveSettings = () => {
           const url = `/api${nextRoutes['uploadliveImg']}?id=${result.data.liveId}`;
           const imgResponse = await fetch(url, imgParams);
           const imgResult = await imgResponse.json();
-          console.log('imgResult', imgResult);
           if (imgResult.statusCode !== 200) {
             dispatch(setToast({ message: imgResult.message }));
             return;
@@ -115,7 +129,22 @@ const LiveSettings = () => {
       }
     }
   };
+  const handlerIdentity = async() => {
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['identity'],
+      method: 'GET',
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+       window.open(result.url, '_blank');
+      }
 
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
       <h3 className=" text-20 font-semibold mb-32">直播設定</h3>
@@ -279,9 +308,14 @@ const LiveSettings = () => {
             </div>
           ))}
         </div>
-        <Button category="submit" classStyle="self-end hover:opacity-70">
-          儲存
-        </Button>
+        <div className="self-end">
+          <Button category="default" classStyle="mr-16 hover:opacity-70" onClick={handlerIdentity}>
+            驗證帳號
+          </Button>
+          <Button category="submit" classStyle="hover:opacity-70">
+            儲存
+          </Button>
+        </div>
       </form>
     </div>
   );
