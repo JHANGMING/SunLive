@@ -19,7 +19,7 @@ const EditLiveProduct = ({ liveId }:EditLiveProductProps) => {
     (item:LivedetailDateType) => item.liveId === Number(liveId)
   );
   const liveProudctData = liveProductList?.liveProudct;
-
+  
   const handerToTopChat = async (liveProductId: string) => {
     const dataObj = {
       liveProductId,
