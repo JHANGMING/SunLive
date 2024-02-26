@@ -156,6 +156,25 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       console.error('Failed to send message:', error);
     }
   };
+  const handerShare=async()=>{
+    const farmerMsg =
+      `歡迎揪親朋好友來加入我的直播特賣: https://sun-live.vercel.app/livestream/${liveId}`;
+    if (!isConnected || !user.userIdSender) {
+      return;
+    }
+    try {
+      await chatHubProxyRef.current?.invoke(
+        'SendMessageToLiveRoom',
+        chatroomId,
+        user.userIdSender,
+        user.nameSender,
+        user.photoSender,
+        farmerMsg
+      );
+    } catch (error) {
+      console.error('Failed to send message:', error);
+    }
+  }
   return (
     <>
       <ul
@@ -228,6 +247,16 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
           </li>
         ))}
       </ul>
+      {user.userIdSender===liveFarmerId && (
+      <div className=" text-end mb-8 mr-8">
+        <button
+          type="button"
+          className="text-white bg-primary-green rounded-8 text-14 leading-[30px] py-[5px] px-26 hover:opacity-80"
+          onClick={handerShare}>
+          分享網址
+        </button>
+      </div>
+      )}
       <div className="border-t border-lightGray p-24 gap-16 flex items-center justify-between">
         {user.photoSender ? (
           <Image
