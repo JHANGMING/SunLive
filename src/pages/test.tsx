@@ -34,7 +34,16 @@ const Test = () => {
       const result = await fetchNextApi(apiParams);
       console.log('verify', result);
       if (result.statusCode === 200) {
-        setToken(result.data.token);
+        // setToken(result.data.token);
+        if (window.opener) {
+          window.opener.postMessage(
+            { type: 'auth', token: result.token },
+            'https://sun-live.vercel.app'
+          );
+          window.close();
+        } else {
+          console.error('No window.opener available');
+        }
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
