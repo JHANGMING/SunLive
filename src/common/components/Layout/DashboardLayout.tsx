@@ -5,14 +5,14 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const DashboardLayout = ({ children }:DashboardLayoutProps) => {
-  const auth = useAuth();
-   const router = useRouter();
-  useEffect(() => {
-    if (auth?.category !== '1') {
-      router.replace('/404');
-    }
-  }, [auth]);
-  if (auth?.category !== '1') return null;
+  // const auth = useAuth();
+  //  const router = useRouter();
+  // useEffect(() => {
+  //   if (auth?.category !== '1') {
+  //     router.replace('/404');
+  //   }
+  // }, [auth]);
+  // if (auth?.category !== '1') return null;
   return (
     <section className="pt-60 pb-[194px] container flex gap-[74px]">
       <DashboardPage />
