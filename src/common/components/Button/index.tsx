@@ -33,7 +33,11 @@ const Button = ({
     case 'submit':
       return <SubmitButton classStyle={classStyle}>{children}</SubmitButton>;
     case 'default':
-      return <DefaultButton classStyle={classStyle}>{children}</DefaultButton>;
+      return (
+        <DefaultButton classStyle={classStyle} onClick={onClick}>
+          {children}
+        </DefaultButton>
+      );
     default:
       return null;
   }
