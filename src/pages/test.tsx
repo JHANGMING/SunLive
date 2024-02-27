@@ -20,7 +20,7 @@ const Test = () => {
       } else {
         console.error('No window.opener available');
       }
-      window.close();
+      // window.close();
     }
   }, [router, token]);
 
