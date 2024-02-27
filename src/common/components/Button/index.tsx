@@ -10,6 +10,7 @@ const Button = ({
   onClick,
   children,
   classStyle,
+  disabled,
   type,
   ...props
 }: ButtonPropsType) => {
@@ -34,7 +35,10 @@ const Button = ({
       return <SubmitButton classStyle={classStyle}>{children}</SubmitButton>;
     case 'default':
       return (
-        <DefaultButton classStyle={classStyle} onClick={onClick}>
+        <DefaultButton
+          classStyle={classStyle}
+          onClick={onClick}
+          disabled={disabled}>
           {children}
         </DefaultButton>
       );
