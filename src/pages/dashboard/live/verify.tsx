@@ -1,19 +1,23 @@
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
 import { nextRoutes } from "@/constants/apiPaths";
-import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
 import Loading from '@/common/components/Loading/Loading';
-const Test = () => {
+import { showLoading } from '@/redux/features/messageSlice';
+import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
+const Verify = () => {
   const router = useRouter();
-  const [token, setToken] = useState('')
+  const dispatch = useDispatch();
+  const [token, setToken] = useState('');
   useEffect(() => {
+    dispatch(showLoading());
     const { code } = router.query;
     if (code) {
       handerVerify(code as string);
     }
   }, [router, token]);
 
-  const handerVerify = async (code:string) => {
+  const handerVerify = async (code: string) => {
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['verify'],
       method: 'POST',
@@ -37,9 +41,7 @@ const Test = () => {
       console.error('Error fetching user data:', error);
     }
   };
-  return (
-    <Loading/>
-  );
+  return <Loading />;
 };
 
-export default Test;
+export default Verify;
