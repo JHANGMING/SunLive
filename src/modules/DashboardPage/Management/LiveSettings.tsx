@@ -321,12 +321,15 @@ const LiveSettings = () => {
           ))}
         </div>
         <div className="self-end">
-          {accessToken || (
-
-          <Button category="default" classStyle="mr-16 hover:opacity-70" onClick={handlerIdentity}>
-            驗證帳號
-          </Button>
-          )}
+       
+            <Button
+              category="default"
+              classStyle="mr-16 hover:opacity-70"
+              onClick={handlerIdentity}
+              disabled={accessToken?true:false}>
+              驗證帳號
+            </Button>
+    
           <Button category="submit" classStyle="hover:opacity-70">
             儲存
           </Button>
