@@ -59,6 +59,11 @@ export type LiveProductType = {
   liveProductStock: number;
 };
 
+export type LiveAccontVerifyProps = {
+  accessToken: string;
+  setAccessToken: (token: string) => void;
+};
+
 export const statusData: OptionType[] = [
   { value: 'false', label: '下架' },
   { value: 'true', label: '上架' },
