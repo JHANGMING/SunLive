@@ -47,6 +47,7 @@ const LiveSettings = () => {
         return;
       }
       if (event.data && event.data.type === 'auth') {
+        setAccessToken(event.data.token);
         console.log('Received token:', event.data.token);
       }
     };
@@ -93,7 +94,10 @@ const LiveSettings = () => {
       endTime: data.endTime,
       yturl: data.yturl,
       liveproduct,
+      accessToken,
     };
+    console.log('dataObj:', dataObj);
+    
     if (selectedFile) {
       const formData = new FormData();
       formData.append('image', selectedFile);
