@@ -16,7 +16,7 @@ const Test = () => {
           { type: 'auth', token: token },
           'https://sun-live.vercel.app'
         );
-        // window.close();
+        window.close();
       } else {
         console.error('No window.opener available');
       }
