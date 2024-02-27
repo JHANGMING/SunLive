@@ -1,8 +1,8 @@
-import AddToCartButton from './AddToCartButton';
 import AuthButton from './AuthButton';
-import DefaultButton from './DefaultButton';
-import SubmitButton from './SubmitButton';
 import { ButtonPropsType } from './data';
+import SubmitButton from './SubmitButton';
+import DefaultButton from './DefaultButton';
+import AddToCartButton from './AddToCartButton';
 
 const Button = ({
   category,
