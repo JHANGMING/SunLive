@@ -11,15 +11,15 @@ const Test = () => {
     console.log('code:', code);
     if (code) {
       handerVerify(code as string);
-      if (window.opener) {
-        window.opener.postMessage(
-          { type: 'auth', token: token },
-          'https://sun-live.vercel.app'
-        );
-        window.close();
-      } else {
-        console.error('No window.opener available');
-      }
+      // if (window.opener) {
+      //   window.opener.postMessage(
+      //     { type: 'auth', token: token },
+      //     'https://sun-live.vercel.app'
+      //   );
+      //   window.close();
+      // } else {
+      //   console.error('No window.opener available');
+      // }
       // window.close();
     }
   }, [router, token]);
@@ -37,15 +37,15 @@ const Test = () => {
         setToken(result.token);
         console.log('result.token:', result.token);
         
-        // if (window.opener) {
-        //   window.opener.postMessage(
-        //     { type: 'auth', token: result.token },
-        //     'https://sun-live.vercel.app'
-        //   );
-        //   window.close();
-        // } else {
-        //   console.error('No window.opener available');
-        // }
+        if (window.opener) {
+          window.opener.postMessage(
+            { type: 'auth', token: result.token },
+            'https://sun-live.vercel.app'
+          );
+          window.close();
+        } else {
+          console.error('No window.opener available');
+        }
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
