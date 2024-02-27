@@ -22,8 +22,6 @@ const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
       };
       try {
         const result = await fetchNextApi(apiParams);
-        console.log('aaa', result);
-        
         if (result.statusCode === 200) {
             const data=transformDataForSelect(result.data);
             setProducts(data);
