@@ -396,7 +396,9 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
           </label>
           <Editor control={control} />
         </div>
-        <Button category="submit" classStyle="self-end hover:opacity-70">
+        <Button
+          category="submit"
+          classStyle="bg-primary-green self-end hover:opacity-70">
           新增
         </Button>
       </form>

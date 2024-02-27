@@ -134,7 +134,9 @@ const AccountSetting = () => {
             <DatePickerShow control={control} />
           </div>
         </div>
-        <Button category="submit" classStyle="self-end hover:opacity-70">
+        <Button
+          category="submit"
+          classStyle="bg-primary-green self-end hover:opacity-70">
           儲存
         </Button>
       </form>
