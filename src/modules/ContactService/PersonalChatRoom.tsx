@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import { BsFillXCircleFill, BsChevronLeft, BsCursorFill } from 'react-icons/bs';
 import { nextRoutes } from '@/constants/apiPaths';
 import Image from '@/common/components/CustomImage';
+import { useDebounceFn } from '@/common/hooks/useDebounceFn';
 import { PersonalChatRoomProps } from './data';
+
 const PersonalChatRoom = ({
   toggleExpand,
   setIsChatExpanded,
@@ -20,6 +22,8 @@ const PersonalChatRoom = ({
 }: PersonalChatRoomProps) => {
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
+ 
+  
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
@@ -53,7 +57,7 @@ const PersonalChatRoom = ({
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && userId) {
       event.preventDefault();
-      handleSendMessage();
+      debouncedSendMsg();
     }
   };
   const handleSendMessage = async () => {
@@ -87,6 +91,7 @@ const PersonalChatRoom = ({
     mutate(`/api${nextRoutes['getmessage']}`);
     mutate(`/api${nextRoutes['notify']}`);
   };
+  const debouncedSendMsg = useDebounceFn(handleSendMessage, 300);
   return (
     <>
       <div className=" absolute bottom-16 right-0 w-[422px] z-30 shadow-chatRoom rounded-20">
@@ -183,7 +188,7 @@ const PersonalChatRoom = ({
             <BsCursorFill
               size={24}
               className=" text-primary-green w-24 h-24 cursor-pointer hover:opacity-70"
-              onClick={handleSendMessage}
+              onClick={debouncedSendMsg}
             />
           </div>
         </div>
