@@ -7,22 +7,22 @@ const Test = () => {
   const router = useRouter();
   const [token, setToken] = useState('')
   useEffect(() => {
-    const {code }= router.query;
+    const { code } = router.query;
     console.log('code:', code);
     if (code) {
       handerVerify(code as string);
-      // if (window.opener) {
-      //   window.opener.postMessage(
-      //     { type: 'auth', token: token},
-      //     '*'
-      //   );
-      //   window.close(); 
-      // } else {
-      //   console.error('No window.opener available');
-      // }
+      if (window.opener) {
+        window.opener.postMessage(
+          { type: 'auth', token: token },
+          'https://sun-live.vercel.app'
+        );
+        // window.close();
+      } else {
+        console.error('No window.opener available');
+      }
       window.close();
     }
-  }, [router]);
+  }, [router, token]);
 
   const handerVerify = async (code:string) => {
     const apiParams: apiParamsType = {
@@ -34,18 +34,18 @@ const Test = () => {
       const result = await fetchNextApi(apiParams);
       console.log('verify', result);
       if (result.statusCode === 200) {
-        // setToken(result.data.token);
+        setToken(result.token);
         console.log('result.token:', result.token);
         
-        if (window.opener) {
-          window.opener.postMessage(
-            { type: 'auth', token: result.token },
-            'https://sun-live.vercel.app'
-          );
-          window.close();
-        } else {
-          console.error('No window.opener available');
-        }
+        // if (window.opener) {
+        //   window.opener.postMessage(
+        //     { type: 'auth', token: result.token },
+        //     'https://sun-live.vercel.app'
+        //   );
+        //   window.close();
+        // } else {
+        //   console.error('No window.opener available');
+        // }
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
