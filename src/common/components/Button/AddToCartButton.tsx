@@ -3,12 +3,13 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
 import { cartTab } from '@/common/lib/cartTab';
-import { setToast } from '@/redux/features/messageSlice';
+import { authTab } from '@/common/lib/authTab';
 import { nextRoutes } from '@/constants/apiPaths';
+import { setToast } from '@/redux/features/messageSlice';
+import { useDebounceFn } from '@/common/hooks/useDebounceFn';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { ButtonPropsType } from './data';
-import { authTab } from '@/common/lib/authTab';
 const AddToCartButton = ({
   children,
   btnStyle,
@@ -37,7 +38,6 @@ const AddToCartButton = ({
       productSpecId,
       cartItemQty,
     };
-    console.log('dataObj', dataObj);
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['addcart'],
       method: 'POST',
@@ -46,8 +46,6 @@ const AddToCartButton = ({
     
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('addcart', result);
-      
       if (result.statusCode === 200) {
         mutate('/api/cart/getcart');
         if (toCart) router.push('/cart');
@@ -73,9 +71,10 @@ const AddToCartButton = ({
     if (onClick) {
       onClick();
     } else {
-      handleCartAddition();
+      debouncedAddCart();
     }
   };
+  const debouncedAddCart = useDebounceFn(handleCartAddition, 500);
   const buttonClassName = disabled
     ? `${btnStyle} flex gap-8 py-8 px-16 rounded-8 border-dashed border cursor-not-allowed`
     : `${btnStyle} flex gap-8 py-4 px-8 lg:py-8 lg:px-16 rounded-8 lg:border-dashed border cursor-pointer hover:opacity-60 transition duration-800 ease-in-out group`;
