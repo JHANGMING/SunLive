@@ -47,6 +47,7 @@ const LiveSettings = () => {
         return;
       }
       if (event.data && event.data.type === 'auth') {
+        setAccessToken(event.data.token);
         console.log('Received token:', event.data.token);
       }
     };
@@ -93,7 +94,10 @@ const LiveSettings = () => {
       endTime: data.endTime,
       yturl: data.yturl,
       liveproduct,
+      accessToken,
     };
+    console.log('dataObj:', dataObj);
+    
     if (selectedFile) {
       const formData = new FormData();
       formData.append('image', selectedFile);
@@ -317,9 +321,12 @@ const LiveSettings = () => {
           ))}
         </div>
         <div className="self-end">
+          {accessToken || (
+
           <Button category="default" classStyle="mr-16 hover:opacity-70" onClick={handlerIdentity}>
             驗證帳號
           </Button>
+          )}
           <Button category="submit" classStyle="hover:opacity-70">
             儲存
           </Button>
