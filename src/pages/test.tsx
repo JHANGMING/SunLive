@@ -11,15 +11,15 @@ const Test = () => {
     console.log('code:', code);
     if (code) {
       handerVerify(code as string);
-      if (window.opener) {
-        window.opener.postMessage(
-          { type: 'auth', token: token},
-          '*'
-        );
-        window.close(); 
-      } else {
-        console.error('No window.opener available');
-      }
+      // if (window.opener) {
+      //   window.opener.postMessage(
+      //     { type: 'auth', token: token},
+      //     '*'
+      //   );
+      //   window.close(); 
+      // } else {
+      //   console.error('No window.opener available');
+      // }
       window.close();
     }
   }, [router]);
@@ -35,6 +35,8 @@ const Test = () => {
       console.log('verify', result);
       if (result.statusCode === 200) {
         // setToken(result.data.token);
+        console.log('result.token:', result.token);
+        
         if (window.opener) {
           window.opener.postMessage(
             { type: 'auth', token: result.token },
