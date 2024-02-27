@@ -28,10 +28,7 @@ const LiveSettings = () => {
   const [accessToken, setAccessToken] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
-  const auth=useAuth();
-  console.log('auth:', auth);
-  
-  const router=useRouter();
+
   const {
     control,
     register,
@@ -48,16 +45,14 @@ const LiveSettings = () => {
       }
       if (event.data && event.data.type === 'auth') {
         setAccessToken(event.data.token);
-        console.log('Received token:', event.data.token);
       }
     };
-
     window.addEventListener('message', handleMessage);
-
     return () => {
       window.removeEventListener('message', handleMessage);
     };
   }, []);
+
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
@@ -92,11 +87,10 @@ const LiveSettings = () => {
       liveDate: formattedDate,
       startTime: data.startTime,
       endTime: data.endTime,
-      yturl: data.yturl,
+      yturl:"data",
       liveproduct,
       accessToken,
     };
-    console.log('dataObj:', dataObj);
     
     if (selectedFile) {
       const formData = new FormData();
@@ -247,21 +241,7 @@ const LiveSettings = () => {
             },
           }}
         />
-        <PersonInput
-          type="text"
-          labelText="直播連結"
-          inputText="輸入直播連結"
-          inputStyle="text-14 w-full h-[53px]"
-          id="yturl"
-          register={register}
-          errors={errors}
-          rules={{
-            required: {
-              value: true,
-              message: '請輸入直播連結!',
-            },
-          }}
-        />
+
         <div className="mt-40 mb-32 flex items-center gap-16">
           <h3 className=" text-20 font-semibold ">選擇直播農產品</h3>
           <button
