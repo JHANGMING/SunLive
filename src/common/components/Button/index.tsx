@@ -32,7 +32,11 @@ const Button = ({
         </AuthButton>
       );
     case 'submit':
-      return <SubmitButton classStyle={classStyle}>{children}</SubmitButton>;
+      return (
+        <SubmitButton classStyle={classStyle} disabled={disabled}>
+          {children}
+        </SubmitButton>
+      );
     case 'default':
       return (
         <DefaultButton

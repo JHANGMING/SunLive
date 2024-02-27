@@ -39,7 +39,7 @@ const LiveAccontVerify = ({ accessToken, setAccessToken }:LiveAccontVerifyProps)
       <div className="flex items-center gap-16">
         <button
           type="button"
-          className=" bg-primary-yellow text-16 font-normal py-10 px-12 rounded-8 cursor-pointer hover:opacity-70"
+          className={`${!!accessToken ? 'bg-darkGray cursor-not-allowed text-white' : 'bg-primary-yellow cursor-pointer hover:opacity-70'}  text-16 font-normal py-10 px-12 rounded-8 `}
           onClick={handlerIdentity}
           disabled={!!accessToken}>
           驗證帳號

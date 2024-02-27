@@ -123,7 +123,10 @@ const LiveSettings = () => {
   
   return (
     <div className="w-9/12 flex-grow flex flex-col self-start">
-      <LiveAccontVerify accessToken={accessToken} setAccessToken={setAccessToken}/>
+      <LiveAccontVerify
+        accessToken={accessToken}
+        setAccessToken={setAccessToken}
+      />
       <div className="bg-white rounded-20 p-32 flex flex-col">
         <h3 className=" text-20 font-semibold mb-32">直播設定</h3>
         {/* 上傳圖片 */}
@@ -222,7 +225,7 @@ const LiveSettings = () => {
               新增直播農產品
             </button>
           </div>
-          <div className="pr-48 mb-40">
+          <div className="pr-48">
             <div className="flex gap-24 mb-16 relative">
               <BsXCircleFill
                 size={24}
@@ -271,7 +274,10 @@ const LiveSettings = () => {
               </div>
             ))}
           </div>
-          <Button category="submit" classStyle="self-end hover:opacity-70">
+          <Button
+            category="submit"
+            classStyle={`self-end  ${!accessToken ? 'bg-darkGray' : 'bg-primary-green hover:opacity-70'}`}
+            disabled={!accessToken}>
             儲存
           </Button>
         </form>

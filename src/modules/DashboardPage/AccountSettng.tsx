@@ -119,7 +119,9 @@ const AccountSettng = () => {
             className="h-[74px] w-full border border-lightGray rounded-8 py-8 px-12 text-14 resize-none overflow-y-auto tracking-widest focus-visible:outline-primary-green scrollbar-thin"
             placeholder="我種植的草莓真的很好吃，品種繁多，包括了甜蜜時光、金莓、霓虹草莓等友善種植作品。我的草莓園地位於美麗的苗栗，充滿愛和專業的栽培，每一顆草莓都是經過細心呵護的結晶。"></textarea>
         </div>
-        <Button category="submit" classStyle="self-end hover:opacity-70">
+        <Button
+          category="submit"
+          classStyle="bg-primary-green self-end hover:opacity-70">
           儲存
         </Button>
       </form>
