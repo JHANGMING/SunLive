@@ -36,17 +36,25 @@
 
 ### ► 一般會員角色 (Customer)
 
-  
+- 註冊/登入
 
-- 個人帳號資訊設定與編輯
-  
-- 將特定產品加入購物車
+- 查看商品、直播列表
+
+- 查看商品細節資訊
+
+- 特定產品加入或移除購物車
+
+- 編輯購物車商品數量、規格
+
+- 搜尋特定產品
 
 - 與小農(商家)進行1對1即時聊天
 
-- 加入直播間並進行多對多即時聊天
+- 觀看直播並進行多對多即時聊天
 
 - 進行購物車結帳
+
+- 個人帳號資訊設定與編輯
 
 - 查詢所有訂單
 
@@ -55,6 +63,7 @@
 ### ► 小農角色 (Farmer)
 
   
+- 註冊/登入
 
 - 個人帳號資訊設定與編輯
 
@@ -67,6 +76,7 @@
 - 與一般會員角色(客戶)進行1對1即時聊天
 
 - 主持直播間並進行多對多即時聊天
+<hr/>
 
 ## 建議體驗流程
 
@@ -74,49 +84,48 @@
 
 - 一般會員 (Customer)
 
-      1. 使用 `CustomerTest@mail.com` 帳號、 `CustomerTest@mail.com` 密碼，進行登入  (轉跳至首頁)
 
-      2. 於首頁搜尋有興趣的農產品，並點選 `特定產品`  (轉跳至該產品細節頁)
+      1. 於首頁搜尋有興趣的農產品，並點選 `特定產品`  (轉跳至該產品細節頁)
 
-      3. 選擇產品規格並點選 `立即購買` 按鈕 (轉跳至結帳頁面)
+      2. 選擇產品規格並點選 `立即購買` 按鈕 (轉跳至結帳頁面)
 
-      4. 填寫收貨人資料欄位，並點擊 `確認付款` 按鈕  (轉跳至藍新金流頁面)
+      3. 填寫收貨人資料欄位，並點擊 `確認付款` 按鈕  (轉跳至藍新金流頁面)
 
-      5. 於藍新金流頁面，選擇 Web ATM 方式進行結帳  (轉跳至藍新金流頁面)
-    6. 點選 `查看訂單詳情` 按鈕 (轉跳至所有訂單頁面)
+      4. 於藍新金流頁面，選擇 Web ATM 方式進行結帳  (轉跳至藍新金流頁面)
+    5. 點選 `查看訂單詳情` 按鈕 (轉跳至所有訂單頁面)
 
 - 小農 (Farmer)
 
-      1. 使用 `FarmerTest@mail.com` 帳號、 `FarmerTest` 密碼，進行登入 (轉跳至後台)
+      1. 查看左側選單`直播設定` 欄位，點選 `直播設定` 按鈕 (轉跳至直播設定頁面)
 
-      2. 查看左側選單`直播設定` 欄位，點選 `直播設定` 按鈕 (轉跳至直播設定頁面)
+      2. 填寫直播設定資料欄位，並選擇直播農產品，再點擊 `儲存` 按鈕  (轉跳至所有直播頁面)
 
-      3. 填寫直播設定資料欄位，並選擇直播農產品，再點擊 `儲存` 按鈕  (轉跳至所有直播頁面)
+      3. 針對剛才新增的直播場次，於 `聊天室置頂商品` 欄位，選擇與調整置頂商品
 
-      4. 針對剛才新增的直播場次，於 `聊天室置頂商品` 欄位，選擇與調整置頂商品
+      4. 前往前台 `直播特惠` 頁面，瀏覽 `近期直播` 直播場次
 
-      5. 前往前台 `直播特惠` 頁面，瀏覽 `近期直播` 直播場次
+<hr/>
 
-## 技術規格 
-<h2 align="center">UI端</h2>
+## 專案技術 
+<h2 align="center">UI/UX端</h2>
  <p>
   <img alt="Figma" src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
   <img alt="Canva" src="https://img.shields.io/badge/Canva-%2300C4CC.svg?&style=for-the-badge&logo=Canva&logoColor=white" />
   <img alt="Illustrator" src="https://img.shields.io/badge/Adobe%20Illustrator-FF9A00?style=for-the-badge&logo=adobe%20illustrator&logoColor=white" />
   <img alt="Photoshop" src="https://img.shields.io/badge/Adobe%20Photoshop-31A8FF?style=for-the-badge&logo=Adobe%20Photoshop&logoColor=black" />
   <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" />
+   <img alt="Tailwind" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
   <img alt="Notion" src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white" />
 
   ### 工具說明：
 
-* 設計稿製作：Figma
-    * 用於製作線稿、精稿及 prototype。
-    * 強化團隊合作與溝通，使成員能夠清晰掌握產品的設計理念和用戶體驗路徑。
+* 線搞圖/設計圖：Figma
+    * 製作 Wireframe、線稿圖及 Prototype。
+    * 優化團隊合作與溝通，使成員能夠清晰掌握產品的設計理念和用戶體驗路徑。
 
-* 繪圖工具：Procreate
-   - 用於繪製插圖及 loading 動畫
-   - 內建筆刷庫非常豐富，且能針對每種筆刷自由調整參數
-   - 支援匯出各式檔案
+* 繪圖工具：Illustrator
+   - 繪製 logo 圖案。
+   - 多樣的編輯工具，精確控制圖案的每個細節。
 </p>
 
 <h2 align="center">前端技術</h2>
@@ -169,16 +178,16 @@
   ### 技術說明：
 
 * 開發環境：Microsoft Visual Studio
-    * 使用的是.net Freamwork 平台，網頁技術版本則是asp.net。
+    * 使用 .NET Freamwork 平台 搭配 ASP.NET 技術。
 
 * 使用框架：ASP.NET Web API 2
-    * 一個由Microsoft開發的框架，支持RESTful服務的開發。裡面包含GET、POST、PUT、DELETE等。
+    * 支持RESTful服務的開發。裡面包含GET、POST、PUT、DELETE等。
 
 * 資料庫：Microsoft SQL Server
     * 微軟的關係資料庫管理系統，用來數據操作、複雜查詢、備份功能，可以最大限度地減少數據丟失的風險，確保數據的安全和完整性。
 
 * 技術：SignalR
-    * SignalR是一個由Microsoft開發的開源庫，開發即時通訊和實時數據更新的應用提供了簡便的方法。
+    * SignalR提供即時通訊和實時數據更新的應用。
 
 * 雲端伺服器：Azure
     * Microsoft提供一個雲端平台，支持各種編程語言、工具和框架，幫助使用者快速構建、部署和管理應用。
