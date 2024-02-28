@@ -1,11 +1,14 @@
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import { BsX } from 'react-icons/bs';
-import { DeleteBtnPropsType } from './data';
 import { mutate } from 'swr';
-const DeleteBtn = ({ size, className, productSpecId }:DeleteBtnPropsType) => {
+import { BsX } from 'react-icons/bs';
+import { nextRoutes } from '@/constants/apiPaths';
+import { useDebounceFn } from '@/common/hooks/useDebounceFn';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { DeleteBtnPropsType } from './data';
+import { useDispatch } from 'react-redux';
+import { setToast } from '@/redux/features/messageSlice';
+const DeleteBtn = ({ size, className, productSpecId }: DeleteBtnPropsType) => {
+  const dispatch = useDispatch();
   const handlerDeleteItem = async () => {
-    console.log('delete');
     const dataObj = {
       productSpecId,
     };
@@ -16,19 +19,19 @@ const DeleteBtn = ({ size, className, productSpecId }:DeleteBtnPropsType) => {
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('deletecart', result);
       if (result.statusCode === 200) {
-        mutate('/api/cart/getcart')
+        mutate('/api/cart/getcart');
       } else {
-        // setToastMessage(`${result.statusCode} ${result.message || '未知錯誤'}`);
+        dispatch(setToast({message: result.message}));
       }
     } catch (error) {
       console.log(error);
     }
   };
+  const debouncedDelete = useDebounceFn(handlerDeleteItem, 500);
   return (
     <>
-      <BsX size={size} className={className} onClick={handlerDeleteItem} />
+      <BsX size={size} className={className} onClick={debouncedDelete} />
     </>
   );
 };

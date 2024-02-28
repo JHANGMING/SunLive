@@ -7,6 +7,7 @@ import { setToast } from '@/redux/features/messageSlice';
 import { cartTab } from '../lib/cartTab';
 import { authTab } from '../lib/authTab';
 import fetchNextApi, { apiParamsType } from '../helpers/fetchNextApi';
+import { useDebounceFn } from '../hooks/useDebounceFn';
 type GlobalLinkProps = {
   href: string;
   children: ReactNode;
@@ -66,6 +67,7 @@ const GlobalLink = ({
       console.log(error);
     }
   };
+  const debouncedAddCart = useDebounceFn(handerAddtoCart, 500);
   if (category === 'liveAddCart') {
     return (
       <div
@@ -76,7 +78,7 @@ const GlobalLink = ({
           href={href}
           target={openInNewTab ? '_blank' : ''}
           rel="noopener noreferrer"
-          onClick={handerAddtoCart}>
+          onClick={debouncedAddCart}>
           {children}
         </a>
       </div>
@@ -88,7 +90,7 @@ const GlobalLink = ({
       href={href}
       target={openInNewTab ? '_blank' : ''}
       rel="noopener noreferrer"
-      onClick={handerAddtoCart}>
+      onClick={debouncedAddCart}>
       {children}
     </a>
   );
