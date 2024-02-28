@@ -11,6 +11,7 @@ type LiveProductItemType = {
 export type LivedetailDateType = {
   liveId: number;
   yturl: string;
+  endTime: string;
   liveName: string;
   liveFarmerId: number;
   liveFarmer: string;
