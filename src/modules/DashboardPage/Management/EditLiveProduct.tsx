@@ -15,7 +15,7 @@ const EditLiveProduct = ({ liveId }:EditLiveProductProps) => {
     authStatus ? `/api${nextRoutes['livelist']}` : null,
     fetcher
   );
-  const liveProductList = data?.data.find(
+  const liveProductList = data?.data?.find(
     (item:LivedetailDateType) => item.liveId === Number(liveId)
   );
   const liveProudctData = liveProductList?.liveProudct;
