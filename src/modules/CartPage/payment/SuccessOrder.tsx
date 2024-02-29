@@ -1,7 +1,7 @@
-import Link from "next/link";
+import Link from 'next/link';
 import { BsCheckCircleFill } from 'react-icons/bs';
-import LogoImg from "@/common/components/Logo/LogoImg";
-import CartProcess from "../CartProcess";
+import LogoImg from '@/common/components/Logo/LogoImg';
+import CartProcess from '../CartProcess';
 
 const SuccessOrder = () => {
   return (
