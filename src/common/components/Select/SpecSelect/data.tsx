@@ -1,4 +1,3 @@
-
 export type SpecSelectProps = {
   optionsData: OptionType[];
   onSpecChange: (value: string) => void;

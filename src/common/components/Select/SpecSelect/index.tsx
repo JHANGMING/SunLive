@@ -7,7 +7,7 @@ const SpecSelect = ({
   optionsData,
   onSpecChange,
   initialSelectIndex = 0,
-  isLive=false
+  isLive = false,
 }: SpecSelectProps) => {
   const isClient = useClient();
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
