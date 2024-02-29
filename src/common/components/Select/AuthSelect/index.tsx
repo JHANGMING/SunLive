@@ -1,9 +1,9 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
-import { AuthSelectProps, OptionType, optionsData } from './data';
+import { Controller } from 'react-hook-form';
 import useClient from '@/common/hooks/useClient';
+import { AuthSelectProps, OptionType, optionsData } from './data';
 
 const AuthSelect = ({ control }: AuthSelectProps) => {
   const isClient = useClient();
