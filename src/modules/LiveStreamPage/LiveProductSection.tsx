@@ -19,7 +19,7 @@ const LiveProductSection = () => {
                 <Image
                   src={
                     data.livePic === null
-                      ? '/images/productShop/discountedImg3.png'
+                      ? '/images/productShop/discountedImg.png'
                       : data.livePic
                   }
                   alt={`data.liveProductId-${data.liveId}`}
