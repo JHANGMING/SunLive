@@ -1,20 +1,21 @@
 import Image from 'next/image';
 import * as DOMPurify from 'dompurify';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import CategoryTitle from '../ProductPage/CategoryTitle';
 import LogoImg from '@/common/components/Logo/LogoImg';
+import { setFamerId } from '@/redux/features/messageSlice';
 import useScrollToElement from '@/common/hooks/useScrollToRef';
 import { DetailSectionProps } from './data';
-import { useDispatch } from 'react-redux';
-import { setFamerId } from '@/redux/features/messageSlice';
+import CategoryTitle from '../ProductPage/CategoryTitle';
 
 const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
+  const dispatach = useDispatch();
+  const [cleanHtml, setCleanHtml] = useState('');
   const [selected, setSelected] = useState('farmer');
   const [farmerRef, scrollToFarmer] = useScrollToElement();
   const [productRef, scrollToProduct] = useScrollToElement();
   const [specificationRef, scrollToSpecification] = useScrollToElement();
-  const [cleanHtml, setCleanHtml] = useState('');
-  const dispatach = useDispatch();
+  
   useEffect(() => {
     setCleanHtml(DOMPurify.sanitize(detailProduct.introduction));
   }, [detailProduct.introduction]);

@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { BsDashCircleFill, BsPlusCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
-import LogoImg from '@/common/components/Logo/LogoImg';
 import Image from '@/common/components/CustomImage';
+import LogoImg from '@/common/components/Logo/LogoImg';
 import { ProductImgType } from '@/constants/types/product/allproducts';
 import { DetailSectionProps } from './data';
 
 const DetailSection = ({ detailProduct }: DetailSectionProps) => {
   const [qty, setQty] = useState(1);
+  const [selectedImage, setSelectedImage] = useState('');
   const [selectedSpec, setSelectedSpec] = useState(
     detailProduct.smallproductSpecId
   );
-  const [selectedImage, setSelectedImage] = useState('');
   useEffect(() => {
     if (detailProduct.productImages && detailProduct.productImages.length > 0) {
       setSelectedImage(detailProduct.productImages[0]?.src);
