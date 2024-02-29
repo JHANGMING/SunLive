@@ -8,10 +8,7 @@ import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { DynamicTableProps, shipmentOptions } from './data';
 
-const OrdersTable = ({
-  columns,
-  initialData,
-}: DynamicTableProps) => {
+const OrdersTable = ({ columns, initialData }: DynamicTableProps) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
@@ -30,7 +27,7 @@ const OrdersTable = ({
   const handleNext = () => {
     setCurrentPage((prev) => (prev < maxPage ? prev + 1 : prev));
   };
-  const handleStatusChange = async(orderId:number) => {
+  const handleStatusChange = async (orderId: number) => {
     const apiParams: apiParamsType = {
       apiPath: `${nextRoutes['putorder']}?id=${orderId}`,
       method: 'POST',
@@ -38,7 +35,7 @@ const OrdersTable = ({
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        mutate(`/api${nextRoutes['getorderlist']}`)
+        mutate(`/api${nextRoutes['getorderlist']}`);
         dispatch(setToast({ message: result.message }));
       } else {
         dispatch(setToast({ message: result.message }));
@@ -49,8 +46,7 @@ const OrdersTable = ({
   };
   return (
     <>
-      <table
-        className="w-full table-fixed text-14">
+      <table className="w-full table-fixed text-14">
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
             {columns.map((column) => {
@@ -89,7 +85,7 @@ const OrdersTable = ({
               className="text-center border-b border-lightGray h-60"
               key={row.orderId}>
               {columns.map((column) => {
-                const isPaid = row.ispay ==="已付款" ? true : false;
+                const isPaid = row.ispay === '已付款' ? true : false;
                 const cellContent =
                   column.dataIndex === 'shipment' ? (
                     <div className="flex justify-center items-center ">
