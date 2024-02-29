@@ -11,11 +11,11 @@
 
 //homeSwiper
 .homeSwiper .swiper {
-  @apply  w-full h-full; ;
+  @apply w-full h-full;
 }
 
 .homeSwiper .swiper-slide {
-  @apply w-[160px] lg:w-[378px] ;
+  @apply w-[160px] lg:w-[378px];
   & img {
     object-fit: cover;
   }
@@ -40,10 +40,9 @@
 }
 
 .outline-offset:hover {
-  outline-offset: 4px; 
+  outline-offset: 4px;
 }
 
 .rotate-30 {
   transform: rotate(30deg);
 }
-
