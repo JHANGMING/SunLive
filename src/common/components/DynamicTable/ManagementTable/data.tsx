@@ -1,4 +1,3 @@
-
 import { ColumnType } from '../data';
 
 export type ProductDataType = {
@@ -11,4 +10,3 @@ export type DynamicTableProps = {
   initialData?: ProductDataType[];
   showCheckbox?: boolean;
 };
-
