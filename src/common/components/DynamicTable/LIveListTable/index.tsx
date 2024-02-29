@@ -7,12 +7,12 @@ import usePagination from '@/common/hooks/usePagination';
 import { setToast } from '@/redux/features/messageSlice';
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 import { updateLiveDataWithFutureFlag } from '@/common/helpers/updatedLiveDat';
-import { DynamicTableProps} from './data';
+import { DynamicTableProps } from './data';
 
 const LiveListTable = ({ columns }: DynamicTableProps) => {
-  const router= useRouter();
+  const router = useRouter();
   const dispatch = useDispatch();
-  const listData= useSelector(
+  const listData = useSelector(
     (state: RootState) => state.dashboard.livelistData
   );
   const updataListData = updateLiveDataWithFutureFlag(
