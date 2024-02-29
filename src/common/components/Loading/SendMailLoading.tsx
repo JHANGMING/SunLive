@@ -15,7 +15,6 @@ const SendMailLoading = () => {
         if (newPercent >= 100) {
           clearInterval(timer);
           setCompleted(true);
-          // setTimeout(() => setHide(true), 100);
           return 100;
         }
         return newPercent;
@@ -24,8 +23,6 @@ const SendMailLoading = () => {
 
     return () => clearInterval(timer);
   }, []);
-
-  // if (hide) return null;
 
   return (
     <div className="fixed bg-mediumGray/50 top-0 left-0 w-full h-screen z-30">
