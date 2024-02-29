@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { BsChevronDown } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
+import { authTab } from '@/common/lib/authTab';
 import { nextRoutes } from '@/constants/apiPaths';
 import DefaultInput from '@/common/components/Input';
 import { setToast } from '@/redux/features/messageSlice';
@@ -72,7 +73,10 @@ const CartFormSection = ({ cartData }: CartProps) => {
         setPaymentData(result.paymentData);
       } else if (result.statusCode === 409) {
         router.push('/auth/login');
-        dispatch(setToast({ message: result.message }));
+        dispatch(
+          setToast({
+            message: authTab['noToken'],
+          }))
       } else {
         dispatch(setToast({ message: result.message }));
       }

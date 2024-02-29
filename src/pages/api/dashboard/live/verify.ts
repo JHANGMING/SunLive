@@ -14,8 +14,6 @@ export default async function handler(
       data: req.body,
       authToken: token,
     };
-    console.log('apiParams:', apiParams);
-    
     const result = await fetchApi(apiParams);
     res.status(200).json(result);
   } catch (error) {

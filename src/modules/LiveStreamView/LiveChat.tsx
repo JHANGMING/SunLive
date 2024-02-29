@@ -89,7 +89,6 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       await connection
         .start()
         .done(() => {
-          console.log('Connected to SignalR server!');
           setIsConnected(true);
           JoinChatRoom(chatroomId)
             .then(() => callApi())
