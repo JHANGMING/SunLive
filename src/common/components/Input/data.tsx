@@ -17,7 +17,6 @@ export type FormValues = {
   identity?: { value: string; label: string };
   gender: { value: string; label: string };
   nickName: string;
-  // gender: string;
   vision: string;
   zipCode: string;
   datePicker: Date;
