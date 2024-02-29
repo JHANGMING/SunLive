@@ -18,7 +18,7 @@ export type LayoutPropsType = {
   children?: ReactNode;
   pageCategory: PageCategoryType;
   classStyle?: string;
-  isVisible?:boolean;
+  isVisible?: boolean;
 };
 
 export type AuthLayoutProps = {
@@ -68,7 +68,7 @@ export const footerSet: pageSetType = {
   searchPage: 'pt-60',
   dashboardPage: 'pt-0',
   personInfoPage: 'pt-0',
-  mobile:"p-24",
+  mobile: 'p-24',
   errorPage: 'pt-60',
 };
 

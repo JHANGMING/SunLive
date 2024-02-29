@@ -1,11 +1,11 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import useAuth from "@/common/hooks/useAuth";
-import DashboardPage from "@/modules/DashboardPage";
-import Loading from "../Loading/Loading";
-import { DashboardLayoutProps } from "./data";
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import useAuth from '@/common/hooks/useAuth';
+import DashboardPage from '@/modules/DashboardPage';
+import Loading from '../Loading/Loading';
+import { DashboardLayoutProps } from './data';
 
-const DashboardLayout = ({ children }:DashboardLayoutProps) => {
+const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const auth = useAuth();
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
@@ -16,9 +16,9 @@ const DashboardLayout = ({ children }:DashboardLayoutProps) => {
     }
   }, [auth]);
   if (!isClient) {
-    return <Loading/>;
+    return <Loading />;
   }
-  if (auth?.category !== '1') return ;
+  if (auth?.category !== '1') return;
   return (
     <section className="pt-60 pb-[194px] container flex gap-[74px]">
       <DashboardPage />
@@ -26,5 +26,5 @@ const DashboardLayout = ({ children }:DashboardLayoutProps) => {
     </section>
   );
 };
- 
+
 export default DashboardLayout;

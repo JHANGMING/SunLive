@@ -1,5 +1,3 @@
-
-
 import Header from '@/common/components/Header';
 import ContactService from '@/modules/ContactService';
 import Toast from '../Toast';
@@ -12,7 +10,6 @@ import DashboardLayout from './DashboardLayout';
 import FixedHeader from '../Header/FixedHeader';
 import SmallHeader from '../Header/SmallHeader';
 import { LayoutPropsType, colorWhiteSet, footerSet, notoTC } from './data';
-
 
 const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
   return (
