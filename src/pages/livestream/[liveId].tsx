@@ -9,7 +9,6 @@ import { LivestreamingProps } from '@/modules/LiveStreamView/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
-
 const Livestreaming = ({ liveDetailData }:LivestreamingProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
