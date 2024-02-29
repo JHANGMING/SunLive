@@ -59,7 +59,6 @@ export const apiPaths = {
   getmessage: '/api/chats/roomlist',
   joinroom: '/api/chats/joinroom/',
 
-  test: '/api/youtubego/testnew',
   notify: '/api/chats/roomlist/notify',
 };
 
@@ -127,7 +126,6 @@ export const nextRoutes = {
   getmessage: '/chat/getmessage',
   joinroom: '/chat/joinroom',
 
-  test: '/test',
   notify: '/chat/notify',
 };
 

@@ -35,6 +35,9 @@ export type ChatAndProductPorps = {
   isFarmer?: boolean;
 };
 
+export type LiveChatCountdownProps={
+  endTime:string;
+}
 
 export const liveCardData: liveCardProps[] = [
   {

@@ -73,6 +73,7 @@ const ProfileImgSection = () => {
               alt="farmerProfile"
               className="w-100 h-100"
               roundedStyle="object-cover rounded-full"
+              priority={true}
             />
           </div>
         )}

@@ -6,6 +6,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { nextRoutes } from '@/constants/apiPaths';
 import { useEffect, useRef, useState } from 'react';
 import Image from '@/common/components/CustomImage';
+import { useDebounceFn } from '@/common/hooks/useDebounceFn';
 import { setLiveRoomId, setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
@@ -135,7 +136,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && user.userIdSender) {
       event.preventDefault();
-      handleSendMessage();
+      debouncedSendMsg();
     }
   };
   const handleSendMessage = async () => {
@@ -175,6 +176,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       console.error('Failed to send message:', error);
     }
   }
+  const debouncedSendMsg = useDebounceFn(handleSendMessage, 300);
   return (
     <>
       <ul
@@ -247,15 +249,15 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
           </li>
         ))}
       </ul>
-      {user.userIdSender===liveFarmerId && (
-      <div className=" text-end mb-8 mr-8">
-        <button
-          type="button"
-          className="text-white bg-primary-green rounded-8 text-14 leading-[30px] py-[5px] px-26 hover:opacity-80"
-          onClick={handerShare}>
-          分享網址
-        </button>
-      </div>
+      {user.userIdSender === liveFarmerId && (
+        <div className=" text-end mb-8 mr-8">
+          <button
+            type="button"
+            className="text-white bg-primary-green rounded-8 text-14 leading-[30px] py-[5px] px-26 hover:opacity-80"
+            onClick={handerShare}>
+            分享網址
+          </button>
+        </div>
       )}
       <div className="border-t border-lightGray p-24 gap-16 flex items-center justify-between">
         {user.photoSender ? (
@@ -279,7 +281,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         <BsCursorFill
           size={24}
           className={`${user.userIdSender ? 'text-primary-red hover:opacity-60' : 'text-darkGray'} cursor-pointer`}
-          onClick={user.userIdSender ? handleSendMessage : undefined}
+          onClick={user.userIdSender ? debouncedSendMsg : undefined}
         />
       </div>
     </>

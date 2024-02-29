@@ -3,11 +3,18 @@ import Image from '@/common/components/CustomImage';
 import GlobalLink from '@/common/components/GlobalLink';
 import LiveChat from './LiveChat';
 import { ChatAndProductPorps } from './data';
+import dynamic from 'next/dynamic';
+
+const LiveChatCountdownWithNoSSR = dynamic(
+  () => import('./LiveChatCountdown'),
+  { ssr: false }
+);
 
 const ChatAndProduct = ({ liveDetailData, liveId, liveFarmerId,isFarmer=false  }:ChatAndProductPorps) => {
   const [viewerCount, setViewerCount] = useState(0);
   const [prevCount, setPrevCount] = useState(viewerCount);
   const prevCountString = String(prevCount);
+  const endTime=liveDetailData?.endTime;
   useEffect(() => {
     if (viewerCount !== prevCount) {
       setPrevCount(viewerCount);
@@ -25,7 +32,7 @@ const ChatAndProduct = ({ liveDetailData, liveId, liveFarmerId,isFarmer=false  }
               return (
                 <div
                   key={index}
-                  className={`bg-black text-white font-bold px-4 ${flip ? 'flip-animation' : ''}`}>
+                  className={`bg-SoftGray text-mediumGray font-bold px-4 ${flip ? 'flip-animation' : ''}`}>
                   {num}
                 </div>
               );
@@ -33,8 +40,9 @@ const ChatAndProduct = ({ liveDetailData, liveId, liveFarmerId,isFarmer=false  }
           <div className="text-darkGray">人正在觀看</div>
         </div>
       </div>
+      <LiveChatCountdownWithNoSSR endTime={endTime} />
       {/* 聊天室 */}
-      <div className={`${isFarmer ? 'px-24 py-8' : 'p-24'}`}>
+      <div className={`${isFarmer ? 'px-24 py-8' : 'px-24 py-16'}`}>
         <div
           className={` bg-SoftGray rounded-20  flex gap-20 ${isFarmer ? 'px-16 py-8' : 'p-16'}`}>
           <Image
