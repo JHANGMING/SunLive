@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProductCard from './ProductCard';
 import Pagination from '../Pagination';
-import { PaginatedProductListProps} from './data';
+import { PaginatedProductListProps } from './data';
 
 const PaginatedProductList = ({
   data,
