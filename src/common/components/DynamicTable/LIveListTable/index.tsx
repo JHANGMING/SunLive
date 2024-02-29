@@ -69,7 +69,7 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
                 case '直播開始時間':
                   thClass = 'py-[13px] font-normal w-[140px]';
                   break;
-                case '聊天置頂商品':
+                case '直播後台':
                   thClass = 'py-[13px] font-normal';
                   break;
                 default:
