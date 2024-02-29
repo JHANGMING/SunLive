@@ -1,5 +1,5 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from '@/common/components/CustomImage';
 import { HomeSwiperPropsType, swiperData } from './data';
 import 'swiper/css';
