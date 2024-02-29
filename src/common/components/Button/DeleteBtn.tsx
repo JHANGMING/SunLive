@@ -1,11 +1,11 @@
 import { mutate } from 'swr';
 import { BsX } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { nextRoutes } from '@/constants/apiPaths';
+import { setToast } from '@/redux/features/messageSlice';
 import { useDebounceFn } from '@/common/hooks/useDebounceFn';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { DeleteBtnPropsType } from './data';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
 const DeleteBtn = ({ size, className, productSpecId }: DeleteBtnPropsType) => {
   const dispatch = useDispatch();
   const handlerDeleteItem = async () => {
