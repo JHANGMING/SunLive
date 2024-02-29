@@ -18,7 +18,7 @@ export const dataSet: Record<string, dataType> = {
   landingPage: {
     title: '',
     desc: '',
-    url: '', 
+    url: '',
     image: '',
   },
   authPage: {
