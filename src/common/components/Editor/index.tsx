@@ -1,21 +1,13 @@
-import React, { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { Controller } from 'react-hook-form';
+import React, { useEffect, useRef } from 'react';
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading...</p>,
 });
 import 'react-quill/dist/quill.snow.css';
-import { EditorProps } from './data';
-const Colors = [
-  '#333333',
-  '#666666',
-  '#999999',
-  '#CCCCCC',
-  '#FEE26B',
-  '#DE3C2B',
-  '#47835A',
-]; 
+import { Colors, EditorProps } from './data';
+
 const CustomToolbar = () => (
   <div id="toolbar">
     <select className="ql-header">
