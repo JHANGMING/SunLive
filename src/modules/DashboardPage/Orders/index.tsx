@@ -1,11 +1,10 @@
-
 import { useRouter } from 'next/router';
 import { OrdersDashboardProps, tabs } from './data';
 
 const OrdersDashboard = ({ children }: OrdersDashboardProps) => {
   const router = useRouter();
   const { orderId } = router.query;
-  
+
   return (
     <div className="w-9/12 flex-grow">
       <div className=" bg-white rounded-20 py-18 pl-28 flex gap-24 mb-40">
