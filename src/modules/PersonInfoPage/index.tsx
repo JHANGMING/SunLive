@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useAuth from '@/common/hooks/useAuth';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import useRequireAuth from '@/common/hooks/useRequireAuth';
 import AllOrders from './AllOrders';
 import AccountSetting from './AccountSetting';
 import ProfileImgSection from './ProfileImgSection';
@@ -10,7 +9,6 @@ import ProfileImgSection from './ProfileImgSection';
 const PersonInfoPage = () => {
   const auth = useAuth();
   const router = useRouter();
-  const authToken = useRequireAuth();
   const [activeSection, setActiveSection] = useState('account');
 
   useEffect(() => {
