@@ -22,7 +22,7 @@ const PersonalChatRoom = ({
 }: PersonalChatRoomProps) => {
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
- 
+
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
@@ -51,7 +51,7 @@ const PersonalChatRoom = ({
     return () => {
       observer.disconnect();
     };
-  }, []); 
+  }, []);
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && userId) {

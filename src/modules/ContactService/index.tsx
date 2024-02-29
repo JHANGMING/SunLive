@@ -11,7 +11,7 @@ import { fetcher } from '@/common/helpers/fetcher';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { clearFamerId, setToast} from '@/redux/features/messageSlice';
+import { clearFamerId, setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { JoinChatRoom } from './signalRService';
 import PersonalChatRoom from './PersonalChatRoom';
@@ -44,8 +44,8 @@ const ContactService = () => {
     authStatus ? `/api${nextRoutes['notify']}` : null,
     fetcher
   );
-  
-  const id= Number(auth?.id);
+
+  const id = Number(auth?.id);
   const chatData = data?.chatList;
   const isFarmer = auth?.category === '1';
   const isReady = notify?.haveUnreadMessage;
@@ -76,7 +76,7 @@ const ContactService = () => {
     }
   }, [isConnected]);
 
-   const setupSignalRConnection = async () => {
+  const setupSignalRConnection = async () => {
     if (chatHubProxyRef.current && isConnected) {
       return;
     }
@@ -91,7 +91,7 @@ const ContactService = () => {
         setChatMessages(newMessages);
       });
       chatHubProxy.on('notifyMessage', (message) => {
-        dispatch(setToast({message:message}));
+        dispatch(setToast({ message: message }));
       });
       chatHubProxy.on('notifyShipment', (message) => {
         dispatch(setToast({ message: message }));
@@ -102,22 +102,19 @@ const ContactService = () => {
         .start()
         .done(() => {
           setIsConnected(true);
-          if(id){
+          if (id) {
             chatHubProxyRef.current?.invoke('AddintoSocket', id);
           }
-          if (chatroomId ) {
-            JoinChatRoom(
-              chatHubProxyRef.current,
-              chatroomId
-            );
+          if (chatroomId) {
+            JoinChatRoom(chatHubProxyRef.current, chatroomId);
           }
         })
-        .fail((error:Error) => {
+        .fail((error: Error) => {
           setIsConnected(false);
         });
-        connection.disconnected(() => {
-          setIsConnected(false); 
-        });
+      connection.disconnected(() => {
+        setIsConnected(false);
+      });
     } catch (error) {
       setIsConnected(false);
     }
@@ -157,7 +154,7 @@ const ContactService = () => {
       setIsChatExpanded(false);
     }
   };
-  
+
   const handlerOpenChat = async (
     farmerId: number,
     nickName: string,
