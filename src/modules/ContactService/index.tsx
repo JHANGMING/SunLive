@@ -19,22 +19,8 @@ import { ChatDataType, ChatcontentType } from './data';
 
 const ContactService = () => {
   const auth = useAuth();
-  const { authStatus } = useAuthStatus();
-  const { data } = useSWR(
-    authStatus ? `/api${nextRoutes['getmessage']}` : null,
-    fetcher
-  );
-  const { data: notify } = useSWR(
-    authStatus ? `/api${nextRoutes['notify']}` : null,
-    fetcher
-  );
-  
-  const isReady = notify?.haveUnreadMessage;
-  const { isReadyToShowChat, farmerId } = useSelector(
-    (state: RootState) => state?.message
-  );
-
   const dispatch = useDispatch();
+  const { authStatus } = useAuthStatus();
   const [userId, setUserId] = useState(0);
   const [chatroomId, setChatroomId] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,11 +33,22 @@ const ContactService = () => {
     farmerName: '',
     farmerPhoto: '',
   });
-
+  const { isReadyToShowChat, farmerId } = useSelector(
+    (state: RootState) => state?.message
+  );
+  const { data } = useSWR(
+    authStatus ? `/api${nextRoutes['getmessage']}` : null,
+    fetcher
+  );
+  const { data: notify } = useSWR(
+    authStatus ? `/api${nextRoutes['notify']}` : null,
+    fetcher
+  );
+  
   const id= Number(auth?.id);
-
-  const isFarmer = auth?.category === '1';
   const chatData = data?.chatList;
+  const isFarmer = auth?.category === '1';
+  const isReady = notify?.haveUnreadMessage;
   const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   useEffect(() => {
     if (!isReadyToShowChat) return;

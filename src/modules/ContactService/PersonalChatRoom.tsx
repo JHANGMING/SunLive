@@ -23,7 +23,6 @@ const PersonalChatRoom = ({
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
  
-  
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
@@ -74,7 +73,6 @@ const PersonalChatRoom = ({
         userId,
         newMessage
       );
-      console.log('Message sent successfully');
       setNewMessage('');
     } catch (error) {
       console.error('Failed to send message:', error);
