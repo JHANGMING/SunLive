@@ -1,9 +1,9 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
-import { ProductSpecSelectProps, OptionType, productSpecData } from './data';
+import { Controller } from 'react-hook-form';
 import useClient from '@/common/hooks/useClient';
+import { ProductSpecSelectProps, OptionType, productSpecData } from './data';
 
 const ProductSpecSelect = ({ control, id }: ProductSpecSelectProps) => {
   const isClient = useClient();

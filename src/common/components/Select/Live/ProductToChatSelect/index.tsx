@@ -1,9 +1,9 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
-import { LiveProductSelectProps, OptionType, productData } from './data';
+import { Controller } from 'react-hook-form';
 import useClient from '@/common/hooks/useClient';
+import { LiveProductSelectProps, OptionType } from './data';
 
 const ProductToChatSelect = ({ control }: LiveProductSelectProps) => {
   const isClient = useClient();
@@ -45,7 +45,6 @@ const ProductToChatSelect = ({ control }: LiveProductSelectProps) => {
                 {...field}
                 instanceId="liveProduct"
                 placeholder="選擇聊天室置頂農產品"
-                options={productData}
                 styles={customStyles}
                 onChange={(val) => field.onChange(val)}
               />
