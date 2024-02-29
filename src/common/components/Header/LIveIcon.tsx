@@ -4,7 +4,7 @@ import { BsDisplay } from 'react-icons/bs';
 import { nextRoutes } from '@/constants/apiPaths';
 import { fetcher } from '@/common/helpers/fetcher';
 import { LiveIconProps } from './data';
-const LiveIcon = ({ size,isLivingSection=false }:LiveIconProps) => {
+const LiveIcon = ({ size, isLivingSection = false }: LiveIconProps) => {
   const { data } = useSWR(`/api${nextRoutes['liveing']}`, fetcher);
   const living = data?.message === '沒有直播' ? false : true;
   if (!living) return null;

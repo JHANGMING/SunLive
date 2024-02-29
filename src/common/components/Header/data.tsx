@@ -1,4 +1,3 @@
-
 import { CartDataType } from '@/constants/types/cart/cartlist';
 import { PageCategoryType } from '../Layout/data';
 
@@ -46,7 +45,7 @@ export const fixedPageSet: PageSet = {
   searchPage: 'scroll',
   dashboardPage: 'always',
   personInfoPage: 'always',
-  errorPage: 'always'
+  errorPage: 'always',
 };
 
 export type PageSet = {
@@ -56,11 +55,11 @@ export type PageSet = {
 export type LoggingInfoProps = {
   dropdownClass: string;
   cartData?: CartDataType;
-  isVisible?:boolean;
+  isVisible?: boolean;
 };
 
 export type CartItemCountProps = {
-  cartData:CartDataType;
+  cartData: CartDataType;
 };
 
 export type LiveIconProps = {

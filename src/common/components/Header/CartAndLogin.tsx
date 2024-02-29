@@ -49,8 +49,7 @@ const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
         <div
           className="relative"
           onMouseEnter={handleCartMouseEnter}
-          onMouseLeave={handleCartMouseLeave}
-          >
+          onMouseLeave={handleCartMouseLeave}>
           <button
             type="button"
             className="relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">

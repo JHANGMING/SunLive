@@ -1,5 +1,4 @@
-
-import {  useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Logo from '../Logo';
 import CartAndLogin from './CartAndLogin';
 import { BsSearch } from 'react-icons/bs';
@@ -27,11 +26,7 @@ const SmallHeader = () => {
           )}
         </div>
         <div className="">
-          <Logo
-            textSytle="text-16"
-            classStyle="gap-8"
-            classProps='w-24 h-24'
-          />
+          <Logo textSytle="text-16" classStyle="gap-8" classProps="w-24 h-24" />
         </div>
         <div className="flex gap-16 items-center justify-end">
           <CartAndLogin pageCategory="mobile" />

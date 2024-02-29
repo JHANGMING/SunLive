@@ -18,7 +18,7 @@ const Header = ({ pageCategory }: LayoutPropsType) => {
   const { data } = useSWR(
     authStatus ? `/api${nextRoutes['getcart']}` : null,
     fetcher
-  ); 
+  );
   useEffect(() => {
     dispatch(setCartData({ cartData: data }));
   }, [data]);
@@ -35,7 +35,10 @@ const Header = ({ pageCategory }: LayoutPropsType) => {
     case 'logo':
       return (
         <header>
-          <Logo classStyle="justify-center py-64 flex-shrink-0" classProps='w-50 h-50'/>
+          <Logo
+            classStyle="justify-center py-64 flex-shrink-0"
+            classProps="w-50 h-50"
+          />
         </header>
       );
 
