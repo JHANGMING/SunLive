@@ -1,4 +1,3 @@
-
 import { createSlice } from '@reduxjs/toolkit';
 import { CartDataType } from '@/constants/types/cart/cartlist';
 
@@ -7,7 +6,6 @@ interface InitialStateType {
 }
 const initialState: InitialStateType = {
   cartData: {},
-
 };
 
 export const cartSlice = createSlice({

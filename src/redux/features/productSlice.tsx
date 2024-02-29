@@ -16,9 +16,9 @@ interface InitialStateType {
   detailProduct: DetailproductItemType;
   productInfoByUser: AllproductsDataType;
   liveData: LivesDataType;
-  liveDetailData:LivedetailDateType;
+  liveDetailData: LivedetailDateType;
   searchTag: string;
-} 
+}
 const initialState: InitialStateType = {
   searchData: [],
   allProductsData: [],
@@ -68,7 +68,7 @@ export const productSlice = createSlice({
         liveData,
         liveDetailData,
       };
-    }
+    },
   },
 });
 

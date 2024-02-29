@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface authData {
   nickName: string;
@@ -21,7 +21,7 @@ export const authSlice = createSlice({
       };
     },
   },
-})
+});
 
-export const { setUserData } = authSlice.actions
-export default authSlice.reducer
+export const { setUserData } = authSlice.actions;
+export default authSlice.reducer;
