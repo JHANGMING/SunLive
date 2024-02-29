@@ -1,9 +1,6 @@
 import LogoImg from '@/common/components/Logo/LogoImg';
-type CategoryTitleProps = {
-  title: string;
-  gapStyle?: string;
-  backgroundStyle?: boolean;
-};
+import { CategoryTitleProps } from './data';
+
 const CategoryTitle = ({
   title,
   gapStyle,

@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { BsFillGeoFill } from 'react-icons/bs';
 import { RootState } from '@/redux/store';
+import Button from '@/common/components/Button';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import Button from '@/common/components/Button';
-import ProductList from '@/common/components/product/ProductList';
-import { useProducts } from '@/common/hooks/ProductsRefContext';
 import Loading from '@/common/components/Loading/Loading';
+import { useProducts } from '@/common/hooks/ProductsRefContext';
+import ProductList from '@/common/components/product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
 const DiscountedSection = () => {
@@ -20,7 +20,6 @@ const DiscountedSection = () => {
   }
   const firstPromotionProduct = promotionProduct[0];
   const {
-    // farmerImg,
     farmerName,
     origin,
     productId,

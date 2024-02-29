@@ -11,3 +11,14 @@ export type ProductShopProps = {
 export type ProductSearchProps = {
   allproductsData: AllproductsDataType;
 };
+
+export type CategoryProductTagProps = {
+  classStyle: string;
+  text: string;
+};
+
+export type CategoryTitleProps = {
+  title: string;
+  gapStyle?: string;
+  backgroundStyle?: boolean;
+};
