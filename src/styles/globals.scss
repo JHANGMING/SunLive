@@ -1,9 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'chat.scss';
+@import 'auth.scss';
+@import 'live.scss';
 @import 'header.scss';
-@import 'landingPage.scss';
 @import 'productShop';
+@import 'datepicker.scss';
+@import 'landingPage.scss';
 @layer base {
   body {
     margin: 0 auto;
@@ -38,152 +42,7 @@
   }
 }
 
-@layer utilities {
-  .custom-background {
-    background-image: url('/images/productShop/seasonalBG.png'),
-      linear-gradient(to bottom, #fde047, #fde047);
-    background-size: cover, cover;
-    background-position: center, center;
-    background-repeat: no-repeat, repeat;
-  }
-}
-
-//auth
-.text-with-lines {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 18px;
-}
-
-.text-with-lines::before,
-.text-with-lines::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  margin: 0 10px;
-  @apply bg-darkGray;
-}
-
 //cart
 .cartlist li:not(:last-child) {
   @apply border-b border-lightGray;
 }
-
-
-//live/veiw
-@keyframes shinyScaleEffect {
-  0% {
-    transform: scale(1);
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-  50% {
-    transform: scale(1.3);
-    text-shadow: 0px 0px 8px rgba(254, 226, 107, 0.8);
-  }
-  100% {
-    transform: scale(1);
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-}
-
-.shiny-scale-effect {
-  animation: shinyScaleEffect 3s infinite ease-in-out;
-  @apply text-primary-red;
-}
-
-//datepicker
-.react-datepicker-wrapper {
-  width: 100%;
-}
-
-.react-datepicker__input-container input::placeholder {
-  @apply text-14 text-darkGray tracking-widest
-}
-
-// living
-@keyframes gradient-shift {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-.rainbow {
-    position: relative;
-    z-index: 0;
-    overflow: hidden;
-    border: 3px solid transparent;
-    @apply pb-16; 
-}
-
-.rainbow::before {
-    content: '';
-    position: absolute;
-    bottom: 0; 
-    left: 0;
-    width: 100%;
-    height: 10px; 
-    background: linear-gradient(to right, #399953, #fbb300, #d53e33, #377af5, #399953); 
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
-}
-
-//chat farmerImage
-@keyframes flash {
-  0%, 100% { border-color: transparent; }
-  28% { border-color: #FEE26B; } 
-  56% { border-color: #DE3C2B } 
-  98% { border-color: #47835A; } 
-}
-
-.flashing-border {
-  display: inline-block;
-  border-radius: 50%;
-  animation: flash 4s infinite; 
-  border: 3px solid transparent; 
-}
-
-//liveIocn  scale
-@keyframes scale-bounce {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-
-.animate-scale-bounce {
-  animation: scale-bounce 2s ease-in-out infinite;
-}
-
-@keyframes flip-animation {
-  0% {
-    transform: rotateX(0);
-  }
-  100% {
-    transform: rotateX(-360deg);
-  }
-}
-
-//chat peopleCount
-@keyframes flipAnimation {
-  from {
-    transform: rotateX(0deg);
-  }
-  to {
-    transform: rotateX(360deg);
-  }
-}
-
-
-
-.flip-animation {
-  display: inline-block;
-  animation: flipAnimation 0.6s ease-in-out;
-}
-
-
-
