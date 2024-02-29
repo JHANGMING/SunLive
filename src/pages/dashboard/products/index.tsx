@@ -8,7 +8,7 @@ import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setProductlistData } from '@/redux/features/dashboardSlice';
 import { ProductPorps } from '@/modules/DashboardPage/Management/data';
 import AllProducts from '@/modules/DashboardPage/Management/AllProducts';
-const Products = ({listData}:ProductPorps) => {
+const Products = ({ listData }: ProductPorps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setProductlistData(listData));

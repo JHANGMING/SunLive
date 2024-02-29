@@ -27,7 +27,7 @@ export const getServerSideProps = async (
       apiPath: `${apiPaths['live']}/${liveId}`,
       method: 'GET',
     };
-    const liveResponse = await fetchApi(liveParams);  
+    const liveResponse = await fetchApi(liveParams);
     if (liveResponse.statusCode === 200) {
       liveDetailData = liveResponse;
     } else if (liveDetailData.length === 0) {

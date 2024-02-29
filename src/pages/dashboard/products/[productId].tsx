@@ -6,8 +6,7 @@ import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import EditProduct from '@/modules/DashboardPage/Management/EditProduct';
 import { EditProductsProps } from '@/modules/DashboardPage/Management/data';
 
-const EditProducts = ({ detailData }:EditProductsProps) => {
-
+const EditProducts = ({ detailData }: EditProductsProps) => {
   return (
     <Layout pageCategory="dashboardPage">
       <EditProduct detailData={detailData} />
@@ -33,10 +32,9 @@ export const getServerSideProps = async (
     };
     const detailResponse = await fetchApi(detailParams);
     if (detailResponse.statusCode === 200) {
-    
       detailData = detailResponse.data;
-    }else if(detailResponse.statusCode === 401){
-      return { notFound: true }; 
+    } else if (detailResponse.statusCode === 401) {
+      return { notFound: true };
     }
   } catch (error) {
     console.error(error);
