@@ -76,7 +76,8 @@ const CartFormSection = ({ cartData }: CartProps) => {
         dispatch(
           setToast({
             message: authTab['noToken'],
-          }))
+          })
+        );
       } else {
         dispatch(setToast({ message: result.message }));
       }

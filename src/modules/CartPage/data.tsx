@@ -1,17 +1,16 @@
-import { CartDataType, PriceItemType } from "@/constants/types/cart/cartlist";
+import { CartDataType, PriceItemType } from '@/constants/types/cart/cartlist';
 
 type ProductImgType = {
   src: string;
   alt: string;
- }
+};
 type SpecType = {
   smallWeight: number;
   largeWeight: number;
-}
-
+};
 
 export type ProductCardProps = {
-  productID:number;
+  productID: number;
   productTitle: string;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
@@ -21,9 +20,9 @@ export type ProductCardProps = {
   total: number;
 };
 
-export type CartProps={
-  cartData:CartDataType;
-}
+export type CartProps = {
+  cartData: CartDataType;
+};
 
 export type CartTotalPriceProps = {
   priceData: PriceItemType;
@@ -34,4 +33,3 @@ export type PaymentDataType = {
   TradeInfo?: string;
   TradeSha?: string;
 };
-

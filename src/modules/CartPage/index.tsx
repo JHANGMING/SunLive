@@ -8,7 +8,7 @@ import CartListSection from './CartListSection';
 const CartPage = () => {
   const { cartData } = useSelector((state: RootState) => state.cart);
   const cartLength = cartData?.cartItemLength ?? 0;
- 
+
   return (
     <>
       <CartProcess />
