@@ -4,7 +4,7 @@ type DataType = Array<any> | string | number | null;
 function usePagination(
   data: DataType,
   itemsPerPage: number,
-  currentPage: number 
+  currentPage: number
 ) {
   const maxPage = useMemo(() => {
     if (Array.isArray(data) || typeof data === 'string') {
