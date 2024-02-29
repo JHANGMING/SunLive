@@ -2,19 +2,17 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { authTab } from '@/common/lib/authTab';
 import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
 import DefaultInput from '@/common/components/Input';
+import { useGapClass } from '@/common/hooks/useGapClass';
+import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
 import AuthSelect from '@/common/components/Select/AuthSelect';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { useGapClass } from '@/common/hooks/useGapClass';
-import { authTab } from '@/common/lib/authTab';
-import { nextRoutes } from '@/constants/apiPaths';
-import { setToast } from '@/redux/features/messageSlice';
+import { OnSubmitType } from './data';
 
-type OnSubmitType = {
-  (data: FormValues): void;
-};
 const RegisterPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();

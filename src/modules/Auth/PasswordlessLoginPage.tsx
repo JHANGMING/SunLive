@@ -1,20 +1,20 @@
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
 import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
 import DefaultInput from '@/common/components/Input';
+import ArrowLeft from '@/common/components/arrowLeft';
+import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
 import SendMailLoading from '@/common/components/Loading/SendMailLoading';
-import ArrowLeft from '@/common/components/arrowLeft';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import { setToast } from '@/redux/features/messageSlice';
 const PasswordlessLoginPage = () => {
-  const [showLoading, setShowLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+  const [showLoading, setShowLoading] = useState(false);
   const {
     register,
     handleSubmit,

@@ -3,18 +3,18 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import Button from "@/common/components/Button";
+import { nextRoutes } from "@/constants/apiPaths";
 import DefaultInput from "@/common/components/Input";
+import { setToast} from "@/redux/features/messageSlice";
 import { FormValues } from "@/common/components/Input/data";
 import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
-import { nextRoutes } from "@/constants/apiPaths";
-import { setToast} from "@/redux/features/messageSlice";
 import { ChangePasswordProps } from "./data";
 
 const ChangePasswordPage = ({ queryParams }:ChangePasswordProps) => {
-  const account = queryParams.account;
-  const guid = queryParams.guid;
   const router = useRouter();
   const dispatch = useDispatch();
+  const guid = queryParams.guid;
+  const account = queryParams.account;
   const {
     watch,
     register,
