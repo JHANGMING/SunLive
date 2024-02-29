@@ -1,7 +1,6 @@
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
-import {apiPaths} from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/apiPaths';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
 
 export default async function handler(
   req: NextApiRequest,

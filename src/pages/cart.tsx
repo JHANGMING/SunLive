@@ -9,11 +9,11 @@ import { CartProps } from '@/modules/CartPage/data';
 import { setCartData } from '@/redux/features/cartSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
-const Cart = ({ cartData }:CartProps) => {
-   const dispatch = useDispatch();
-   useEffect(() => {
-     dispatch(setCartData({ cartData }));
-   }, [cartData]);
+const Cart = ({ cartData }: CartProps) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCartData({ cartData }));
+  }, [cartData]);
   return (
     <Layout pageCategory="CartPage">
       <CartPage />
@@ -38,7 +38,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         };
       }
       if (token) {
-        const cartParams:ApiParamsType = {
+        const cartParams: ApiParamsType = {
           apiPath: apiPaths['cart'],
           method: 'GET',
           authToken: token,

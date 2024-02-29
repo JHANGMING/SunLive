@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { apiPaths } from '@/constants/apiPaths';
@@ -8,7 +7,7 @@ import { ProductSearchProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { ProductsRefProvider } from '@/common/hooks/ProductsRefContext';
-const ProductSearch = ({ allproductsData }:ProductSearchProps) => {
+const ProductSearch = ({ allproductsData }: ProductSearchProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
