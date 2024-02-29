@@ -70,6 +70,4 @@ const ManagementSelect = ({
   );
 };
 
-
- 
 export default ManagementSelect;
