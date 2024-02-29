@@ -1,4 +1,4 @@
-import { LivesDataType } from "@/constants/types/live/live";
+import { LivesDataType } from '@/constants/types/live/live';
 
 export type liveCardProps = {
   title: string;

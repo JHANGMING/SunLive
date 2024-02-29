@@ -10,8 +10,13 @@ const LiveChatCountdownWithNoSSR = dynamic(
   { ssr: false }
 );
 
-const ChatAndProduct = ({ liveDetailData, liveId, liveFarmerId,isFarmer=false  }:ChatAndProductPorps) => {
-  const endTime=liveDetailData?.endTime;
+const ChatAndProduct = ({
+  liveDetailData,
+  liveId,
+  liveFarmerId,
+  isFarmer = false,
+}: ChatAndProductPorps) => {
+  const endTime = liveDetailData?.endTime;
   const [viewerCount, setViewerCount] = useState(0);
   const [prevCount, setPrevCount] = useState(viewerCount);
   const prevCountString = String(prevCount);

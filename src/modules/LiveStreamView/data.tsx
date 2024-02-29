@@ -1,4 +1,4 @@
-import { LivedetailDateType } from "@/constants/types/live/livedetailDate";
+import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 
 export type liveCardProps = {
   title: string;
@@ -25,7 +25,7 @@ export type LiveChatProps = {
 };
 
 export type LivestreamingProps = {
-  liveDetailData:LivedetailDateType;
+  liveDetailData: LivedetailDateType;
 };
 
 export type ChatAndProductPorps = {
@@ -35,7 +35,6 @@ export type ChatAndProductPorps = {
   isFarmer?: boolean;
 };
 
-export type LiveChatCountdownProps={
-  endTime:string;
-}
-
+export type LiveChatCountdownProps = {
+  endTime: string;
+};

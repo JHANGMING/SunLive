@@ -26,7 +26,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     nameSender: '',
     photoSender: '',
   });
-  
+
   useEffect(() => {
     if (messagesEndRef.current) {
       const { current: messagesContainer } = messagesEndRef;
@@ -35,7 +35,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
   }, [messages]);
 
   useEffect(() => {
-    if(!liveId) return;
+    if (!liveId) return;
     dispatch(setLiveRoomId(liveId));
   }, [liveId]);
 
@@ -48,10 +48,9 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     };
   }, [chatroomId]);
 
-
   //判斷是否離開頁面
   useEffect(() => {
-    const handleRouteChange = async(url: string) => {
+    const handleRouteChange = async (url: string) => {
       if (!url.includes('/livestream')) {
         try {
           chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
@@ -97,7 +96,6 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         .fail((error: Error) => {
           setIsConnected(false);
         });
-        
     } catch (error) {
       console.error('Failed to connect to SignalR server:', error);
     }
@@ -159,9 +157,8 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       console.error('Failed to send message:', error);
     }
   };
-  const handerShare=async()=>{
-    const farmerMsg =
-      `歡迎揪親朋好友來加入我的直播特賣: https://sun-live.vercel.app/livestream/${liveId}`;
+  const handerShare = async () => {
+    const farmerMsg = `歡迎揪親朋好友來加入我的直播特賣: https://sun-live.vercel.app/livestream/${liveId}`;
     if (!isConnected || !user.userIdSender) {
       return;
     }
@@ -177,7 +174,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     } catch (error) {
       console.error('Failed to send message:', error);
     }
-  }
+  };
   const debouncedSendMsg = useDebounceFn(handleSendMessage, 300);
   return (
     <>
