@@ -11,9 +11,9 @@ import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 const ProfileImgSection = () => {
   const auth=useAuth();
   const dispatch = useDispatch();
+  const [img, setImg] = useState('');
   const { authStatus } = useAuthStatus();
   const [nickName, setNickName] = useState("");
-  const [img, setImg] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   
   const triggerFileInput = () => {
@@ -57,7 +57,6 @@ const ProfileImgSection = () => {
       }else{
         dispatch(setToast({ message: imgResult.message }));
       }
-      console.log(imgResult);
     } catch (error) {
       console.error('Error uploading file:', error);
     }
