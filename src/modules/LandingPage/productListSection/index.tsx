@@ -1,6 +1,6 @@
 
-import LinkToProduct from '@/common/components/LandingPage/LinkToProduct';
 import ProductList from '@/common/components/product/ProductList';
+import LinkToProduct from '@/common/components/LandingPage/LinkToProduct';
 const ProductListSection = () => {
   return (
     <section className="bg-white lg:pt-24 pb-48 lg:pb-140">
