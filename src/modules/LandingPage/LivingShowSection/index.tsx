@@ -1,16 +1,14 @@
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import Image from '@/common/components/CustomImage';
-import { RootState } from '@/redux/store';
 import { BsHandIndex } from 'react-icons/bs';
+import { RootState } from '@/redux/store';
+import Image from '@/common/components/CustomImage';
 import LivingProduct from './LivingProduct';
-import YoutubeLiveIfram from './YoutubeLiveLink';
 import { LivingShowSectionProps } from './data';
+import YoutubeLiveIfram from './YoutubeLiveLink';
 
 const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
   const {liveData}=useSelector((state:RootState)=>state.product);
-  console.log('liveData',liveData);
-  
   const living = liveData?.message === '沒有直播' ? false : true;
   const sectionStyle = isLivePage && '-mt-[180px] bg-white';
   
