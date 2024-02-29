@@ -1,16 +1,16 @@
-import { GetServerSidePropsContext } from 'next';
-import { setCookie } from 'cookies-next';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import Layout from '@/common/components/Layout';
+import { GetServerSidePropsContext } from 'next';
+import { authTab } from '@/common/lib/authTab';
 import LoginPage from '@/modules/Auth/LoginPage';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
 import { LoginPrpos, ROUTES } from '@/modules/Auth/data';
 import { setAllCookies } from '@/common/helpers/getCookie';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setToast, showLoading } from '@/redux/features/messageSlice';
-import { authTab } from '@/common/lib/authTab';
 
 const Login = ({ errorMessage, loginData }: LoginPrpos) => {
   const router = useRouter();

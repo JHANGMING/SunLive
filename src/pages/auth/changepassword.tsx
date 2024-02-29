@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import ChangePasswordPage from '@/modules/Auth/ChangePasswordPage';
 import { ChangePasswordProps } from '@/modules/Auth/data';
+import ChangePasswordPage from '@/modules/Auth/ChangePasswordPage';
 
 const ChangePassword = ({ queryParams }:ChangePasswordProps) => {
   return (
