@@ -10,7 +10,7 @@ export default async function handler(
     const apiParams: ApiParamsType = {
       apiPath: apiPaths['search'],
       method: 'POST',
-      data:{serchQuery: req.body},
+      data: { serchQuery: req.body },
     };
 
     const result = await fetchApi(apiParams);

@@ -17,7 +17,7 @@ const Login = ({ errorMessage, loginData }: LoginPrpos) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (errorMessage) {
-       dispatch(setToast({ message: errorMessage }));
+      dispatch(setToast({ message: errorMessage }));
     }
   }, [errorMessage]);
   useEffect(() => {
@@ -33,7 +33,7 @@ const Login = ({ errorMessage, loginData }: LoginPrpos) => {
   }, [loginData]);
   const handleLoginData = async () => {
     if (loginData) {
-      setAllCookies(loginData); 
+      setAllCookies(loginData);
       const redirectTo = loginData.category
         ? ROUTES.DASHBOARD_ACCOUNT
         : ROUTES.HOME;
@@ -54,7 +54,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   let loginData = [];
-  const { req, res } = context; 
+  const { req, res } = context;
   const {
     guid = 'defaultGuid',
     account = 'defaultAccount',
@@ -87,7 +87,7 @@ export const getServerSideProps = async (
 
     const loginResponse = await fetchApi(loginParams);
     if (loginResponse.statusCode === 200) {
-      loginData= loginResponse.data;
+      loginData = loginResponse.data;
       setCookie('token', loginResponse.token, {
         req,
         res,
@@ -97,14 +97,13 @@ export const getServerSideProps = async (
         path: '/',
         maxAge: 24 * 60 * 60,
       });
-    }else{
+    } else {
       return {
         props: {
           errorMessage: loginResponse.message,
         },
       };
     }
-
   } catch (error) {
     console.error('API call failed:', error);
   }
