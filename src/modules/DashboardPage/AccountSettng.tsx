@@ -15,7 +15,7 @@ import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 const AccountSettng = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
-   const { authStatus } = useAuthStatus();
+  const { authStatus } = useAuthStatus();
   const { data } = useSWR(
     authStatus ? `/api${nextRoutes['farminfo_get']}` : null,
     fetcher

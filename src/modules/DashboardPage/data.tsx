@@ -1,4 +1,4 @@
-export type ProductDataType ={
+export type ProductDataType = {
   id: string;
   productName: string;
   origialPrice: string;
@@ -6,8 +6,8 @@ export type ProductDataType ={
   stock: number;
   createTime: string;
   productstatus: string;
-}
-export type OrderDataType= {
+};
+export type OrderDataType = {
   id: string;
   orderNumber: string;
   custom: string;
@@ -15,20 +15,20 @@ export type OrderDataType= {
   orderTime: string;
   payStatus: string;
   orderStatus: string;
-}
-export type LiveListDataType= {
+};
+export type LiveListDataType = {
   id: string;
   liveNumber: string;
   liveDate: string;
   startTime: string;
   liveLink: string;
-}
-type ColumnType= {
+};
+type ColumnType = {
   title: string;
   dataIndex: string;
   key: string;
-  render?: (row: any) => JSX.Element; 
-}
+  render?: (row: any) => JSX.Element;
+};
 export const productColumns: ColumnType[] = [
   { title: '農產品名稱', dataIndex: 'productTitle', key: 'productTitle' },
   { title: '原價', dataIndex: 'smallOriginalPrice', key: 'smallOriginalPrice' },
@@ -58,4 +58,3 @@ export const LiveListColumns: ColumnType[] = [
   { title: '直播連結', dataIndex: 'liveLink', key: 'liveLink' },
   { title: '直播後台', dataIndex: 'liveProudct', key: 'liveProudct' },
 ];
-
