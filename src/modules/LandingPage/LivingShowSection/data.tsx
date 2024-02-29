@@ -1,5 +1,4 @@
-import { LivesDataType } from "@/constants/types/live/live";
-
+import { LivesDataType } from '@/constants/types/live/live';
 
 export type LivingShowSectionProps = {
   isLivePage?: boolean;
@@ -8,7 +7,7 @@ export type LivingShowSectionProps = {
 export type LivingProductProps = {
   living?: boolean;
   liveData?: LivesDataType;
-  };
+};
 
 export type YoutubeLiveIframProps = {
   isViewPage?: boolean;

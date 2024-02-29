@@ -9,8 +9,8 @@ const YoutubeLiveIfram = ({
   url,
 }: YoutubeLiveIframProps) => {
   let iframeContainerStyle;
-  if ( isFarmer) {
-    iframeContainerStyle = 'h-[350px]'; 
+  if (isFarmer) {
+    iframeContainerStyle = 'h-[350px]';
   } else if (isViewPage) {
     iframeContainerStyle = 'h-[500px]';
   } else {

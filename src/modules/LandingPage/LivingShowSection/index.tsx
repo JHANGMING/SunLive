@@ -8,10 +8,10 @@ import { LivingShowSectionProps } from './data';
 import YoutubeLiveIfram from './YoutubeLiveLink';
 
 const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
-  const {liveData}=useSelector((state:RootState)=>state.product);
+  const { liveData } = useSelector((state: RootState) => state.product);
   const living = liveData?.message === '沒有直播' ? false : true;
   const sectionStyle = isLivePage && '-mt-[180px] bg-white';
-  
+
   return (
     <>
       <section className="lg:hidden">
