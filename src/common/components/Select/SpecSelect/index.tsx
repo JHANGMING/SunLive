@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Select, { StylesConfig } from 'react-select';
-import { OptionType, SpecSelectProps } from './data';
 import useClient from '@/common/hooks/useClient';
+import { OptionType, SpecSelectProps } from './data';
 
 const SpecSelect = ({
   optionsData,
