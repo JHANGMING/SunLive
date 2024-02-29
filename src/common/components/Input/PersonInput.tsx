@@ -1,4 +1,4 @@
-import {PersonInputProps } from './data';
+import { PersonInputProps } from './data';
 
 const PersonInput = ({
   type,
