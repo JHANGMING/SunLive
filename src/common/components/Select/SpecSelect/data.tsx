@@ -21,11 +21,11 @@ export function generateSpecData(specData: ProductDataType): OptionType[] {
   return [
     {
       value: ` ${specData.smallProductSpecId}`,
-      label: `小份 ${specData.smallWeight}g`,
+      label: `小份 ${specData.smallWeight} 斤`,
     },
     {
       value: ` ${specData.largeProductSpecId}`,
-      label: `大份 ${specData.largeWeight}g`,
+      label: `大份 ${specData.largeWeight} 斤`,
     },
   ];
 }
