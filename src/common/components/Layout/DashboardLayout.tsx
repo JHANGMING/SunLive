@@ -2,13 +2,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useAuth from "@/common/hooks/useAuth";
 import DashboardPage from "@/modules/DashboardPage";
-import { DashboardLayoutProps } from "./data";
 import Loading from "../Loading/Loading";
+import { DashboardLayoutProps } from "./data";
 
 const DashboardLayout = ({ children }:DashboardLayoutProps) => {
-  const [isClient, setIsClient] = useState(false);
   const auth = useAuth();
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
     if (auth?.category !== '1') {
