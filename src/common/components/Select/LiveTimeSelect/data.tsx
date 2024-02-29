@@ -6,7 +6,7 @@ export type LiveTimeSelectProps = {
   labelText?: string;
   id?: keyof FormValues;
   errors?: FieldErrors<FormValues>;
-  startTimeRules: RegisterOptions
+  startTimeRules: RegisterOptions;
   endTimeRules: RegisterOptions;
 };
 export type OptionType = {
@@ -25,5 +25,4 @@ const generateTimeOptions = () => {
   return options;
 };
 
-export const optionsData:OptionType[]  = generateTimeOptions();
-
+export const optionsData: OptionType[] = generateTimeOptions();
