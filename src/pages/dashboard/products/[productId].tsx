@@ -1,9 +1,9 @@
-import { GetServerSidePropsContext } from 'next';
 import { getCookie } from 'cookies-next';
-import Layout from '@/common/components/Layout';
-import EditProduct from '@/modules/DashboardPage/Management/EditProduct';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import { GetServerSidePropsContext } from 'next';
 import { apiPaths } from '@/constants/apiPaths';
+import Layout from '@/common/components/Layout';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import EditProduct from '@/modules/DashboardPage/Management/EditProduct';
 import { EditProductsProps } from '@/modules/DashboardPage/Management/data';
 
 const EditProducts = ({ detailData }:EditProductsProps) => {
