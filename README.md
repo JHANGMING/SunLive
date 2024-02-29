@@ -182,9 +182,9 @@
   ### 技術說明：
 
 * 開發環境：Microsoft Visual Studio
-    * 使用的是.net Freamwork 平台，版本為4.7.2。
+    * 使用的是 .net Freamwork 平台，版本為4.7.2。
 
-* 使用框架：ASP.NET Web API 2
+* 使用框架：ASP .NET Web API 2
     * 支持RESTful服務的開發。裡面包含GET、POST、PUT、DELETE等。
 
 * 資料庫：Microsoft SQL Server
