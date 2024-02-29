@@ -1,7 +1,7 @@
 import { BsSearch } from 'react-icons/bs';
 import { OrdersSearchProps } from './data';
 
-const OrdersSearch = ({ placeholder }:OrdersSearchProps) => {
+const OrdersSearch = ({ placeholder }: OrdersSearchProps) => {
   return (
     <div className=" relative">
       <BsSearch size={12} className=" absolute top-15 left-12 text-darkGray" />

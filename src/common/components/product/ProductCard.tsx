@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import Button from '../Button';
@@ -25,9 +25,7 @@ const ProductCard = ({
     priceBorderStyle === 'white' ? 'border-white' : 'border-lightGray';
   const originalPriceClass =
     originalPriceStyle === 'white' ? 'text-white' : 'text-lightGray';
-  const cardGapStyle = cardGapThreeCol
-    ? 'col-span-2 col-span-4'
-    : 'col-span-3';
+  const cardGapStyle = cardGapThreeCol ? 'col-span-2 col-span-4' : 'col-span-3';
   const cardTitleStyle = cardGapThreeCol || 'text-24';
   const cardImageStyle = cardGapThreeCol
     ? 'lg:w-[416px] lg:h-[381px]'

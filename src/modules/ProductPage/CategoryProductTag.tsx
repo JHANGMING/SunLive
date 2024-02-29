@@ -1,9 +1,6 @@
 import LogoImg from '@/common/components/Logo/LogoImg';
+import { CategoryProductTagProps } from './data';
 
-type CategoryProductTagProps = {
-  classStyle: string;
-  text: string;
-};
 const CategoryProductTag = ({ classStyle, text }: CategoryProductTagProps) => {
   return (
     <div

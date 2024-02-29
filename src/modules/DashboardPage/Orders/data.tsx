@@ -1,8 +1,8 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react';
 
 export type OrdersDashboardProps = {
-  children?: ReactNode
-}
+  children?: ReactNode;
+};
 
 export const tabs = [
   { name: '所有訂單', id: 'allorders' },

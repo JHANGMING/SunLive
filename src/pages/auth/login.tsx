@@ -1,23 +1,23 @@
-import { GetServerSidePropsContext } from 'next';
-import { setCookie } from 'cookies-next';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import Layout from '@/common/components/Layout';
+import { GetServerSidePropsContext } from 'next';
+import { authTab } from '@/common/lib/authTab';
 import LoginPage from '@/modules/Auth/LoginPage';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
 import { LoginPrpos, ROUTES } from '@/modules/Auth/data';
 import { setAllCookies } from '@/common/helpers/getCookie';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setToast, showLoading } from '@/redux/features/messageSlice';
-import { authTab } from '@/common/lib/authTab';
 
 const Login = ({ errorMessage, loginData }: LoginPrpos) => {
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
     if (errorMessage) {
-       dispatch(setToast({ message: errorMessage }));
+      dispatch(setToast({ message: errorMessage }));
     }
   }, [errorMessage]);
   useEffect(() => {
@@ -33,7 +33,7 @@ const Login = ({ errorMessage, loginData }: LoginPrpos) => {
   }, [loginData]);
   const handleLoginData = async () => {
     if (loginData) {
-      setAllCookies(loginData); 
+      setAllCookies(loginData);
       const redirectTo = loginData.category
         ? ROUTES.DASHBOARD_ACCOUNT
         : ROUTES.HOME;
@@ -54,7 +54,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   let loginData = [];
-  const { req, res } = context; 
+  const { req, res } = context;
   const {
     guid = 'defaultGuid',
     account = 'defaultAccount',
@@ -87,7 +87,7 @@ export const getServerSideProps = async (
 
     const loginResponse = await fetchApi(loginParams);
     if (loginResponse.statusCode === 200) {
-      loginData= loginResponse.data;
+      loginData = loginResponse.data;
       setCookie('token', loginResponse.token, {
         req,
         res,
@@ -97,14 +97,13 @@ export const getServerSideProps = async (
         path: '/',
         maxAge: 24 * 60 * 60,
       });
-    }else{
+    } else {
       return {
         props: {
           errorMessage: loginResponse.message,
         },
       };
     }
-
   } catch (error) {
     console.error('API call failed:', error);
   }

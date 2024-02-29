@@ -1,10 +1,10 @@
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { useProducts } from '../hooks/ProductsRefContext';
 type PaginationProps = {
-  itemsPerPage: number;
   totalItems: number;
-  paginate: (pageNumber: number) => void;
   currentPage: number;
+  itemsPerPage: number;
+  paginate: (pageNumber: number) => void;
 };
 const Pagination = ({
   itemsPerPage,

@@ -5,10 +5,10 @@ import wrapper from '@/redux/store';
 import Layout from '@/common/components/Layout';
 import { apiPaths } from '@/constants/apiPaths';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
-import AllProducts from '@/modules/DashboardPage/Management/AllProducts';
-import { ProductPorps } from '@/modules/DashboardPage/Management/data';
 import { setProductlistData } from '@/redux/features/dashboardSlice';
-const Products = ({listData}:ProductPorps) => {
+import { ProductPorps } from '@/modules/DashboardPage/Management/data';
+import AllProducts from '@/modules/DashboardPage/Management/AllProducts';
+const Products = ({ listData }: ProductPorps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setProductlistData(listData));

@@ -1,20 +1,16 @@
-.hover-trigger {
-  position: relative;
-  display: inline-block;
-}
-
-.hover-trigger:hover .hover-target {
-  opacity: 0.5;
-}
-
 .hover-target {
   transition: opacity 0.4s ease;
   transform: scale(0);
   transform-origin: center;
 }
 
-.hover-trigger:hover .hover-target {
-  transform: scale(1);
+.hover-trigger {
+  position: relative;
+  display: inline-block;
+  &:hover .hover-target {
+    opacity: 0.5;
+    transform: scale(1);
+  }
 }
 
 @keyframes shake {
@@ -38,7 +34,6 @@
 .iframe-container {
   position: relative;
   width: 100%;
-  // padding-bottom: 56.25%;
   height: 100%;
 }
 

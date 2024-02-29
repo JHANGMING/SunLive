@@ -1,17 +1,17 @@
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
-import PersonInput from '@/common/components/Input/PersonInput';
-import ManagementSelect from '@/common/components/Select/ManagementSelect';
-import { FormValues } from '@/common/components/Input/data';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Button from '@/common/components/Button';
 import Editor from '@/common/components/Editor';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
+import { FormValues } from '@/common/components/Input/data';
+import PersonInput from '@/common/components/Input/PersonInput';
+import ManagementSelect from '@/common/components/Select/ManagementSelect';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import {
   categoryData,
   countyData,
@@ -21,10 +21,10 @@ import {
 } from './data';
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch();
   const {
     control,
     register,
@@ -33,6 +33,7 @@ const AddProduct = () => {
     setValue,
     reset,
   } = useForm<FormValues>();
+
   useEffect(() => {
     setValue('productState', 'false');
   }, []);
@@ -57,8 +58,6 @@ const AddProduct = () => {
       smallWeight: Number(data.smallWeight),
       smallStock: Number(data.smallStock),
     };
-    console.log(dataObj);
-
     const formData = new FormData();
     selectedFiles.forEach((file, index) => {
       formData.append(`file${index}`, file);
@@ -69,7 +68,7 @@ const AddProduct = () => {
       method: 'POST',
       data: dataObj,
     };
-   
+
     const imgParams = {
       method: 'POST',
       body: formData,
@@ -80,7 +79,7 @@ const AddProduct = () => {
         dispatch(setToast({ message: result.message }));
         return;
       }
-      if (result.statusCode === 200){
+      if (result.statusCode === 200) {
         const url = `/api${nextRoutes['uploadProductImg']}?id=${result.data.productId}`;
         const imgResponse = await fetch(url, imgParams);
         const imgResult = await imgResponse.json();
@@ -105,9 +104,7 @@ const AddProduct = () => {
     if (!event.target.files) return;
     const newFiles = Array.from(event.target.files);
     const totalFiles = [...selectedFiles, ...newFiles].slice(0, 5); // 合併並限制最大檔案數量
-
     setSelectedFiles(totalFiles); // 更新狀態以包含所有選擇的檔案
-
     // 更新預覽圖片
     const newPreviewUrls = totalFiles.map((file) => URL.createObjectURL(file));
     setPreviewImages(newPreviewUrls);

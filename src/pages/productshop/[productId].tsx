@@ -1,14 +1,14 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import ProductDetailPage from '@/modules/ProductDetailPage';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import ProductDetailPage from '@/modules/ProductDetailPage';
 import { setAllProductsData } from '@/redux/features/productSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { ProductDetailProps } from '@/modules/ProductDetailPage/data';
 
-const ProductDetail = ({ detailData }:ProductDetailProps) => {
+const ProductDetail = ({ detailData }: ProductDetailProps) => {
   const { detailProduct, productInfoByUser } = detailData;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,10 +28,12 @@ const ProductDetail = ({ detailData }:ProductDetailProps) => {
 
 export default ProductDetail;
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const params = context.params;
   const productId = params ? params['productId'] : null;
-  let detailData=[];
+  let detailData = [];
   try {
     // 取得商品細節
     const detailParams: ApiParamsType = {

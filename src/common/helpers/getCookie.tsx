@@ -1,7 +1,6 @@
-
 import { getCookies, setCookie, deleteCookie } from 'cookies-next';
 export type ResultDataType = {
-  [key: string]: string |  null;
+  [key: string]: string | null;
 };
 
 // 設置Cookies
@@ -13,8 +12,6 @@ export const setAllCookies = (resultData: ResultDataType) => {
   });
 };
 
-
-
 export const removeAllCookies = () => {
   // 取得所有的cookie
   const allCookies = getCookies();
@@ -22,4 +19,3 @@ export const removeAllCookies = () => {
     deleteCookie(cookieKey);
   });
 };
-

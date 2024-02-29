@@ -1,7 +1,7 @@
-type productImgType= {
+type productImgType = {
   src: string;
   alt: string;
-}
+};
 export type DetailproductItemType = {
   productId: number;
   productSpecId: number;
@@ -32,5 +32,3 @@ export type DetailproductItemType = {
     alt: string;
   };
 };
-
-

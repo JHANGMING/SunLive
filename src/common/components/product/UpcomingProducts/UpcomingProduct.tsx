@@ -1,7 +1,7 @@
 import Image from '@/common/components/CustomImage';
 import { LiveProductItemType } from '@/constants/types/live/live';
 
-const UpcomingProduct = ({ ...data }:LiveProductItemType) => {
+const UpcomingProduct = ({ ...data }: LiveProductItemType) => {
   const {
     liveId,
     liveProductId,
@@ -47,7 +47,7 @@ const UpcomingProduct = ({ ...data }:LiveProductItemType) => {
                   : liveFarmerPic
               }
               alt={`liveFarmer-${liveId}`}
-              roundedStyle='object-cover rounded-full'
+              roundedStyle="object-cover rounded-full"
               className="w-40 h-40"
             />
             <p className=" text-primary-green">{liveProductName}</p>

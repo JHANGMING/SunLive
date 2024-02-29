@@ -10,8 +10,7 @@ const LivingProduct = ({ living, liveData }: LivingProductProps) => {
         <LiveIcon size={100} isLivingSection={true} />
       </div>
       <div className="animate-scale-bounce absolute -top-16 -right-80 text-primary-yellow">
-        <BsStars size={50} 
-       />
+        <BsStars size={50} />
       </div>
       <div className="animate-scale-bounce absolute -top-50 right-80 text-primary-yellow">
         <BsStars size={50} />

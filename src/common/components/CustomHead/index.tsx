@@ -34,7 +34,7 @@ export default function CustomHead({ pageCategory }: CustomHeadProps) {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={pageCanonicalUrl || 'https://vercel.app/'}
+          content={pageCanonicalUrl || 'https://sun-live.vercel.app'}
         />
         <meta property="og:title" content={pageTitle || defaultTitle} />
         <meta
@@ -48,7 +48,7 @@ export default function CustomHead({ pageCategory }: CustomHeadProps) {
         {/* Google */}
         <link
           rel="canonical"
-          href={pageCanonicalUrl || 'https://vercel.app/'}
+          href={pageCanonicalUrl || 'https://sun-live.vercel.app'}
         />
       </Head>
       <h1 className="hidden">

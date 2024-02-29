@@ -1,4 +1,3 @@
-
 import Link from 'next/link';
 import { useState } from 'react';
 import LiveListTable from '@/common/components/DynamicTable/LIveListTable';
@@ -7,9 +6,9 @@ import { LiveListColumns } from '../data';
 
 const AllLive = () => {
   const [selectedTab, setSelectedTab] = useState('所有直播');
-   const handleTabClick = (tab:string) => {
-     setSelectedTab(tab);
-   };
+  const handleTabClick = (tab: string) => {
+    setSelectedTab(tab);
+  };
   return (
     <div className="w-9/12 flex-grow">
       <div className="bg-white rounded-20 py-18 pl-28 flex gap-24 mb-40">
@@ -35,7 +34,7 @@ const AllLive = () => {
       <div className="bg-white rounded-20 p-32 flex flex-col">
         <div className="flex justify-between mb-24">
           <h3 className=" text-20 font-semibold ">所有直播</h3>
-          <OrdersSearch placeholder='尋找直播'/>
+          <OrdersSearch placeholder="尋找直播" />
         </div>
         <div className="mb-32">
           <LiveListTable columns={LiveListColumns} />

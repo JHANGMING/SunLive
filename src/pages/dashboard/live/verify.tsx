@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { useEffect, useState } from "react";
-import { nextRoutes } from "@/constants/apiPaths";
+import { useEffect, useState } from 'react';
+import { nextRoutes } from '@/constants/apiPaths';
 import Loading from '@/common/components/Loading/Loading';
 import { showLoading } from '@/redux/features/messageSlice';
-import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 const Verify = () => {
   const router = useRouter();
   const dispatch = useDispatch();

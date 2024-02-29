@@ -1,11 +1,11 @@
 import { mutate } from 'swr';
 import { BsX } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { nextRoutes } from '@/constants/apiPaths';
+import { setToast } from '@/redux/features/messageSlice';
 import { useDebounceFn } from '@/common/hooks/useDebounceFn';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { DeleteBtnPropsType } from './data';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
 const DeleteBtn = ({ size, className, productSpecId }: DeleteBtnPropsType) => {
   const dispatch = useDispatch();
   const handlerDeleteItem = async () => {
@@ -22,7 +22,7 @@ const DeleteBtn = ({ size, className, productSpecId }: DeleteBtnPropsType) => {
       if (result.statusCode === 200) {
         mutate('/api/cart/getcart');
       } else {
-        dispatch(setToast({message: result.message}));
+        dispatch(setToast({ message: result.message }));
       }
     } catch (error) {
       console.log(error);

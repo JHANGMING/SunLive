@@ -1,5 +1,5 @@
-import { locationData } from '@/constants/location';
 import { useState, useEffect } from 'react';
+import { locationData } from '@/constants/location';
 import { OptionType } from '../components/Select/LocationSelect/data';
 
 const useDistrictOptions = (selectedCounty: string): OptionType[] => {

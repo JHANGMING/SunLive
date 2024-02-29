@@ -1,4 +1,4 @@
-export const calculateTimeLeft = (endTime:string) => {
+export const calculateTimeLeft = (endTime: string) => {
   if (typeof endTime !== 'string' || !endTime) {
     return { hours: '00', minutes: '00', seconds: '00' };
   }

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 import Select, { SingleValue, StylesConfig, ActionMeta } from 'react-select';
-import useDistrictOptions from '@/common/hooks/useDistrictOptions';
-import useZipOptions from '@/common/hooks/useZipOptions';
-import { LocationSelectProps, OptionType, countyOptions } from './data';
-import DefaultInput from '../../Input';
 import useClient from '@/common/hooks/useClient';
+import useZipOptions from '@/common/hooks/useZipOptions';
+import useDistrictOptions from '@/common/hooks/useDistrictOptions';
+import DefaultInput from '../../Input';
+import { LocationSelectProps, OptionType, countyOptions } from './data';
 
 const LocationSelect = ({
   control,
@@ -22,38 +22,36 @@ const LocationSelect = ({
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const zipOptions = useZipOptions(selectedDistrict);
 
-const handleCountyChange = (selectedOption:string) => {
-  if (selectedOption) {
-    const newValue = selectedOption;
-    setSelectedCounty(newValue);
-    // setValue(countyName, newValue); // 更新縣市名稱到React Hook Form狀態
-    setSelectedDistrict(''); // 重置鄉鎮市區選擇
-  }
-};
+  const handleCountyChange = (selectedOption: string) => {
+    if (selectedOption) {
+      const newValue = selectedOption;
+      setSelectedCounty(newValue);
+      setSelectedDistrict('');
+    }
+  };
 
-// 處理鄉鎮市區變更
-const handleDistrictChange = (selectedOption: string) => {
-  if (selectedOption) {
-    const newValue = selectedOption;
-    setSelectedDistrict(newValue);
-    // setValue(districtName, newValue); // 更新鄉鎮市區名稱到React Hook Form狀態
-  }
-};
+  // 處理鄉鎮市區變更
+  const handleDistrictChange = (selectedOption: string) => {
+    if (selectedOption) {
+      const newValue = selectedOption;
+      setSelectedDistrict(newValue);
+    }
+  };
 
-useEffect(() => {
-  if (districtOptions.length > 0 && !selectedDistrict) {
-    const firstDistrictValue = districtOptions[0]?.value;
-    setSelectedDistrict(firstDistrictValue);
-    setValue('district', firstDistrictValue as any); // 自動設定第一個鄉鎮市區為選中值
-  }
-}, [districtOptions, districtName, setValue]);
+  useEffect(() => {
+    if (districtOptions.length > 0 && !selectedDistrict) {
+      const firstDistrictValue = districtOptions[0]?.value;
+      setSelectedDistrict(firstDistrictValue);
+      setValue('district', firstDistrictValue as any); // 自動設定第一個鄉鎮市區為選中值
+    }
+  }, [districtOptions, districtName, setValue]);
 
-useEffect(() => {
-  if (zipOptions.length > 0) {
-    const zipCodeValue = zipOptions[0].value;
-    setValue('zipCode', zipCodeValue); // 更新郵遞區號到表單狀態
-  }
-}, [zipOptions, setValue]);
+  useEffect(() => {
+    if (zipOptions.length > 0) {
+      const zipCodeValue = zipOptions[0].value;
+      setValue('zipCode', zipCodeValue); // 更新郵遞區號到表單狀態
+    }
+  }, [zipOptions, setValue]);
 
   const customStyles: StylesConfig<string | OptionType, false> = {
     control: (provided, state) => ({
@@ -97,7 +95,7 @@ useEffect(() => {
                       typeof document === 'undefined' ? null : document.body
                     }
                     value={countyOptions.find(
-                      (option) => option.value  === selectedCounty 
+                      (option) => option.value === selectedCounty
                     )} // 確保value與selectedCounty同步
                     onChange={(
                       option: SingleValue<string | OptionType>,

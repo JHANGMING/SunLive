@@ -1,21 +1,13 @@
-import React, { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { Controller } from 'react-hook-form';
+import React, { useEffect, useRef } from 'react';
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading...</p>,
 });
 import 'react-quill/dist/quill.snow.css';
-import { EditorProps } from './data';
-const Colors = [
-  '#333333',
-  '#666666',
-  '#999999',
-  '#CCCCCC',
-  '#FEE26B',
-  '#DE3C2B',
-  '#47835A',
-]; 
+import { Colors, EditorProps } from './data';
+
 const CustomToolbar = () => (
   <div id="toolbar">
     <select className="ql-header">
@@ -32,14 +24,18 @@ const CustomToolbar = () => (
     </select>
     <select className="ql-color">
       {Colors.map((color) => (
-        <option key={color} value={color} style={{ backgroundColor: color }}>
-        </option>
+        <option
+          key={color}
+          value={color}
+          style={{ backgroundColor: color }}></option>
       ))}
     </select>
     <select className="ql-background">
       {Colors.map((color) => (
-        <option key={color} value={color} style={{ backgroundColor: color }}>
-        </option>
+        <option
+          key={color}
+          value={color}
+          style={{ backgroundColor: color }}></option>
       ))}
     </select>
     <button className="ql-bold" />
@@ -59,20 +55,20 @@ const FontSizes = [
   '36px',
 ];
 
-const Editor = ({ control }:EditorProps) => {
+const Editor = ({ control }: EditorProps) => {
   const quillRef = useRef(null);
   useEffect(() => {
     const Quill = require('quill');
-    
+
     const SizeStyle = Quill.import('attributors/style/size');
     SizeStyle.whitelist = FontSizes;
     Quill.register(SizeStyle, true);
   }, []);
-   const modules = {
-     toolbar: {
-       container: '#toolbar',
-     },
-   };
+  const modules = {
+    toolbar: {
+      container: '#toolbar',
+    },
+  };
 
   return (
     <>

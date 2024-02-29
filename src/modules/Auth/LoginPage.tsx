@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import Button from '@/common/components/Button';
-import DefaultInput from '@/common/components/Input';
-import { FormValues } from '@/common/components/Input/data';
-import { setAllCookies } from '@/common/helpers/getCookie';
-import { useGapClass } from '@/common/hooks/useGapClass';
-import { nextRoutes } from '@/constants/apiPaths';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { setToast, showLoading } from '@/redux/features/messageSlice';
+import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 import { authTab } from '@/common/lib/authTab';
+import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
+import DefaultInput from '@/common/components/Input';
+import { useGapClass } from '@/common/hooks/useGapClass';
+import { setAllCookies } from '@/common/helpers/getCookie';
+import { FormValues } from '@/common/components/Input/data';
+import { setToast, showLoading } from '@/redux/features/messageSlice';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { ROUTES } from './data';
 const LoginPage = () => {
   const router = useRouter();
@@ -59,7 +59,7 @@ const LoginPage = () => {
         setTimeoutId(id);
         dispatch(
           setToast({
-            message: authTab["welcome"],
+            message: authTab['welcome'],
           })
         );
       } else {

@@ -7,7 +7,7 @@ import LiveViewer from './LiveViewer';
 import { LivestreamingProps } from './data';
 import LiveSaleSection from './LiveSaleSection';
 
-const LiveStreamView = ({ liveDetailData }:LivestreamingProps) => {
+const LiveStreamView = ({ liveDetailData }: LivestreamingProps) => {
   const router = useRouter();
   const { liveId } = router.query;
   const { data } = useSWR(

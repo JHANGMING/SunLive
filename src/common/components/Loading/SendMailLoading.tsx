@@ -4,8 +4,6 @@ import LogoImg from '../Logo/LogoImg';
 const SendMailLoading = () => {
   const [percent, setPercent] = useState(0);
   const [completed, setCompleted] = useState(false);
-  // const [hide, setHide] = useState(false);
-
   useEffect(() => {
     const totalDuration = 1500;
     const intervalTime = 20;
@@ -17,7 +15,6 @@ const SendMailLoading = () => {
         if (newPercent >= 100) {
           clearInterval(timer);
           setCompleted(true);
-          // setTimeout(() => setHide(true), 100);
           return 100;
         }
         return newPercent;
@@ -26,8 +23,6 @@ const SendMailLoading = () => {
 
     return () => clearInterval(timer);
   }, []);
-
-  // if (hide) return null;
 
   return (
     <div className="fixed bg-mediumGray/50 top-0 left-0 w-full h-screen z-30">

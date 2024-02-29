@@ -9,13 +9,13 @@ export default async function handler(
 ) {
   try {
     const { email, password } = JSON.parse(req.body);
-    
-   const apiParams:ApiParamsType = {
-      apiPath:apiPaths["login"],
-      method:'POST',
+
+    const apiParams: ApiParamsType = {
+      apiPath: apiPaths['login'],
+      method: 'POST',
       data: { account: email, password: password },
     };
-    const result=await fetchApi(apiParams);
+    const result = await fetchApi(apiParams);
     setCookie('token', result.token, {
       req,
       res,

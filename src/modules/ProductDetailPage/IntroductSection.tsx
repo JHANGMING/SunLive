@@ -1,28 +1,29 @@
 import Image from 'next/image';
 import * as DOMPurify from 'dompurify';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import CategoryTitle from '../ProductPage/CategoryTitle';
 import LogoImg from '@/common/components/Logo/LogoImg';
+import { setFamerId } from '@/redux/features/messageSlice';
 import useScrollToElement from '@/common/hooks/useScrollToRef';
 import { DetailSectionProps } from './data';
-import { useDispatch } from 'react-redux';
-import { setFamerId } from '@/redux/features/messageSlice';
+import CategoryTitle from '../ProductPage/CategoryTitle';
 
-const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
+const IntroductSection = ({ detailProduct }: DetailSectionProps) => {
+  const dispatach = useDispatch();
+  const [cleanHtml, setCleanHtml] = useState('');
   const [selected, setSelected] = useState('farmer');
   const [farmerRef, scrollToFarmer] = useScrollToElement();
   const [productRef, scrollToProduct] = useScrollToElement();
   const [specificationRef, scrollToSpecification] = useScrollToElement();
-  const [cleanHtml, setCleanHtml] = useState('');
-  const dispatach = useDispatch();
+
   useEffect(() => {
     setCleanHtml(DOMPurify.sanitize(detailProduct.introduction));
   }, [detailProduct.introduction]);
   const isSelected = (name: string) => selected === name;
-  const handlerFamerId = (id:number) => {
-    if(!id)return
+  const handlerFamerId = (id: number) => {
+    if (!id) return;
     dispatach(setFamerId(id));
-  }
+  };
   return (
     <section className=" bg-detailBG pt-100 bg-repeat-x  ">
       <div className="bg-lightWhite  ">
@@ -72,7 +73,9 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
               <div className="col-start-5 col-end-11 -ml-[70px]">
                 <div className="flex gap-16 items-center mb-16">
                   <h4>{detailProduct.farmerName}</h4>
-                  <div className=" bg-primary-green flex gap-8 h-[37px] px-8 items-center rounded-8 hover:opacity-60 cursor-pointer" onClick={()=>handlerFamerId(detailProduct?.farmerId)}>
+                  <div
+                    className=" bg-primary-green flex gap-8 h-[37px] px-8 items-center rounded-8 hover:opacity-60 cursor-pointer"
+                    onClick={() => handlerFamerId(detailProduct?.farmerId)}>
                     <Image
                       src="/images/productDetail/chatIcon.svg"
                       alt="chatIcon"
@@ -96,20 +99,6 @@ const IntroductSection = ({ detailProduct }:DetailSectionProps) => {
               <div
                 className="col-start-2 col-end-12 flex flex-col gap-y-24"
                 dangerouslySetInnerHTML={{ __html: cleanHtml }}>
-                {/* <Image
-                  src="/images/productDetail/introductImg_1.png"
-                  alt="introductImg_1"
-                  width={966}
-                  height={988}
-                  className="h-[988px] "
-                />
-                <Image
-                  src="/images/productDetail/introductImg_2.png"
-                  alt="introductImg_2"
-                  width={966}
-                  height={988}
-                  className="h-[988px] "
-                /> */}
               </div>
             </div>
           </li>

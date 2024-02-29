@@ -13,29 +13,32 @@ import { LiveChatProps, Message } from './data';
 
 const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [chatroomId] = useState(`live-${liveId}`);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   const [newMessage, setNewMessage] = useState('');
+  const [isConnected, setIsConnected] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const messagesEndRef = useRef<HTMLUListElement | null>(null);
+  const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
   const [user, setUser] = useState({
     userIdSender: 0,
     nameSender: '',
     photoSender: '',
   });
-  const [isConnected, setIsConnected] = useState(false);
-   const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
-  const messagesEndRef = useRef<HTMLUListElement | null>(null);
-  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
-  const dispatch = useDispatch();
+
   useEffect(() => {
     if (messagesEndRef.current) {
       const { current: messagesContainer } = messagesEndRef;
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
   }, [messages]);
+
   useEffect(() => {
-    if(!liveId) return;
+    if (!liveId) return;
     dispatch(setLiveRoomId(liveId));
   }, [liveId]);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
     setupSignalRConnection();
@@ -45,10 +48,9 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     };
   }, [chatroomId]);
 
-
   //判斷是否離開頁面
   useEffect(() => {
-    const handleRouteChange = async(url: string) => {
+    const handleRouteChange = async (url: string) => {
       if (!url.includes('/livestream')) {
         try {
           chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
@@ -86,7 +88,6 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       await connection
         .start()
         .done(() => {
-          console.log('Connected to SignalR server!');
           setIsConnected(true);
           JoinChatRoom(chatroomId)
             .then(() => callApi())
@@ -95,7 +96,6 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         .fail((error: Error) => {
           setIsConnected(false);
         });
-        
     } catch (error) {
       console.error('Failed to connect to SignalR server:', error);
     }
@@ -107,7 +107,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
     } catch (error) {
-      
+      console.error('Failed to connect to SignalR server:', error);
     }
   };
 
@@ -157,9 +157,8 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       console.error('Failed to send message:', error);
     }
   };
-  const handerShare=async()=>{
-    const farmerMsg =
-      `歡迎揪親朋好友來加入我的直播特賣: https://sun-live.vercel.app/livestream/${liveId}`;
+  const handerShare = async () => {
+    const farmerMsg = `歡迎揪親朋好友來加入我的直播特賣: https://sun-live.vercel.app/livestream/${liveId}`;
     if (!isConnected || !user.userIdSender) {
       return;
     }
@@ -175,7 +174,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     } catch (error) {
       console.error('Failed to send message:', error);
     }
-  }
+  };
   const debouncedSendMsg = useDebounceFn(handleSendMessage, 300);
   return (
     <>

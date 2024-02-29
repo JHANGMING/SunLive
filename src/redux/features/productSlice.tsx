@@ -1,10 +1,10 @@
+import { createSlice } from '@reduxjs/toolkit';
 import { LivesDataType } from '@/constants/types/live/live';
+import { SearchDataType } from '@/constants/types/product/search';
+import { PromotionDataType } from '@/constants/types/product/promotion';
+import { DetailproductItemType } from '@/constants/types/product/detail';
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 import { AllproductsDataType } from '@/constants/types/product/allproducts';
-import { DetailproductItemType } from '@/constants/types/product/detail';
-import { PromotionDataType } from '@/constants/types/product/promotion';
-import { SearchDataType } from '@/constants/types/product/search';
-import { createSlice } from '@reduxjs/toolkit';
 
 interface InitialStateType {
   searchData: SearchDataType;
@@ -16,9 +16,9 @@ interface InitialStateType {
   detailProduct: DetailproductItemType;
   productInfoByUser: AllproductsDataType;
   liveData: LivesDataType;
-  liveDetailData:LivedetailDateType;
+  liveDetailData: LivedetailDateType;
   searchTag: string;
-} 
+}
 const initialState: InitialStateType = {
   searchData: [],
   allProductsData: [],
@@ -68,7 +68,7 @@ export const productSlice = createSlice({
         liveData,
         liveDetailData,
       };
-    }
+    },
   },
 });
 

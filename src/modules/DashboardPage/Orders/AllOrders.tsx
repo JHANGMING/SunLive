@@ -25,27 +25,27 @@ const AllOrders = () => {
   >(null);
   useEffect(() => {
     if (!data) return;
-      const transformedData = transFarmerOrderData(data.data);
-      let filtered;
-      switch (orderId) {
-        case 'allorders':
-          setTabTitle('所有訂單');
-          filtered = transformedData;
-          break;
-        case 'unshippedorders':
-          setTabTitle('未出貨訂單');
-          filtered = transformedData.filter((order) => !order.shipment);
-          break;
-        case 'shippedorders':
-          setTabTitle('已出貨訂單');
-          filtered = transformedData.filter((order) => order.shipment);
-          break;
-        default:
-          filtered = transformedData;
-          router.push('/dashboard/orders/allorders');
-          break;
-      }
-      setFilteredData(filtered);
+    const transformedData = transFarmerOrderData(data.data);
+    let filtered;
+    switch (orderId) {
+      case 'allorders':
+        setTabTitle('所有訂單');
+        filtered = transformedData;
+        break;
+      case 'unshippedorders':
+        setTabTitle('未出貨訂單');
+        filtered = transformedData.filter((order) => !order.shipment);
+        break;
+      case 'shippedorders':
+        setTabTitle('已出貨訂單');
+        filtered = transformedData.filter((order) => order.shipment);
+        break;
+      default:
+        filtered = transformedData;
+        router.push('/dashboard/orders/allorders');
+        break;
+    }
+    setFilteredData(filtered);
   }, [data, orderId]);
 
   return (
@@ -53,7 +53,7 @@ const AllOrders = () => {
       <div className="bg-white rounded-20 p-32 flex flex-col">
         <div className="flex justify-between mb-24">
           <h3 className=" text-20 font-semibold ">{tabTitle}</h3>
-          <OrdersSearch placeholder="尋找訂單"/>
+          <OrdersSearch placeholder="尋找訂單" />
         </div>
         <div className="mb-32">
           {filteredData && (

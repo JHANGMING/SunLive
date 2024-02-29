@@ -1,9 +1,9 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
-import { AuthSelectProps, OptionType, optionsData } from './data';
+import { Controller } from 'react-hook-form';
 import useClient from '@/common/hooks/useClient';
+import { AuthSelectProps, OptionType, optionsData } from './data';
 
 const AuthSelect = ({ control }: AuthSelectProps) => {
   const isClient = useClient();
@@ -25,32 +25,32 @@ const AuthSelect = ({ control }: AuthSelectProps) => {
     }),
   };
   return (
-    
     <div>
       {isClient && (
-      <>
-      <label htmlFor="identity" className="text-20 font-bold block mb-8">
-        註冊身份 <span className="text-20 font-bold text-primary-red">*</span>
-      </label>
-      <Controller
-        name="identity"
-        control={control}
-        rules={{ required: '請選擇註冊身份' }}
-        defaultValue={{
-          value: '一般會員',
-          label: '一般會員 (我想要查看或購買農產品)',
-        }}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={optionsData}
-            styles={customStyles}
-            onChange={(val) => field.onChange(val)}
+        <>
+          <label htmlFor="identity" className="text-20 font-bold block mb-8">
+            註冊身份{' '}
+            <span className="text-20 font-bold text-primary-red">*</span>
+          </label>
+          <Controller
+            name="identity"
+            control={control}
+            rules={{ required: '請選擇註冊身份' }}
+            defaultValue={{
+              value: '一般會員',
+              label: '一般會員 (我想要查看或購買農產品)',
+            }}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={optionsData}
+                styles={customStyles}
+                onChange={(val) => field.onChange(val)}
+              />
+            )}
           />
-        )}
-      />
-      </>
-    )}
+        </>
+      )}
     </div>
   );
 };

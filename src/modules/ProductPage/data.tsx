@@ -1,4 +1,4 @@
-import { AllproductsDataType } from "@/constants/types/product/allproducts";
+import { AllproductsDataType } from '@/constants/types/product/allproducts';
 
 export type ProductShopProps = {
   allproductsData: AllproductsDataType;
@@ -10,4 +10,15 @@ export type ProductShopProps = {
 
 export type ProductSearchProps = {
   allproductsData: AllproductsDataType;
+};
+
+export type CategoryProductTagProps = {
+  classStyle: string;
+  text: string;
+};
+
+export type CategoryTitleProps = {
+  title: string;
+  gapStyle?: string;
+  backgroundStyle?: boolean;
 };

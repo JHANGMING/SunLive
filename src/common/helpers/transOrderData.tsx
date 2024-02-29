@@ -1,5 +1,8 @@
 import { format } from 'date-fns';
-import { FarmerOrderDataType, OrderDataType } from '../components/DynamicTable/data';
+import {
+  FarmerOrderDataType,
+  OrderDataType,
+} from '../components/DynamicTable/data';
 
 export const transOrderData = (data: OrderDataType[]) => {
   return data?.map((item) => ({
@@ -8,7 +11,6 @@ export const transOrderData = (data: OrderDataType[]) => {
     shipment: item.shipment ? '已出貨' : '未出貨',
   }));
 };
-
 
 export const transFarmerOrderData = (data: FarmerOrderDataType[]) => {
   return data?.map((item) => ({

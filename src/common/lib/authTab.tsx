@@ -9,4 +9,3 @@ export const authTab: authTab = {
   register: '註冊成功',
   noToken: '請重新登入',
 };
-

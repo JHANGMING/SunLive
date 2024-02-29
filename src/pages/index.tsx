@@ -1,8 +1,7 @@
-
 import { useEffect } from 'react';
-import { GetServerSidePropsContext } from 'next';
-import { useDispatch } from 'react-redux';
 import { getCookie } from 'cookies-next';
+import { useDispatch } from 'react-redux';
+import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
@@ -11,7 +10,11 @@ import { HomePropsType } from '@/modules/LandingPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import { setCartData } from '@/redux/features/cartSlice';
 
-export default function Home({ liveData, topSaleProduct, cartData }: HomePropsType) {
+export default function Home({
+  liveData,
+  topSaleProduct,
+  cartData,
+}: HomePropsType) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -20,7 +23,7 @@ export default function Home({ liveData, topSaleProduct, cartData }: HomePropsTy
         topSaleProduct,
       })
     );
-    dispatch(setCartData({cartData}));
+    dispatch(setCartData({ cartData }));
   }, [liveData, topSaleProduct, cartData]);
 
   return (

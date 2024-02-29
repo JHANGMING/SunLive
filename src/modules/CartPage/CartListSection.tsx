@@ -1,21 +1,22 @@
-
 import { mutate } from 'swr';
 import { useDispatch } from 'react-redux';
 import { BsChevronDown } from 'react-icons/bs';
-import Image from '@/common/components/CustomImage';
-import SpecSelect from '@/common/components/Select/SpecSelect';
-import { generateSpecData } from '@/common/components/Select/SpecSelect/data';
-import DeleteBtn from '@/common/components/Button/DeleteBtn';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
-import CartLink from './CartLink';
-import CartTotalPrice from './CartTotalPrice';
-import { CartProps } from './data';
+import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
+import { useDebounceFn } from '@/common/hooks/useDebounceFn';
+import DeleteBtn from '@/common/components/Button/DeleteBtn';
+import SpecSelect from '@/common/components/Select/SpecSelect';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { generateSpecData } from '@/common/components/Select/SpecSelect/data';
+import CartLink from './CartLink';
+import { CartProps } from './data';
+import CartTotalPrice from './CartTotalPrice';
 const CartListSection = ({ cartData }: CartProps) => {
   const dispatch = useDispatch();
-  const productData = cartData?.cartItemProductInfo ?? [];
   const priceData = cartData?.cartInfo?.[0];
+  const productData = cartData?.cartItemProductInfo ?? [];
+
   const handlerQtyChange = async (
     productId: number,
     productSpecId: number,
@@ -35,11 +36,10 @@ const CartListSection = ({ cartData }: CartProps) => {
     };
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('QtyChange',dataObj, result);
       if (result.statusCode === 200) {
-        mutate('/api/cart/getcart')
+        mutate('/api/cart/getcart');
       } else {
-        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }))
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
       console.log(error);
@@ -48,8 +48,8 @@ const CartListSection = ({ cartData }: CartProps) => {
 
   const handlerSpecChange = async (productId: any, specId: string) => {
     const dataObj = {
-    productId:productId,
-	  productSpecId:Number(specId),
+      productId: productId,
+      productSpecId: Number(specId),
     };
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['putspec'],
@@ -59,7 +59,7 @@ const CartListSection = ({ cartData }: CartProps) => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        mutate('/api/cart/getcart')
+        mutate('/api/cart/getcart');
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
@@ -67,7 +67,7 @@ const CartListSection = ({ cartData }: CartProps) => {
       console.log(error);
     }
   };
-  
+  const debouncedQtyChange = useDebounceFn(handlerQtyChange, 500);
   return (
     <section className="container">
       <div className=" flex gap-40">
@@ -111,16 +111,16 @@ const CartListSection = ({ cartData }: CartProps) => {
                       alt={productImg.alt}
                       roundedStyle="object-cover"
                       className="w-80 h-80"
-                      />
-                      {cartItemLivePrice && (
-                        <div className=" absolute -left-[28px] -top-[20px]">
-                          <Image
-                            src="/images/productShop/todaySale.svg"
-                            alt="UpcomingIcon"
-                            className="w-50 h-50"
-                          />
-                        </div>
-                      )}
+                    />
+                    {cartItemLivePrice && (
+                      <div className=" absolute -left-[28px] -top-[20px]">
+                        <Image
+                          src="/images/productShop/todaySale.svg"
+                          alt="UpcomingIcon"
+                          className="w-50 h-50"
+                        />
+                      </div>
+                    )}
                     <div>
                       <h6 className=" font-normal mb-8">{productTitle}</h6>
                       <div className="text-14 flex gap-8 items-center">
@@ -163,7 +163,7 @@ const CartListSection = ({ cartData }: CartProps) => {
                           alt="dec"
                           className="w-20 h-20 cursor-pointer hover:opacity-70"
                           onClick={() =>
-                            handlerQtyChange(
+                            debouncedQtyChange(
                               productId,
                               productSpecId,
                               cartItemQty - 1
@@ -176,7 +176,7 @@ const CartListSection = ({ cartData }: CartProps) => {
                           alt="plus"
                           className="w-20 h-20 cursor-pointer hover:opacity-70"
                           onClick={() =>
-                            handlerQtyChange(
+                            debouncedQtyChange(
                               productId,
                               productSpecId,
                               cartItemQty + 1

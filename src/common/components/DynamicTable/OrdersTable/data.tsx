@@ -1,8 +1,6 @@
-
 import { ColumnType, FarmerOrderDataType } from '../data';
 export type OrderDataType = {
-  [key: string]: string | string[] |number;
-
+  [key: string]: string | string[] | number;
 };
 export type DynamicTableProps = {
   columns: ColumnType[];

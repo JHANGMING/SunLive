@@ -1,6 +1,4 @@
-
 import { createSlice } from '@reduxjs/toolkit';
-
 
 interface InitialStateType {
   isLoading: boolean;

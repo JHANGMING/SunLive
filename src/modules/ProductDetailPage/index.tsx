@@ -9,8 +9,8 @@ import { useEffect } from 'react';
 import { showLoading } from '@/redux/features/messageSlice';
 
 const ProductDetailPage = () => {
-  const { detailProduct } = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch();
+  const { detailProduct } = useSelector((state: RootState) => state.product);
   useEffect(() => {
     dispatch(showLoading());
   }, []);

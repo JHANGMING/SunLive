@@ -1,6 +1,6 @@
-import { locationData } from '@/constants/location';
 import { Control } from 'react-hook-form';
 import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form';
+import { locationData } from '@/constants/location';
 import { FormValues } from '../../Input/data';
 
 export type LocationSelectProps = {

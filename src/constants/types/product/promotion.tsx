@@ -4,6 +4,7 @@ export type PromotionItemType = {
   productId: number;
   productSpecId: number;
   productTitle: string;
+  description: string;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
   farmerImg: {

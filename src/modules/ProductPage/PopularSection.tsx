@@ -1,6 +1,6 @@
+import { useProducts } from '@/common/hooks/ProductsRefContext';
 import ProductList from '@/common/components/product/ProductList';
 import CategoryTitle from './CategoryTitle';
-import { useProducts } from '@/common/hooks/ProductsRefContext';
 
 const PopularSection = () => {
   const refs = useProducts();

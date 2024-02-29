@@ -1,10 +1,9 @@
-
-import CategorySection from './CategorySection';
-import DiscountedSection from './DiscountedSection';
+import Banner from '@/common/components/ProductPage/Banner';
 import PopularSection from './PopularSection';
 import SeasonalSection from './SeasonalSection';
+import CategorySection from './CategorySection';
 import AllProductSection from './AllProductSection';
-import Banner from '@/common/components/ProductPage/Banner';
+import DiscountedSection from './DiscountedSection';
 
 const ProductPage = () => {
   return (
