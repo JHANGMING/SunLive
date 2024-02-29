@@ -8,7 +8,7 @@ import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { transformDataForSelect } from '@/common/helpers/transDataForLiveSelect';
-import { LiveProductSelectProps, OptionType} from './data';
+import { LiveProductSelectProps, OptionType } from './data';
 const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
   const isClient = useClient();
   const dispatch = useDispatch();
@@ -22,8 +22,8 @@ const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
       try {
         const result = await fetchNextApi(apiParams);
         if (result.statusCode === 200) {
-            const data=transformDataForSelect(result.data);
-            setProducts(data);
+          const data = transformDataForSelect(result.data);
+          setProducts(data);
         } else {
           dispatch(setToast({ message: result.message }));
         }
@@ -35,7 +35,7 @@ const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
     if (isClient) {
       fetchProducts();
     }
-  }, [isClient]); 
+  }, [isClient]);
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
