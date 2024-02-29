@@ -15,7 +15,7 @@ const SearchSection = () => {
     (state: RootState) => state.product
   );
   useEffect(() => {
-    const handleRouteChange = (url:string) => {
+    const handleRouteChange = (url: string) => {
       if (!url.includes('/search')) {
         dispatch(setSearchData({ searchTag: '輸入水果、蔬菜' }));
         dispatch(showLoading());

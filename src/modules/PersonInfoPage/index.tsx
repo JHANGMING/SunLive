@@ -21,7 +21,7 @@ const PersonInfoPage = () => {
       setActiveSection(section);
     }
   }, [router.query.section]);
-  if (auth?.category==="1") return;
+  if (auth?.category === '1') return;
   const handleAccountClick = () => {
     setActiveSection('account');
   };

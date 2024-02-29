@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import useAuth from '@/common/hooks/useAuth';
@@ -9,13 +9,13 @@ import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 const ProfileImgSection = () => {
-  const auth=useAuth();
+  const auth = useAuth();
   const dispatch = useDispatch();
   const [img, setImg] = useState('');
   const { authStatus } = useAuthStatus();
-  const [nickName, setNickName] = useState("");
+  const [nickName, setNickName] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
@@ -25,14 +25,14 @@ const ProfileImgSection = () => {
       : `/api${nextRoutes['farminfo_get']}`;
   const { data } = useSWR(authStatus ? authUrl : null, fetcher);
   const authData = data?.data;
-    useEffect(() => {
-      if (authData?.photo) {
-        setImg(decodeURIComponent(authData.photo));
-      }
-      if (authData?.nickName) {
-        setNickName(decodeURIComponent(authData.nickName));
-      }
-    }, [authData]);
+  useEffect(() => {
+    if (authData?.photo) {
+      setImg(decodeURIComponent(authData.photo));
+    }
+    if (authData?.nickName) {
+      setNickName(decodeURIComponent(authData.nickName));
+    }
+  }, [authData]);
   const url =
     auth?.category === '0'
       ? `/api${nextRoutes['uploaduserImg']}`
@@ -45,16 +45,16 @@ const ProfileImgSection = () => {
     // 創建 FormData
     const formData = new FormData();
     formData.append('file', file);
-        const imgParams = {
-          method: 'POST',
-          body: formData,
-        };
+    const imgParams = {
+      method: 'POST',
+      body: formData,
+    };
     try {
       const imgResponse = await fetch(url, imgParams);
       const imgResult = await imgResponse.json();
       if (imgResult.statusCode == 200) {
         setImg(imgResult.data.src);
-      }else{
+      } else {
         dispatch(setToast({ message: imgResult.message }));
       }
     } catch (error) {
@@ -89,7 +89,7 @@ const ProfileImgSection = () => {
           <BsPencilSquare size={10.5} />
         </div>
       </div>
-      <h2 className="text-24">{ nickName || "user"}</h2>
+      <h2 className="text-24">{nickName || 'user'}</h2>
     </>
   );
 };
