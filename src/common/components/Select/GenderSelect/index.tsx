@@ -1,4 +1,3 @@
-
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { Controller } from 'react-hook-form';
@@ -11,7 +10,7 @@ const GenderSelect = ({
   id,
   defaultValue,
 }: GenderSelectProps) => {
-  const isClient=useClient();
+  const isClient = useClient();
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
