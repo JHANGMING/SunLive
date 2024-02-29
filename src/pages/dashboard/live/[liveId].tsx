@@ -1,11 +1,9 @@
 import { GetServerSidePropsContext } from 'next';
-import { getCookie } from 'cookies-next';
 import Layout from '@/common/components/Layout';
-
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
-import EditLiveSettings from '@/modules/DashboardPage/Management/EditLiveSettings';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { EditLiveProps } from '@/modules/DashboardPage/Management/data';
+import EditLiveSettings from '@/modules/DashboardPage/Management/EditLiveSettings';
 
 const EditLive = ({ liveDetailData }: EditLiveProps) => {
   return (
