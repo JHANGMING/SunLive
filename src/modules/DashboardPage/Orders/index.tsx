@@ -1,6 +1,6 @@
 
-import { OrdersDashboardProps, tabs } from './data';
 import { useRouter } from 'next/router';
+import { OrdersDashboardProps, tabs } from './data';
 
 const OrdersDashboard = ({ children }: OrdersDashboardProps) => {
   const router = useRouter();
