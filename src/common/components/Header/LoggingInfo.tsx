@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import useAuth from '@/common/hooks/useAuth';
+import { authTab } from '@/common/lib/authTab';
 import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
@@ -33,7 +34,7 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
         router.push('/auth/login');
         dispatch(
           setToast({
-            message: `${result.message}`,
+            message: authTab['noToken'],
           })
         );
       } else {
