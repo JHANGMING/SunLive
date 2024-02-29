@@ -13,29 +13,32 @@ import { LiveChatProps, Message } from './data';
 
 const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [chatroomId] = useState(`live-${liveId}`);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   const [newMessage, setNewMessage] = useState('');
+  const [isConnected, setIsConnected] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const messagesEndRef = useRef<HTMLUListElement | null>(null);
+  const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
   const [user, setUser] = useState({
     userIdSender: 0,
     nameSender: '',
     photoSender: '',
   });
-  const [isConnected, setIsConnected] = useState(false);
-   const chatHubProxyRef = useRef<SignalR.Hub.Proxy | null>(null);
-  const messagesEndRef = useRef<HTMLUListElement | null>(null);
-  const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
-  const dispatch = useDispatch();
+  
   useEffect(() => {
     if (messagesEndRef.current) {
       const { current: messagesContainer } = messagesEndRef;
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
   }, [messages]);
+
   useEffect(() => {
     if(!liveId) return;
     dispatch(setLiveRoomId(liveId));
   }, [liveId]);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
     setupSignalRConnection();
@@ -107,7 +110,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     try {
       await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
     } catch (error) {
-      
+      console.error('Failed to connect to SignalR server:', error);
     }
   };
 

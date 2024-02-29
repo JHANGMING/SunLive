@@ -1,9 +1,9 @@
 
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 import { LivestreamingProps } from './data';
 import ChatAndProduct from './ChatAndProduct';
+import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
   const url=liveDetailData?.yturl;
   const liveId = liveDetailData?.liveId;

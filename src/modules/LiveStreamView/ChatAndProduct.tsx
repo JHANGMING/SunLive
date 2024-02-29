@@ -1,9 +1,9 @@
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import Image from '@/common/components/CustomImage';
 import GlobalLink from '@/common/components/GlobalLink';
 import LiveChat from './LiveChat';
 import { ChatAndProductPorps } from './data';
-import dynamic from 'next/dynamic';
 
 const LiveChatCountdownWithNoSSR = dynamic(
   () => import('./LiveChatCountdown'),
@@ -11,10 +11,10 @@ const LiveChatCountdownWithNoSSR = dynamic(
 );
 
 const ChatAndProduct = ({ liveDetailData, liveId, liveFarmerId,isFarmer=false  }:ChatAndProductPorps) => {
+  const endTime=liveDetailData?.endTime;
   const [viewerCount, setViewerCount] = useState(0);
   const [prevCount, setPrevCount] = useState(viewerCount);
   const prevCountString = String(prevCount);
-  const endTime=liveDetailData?.endTime;
   useEffect(() => {
     if (viewerCount !== prevCount) {
       setPrevCount(viewerCount);
