@@ -22,7 +22,7 @@ const DeleteBtn = ({ size, className, productSpecId }: DeleteBtnPropsType) => {
       if (result.statusCode === 200) {
         mutate('/api/cart/getcart');
       } else {
-        dispatch(setToast({message: result.message}));
+        dispatch(setToast({ message: result.message }));
       }
     } catch (error) {
       console.log(error);

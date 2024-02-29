@@ -18,8 +18,8 @@ const AddToCartButton = ({
   disabled = false,
   productSpecId,
   productId,
-  cartItemQty=1,
-  toCart=false,
+  cartItemQty = 1,
+  toCart = false,
   onClick,
 }: ButtonPropsType) => {
   const router = useRouter();
@@ -32,7 +32,7 @@ const AddToCartButton = ({
       router.push('/auth/login');
       return;
     }
-    
+
     const dataObj = {
       productId,
       productSpecId,
@@ -43,7 +43,7 @@ const AddToCartButton = ({
       method: 'POST',
       data: dataObj,
     };
-    
+
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
@@ -65,7 +65,6 @@ const AddToCartButton = ({
     } catch (error) {
       console.log(error);
     }
-
   };
   const handleClick = () => {
     if (onClick) {
