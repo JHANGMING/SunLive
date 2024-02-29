@@ -23,7 +23,7 @@ export const dataSet: Record<string, dataType> = {
   },
   authPage: {
     title: '會員中心',
-    desc: '成為搶先購的一員，可以深入了解有機農作物的背後故事，享受健康、新鮮的購物體驗。',
+    desc: '成為搶鮮購的一員，可以深入了解有機農作物的背後故事，享受健康、新鮮的購物體驗。',
     url: '',
     image: '',
   },
