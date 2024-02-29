@@ -1,12 +1,12 @@
-import Select from 'react-select';
-import { DynamicTableProps, shipmentOptions } from './data';
-import usePagination from '@/common/hooks/usePagination';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
 import { mutate } from 'swr';
+import Select from 'react-select';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { nextRoutes } from '@/constants/apiPaths';
+import usePagination from '@/common/hooks/usePagination';
+import { setToast } from '@/redux/features/messageSlice';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { DynamicTableProps, shipmentOptions } from './data';
 
 const OrdersTable = ({
   columns,
