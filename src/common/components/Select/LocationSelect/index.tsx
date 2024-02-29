@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 import Select, { SingleValue, StylesConfig, ActionMeta } from 'react-select';
-import useDistrictOptions from '@/common/hooks/useDistrictOptions';
-import useZipOptions from '@/common/hooks/useZipOptions';
-import { LocationSelectProps, OptionType, countyOptions } from './data';
-import DefaultInput from '../../Input';
 import useClient from '@/common/hooks/useClient';
+import useZipOptions from '@/common/hooks/useZipOptions';
+import useDistrictOptions from '@/common/hooks/useDistrictOptions';
+import DefaultInput from '../../Input';
+import { LocationSelectProps, OptionType, countyOptions } from './data';
 
 const LocationSelect = ({
   control,
@@ -26,8 +26,7 @@ const handleCountyChange = (selectedOption:string) => {
   if (selectedOption) {
     const newValue = selectedOption;
     setSelectedCounty(newValue);
-    // setValue(countyName, newValue); // 更新縣市名稱到React Hook Form狀態
-    setSelectedDistrict(''); // 重置鄉鎮市區選擇
+    setSelectedDistrict('');
   }
 };
 
@@ -36,7 +35,6 @@ const handleDistrictChange = (selectedOption: string) => {
   if (selectedOption) {
     const newValue = selectedOption;
     setSelectedDistrict(newValue);
-    // setValue(districtName, newValue); // 更新鄉鎮市區名稱到React Hook Form狀態
   }
 };
 
