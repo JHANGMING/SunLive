@@ -1,13 +1,13 @@
 
-import SearchPage from '@/modules/ProductPage/SearchPage';
-import { ProductsRefProvider } from '@/common/hooks/ProductsRefContext';
-import Layout from '@/common/components/Layout';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
-import { apiPaths } from '@/constants/apiPaths';
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { setAllProductsData } from '@/redux/features/productSlice';
+import { useDispatch } from 'react-redux';
+import { apiPaths } from '@/constants/apiPaths';
+import Layout from '@/common/components/Layout';
+import SearchPage from '@/modules/ProductPage/SearchPage';
 import { ProductSearchProps } from '@/modules/ProductPage/data';
+import { setAllProductsData } from '@/redux/features/productSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import { ProductsRefProvider } from '@/common/hooks/ProductsRefContext';
 const ProductSearch = ({ allproductsData }:ProductSearchProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
