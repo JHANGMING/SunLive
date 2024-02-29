@@ -24,7 +24,7 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm<FormValues>();
   const gapClass = useGapClass(errors);
-  const onSubmit: OnSubmitType = async(data) => {
+  const onSubmit: OnSubmitType = async (data) => {
     const { email, password, identity } = data;
     const dataObj = {
       account: email.trim(),

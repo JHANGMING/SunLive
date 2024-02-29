@@ -20,7 +20,7 @@ const ResetPasswordPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const onSubmit = async(data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     const dataObj = {
       account: data.email.trim(),
     };

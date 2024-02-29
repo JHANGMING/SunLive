@@ -35,7 +35,7 @@ const PasswordlessLoginPage = () => {
         setShowLoading(true);
         const timer = setTimeout(() => {
           setShowLoading(false);
-          router.push('/auth/login'); 
+          router.push('/auth/login');
         }, 5000);
         return () => clearTimeout(timer);
       } else {

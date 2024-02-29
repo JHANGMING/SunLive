@@ -1,16 +1,16 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import Button from "@/common/components/Button";
-import { nextRoutes } from "@/constants/apiPaths";
-import DefaultInput from "@/common/components/Input";
-import { setToast} from "@/redux/features/messageSlice";
-import { FormValues } from "@/common/components/Input/data";
-import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
-import { ChangePasswordProps } from "./data";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import Button from '@/common/components/Button';
+import { nextRoutes } from '@/constants/apiPaths';
+import DefaultInput from '@/common/components/Input';
+import { setToast } from '@/redux/features/messageSlice';
+import { FormValues } from '@/common/components/Input/data';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { ChangePasswordProps } from './data';
 
-const ChangePasswordPage = ({ queryParams }:ChangePasswordProps) => {
+const ChangePasswordPage = ({ queryParams }: ChangePasswordProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const guid = queryParams.guid;
@@ -35,14 +35,14 @@ const ChangePasswordPage = ({ queryParams }:ChangePasswordProps) => {
       data: dataObj,
     };
     try {
-      const result = await fetchNextApi(apiParams);    
+      const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-          router.push('/auth/login');
-          dispatch(
-            setToast({
-              message: result.message,
-            })
-          );
+        router.push('/auth/login');
+        dispatch(
+          setToast({
+            message: result.message,
+          })
+        );
       } else {
         dispatch(
           setToast({
@@ -123,5 +123,5 @@ const ChangePasswordPage = ({ queryParams }:ChangePasswordProps) => {
     </>
   );
 };
- 
+
 export default ChangePasswordPage;

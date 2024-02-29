@@ -59,7 +59,7 @@ const LoginPage = () => {
         setTimeoutId(id);
         dispatch(
           setToast({
-            message: authTab["welcome"],
+            message: authTab['welcome'],
           })
         );
       } else {
