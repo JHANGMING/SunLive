@@ -182,18 +182,18 @@
   ### 技術說明：
 
 * 開發環境：Microsoft Visual Studio
-    * 使用 .NET Freamwork 平台 搭配 ASP.NET 技術。
+    * 使用的是.net Freamwork 平台，版本為4.7.2。
 
 * 使用框架：ASP.NET Web API 2
     * 支持RESTful服務的開發。裡面包含GET、POST、PUT、DELETE等。
 
 * 資料庫：Microsoft SQL Server
-    * 微軟的關係資料庫管理系統，用來數據操作、複雜查詢、備份功能，可以最大限度地減少數據丟失的風險，確保數據的安全和完整性。
+    * 關聯性資料庫管理系統，用於記錄數據、查詢資料等。
 
 * 技術：SignalR
-    * SignalR提供即時通訊和實時數據更新的應用。
+    * 此為Microsoft所開發的套件，針對即時通訊應用提供包裹性解決方案。
 
 * 雲端伺服器：Azure
-    * Microsoft提供一個雲端平台，支持各種編程語言、工具和框架，幫助使用者快速構建、部署和管理應用。
+    * Microsoft提供一個雲端平台，選擇虛擬機台進行後端伺服器資源部署。
 
 </p>
