@@ -1,4 +1,3 @@
-
 type ProductImageType = {
   src: string;
   alt: string;
