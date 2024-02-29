@@ -15,12 +15,12 @@ import { CartProps, PaymentDataType } from './data';
 const CartFormSection = ({ cartData }: CartProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const productData = cartData?.cartItemProductInfo ?? [];
-  const orderSum = cartData?.cartInfo?.[0].totalPromotionPrice || 0;
   const cartId = cartData?.cartId || '';
-  const cartList = transformDataToCartList(productData);
   const formRef = useRef<HTMLFormElement>(null);
   const payformRef = useRef<HTMLFormElement>(null);
+  const productData = cartData?.cartItemProductInfo ?? [];
+  const cartList = transformDataToCartList(productData);
+  const orderSum = cartData?.cartInfo?.[0].totalPromotionPrice || 0;
   const [paymentData, setPaymentData] = useState<PaymentDataType>({});
   const {
     control,
@@ -29,6 +29,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
     setValue,
     formState: { errors },
   } = useForm<FormValues>({});
+
   useEffect(() => {
     setValue('city', '新北市' as any);
   }, []);
@@ -41,6 +42,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
       payformRef.current?.submit();
     }
   }, [paymentData]);
+
   const handleFormSubmit = () => {
     if (formRef.current) {
       formRef.current.dispatchEvent(
@@ -58,7 +60,6 @@ const CartFormSection = ({ cartData }: CartProps) => {
       cartList,
       cartId,
     };
-    console.log(dataObj);
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['order'],
       method: 'POST',
@@ -67,11 +68,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
 
     try {
       const result = await fetchNextApi(apiParams);
-      console.log('order', result);
-
       if (result.statusCode === 200) {
-        // mutate('/api/cart/getcart');
-
         setPaymentData(result.paymentData);
       } else if (result.statusCode === 409) {
         router.push('/auth/login');

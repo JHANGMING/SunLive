@@ -15,8 +15,8 @@ import { CartProps } from './data';
 import CartTotalPrice from './CartTotalPrice';
 const CartListSection = ({ cartData }: CartProps) => {
   const dispatch = useDispatch();
-  const productData = cartData?.cartItemProductInfo ?? [];
   const priceData = cartData?.cartInfo?.[0];
+  const productData = cartData?.cartItemProductInfo ?? [];
   
   const handlerQtyChange = async (
     productId: number,
