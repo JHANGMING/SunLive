@@ -1,10 +1,10 @@
 module.exports = {
-  trailingComma: "es5",
+  trailingComma: 'es5',
   singleQuote: true,
   printWidth: 80,
   semi: true,
-  endOfLine: "auto",
+  endOfLine: 'auto',
   bracketSpacing: true,
   bracketSameLine: true,
-  htmlWhitespaceSensitivity: "ignore",
+  htmlWhitespaceSensitivity: 'ignore',
 };
