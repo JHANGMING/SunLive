@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { BsLink45Deg } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
@@ -10,14 +10,14 @@ import { updateLiveDataWithFutureFlag } from '@/common/helpers/updatedLiveDat';
 import { DynamicTableProps} from './data';
 
 const LiveListTable = ({ columns }: DynamicTableProps) => {
+  const router= useRouter();
+  const dispatch = useDispatch();
   const listData= useSelector(
     (state: RootState) => state.dashboard.livelistData
   );
   const updataListData = updateLiveDataWithFutureFlag(
     listData as unknown as LivedetailDateType[]
   );
-  const router= useRouter();
-  const dispatch = useDispatch();
   const data = updataListData;
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
