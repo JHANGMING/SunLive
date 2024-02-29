@@ -99,20 +99,6 @@ const IntroductSection = ({ detailProduct }: DetailSectionProps) => {
               <div
                 className="col-start-2 col-end-12 flex flex-col gap-y-24"
                 dangerouslySetInnerHTML={{ __html: cleanHtml }}>
-                {/* <Image
-                  src="/images/productDetail/introductImg_1.png"
-                  alt="introductImg_1"
-                  width={966}
-                  height={988}
-                  className="h-[988px] "
-                />
-                <Image
-                  src="/images/productDetail/introductImg_2.png"
-                  alt="introductImg_2"
-                  width={966}
-                  height={988}
-                  className="h-[988px] "
-                /> */}
               </div>
             </div>
           </li>
