@@ -24,14 +24,18 @@ const CustomToolbar = () => (
     </select>
     <select className="ql-color">
       {Colors.map((color) => (
-        <option key={color} value={color} style={{ backgroundColor: color }}>
-        </option>
+        <option
+          key={color}
+          value={color}
+          style={{ backgroundColor: color }}></option>
       ))}
     </select>
     <select className="ql-background">
       {Colors.map((color) => (
-        <option key={color} value={color} style={{ backgroundColor: color }}>
-        </option>
+        <option
+          key={color}
+          value={color}
+          style={{ backgroundColor: color }}></option>
       ))}
     </select>
     <button className="ql-bold" />
@@ -51,20 +55,20 @@ const FontSizes = [
   '36px',
 ];
 
-const Editor = ({ control }:EditorProps) => {
+const Editor = ({ control }: EditorProps) => {
   const quillRef = useRef(null);
   useEffect(() => {
     const Quill = require('quill');
-    
+
     const SizeStyle = Quill.import('attributors/style/size');
     SizeStyle.whitelist = FontSizes;
     Quill.register(SizeStyle, true);
   }, []);
-   const modules = {
-     toolbar: {
-       container: '#toolbar',
-     },
-   };
+  const modules = {
+    toolbar: {
+      container: '#toolbar',
+    },
+  };
 
   return (
     <>
