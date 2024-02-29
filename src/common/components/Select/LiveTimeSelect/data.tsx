@@ -22,8 +22,6 @@ const generateTimeOptions = () => {
       options.push({ value: time, label: time });
     }
   }
-  // options.push({ value: '22:00', label: '22:00' });
-
   return options;
 };
 
