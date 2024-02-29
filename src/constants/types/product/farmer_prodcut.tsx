@@ -4,5 +4,5 @@ export type ListDataType = {
   productTitle: string;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
-  smallStock:number;
+  smallStock: number;
 };
