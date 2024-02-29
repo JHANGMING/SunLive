@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Controller } from 'react-hook-form';
 import Select from 'react-select';
-import { StylesConfig } from 'react-select';
-import { LiveProductSelectProps, OptionType} from './data';
-import { FormValues } from '@/common/components/Input/data';
-import useClient from '@/common/hooks/useClient';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
 import { useDispatch } from 'react-redux';
+import { StylesConfig } from 'react-select';
+import { Controller } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import useClient from '@/common/hooks/useClient';
+import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { transformDataForSelect } from '@/common/helpers/transDataForLiveSelect';
+import { LiveProductSelectProps, OptionType} from './data';
 const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
   const isClient = useClient();
   const dispatch = useDispatch();
