@@ -4,5 +4,5 @@ export type CustomImageProps = {
   priority?: boolean;
   className?: string;
   roundedStyle?: string;
-  onClick ?: () => void;
+  onClick?: () => void;
 };

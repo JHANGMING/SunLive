@@ -1,9 +1,9 @@
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import ChangePasswordPage from '@/modules/Auth/ChangePasswordPage';
 import { ChangePasswordProps } from '@/modules/Auth/data';
+import ChangePasswordPage from '@/modules/Auth/ChangePasswordPage';
 
-const ChangePassword = ({ queryParams }:ChangePasswordProps) => {
+const ChangePassword = ({ queryParams }: ChangePasswordProps) => {
   return (
     <Layout pageCategory="authPage" classStyle="px-110 pb-80">
       <ChangePasswordPage queryParams={queryParams} />
@@ -37,4 +37,4 @@ export const getServerSideProps = async (
       },
     };
   }
-}
+};

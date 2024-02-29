@@ -13,9 +13,9 @@ import PersonInput from '@/common/components/Input/PersonInput';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 
 const AccountSettng = () => {
-  const dispatch = useDispatch();
   const auth = useAuth();
-   const { authStatus } = useAuthStatus();
+  const dispatch = useDispatch();
+  const { authStatus } = useAuthStatus();
   const { data } = useSWR(
     authStatus ? `/api${nextRoutes['farminfo_get']}` : null,
     fetcher

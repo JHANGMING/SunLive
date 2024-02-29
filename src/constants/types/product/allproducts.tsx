@@ -1,8 +1,7 @@
-export type ProductImgType={
+export type ProductImgType = {
   src: string;
   alt: string;
 };
-
 
 export type AllproductsItemType = {
   productId: number;

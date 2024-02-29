@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
-import { LiveTimeSelectProps, OptionType, optionsData } from './data';
+import { Controller } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
 import useClient from '@/common/hooks/useClient';
+import { LiveTimeSelectProps, OptionType, optionsData } from './data';
 
 const LiveTimeSelect = ({
   control,
@@ -12,8 +12,8 @@ const LiveTimeSelect = ({
   endTimeRules,
 }: LiveTimeSelectProps) => {
   const isClient = useClient();
-  const [startTime, setStartTime] = useState<OptionType | null>(null);
   const [endTime, setEndTime] = useState<OptionType | null>(null);
+  const [startTime, setStartTime] = useState<OptionType | null>(null);
   const [endTimeOptions, setEndTimeOptions] = useState<OptionType[]>([]);
 
   useEffect(() => {

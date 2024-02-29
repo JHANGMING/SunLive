@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { calculateTimeLeft } from '@/common/helpers/calculateTime';
 import { LiveChatCountdownProps } from './data';

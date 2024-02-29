@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Select, { StylesConfig } from 'react-select';
-import { OptionType, SpecSelectProps } from './data';
 import useClient from '@/common/hooks/useClient';
+import { OptionType, SpecSelectProps } from './data';
 
 const SpecSelect = ({
   optionsData,
   onSpecChange,
   initialSelectIndex = 0,
-  isLive=false
+  isLive = false,
 }: SpecSelectProps) => {
   const isClient = useClient();
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);

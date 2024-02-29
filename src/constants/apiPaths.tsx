@@ -128,4 +128,3 @@ export const nextRoutes = {
 
   notify: '/chat/notify',
 };
-

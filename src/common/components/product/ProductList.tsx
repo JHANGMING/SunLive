@@ -3,8 +3,8 @@ import { RootState } from '@/redux/store';
 import { numberToChinese } from '@/common/helpers/numberToChinese';
 import PaginatedProductList from './PaginatedProductList';
 import ProductCard from './ProductCard';
-import { ProductListProps } from './data';
 import Loading from '../Loading/Loading';
+import { ProductListProps } from './data';
 
 const ProductList = ({ category }: ProductListProps) => {
   const {

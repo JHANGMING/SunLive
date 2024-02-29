@@ -1,13 +1,13 @@
-import ProductPage from '@/modules/ProductPage';
-import { ProductsRefProvider } from '@/common/hooks/ProductsRefContext';
-import Layout from '@/common/components/Layout';
-import { apiPaths } from '@/constants/apiPaths';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
-import { AllproductsDataType } from '@/constants/types/product/allproducts';
-import { ProductShopProps } from '@/modules/ProductPage/data';
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import ProductPage from '@/modules/ProductPage';
+import { apiPaths } from '@/constants/apiPaths';
+import Layout from '@/common/components/Layout';
+import { ProductShopProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import { ProductsRefProvider } from '@/common/hooks/ProductsRefContext';
+import { AllproductsDataType } from '@/constants/types/product/allproducts';
 
 const ProductShop = ({
   allproductsData,

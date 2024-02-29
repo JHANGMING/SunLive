@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { fetchAuthStatus } from '@/common/helpers/fetchAuthStatus';
 import { getCookie, setCookie } from 'cookies-next';
+import { fetchAuthStatus } from '@/common/helpers/fetchAuthStatus';
 
 export function useAuthStatus() {
   const [authStatus, setAuthStatus] = useState(false);

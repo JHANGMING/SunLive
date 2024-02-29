@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { RootState } from '@/redux/store';
-import { DynamicTableProps } from './data';
 import usePagination from '@/common/hooks/usePagination';
 import { getCellClass } from '@/common/helpers/getCellClass';
+import { DynamicTableProps } from './data';
 
 const ProductlistTable = ({ columns }: DynamicTableProps) => {
   const router = useRouter();

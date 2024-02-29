@@ -1,4 +1,3 @@
-
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { nextRoutes } from '@/constants/apiPaths';
@@ -8,7 +7,6 @@ import YoutubeLiveIfram from '@/modules/LandingPage/LivingShowSection/YoutubeLiv
 import { EditLiveProps } from './data';
 import EditLiveProduct from './EditLiveProduct';
 
-
 const EditLiveSettings = ({ liveDetailData }: EditLiveProps) => {
   const router = useRouter();
   const { liveId } = router.query;
@@ -17,15 +15,15 @@ const EditLiveSettings = ({ liveDetailData }: EditLiveProps) => {
     fetcher,
     { fallbackData: liveDetailData }
   );
-  const famerliveId = data?.data?.liveId;
-  const liveFarmerId= data?.data?.liveFarmerId;
+  const url = data?.data?.yturl;
+  const liveDate = data?.data?.liveDate;
   const liveName = data?.data?.liveName;
-  const url=data?.data?.yturl;
-  const liveDate=data?.data?.liveDate;
+  const famerliveId = data?.data?.liveId;
+  const liveFarmerId = data?.data?.liveFarmerId;
   if (!data) {
-    router.push("/dashboard/management"); 
+    router.push('/dashboard/management');
   }
-  
+
   return (
     <div className="w-11/12 bg-white rounded-20 p-20 flex-grow flex flex-col gap-24 self-start">
       <h3 className=" text-20 font-semibold ">{liveName}-後台直播</h3>

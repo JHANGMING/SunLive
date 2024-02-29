@@ -1,48 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import LogoImg from '../Logo/LogoImg';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { hideLoading } from '@/redux/features/messageSlice';
+import LogoImg from '../Logo/LogoImg';
 
 const Loading = () => {
-const isLoading = useSelector((state: RootState) => state.message.isLoading);
-const dispatch = useDispatch();
-const [percent, setPercent] = useState(0);
-const [completed, setCompleted] = useState(false);
+  const dispatch = useDispatch();
+  const [percent, setPercent] = useState(0);
+  const [completed, setCompleted] = useState(false);
+  const isLoading = useSelector((state: RootState) => state.message.isLoading);
 
-useEffect(() => {
-  if (isLoading) {
-    let interval:NodeJS.Timeout | null = null
-    const totalDuration = 1500;
-    const increment = (100 * 20) / totalDuration;
+  useEffect(() => {
+    if (isLoading) {
+      let interval: NodeJS.Timeout | null = null;
+      const totalDuration = 1500;
+      const increment = (100 * 20) / totalDuration;
 
-    interval = setInterval(() => {
-      setPercent((prev) => {
-        const nextPercent = prev + increment;
-        if (nextPercent >= 100 && interval !== null) {
+      interval = setInterval(() => {
+        setPercent((prev) => {
+          const nextPercent = prev + increment;
+          if (nextPercent >= 100 && interval !== null) {
+            clearInterval(interval);
+            setCompleted(true);
+            // 1.5秒後關閉loading
+            setTimeout(() => {
+              dispatch(hideLoading());
+            }, 1500);
+            return 100;
+          }
+          return nextPercent;
+        });
+      }, 20);
+
+      return () => {
+        if (interval !== null) {
           clearInterval(interval);
-          setCompleted(true);
-          // 1.5秒後關閉loading
-          setTimeout(() => {
-            dispatch(hideLoading()); 
-          }, 1500);
-          return 100;
         }
-        return nextPercent;
-      });
-    }, 20);
+      };
+    }
+  }, [isLoading, dispatch]);
 
-    return () => {
-      if (interval !== null) {
-        clearInterval(interval);
-      }
-    };
-  }
-}, [isLoading, dispatch]);
-
-// 如果不是在 loading 狀態或者已完成，則不顯示
-if (!isLoading || completed) return null;
-
+  // 如果不是在 loading 狀態或者已完成，則不顯示
+  if (!isLoading || completed) return null;
 
   return (
     <div

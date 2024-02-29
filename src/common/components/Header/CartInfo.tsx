@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { BsCart2 } from 'react-icons/bs';
 import Image from '@/common/components/CustomImage';
-import { productData } from '@/modules/CartPage/data';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import { LoggingInfoProps } from './data';
 import { useEffect, useRef } from 'react';

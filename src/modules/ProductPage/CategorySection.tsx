@@ -1,11 +1,10 @@
 import Image from 'next/image';
-import CategoryProductTag from './CategoryProductTag';
 import { RefObject } from 'react';
 import { useProducts } from '@/common/hooks/ProductsRefContext';
+import CategoryProductTag from './CategoryProductTag';
 
 const CategorySection = () => {
   const refs = useProducts();
-
   if (!refs) return null;
 
   const {

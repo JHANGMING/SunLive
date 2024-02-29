@@ -1,5 +1,5 @@
-import LogoImg from '@/common/components/Logo/LogoImg';
 import { useEffect, useRef } from 'react';
+import LogoImg from '@/common/components/Logo/LogoImg';
 import { YoutubeLiveIframProps } from './data';
 
 const YoutubeLiveIfram = ({
@@ -9,8 +9,8 @@ const YoutubeLiveIfram = ({
   url,
 }: YoutubeLiveIframProps) => {
   let iframeContainerStyle;
-  if ( isFarmer) {
-    iframeContainerStyle = 'h-[350px]'; 
+  if (isFarmer) {
+    iframeContainerStyle = 'h-[350px]';
   } else if (isViewPage) {
     iframeContainerStyle = 'h-[500px]';
   } else {

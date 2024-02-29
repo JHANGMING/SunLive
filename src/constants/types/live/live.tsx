@@ -10,7 +10,6 @@ export type LiveProductItemType = {
   classStyle?: string;
 };
 
-
 export type LivesDataType = {
   message?: string;
   data: {

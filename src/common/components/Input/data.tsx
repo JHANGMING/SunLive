@@ -1,9 +1,5 @@
 import { ReactNode } from 'react';
-import {
-  UseFormRegister,
-  FieldErrors,
-  RegisterOptions,
-} from 'react-hook-form';
+import { UseFormRegister, FieldErrors, RegisterOptions } from 'react-hook-form';
 
 export type FormValues = {
   email: string;
@@ -17,7 +13,6 @@ export type FormValues = {
   identity?: { value: string; label: string };
   gender: { value: string; label: string };
   nickName: string;
-  // gender: string;
   vision: string;
   zipCode: string;
   datePicker: Date;
@@ -53,7 +48,7 @@ export type FormValues = {
   district: { label: string; value: string } | null;
 };
 export type DefaultInputProps = {
-  type: 'email' | 'text' | 'password' | 'tel' | "number";
+  type: 'email' | 'text' | 'password' | 'tel' | 'number';
   labelText: string;
   inputText: string;
   icon?: ReactNode;
@@ -86,5 +81,5 @@ export type SearchInputProps = {
 };
 
 export type OrdersSearchProps = {
-  placeholder:string
+  placeholder: string;
 };

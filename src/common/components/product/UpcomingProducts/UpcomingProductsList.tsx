@@ -1,9 +1,6 @@
 import { useSelector } from 'react-redux';
-import UpcomingProduct from './UpcomingProduct';
-import { productData } from './data';
 import { RootState } from '@/redux/store';
-
-
+import UpcomingProduct from './UpcomingProduct';
 
 const UpcomingProductsList = () => {
   const { liveData } = useSelector((state: RootState) => state.product);

@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from 'react';
-import { fixedPageSet } from './data';
 import Logo from '../Logo';
+import LiveIcon from './LIveIcon';
+import { fixedPageSet } from './data';
 import CartAndLogin from './CartAndLogin';
 import { BsSearch } from 'react-icons/bs';
 import SearchInput from '../Input/SearchInput';
 import { LayoutPropsType } from '../Layout/data';
-import LiveIcon from './LIveIcon';
 
 const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
   const headerBehavior = fixedPageSet[pageCategory];
@@ -43,7 +43,7 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
       <div className="container flex justify-between items-center ">
         <div className="w-400 flex gap-24">
           <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />
-          <LiveIcon size={60}/>
+          <LiveIcon size={60} />
         </div>
         <div
           className={`w-400 flex justify-center ${pageCategory === 'dashboardPage' && 'hidden'}`}>

@@ -1,14 +1,14 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { LuShoppingCart } from 'react-icons/lu';
 import { BsPersonCircle } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
 import { RootState } from '@/redux/store';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import Image from '@/common/components/CustomImage';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import CartInfo from './CartInfo';
+import LoggingInfo from './LoggingInfo';
 import CartItemCount from './CartItemCount';
 import { LayoutPropsType } from '../Layout/data';
-import LoggingInfo from './LoggingInfo';
-import CartInfo from './CartInfo';
 
 const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
   const { authStatus } = useAuthStatus();
@@ -49,8 +49,7 @@ const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
         <div
           className="relative"
           onMouseEnter={handleCartMouseEnter}
-          onMouseLeave={handleCartMouseLeave}
-          >
+          onMouseLeave={handleCartMouseLeave}>
           <button
             type="button"
             className="relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">

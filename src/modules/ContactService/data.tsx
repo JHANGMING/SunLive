@@ -16,7 +16,6 @@ type FarmerDataType = {
   farmerPhoto: string;
 };
 
-
 export type PersonalChatRoomProps = {
   toggleExpand: () => void;
   setIsChatExpanded: (isExpanded: boolean) => void;
@@ -39,4 +38,3 @@ export type ChatcontentType = {
   senderNickName: string;
   senderPhoto: string;
 };
-

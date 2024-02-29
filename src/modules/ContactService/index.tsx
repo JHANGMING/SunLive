@@ -11,7 +11,7 @@ import { fetcher } from '@/common/helpers/fetcher';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { clearFamerId, setToast} from '@/redux/features/messageSlice';
+import { clearFamerId, setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { JoinChatRoom } from './signalRService';
 import PersonalChatRoom from './PersonalChatRoom';
@@ -19,22 +19,8 @@ import { ChatDataType, ChatcontentType } from './data';
 
 const ContactService = () => {
   const auth = useAuth();
-  const { authStatus } = useAuthStatus();
-  const { data } = useSWR(
-    authStatus ? `/api${nextRoutes['getmessage']}` : null,
-    fetcher
-  );
-  const { data: notify } = useSWR(
-    authStatus ? `/api${nextRoutes['notify']}` : null,
-    fetcher
-  );
-  
-  const isReady = notify?.haveUnreadMessage;
-  const { isReadyToShowChat, farmerId } = useSelector(
-    (state: RootState) => state?.message
-  );
-
   const dispatch = useDispatch();
+  const { authStatus } = useAuthStatus();
   const [userId, setUserId] = useState(0);
   const [chatroomId, setChatroomId] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,11 +33,22 @@ const ContactService = () => {
     farmerName: '',
     farmerPhoto: '',
   });
+  const { isReadyToShowChat, farmerId } = useSelector(
+    (state: RootState) => state?.message
+  );
+  const { data } = useSWR(
+    authStatus ? `/api${nextRoutes['getmessage']}` : null,
+    fetcher
+  );
+  const { data: notify } = useSWR(
+    authStatus ? `/api${nextRoutes['notify']}` : null,
+    fetcher
+  );
 
-  const id= Number(auth?.id);
-
-  const isFarmer = auth?.category === '1';
+  const id = Number(auth?.id);
   const chatData = data?.chatList;
+  const isFarmer = auth?.category === '1';
+  const isReady = notify?.haveUnreadMessage;
   const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   useEffect(() => {
     if (!isReadyToShowChat) return;
@@ -79,7 +76,7 @@ const ContactService = () => {
     }
   }, [isConnected]);
 
-   const setupSignalRConnection = async () => {
+  const setupSignalRConnection = async () => {
     if (chatHubProxyRef.current && isConnected) {
       return;
     }
@@ -94,7 +91,7 @@ const ContactService = () => {
         setChatMessages(newMessages);
       });
       chatHubProxy.on('notifyMessage', (message) => {
-        dispatch(setToast({message:message}));
+        dispatch(setToast({ message: message }));
       });
       chatHubProxy.on('notifyShipment', (message) => {
         dispatch(setToast({ message: message }));
@@ -105,22 +102,19 @@ const ContactService = () => {
         .start()
         .done(() => {
           setIsConnected(true);
-          if(id){
+          if (id) {
             chatHubProxyRef.current?.invoke('AddintoSocket', id);
           }
-          if (chatroomId ) {
-            JoinChatRoom(
-              chatHubProxyRef.current,
-              chatroomId
-            );
+          if (chatroomId) {
+            JoinChatRoom(chatHubProxyRef.current, chatroomId);
           }
         })
-        .fail((error:Error) => {
+        .fail((error: Error) => {
           setIsConnected(false);
         });
-        connection.disconnected(() => {
-          setIsConnected(false); 
-        });
+      connection.disconnected(() => {
+        setIsConnected(false);
+      });
     } catch (error) {
       setIsConnected(false);
     }
@@ -160,7 +154,7 @@ const ContactService = () => {
       setIsChatExpanded(false);
     }
   };
-  
+
   const handlerOpenChat = async (
     farmerId: number,
     nickName: string,

@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{ error: string; success?: boolean ;message?:string}>
+  res: NextApiResponse<{ error: string; success?: boolean; message?: string }>
 ) {
   try {
     const token = getCookie('token', { req, res });

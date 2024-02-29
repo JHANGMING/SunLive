@@ -4,7 +4,6 @@ export const JoinChatRoom = async (
 ) => {
   try {
     await chatHubProxyRef?.invoke('JoinChatRoom', chatroomId);
-    console.log('Joined the chat room successfully');
   } catch (error) {
     console.error('Failed to join chat room:', error);
   }

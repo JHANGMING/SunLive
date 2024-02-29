@@ -1,11 +1,8 @@
-import { locationData } from "@/constants/location";
-import { ListDataType } from "@/constants/types/product/farmer_prodcut";
-import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
-import { EditSettingType } from "@/constants/types/dashboard/liveSettings";
-import { LivelistType } from "@/constants/types/dashboard/livelist";
-import { LivesDataType } from "@/constants/types/live/live";
-import { LivedetailDateType } from "@/constants/types/live/livedetailDate";
-
+import { locationData } from '@/constants/location';
+import { LivelistType } from '@/constants/types/dashboard/livelist';
+import { ListDataType } from '@/constants/types/product/farmer_prodcut';
+import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
+import { DetailproductDataType } from '@/constants/types/dashboard/detailProduct';
 
 export type OptionType = {
   value: string;
@@ -17,7 +14,7 @@ export type OnSubmitType = {
 };
 
 export type EditProductsProps = {
-  detailData:DetailproductDataType;
+  detailData: DetailproductDataType;
 };
 
 export type LiveproductProps = {
@@ -45,11 +42,11 @@ export type AddLiveDataType = {
 
 export type ProductPorps = {
   listData: ListDataType[];
-}
+};
 
 export type EditLiveProductProps = {
   liveId: number;
-}
+};
 
 export type LiveProductType = {
   liveProductId: string;
@@ -79,9 +76,9 @@ export type AllProductsProps = {
 };
 
 export type AllOrdersProps = {
-  selectedTab?: string; 
-  onTabChange?: (newTab: string) => void; 
-}
+  selectedTab?: string;
+  onTabChange?: (newTab: string) => void;
+};
 export const storageData: OptionType[] = [
   { value: '冷藏保存', label: '冷藏保存' },
   { value: '冷凍保存', label: '冷凍保存' },

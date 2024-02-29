@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { CustomImageProps } from "./data";
+import Image from 'next/image';
+import { CustomImageProps } from './data';
 
 const CustomImage = ({
   src,
@@ -24,5 +24,5 @@ const CustomImage = ({
     </div>
   );
 };
- 
+
 export default CustomImage;

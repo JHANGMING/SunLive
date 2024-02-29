@@ -5,6 +5,5 @@ export type classStyleProps = {
 };
 
 export type LogoImgPrors = {
-
   classProps?: string;
 };

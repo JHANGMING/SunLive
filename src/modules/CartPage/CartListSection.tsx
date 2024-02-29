@@ -1,4 +1,3 @@
-
 import { mutate } from 'swr';
 import { useDispatch } from 'react-redux';
 import { BsChevronDown } from 'react-icons/bs';
@@ -15,9 +14,9 @@ import { CartProps } from './data';
 import CartTotalPrice from './CartTotalPrice';
 const CartListSection = ({ cartData }: CartProps) => {
   const dispatch = useDispatch();
-  const productData = cartData?.cartItemProductInfo ?? [];
   const priceData = cartData?.cartInfo?.[0];
-  
+  const productData = cartData?.cartItemProductInfo ?? [];
+
   const handlerQtyChange = async (
     productId: number,
     productSpecId: number,
@@ -38,19 +37,19 @@ const CartListSection = ({ cartData }: CartProps) => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        mutate('/api/cart/getcart')
+        mutate('/api/cart/getcart');
       } else {
-        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }))
+        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   const handlerSpecChange = async (productId: any, specId: string) => {
     const dataObj = {
-    productId:productId,
-	  productSpecId:Number(specId),
+      productId: productId,
+      productSpecId: Number(specId),
     };
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['putspec'],
@@ -60,7 +59,7 @@ const CartListSection = ({ cartData }: CartProps) => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        mutate('/api/cart/getcart')
+        mutate('/api/cart/getcart');
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }

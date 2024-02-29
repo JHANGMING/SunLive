@@ -6,10 +6,10 @@ import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
 import { nextRoutes } from '@/constants/apiPaths';
 import Image from '@/common/components/CustomImage';
-import { setToast, showLoading } from '@/redux/features/messageSlice';
-import DatePickerShow from '@/common/components/DatePicker';
 import { FormValues } from '@/common/components/Input/data';
+import DatePickerShow from '@/common/components/DatePicker';
 import PersonInput from '@/common/components/Input/PersonInput';
+import { setToast, showLoading } from '@/redux/features/messageSlice';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
@@ -21,12 +21,12 @@ import {
 import LiveAccontVerify from './LiveAccontVerify';
 
 const LiveSettings = () => {
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState<any[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [accessToken, setAccessToken] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [products, setProducts] = useState<any[]>([]);
-  const [accessToken, setAccessToken] = useState<string>('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch();
 
   const {
     control,
@@ -35,7 +35,7 @@ const LiveSettings = () => {
     formState: { errors },
     reset,
   } = useForm<FormValues>();
-  
+
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
@@ -70,7 +70,7 @@ const LiveSettings = () => {
       liveDate: formattedDate,
       startTime: data.startTime,
       endTime: data.endTime,
-      yturl:"data",
+      yturl: 'data',
       liveproduct,
       accessToken,
     };
@@ -90,7 +90,7 @@ const LiveSettings = () => {
       };
       try {
         const result = await fetchNextApi(apiParams);
-        
+
         if (result.statusCode !== 200) {
           dispatch(setToast({ message: result.message }));
           return;
@@ -120,7 +120,7 @@ const LiveSettings = () => {
       }
     }
   };
-  
+
   return (
     <div className="w-9/12 flex-grow flex flex-col self-start">
       <LiveAccontVerify

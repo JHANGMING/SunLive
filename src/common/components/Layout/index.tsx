@@ -1,18 +1,15 @@
-
-
-import { LayoutPropsType, colorWhiteSet, footerSet, notoTC } from './data';
-import CustomHead from '../CustomHead';
-import AuthLayout from './AuthLayout';
 import Header from '@/common/components/Header';
-import Footer from '../Footer';
-import FixedHeader from '../Header/FixedHeader';
-import ScrollPageTop from '../ScrollPageTop';
 import ContactService from '@/modules/ContactService';
-import DashboardLayout from './DashboardLayout';
-import SmallHeader from '../Header/SmallHeader';
-import Loading from '../Loading/Loading';
 import Toast from '../Toast';
-
+import Footer from '../Footer';
+import AuthLayout from './AuthLayout';
+import CustomHead from '../CustomHead';
+import Loading from '../Loading/Loading';
+import ScrollPageTop from '../ScrollPageTop';
+import DashboardLayout from './DashboardLayout';
+import FixedHeader from '../Header/FixedHeader';
+import SmallHeader from '../Header/SmallHeader';
+import { LayoutPropsType, colorWhiteSet, footerSet, notoTC } from './data';
 
 const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
   return (

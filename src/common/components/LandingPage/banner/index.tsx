@@ -1,6 +1,6 @@
-import Image from '@/common/components/CustomImage';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
+import Image from '@/common/components/CustomImage';
 import { bannerImgData, grassMotionSet } from './data';
 import 'swiper/css';
 import 'swiper/css/effect-fade';

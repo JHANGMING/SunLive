@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
 import { useRouter } from 'next/router';
+import { BsSearch } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { nextRoutes } from '@/constants/apiPaths';
 import { setSearchData } from '@/redux/features/productSlice';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { SearchInputProps } from './data';
 
 const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {

@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { BsFillGeoFill } from 'react-icons/bs';
 import { RootState } from '@/redux/store';
+import Button from '@/common/components/Button';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
-import Button from '@/common/components/Button';
-import ProductList from '@/common/components/product/ProductList';
-import { useProducts } from '@/common/hooks/ProductsRefContext';
 import Loading from '@/common/components/Loading/Loading';
+import { useProducts } from '@/common/hooks/ProductsRefContext';
+import ProductList from '@/common/components/product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
 const DiscountedSection = () => {
@@ -20,13 +20,13 @@ const DiscountedSection = () => {
   }
   const firstPromotionProduct = promotionProduct[0];
   const {
-    // farmerImg,
-    farmerName,
     origin,
     productId,
+    farmerName,
     productImg,
-    productSpecId,
+    description,
     productTitle,
+    productSpecId,
     smallOriginalPrice,
     smallPromotionPrice,
   } = firstPromotionProduct;
@@ -64,9 +64,7 @@ const DiscountedSection = () => {
               <LogoImg classProps="w-50 h-50" />
               <h2>{productTitle}</h2>
             </Link>
-            <p className=" text-18 ">
-              採摘自有機農園，紫禧有機天使茄散發著深邃的紫色，宛如天使的羽翼。
-            </p>
+            <p className=" text-18 ">{description}</p>
 
             <ul className="flex flex-col gap-20">
               <li className="flex gap-8 items-center">

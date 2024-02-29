@@ -1,6 +1,6 @@
-import LinkToProduct from '@/common/components/LandingPage/LinkToProduct';
 import Image from '@/common/components/CustomImage';
-import UpcomingProductsList from '../../../common/components/product/UpcomingProducts/UpcomingProductsList';
+import LinkToProduct from '@/common/components/LandingPage/LinkToProduct';
+import UpcomingProductsList from '@/common/components/product/UpcomingProducts/UpcomingProductsList';
 const ComingProductsSection = () => {
   return (
     <section className="container pt-80 pb-120">

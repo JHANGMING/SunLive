@@ -4,8 +4,8 @@ import Image from '@/common/components/CustomImage';
 import CategoryTitle from '../ProductPage/CategoryTitle';
 
 const LiveProductSection = () => {
-   const { liveData } = useSelector((state: RootState) => state.product);
-   const upcomingLive = liveData?.data?.upcomingLive;
+  const { liveData } = useSelector((state: RootState) => state.product);
+  const upcomingLive = liveData?.data?.upcomingLive;
   return (
     <section className="pt-120 pb-85 mb-135 bg-liveStreamBG bg-repeat-x bg-bottom">
       <div className="container">
@@ -19,7 +19,7 @@ const LiveProductSection = () => {
                 <Image
                   src={
                     data.livePic === null
-                      ? '/images/productShop/discountedImg3.png'
+                      ? '/images/productShop/discountedImg.png'
                       : data.livePic
                   }
                   alt={`data.liveProductId-${data.liveId}`}

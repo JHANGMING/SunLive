@@ -1,9 +1,9 @@
 import Image from '@/common/components/CustomImage';
-import { FooterProps, icons, swiperSet } from './data';
 import LogoImg from '../Logo/LogoImg';
 import GlobalLink from '../GlobalLink';
 import HomeSwiper from '../HomeSwiper';
 import DashBoardFooter from './DashBoardFooter';
+import { FooterProps, icons, swiperSet } from './data';
 import { grassMotionSet } from '../LandingPage/banner/data';
 
 const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {

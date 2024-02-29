@@ -1,4 +1,4 @@
-import { ButtonPropsType } from "./data";
+import { ButtonPropsType } from './data';
 
 const DefaultButton = ({
   classStyle,
@@ -16,5 +16,5 @@ const DefaultButton = ({
     </button>
   );
 };
- 
+
 export default DefaultButton;

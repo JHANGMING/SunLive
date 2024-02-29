@@ -1,9 +1,12 @@
-import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
-import { nextRoutes } from "@/constants/apiPaths";
-import { useEffect } from "react";
-import { LiveAccontVerifyProps } from "./data";
+import { useEffect } from 'react';
+import { nextRoutes } from '@/constants/apiPaths';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { LiveAccontVerifyProps } from './data';
 
-const LiveAccontVerify = ({ accessToken, setAccessToken }:LiveAccontVerifyProps) => {
+const LiveAccontVerify = ({
+  accessToken,
+  setAccessToken,
+}: LiveAccontVerifyProps) => {
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       const expectedOrigin = 'https://sun-live.vercel.app';
@@ -55,5 +58,5 @@ const LiveAccontVerify = ({ accessToken, setAccessToken }:LiveAccontVerifyProps)
     </div>
   );
 };
- 
+
 export default LiveAccontVerify;

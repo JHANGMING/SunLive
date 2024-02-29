@@ -5,8 +5,8 @@ import wrapper from '@/redux/store';
 import { apiPaths } from '@/constants/apiPaths';
 import Layout from '@/common/components/Layout';
 import AllLive from '@/modules/DashboardPage/Management/AllLive';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setLivelistData } from '@/redux/features/dashboardSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { LiveListProps } from '@/modules/DashboardPage/Management/data';
 const Live = ({ listData }: LiveListProps) => {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ error: string }>
 ) {
-  if (req.method === 'POST'){
+  if (req.method === 'POST') {
     try {
       const token = getCookie('token', { req, res });
       const apiParams: ApiParamsType = {

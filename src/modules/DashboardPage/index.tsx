@@ -1,13 +1,13 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import ProfileImgSection from '../PersonInfoPage/ProfileImgSection';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 const DashboardPage = () => {
   const router = useRouter();
-  const [activeSection, setActiveSection] = useState('');
   const [subPage, setSubPage] = useState('');
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const page = router.pathname;

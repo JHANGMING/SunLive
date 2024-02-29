@@ -2,9 +2,9 @@ type DataType = {
   productId: string;
   productTitle: string;
 };
-export type LiveDataType={
-  [key: string]: string | number 
-}
+export type LiveDataType = {
+  [key: string]: string | number;
+};
 
 export const transformDataForSelect = (data: DataType[]) => {
   return data.map((item) => ({

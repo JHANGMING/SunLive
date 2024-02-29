@@ -1,18 +1,12 @@
-import LogoImg from '@/common/components/Logo/LogoImg';
-import ProfileImgSection from './ProfileImgSection';
-import AccountSetting from './AccountSetting';
-import { useEffect, useState } from 'react';
-import AllOrders from './AllOrders';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import useAuth from '@/common/hooks/useAuth';
-import useRequireAuth from '@/common/hooks/useRequireAuth';
-import useSWR from 'swr';
-import { nextRoutes } from '@/constants/apiPaths';
-import { fetcher } from '@/common/helpers/fetcher';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import LogoImg from '@/common/components/Logo/LogoImg';
+import AllOrders from './AllOrders';
+import AccountSetting from './AccountSetting';
+import ProfileImgSection from './ProfileImgSection';
 
 const PersonInfoPage = () => {
-  const authToken = useRequireAuth();
   const auth = useAuth();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState('account');
@@ -25,7 +19,7 @@ const PersonInfoPage = () => {
       setActiveSection(section);
     }
   }, [router.query.section]);
-  if (auth?.category==="1") return;
+  if (auth?.category === '1') return;
   const handleAccountClick = () => {
     setActiveSection('account');
   };

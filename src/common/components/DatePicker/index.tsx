@@ -8,7 +8,7 @@ const DatePickerShow = ({
   control,
   page,
   errors,
-  rules, 
+  rules,
   defaultValue,
 }: DatePickerShowProps) => {
   const inputStyle = page === 'live' ? 'h-[53px]' : 'h-[54px]';
