@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 
-
 type DataType = Array<any> | string | number | null;
 function usePagination(
   data: DataType,
