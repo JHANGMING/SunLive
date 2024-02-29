@@ -6,10 +6,7 @@ import { BsSearch } from 'react-icons/bs';
 import SearchInput from '../Input/SearchInput';
 
 const SmallHeader = () => {
-
-
   const [isSearchActive, setIsSearchActive] = useState(false);
-
   const handleSearchClick = useCallback(() => {
     setIsSearchActive((prevState) => !prevState);
   }, []);

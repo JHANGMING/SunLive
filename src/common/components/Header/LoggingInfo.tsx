@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { setCookie } from 'cookies-next';
+import { useDispatch } from 'react-redux';
 import useAuth from '@/common/hooks/useAuth';
-import { removeAllCookies } from '@/common/helpers/getCookie';
 import { nextRoutes } from '@/constants/apiPaths';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { setToast } from '@/redux/features/messageSlice';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import { removeAllCookies } from '@/common/helpers/getCookie';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import LogoImg from '../Logo/LogoImg';
 import { LoggingInfoProps } from './data';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
 
 const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
   const router = useRouter();

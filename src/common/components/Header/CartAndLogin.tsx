@@ -1,14 +1,14 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { LuShoppingCart } from 'react-icons/lu';
 import { BsPersonCircle } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
 import { RootState } from '@/redux/store';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import Image from '@/common/components/CustomImage';
+import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import CartInfo from './CartInfo';
+import LoggingInfo from './LoggingInfo';
 import CartItemCount from './CartItemCount';
 import { LayoutPropsType } from '../Layout/data';
-import LoggingInfo from './LoggingInfo';
-import CartInfo from './CartInfo';
 
 const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
   const { authStatus } = useAuthStatus();

@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import { navBarDatas } from './data';
-import Logo from '@/common/components/Logo';
 import { useRouter } from 'next/router';
+import Logo from '@/common/components/Logo';
 import LiveIcon from './LIveIcon';
+import { navBarDatas } from './data';
 const NavBar = () => {
   const router = useRouter();
- 
   return (
     <ul className="flex w-824 items-center justify-between">
       <li>
