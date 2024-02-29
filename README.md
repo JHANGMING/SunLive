@@ -110,6 +110,74 @@
 
 <hr/>
 
+## 資料夾結構
+```flow
+sunlive/
+├── public
+│   ├── favicon.ico
+│   └── images
+│       ├── auth
+│       ├── cart
+│       └── ...
+├── src
+│   ├── common
+│   │   ├── components
+│   │   │   ├── Button
+│   │   │   ├── CustomHead
+│   │   │   └── ...
+│   │   ├── helpers
+│   │   │   ├── fetchApi.tsx
+│   │   │   ├── fetchAuthStatus.tsx
+│   │   │   └── ...
+│   │   ├── hooks
+│   │   │   ├── ProductsRefContext.tsx
+│   │   │   ├── useAuth.tsx
+│   │   │   └── ...
+│   │   └── lib
+│   │       ├── authTab.tsx
+│   │       └── cartTab.tsx
+│   ├── constants
+│   │   ├── apiPaths.tsx
+│   │   ├── location.tsx
+│   │   └── types
+│   │       ├── cart
+│   │       ├── dashboard
+│   │       └── ...
+│   ├── modules
+│   │   ├── Auth
+│   │   ├── CartPage
+│   │   └── ...
+│   ├── pages
+│   │   ├── 404.tsx
+│   │   ├── 500.tsx
+│   │   ├── _app.tsx
+│   │   ├── _document.tsx
+│   │   ├── index.tsx
+│   │   ├── api
+│   │   │   ├── auth
+│   │   │   ├── cart
+│   │   │   └── ...
+│   ├── redux
+│   │   ├── features
+│   │   │   ├── authSlice.tsx
+│   │   │   ├── cartSlice.tsx
+│   │   │   └── ...
+│   │   └── store.tsx
+│   └── styles
+│       ├── globals.scss
+│       ├── header.scss
+│       └── ...
+├── tailwind.config.ts
+├── README.md
+├── next-env.d.ts
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+└── tsconfig.json
+```
+---
+
 ## 專案技術 
 <h2 align="center">UI/UX端</h2>
  <p>
