@@ -5,8 +5,8 @@ import { fetcher } from '@/common/helpers/fetcher';
 import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { EditLiveProductProps, LiveProductType } from './data';
 const EditLiveProduct = ({ liveId }:EditLiveProductProps) => {
   const dispatch = useDispatch();

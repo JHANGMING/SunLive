@@ -1,6 +1,6 @@
-import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
-import { nextRoutes } from "@/constants/apiPaths";
 import { useEffect } from "react";
+import { nextRoutes } from "@/constants/apiPaths";
+import fetchNextApi, { apiParamsType } from "@/common/helpers/fetchNextApi";
 import { LiveAccontVerifyProps } from "./data";
 
 const LiveAccontVerify = ({ accessToken, setAccessToken }:LiveAccontVerifyProps) => {

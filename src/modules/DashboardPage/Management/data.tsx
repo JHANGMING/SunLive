@@ -1,11 +1,8 @@
 import { locationData } from "@/constants/location";
-import { ListDataType } from "@/constants/types/product/farmer_prodcut";
-import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
-import { EditSettingType } from "@/constants/types/dashboard/liveSettings";
 import { LivelistType } from "@/constants/types/dashboard/livelist";
-import { LivesDataType } from "@/constants/types/live/live";
+import { ListDataType } from "@/constants/types/product/farmer_prodcut";
 import { LivedetailDateType } from "@/constants/types/live/livedetailDate";
-
+import { DetailproductDataType } from "@/constants/types/dashboard/detailProduct";
 
 export type OptionType = {
   value: string;

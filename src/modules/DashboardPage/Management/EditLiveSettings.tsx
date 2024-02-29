@@ -17,11 +17,11 @@ const EditLiveSettings = ({ liveDetailData }: EditLiveProps) => {
     fetcher,
     { fallbackData: liveDetailData }
   );
-  const famerliveId = data?.data?.liveId;
-  const liveFarmerId= data?.data?.liveFarmerId;
-  const liveName = data?.data?.liveName;
   const url=data?.data?.yturl;
   const liveDate=data?.data?.liveDate;
+  const liveName = data?.data?.liveName;
+  const famerliveId = data?.data?.liveId;
+  const liveFarmerId= data?.data?.liveFarmerId;
   if (!data) {
     router.push("/dashboard/management"); 
   }

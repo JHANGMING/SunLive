@@ -1,10 +1,9 @@
-import FarmerProductSearch from '@/common/components/Input/FarmerProductSearch';
-import { productColumns} from '../data';
 import Link from 'next/link';
+import FarmerProductSearch from '@/common/components/Input/FarmerProductSearch';
 import ProductlistTable from '@/common/components/DynamicTable/ManagementTable/farmerProductlist';
+import { productColumns} from '../data';
 
 const AllProducts = () => {
-  
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
       <div className="flex justify-between items-center mb-24">

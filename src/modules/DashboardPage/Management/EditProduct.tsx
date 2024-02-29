@@ -1,7 +1,17 @@
+import { format } from 'date-fns';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import Button from '@/common/components/Button';
+import Editor from '@/common/components/Editor';
+import { nextRoutes } from '@/constants/apiPaths';
+import Image from '@/common/components/CustomImage';
+import { setToast } from '@/redux/features/messageSlice';
+import { FormValues } from '@/common/components/Input/data';
 import PersonInput from '@/common/components/Input/PersonInput';
 import ManagementSelect from '@/common/components/Select/ManagementSelect';
-import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
-import { format } from 'date-fns';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import {
   EditProductsProps,
   categoryData,
@@ -10,23 +20,12 @@ import {
   statusData,
   storageData,
 } from './data';
-import { useForm } from 'react-hook-form';
-import { FormValues } from '@/common/components/Input/data';
-import Button from '@/common/components/Button';
-import Editor from '@/common/components/Editor';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/apiPaths';
-import Toast from '@/common/components/Toast';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Image from '@/common/components/CustomImage';
-import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/features/messageSlice';
 
 const EditProduct = ({ detailData }: EditProductsProps) => {
+  const dispatch = useDispatch();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch();
   const {
     control,
     register,
@@ -35,6 +34,7 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
     reset,
     setValue,
   } = useForm<FormValues>();
+  
   useEffect(() => {
     if (detailData) {
       setValue('category', detailData.category);
@@ -64,7 +64,6 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
   const onSubmit = async (data: FormValues) => {
     //儲存日期格式
     const updateStateTime = format(new Date(), 'yyyy/MM/dd');
-    // const productState = data.productState === '下架' ? false : true;
     const {
       productState,
       description,
@@ -83,8 +82,7 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
       storage,
       origin,
     } = data;
-    console.log('productState', Boolean(productState));
-    
+
     const dataObj = {
       updateStateTime,
       productState,
@@ -104,7 +102,6 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
       smallWeight: Number(smallWeight),
       smallStock: Number(smallStock),
     };
-    console.log(dataObj);
     const apiParams: apiParamsType = {
       apiPath: `${nextRoutes['editproduct']}?id=${detailData.productId}`,
       method: 'POST',
@@ -399,7 +396,7 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
         <Button
           category="submit"
           classStyle="bg-primary-green self-end hover:opacity-70">
-          新增
+          修改
         </Button>
       </form>
     </div>
