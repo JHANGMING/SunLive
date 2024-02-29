@@ -1,4 +1,3 @@
-
 export type apiParamsType = {
   apiPath: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';

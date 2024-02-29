@@ -1,5 +1,3 @@
-
-
 export type ApiParamsType = {
   apiPath: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
@@ -8,7 +6,7 @@ export type ApiParamsType = {
   serchQuery?: string;
 };
 
-const fetchApi = async(apiParams : ApiParamsType) => {
+const fetchApi = async (apiParams: ApiParamsType) => {
   const { apiPath, method, data, authToken } = apiParams;
   const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPath}`;
   const requestOptions: RequestInit = {
@@ -31,5 +29,5 @@ const fetchApi = async(apiParams : ApiParamsType) => {
     throw error;
   }
 };
- 
+
 export default fetchApi;

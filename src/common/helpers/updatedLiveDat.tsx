@@ -1,6 +1,8 @@
-import { LivedetailDateType } from "@/constants/types/live/livedetailDate";
+import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 
-export const updateLiveDataWithFutureFlag = (listData: LivedetailDateType[]) => {
+export const updateLiveDataWithFutureFlag = (
+  listData: LivedetailDateType[]
+) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 

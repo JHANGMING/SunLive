@@ -1,4 +1,4 @@
-import { CartItemType } from "@/constants/types/cart/cartlist";
+import { CartItemType } from '@/constants/types/cart/cartlist';
 
 type AccProps = {
   productId: number;
@@ -7,7 +7,7 @@ type AccProps = {
   subTotal: number;
 };
 
-export const transformDataToCartList = (data:CartItemType[]) => {
+export const transformDataToCartList = (data: CartItemType[]) => {
   return data.reduce((acc: AccProps[], item) => {
     acc.push({
       productId: item.productId,
