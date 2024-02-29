@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
@@ -9,7 +8,7 @@ import { LivestreamingProps } from '@/modules/LiveStreamView/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
-const Livestreaming = ({ liveDetailData }:LivestreamingProps) => {
+const Livestreaming = ({ liveDetailData }: LivestreamingProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setAllProductsData({ liveDetailData }));
@@ -28,7 +27,7 @@ export const getServerSideProps = async (
 ) => {
   const params = context.params;
   const liveId = params ? params['liveId'] : null;
-  
+
   let liveDetailData = [];
   try {
     // 取得編輯Live 直播頁
