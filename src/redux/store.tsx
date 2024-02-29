@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 import authReducer from '../redux/features/authSlice'
-import productReducer from '../redux/features/productSlice';
 import cartReducer from '../redux/features/cartSlice';
+import productReducer from '../redux/features/productSlice';
 import messageReducer from '../redux/features/messageSlice';
 import dashboardReducer from '../redux/features/dashboardSlice';
 const store = configureStore({
