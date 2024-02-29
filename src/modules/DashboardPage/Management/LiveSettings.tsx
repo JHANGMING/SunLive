@@ -35,7 +35,7 @@ const LiveSettings = () => {
     formState: { errors },
     reset,
   } = useForm<FormValues>();
-  
+
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
@@ -70,7 +70,7 @@ const LiveSettings = () => {
       liveDate: formattedDate,
       startTime: data.startTime,
       endTime: data.endTime,
-      yturl:"data",
+      yturl: 'data',
       liveproduct,
       accessToken,
     };
@@ -90,7 +90,7 @@ const LiveSettings = () => {
       };
       try {
         const result = await fetchNextApi(apiParams);
-        
+
         if (result.statusCode !== 200) {
           dispatch(setToast({ message: result.message }));
           return;
@@ -120,7 +120,7 @@ const LiveSettings = () => {
       }
     }
   };
-  
+
   return (
     <div className="w-9/12 flex-grow flex flex-col self-start">
       <LiveAccontVerify

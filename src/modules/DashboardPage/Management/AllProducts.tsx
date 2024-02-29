@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import FarmerProductSearch from '@/common/components/Input/FarmerProductSearch';
 import ProductlistTable from '@/common/components/DynamicTable/ManagementTable/farmerProductlist';
-import { productColumns} from '../data';
+import { productColumns } from '../data';
 
 const AllProducts = () => {
   return (
@@ -11,17 +11,14 @@ const AllProducts = () => {
           <h3 className=" text-20 font-semibold ">所有農產品</h3>
           <Link
             href={'/dashboard/products/addproduct'}
-            className=" text-primary-green p-8 border border-primary-green rounded-8 hover:bg-primary-green hover:text-white"
-            >
+            className=" text-primary-green p-8 border border-primary-green rounded-8 hover:bg-primary-green hover:text-white">
             新增農產品
           </Link>
         </div>
         <FarmerProductSearch />
       </div>
       <div className="mb-24 ">
-        <ProductlistTable
-          columns={productColumns}
-        />
+        <ProductlistTable columns={productColumns} />
       </div>
     </div>
   );

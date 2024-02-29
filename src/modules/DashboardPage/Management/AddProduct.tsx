@@ -33,7 +33,7 @@ const AddProduct = () => {
     setValue,
     reset,
   } = useForm<FormValues>();
-  
+
   useEffect(() => {
     setValue('productState', 'false');
   }, []);
@@ -68,7 +68,7 @@ const AddProduct = () => {
       method: 'POST',
       data: dataObj,
     };
-   
+
     const imgParams = {
       method: 'POST',
       body: formData,
@@ -79,7 +79,7 @@ const AddProduct = () => {
         dispatch(setToast({ message: result.message }));
         return;
       }
-      if (result.statusCode === 200){
+      if (result.statusCode === 200) {
         const url = `/api${nextRoutes['uploadProductImg']}?id=${result.data.productId}`;
         const imgResponse = await fetch(url, imgParams);
         const imgResult = await imgResponse.json();

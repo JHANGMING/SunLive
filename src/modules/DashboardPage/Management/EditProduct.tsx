@@ -34,7 +34,7 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
     reset,
     setValue,
   } = useForm<FormValues>();
-  
+
   useEffect(() => {
     if (detailData) {
       setValue('category', detailData.category);
