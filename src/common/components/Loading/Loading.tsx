@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import LogoImg from '../Logo/LogoImg';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { hideLoading } from '@/redux/features/messageSlice';
+import LogoImg from '../Logo/LogoImg';
 
 const Loading = () => {
+  const dispatch = useDispatch();
+  const [percent, setPercent] = useState(0);
+  const [completed, setCompleted] = useState(false);
 const isLoading = useSelector((state: RootState) => state.message.isLoading);
-const dispatch = useDispatch();
-const [percent, setPercent] = useState(0);
-const [completed, setCompleted] = useState(false);
 
 useEffect(() => {
   if (isLoading) {

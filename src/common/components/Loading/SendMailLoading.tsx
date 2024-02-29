@@ -4,8 +4,6 @@ import LogoImg from '../Logo/LogoImg';
 const SendMailLoading = () => {
   const [percent, setPercent] = useState(0);
   const [completed, setCompleted] = useState(false);
-  // const [hide, setHide] = useState(false);
-
   useEffect(() => {
     const totalDuration = 1500;
     const intervalTime = 20;
