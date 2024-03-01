@@ -10,24 +10,24 @@ const ProductSpecSelect = ({ control, id }: ProductSpecSelectProps) => {
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
-      height: '53px',
       width: '100%',
-      borderRadius: '8px',
-      border: `${state.isFocused ? '1px solid #1d1d1d' : '1px solid #CCCCCC'} !important`,
-      boxShadow: `${state.isFocused ? '0 0 0 1px #47835A' : 'none'} !important`,
-      outline: 'none !important',
+      height: '53px',
       paddingLeft: '8px',
+      borderRadius: '8px',
+      outline: 'none !important',
+      boxShadow: `${state.isFocused ? '0 0 0 1px #47835A' : 'none'} !important`,
+      border: `${state.isFocused ? '1px solid #1d1d1d' : '1px solid #CCCCCC'} !important`,
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isFocused ? 'lightgray !important' : undefined,
       color: '#333333',
       boxShadow: 'none',
+      backgroundColor: state.isFocused ? 'lightgray !important' : undefined,
     }),
     placeholder: (provided) => ({
       ...provided,
-      color: '#999999',
       fontSize: '14px',
+      color: '#999999',
     }),
   };
   return (
