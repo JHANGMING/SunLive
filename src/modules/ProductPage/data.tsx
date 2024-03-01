@@ -1,11 +1,11 @@
 import { AllproductsDataType } from '@/constants/types/product/allproducts';
 
 export type ProductShopProps = {
+  fruitProduct: AllproductsDataType;
+  topSaleProduct: AllproductsDataType;
   allproductsData: AllproductsDataType;
   promotionProduct: AllproductsDataType;
-  fruitProduct: AllproductsDataType;
   vegetableProduct: AllproductsDataType;
-  topSaleProduct: AllproductsDataType;
 };
 
 export type ProductSearchProps = {
@@ -13,8 +13,8 @@ export type ProductSearchProps = {
 };
 
 export type CategoryProductTagProps = {
-  classStyle: string;
   text: string;
+  classStyle: string;
 };
 
 export type CategoryTitleProps = {
