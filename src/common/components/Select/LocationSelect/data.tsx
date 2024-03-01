@@ -4,13 +4,13 @@ import { locationData } from '@/constants/location';
 import { FormValues } from '../../Input/data';
 
 export type LocationSelectProps = {
-  control: Control<FormValues>;
   id: string;
   countyName: string;
   districtName: string;
-  register?: UseFormRegister<FormValues>;
+  control: Control<FormValues>;
   errors?: FieldErrors<FormValues>;
   setValue: UseFormSetValue<FormValues>;
+  register?: UseFormRegister<FormValues>;
 };
 export type OptionType = {
   value: string;
