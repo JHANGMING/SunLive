@@ -11,16 +11,16 @@ import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { ButtonPropsType } from './data';
 const AddToCartButton = ({
+  onClick,
   children,
   btnStyle,
   textStyle,
+  productId,
+  productSpecId,
+  toCart = false,
   showIcon = true,
   disabled = false,
-  productSpecId,
-  productId,
   cartItemQty = 1,
-  toCart = false,
-  onClick,
 }: ButtonPropsType) => {
   const router = useRouter();
   const dispatch = useDispatch();
