@@ -4,10 +4,10 @@ import { CustomImageProps } from './data';
 const CustomImage = ({
   src,
   alt,
-  className,
-  priority = false,
-  roundedStyle,
   onClick,
+  className,
+  roundedStyle,
+  priority = false,
 }: CustomImageProps) => {
   return (
     <div
