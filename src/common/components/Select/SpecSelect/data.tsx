@@ -1,8 +1,8 @@
 export type SpecSelectProps = {
-  optionsData: OptionType[];
-  onSpecChange: (value: string) => void;
-  initialSelectIndex: number;
   isLive?: boolean;
+  optionsData: OptionType[];
+  initialSelectIndex: number;
+  onSpecChange: (value: string) => void;
 };
 export type OptionType = {
   value: string;
