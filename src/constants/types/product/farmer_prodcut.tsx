@@ -1,8 +1,8 @@
 export type ListDataType = {
   productId: number;
-  productState: boolean;
+  smallStock: number;
   productTitle: string;
+  productState: boolean;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
-  smallStock: number;
 };

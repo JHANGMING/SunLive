@@ -8,13 +8,13 @@ import DefaultInput from '../../Input';
 import { LocationSelectProps, OptionType, countyOptions } from './data';
 
 const LocationSelect = ({
-  control,
   id,
+  errors,
+  control,
+  register,
+  setValue,
   countyName,
   districtName,
-  register,
-  errors,
-  setValue,
 }: LocationSelectProps) => {
   const isClient = useClient();
   const [selectedCounty, setSelectedCounty] = useState('新北市');

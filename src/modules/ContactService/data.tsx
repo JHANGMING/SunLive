@@ -1,13 +1,13 @@
 export type ChatDataType = {
-  chatroomId: number;
-  famrerNickName: string;
-  famrerPhoto: string;
-  lastMessageDate: string;
-  farmerId: number;
   userId: number;
-  userPhoto: string;
-  userNickName: string;
   isRead: boolean;
+  farmerId: number;
+  userPhoto: string;
+  chatroomId: number;
+  famrerPhoto: string;
+  userNickName: string;
+  famrerNickName: string;
+  lastMessageDate: string;
 };
 
 type FarmerDataType = {
@@ -17,17 +17,17 @@ type FarmerDataType = {
 };
 
 export type PersonalChatRoomProps = {
-  toggleExpand: () => void;
-  setIsChatExpanded: (isExpanded: boolean) => void;
-  setFarmer: (farmer: FarmerDataType) => void;
-  setChatMessages(chatMessages: ChatcontentType[]): void;
-  farmerInfo: FarmerDataType;
-  chatMessages: ChatcontentType[];
   userId: number;
   chatroomId: number;
-  chatHubProxyRef: SignalR.Hub.Proxy | null;
-  setupSignalRConnection: () => void;
   isConnected: boolean;
+  toggleExpand: () => void;
+  farmerInfo: FarmerDataType;
+  chatMessages: ChatcontentType[];
+  setupSignalRConnection: () => void;
+  chatHubProxyRef: SignalR.Hub.Proxy | null;
+  setFarmer: (farmer: FarmerDataType) => void;
+  setIsChatExpanded: (isExpanded: boolean) => void;
+  setChatMessages(chatMessages: ChatcontentType[]): void;
 };
 
 export type ChatcontentType = {
@@ -35,6 +35,6 @@ export type ChatcontentType = {
   sendDate: string;
   sendTime: string;
   senderId: number;
-  senderNickName: string;
   senderPhoto: string;
+  senderNickName: string;
 };

@@ -9,9 +9,9 @@ import { ProductListProps } from './data';
 const ProductList = ({ category }: ProductListProps) => {
   const {
     searchData,
-    allProductsData,
-    topSaleProduct,
     fruitProduct,
+    topSaleProduct,
+    allProductsData,
     vegetableProduct,
     promotionProduct,
     productInfoByUser,

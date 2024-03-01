@@ -2,12 +2,12 @@ import { Control, FieldErrors, RegisterOptions } from 'react-hook-form';
 import { FormValues } from '../../Input/data';
 
 export type LiveTimeSelectProps = {
-  control: Control<FormValues>;
   labelText?: string;
   id?: keyof FormValues;
-  errors?: FieldErrors<FormValues>;
-  startTimeRules: RegisterOptions;
+  control: Control<FormValues>;
   endTimeRules: RegisterOptions;
+  startTimeRules: RegisterOptions;
+  errors?: FieldErrors<FormValues>;
 };
 export type OptionType = {
   value: string;

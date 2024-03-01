@@ -1,27 +1,27 @@
 type PhotosItemType = {
-  photoId: string;
   src: string;
   alt: string;
+  photoId: string;
 };
 type PhotosDataType = PhotosItemType[];
 
 export type DetailproductDataType = {
-  productTitle: string;
-  category: string;
   period: string;
   origin: string;
   storage: string;
+  category: string;
+  productId: number;
+  smallStock: number;
+  largeStock: number;
+  largeWeight: number;
+  smallWeight: number;
   description: string;
   introduction: string;
+  productTitle: string;
   productState: boolean;
-  largeOriginalPrice: number;
-  largePromotionPrice: number;
-  largeWeight: number;
-  largeStock: number;
-  smallOriginalPrice: number;
-  smallPromotionPrice: number;
-  smallWeight: number;
-  smallStock: number;
-  productId: number;
   photos: PhotosDataType;
+  largeOriginalPrice: number;
+  smallOriginalPrice: number;
+  largePromotionPrice: number;
+  smallPromotionPrice: number;
 };

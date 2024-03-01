@@ -1,17 +1,12 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import UpcomingProduct from './UpcomingProduct';
+import { updateUpcomingLiveWithStyles } from '@/common/helpers/upcomingDataAddclass';
 
 const UpcomingProductsList = () => {
   const { liveData } = useSelector((state: RootState) => state.product);
   const upcomingLive = liveData?.data?.upcomingLive || [];
-  const classStyles = ['ml-16', 'ml-102', 'ml-43'];
-  const updatedUpcomingLive = upcomingLive.slice(0, 3).map((item, index) => {
-    return {
-      ...item,
-      classStyle: classStyles[index],
-    };
-  });
+  const updatedUpcomingLive=updateUpcomingLiveWithStyles(upcomingLive)
   return (
     <div className=" col-start-5 col-end-11">
       <ul className="flex flex-col gap-40">

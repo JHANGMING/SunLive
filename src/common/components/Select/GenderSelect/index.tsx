@@ -5,9 +5,9 @@ import useClient from '@/common/hooks/useClient';
 import { GenderSelectProps, OptionType, optionsData } from './data';
 
 const GenderSelect = ({
+  id,
   control,
   labelText,
-  id,
   defaultValue,
 }: GenderSelectProps) => {
   const isClient = useClient();

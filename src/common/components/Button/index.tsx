@@ -5,13 +5,13 @@ import DefaultButton from './DefaultButton';
 import AddToCartButton from './AddToCartButton';
 
 const Button = ({
-  category,
+  type,
   path,
+  category,
   onClick,
   children,
-  classStyle,
   disabled,
-  type,
+  classStyle,
   ...props
 }: ButtonPropsType) => {
   switch (category) {

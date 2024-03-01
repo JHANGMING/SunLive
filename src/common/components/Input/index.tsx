@@ -1,15 +1,15 @@
 import { DefaultInputProps } from './data';
 
 const DefaultInput = ({
-  type,
-  labelText,
-  inputText,
-  icon,
   id,
-  register,
+  type,
+  icon,
+  page,
   rules,
   errors,
-  page,
+  register,
+  labelText,
+  inputText,
   globalStyle,
 }: DefaultInputProps) => {
   const inputClassName = `w-full border rounded-8 py-12 pl-12 text-black ${

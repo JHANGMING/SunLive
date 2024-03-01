@@ -1,20 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface InitialStateType {
-  isLoading: boolean;
-  showMessage: boolean;
-  isReadyToShowChat: boolean;
   message: string;
   farmerId: number;
+  isLoading: boolean;
+  showMessage: boolean;
   livechatroomId: number;
+  isReadyToShowChat: boolean;
 }
 const initialState: InitialStateType = {
-  isLoading: false,
-  showMessage: false,
-  isReadyToShowChat: false,
   message: '',
   farmerId: 0,
+  isLoading: false,
   livechatroomId: 0,
+  showMessage: false,
+  isReadyToShowChat: false,
 };
 
 export const messageSlice = createSlice({

@@ -5,12 +5,12 @@ type productImgType = {
 
 export type SearchDataItemType = {
   productId: number;
-  productTitle: string;
   description: string;
+  productTitle: string;
+  productSpecId: number;
+  productImg: productImgType;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
-  productImg: productImgType;
-  productSpecId: number;
 };
 
 export type SearchDataType = SearchDataItemType[];

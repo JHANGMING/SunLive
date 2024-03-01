@@ -3,20 +3,20 @@ import { ReactNode } from 'react';
 type ButtonType = 'button' | 'submit';
 
 export type ButtonPropsType = {
-  category?: string;
   path?: string;
-  onClick?: () => void;
-  children?: ReactNode;
-  classStyle?: string;
+  toCart?: boolean;
+  category?: string;
   type?: ButtonType;
   btnStyle?: string;
+  productId?: number;
+  classStyle?: string;
   textStyle?: string;
   showIcon?: boolean;
   disabled?: boolean;
-  productSpecId?: number;
-  productId?: number;
+  children?: ReactNode;
   cartItemQty?: number;
-  toCart?: boolean;
+  onClick?: () => void;
+  productSpecId?: number;
 };
 
 export type DeleteBtnPropsType = {

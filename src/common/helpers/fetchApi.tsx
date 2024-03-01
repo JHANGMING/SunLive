@@ -1,9 +1,9 @@
 export type ApiParamsType = {
-  apiPath: string;
-  method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
   data?: unknown;
+  apiPath: string;
   authToken?: string;
   serchQuery?: string;
+  method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
 };
 
 const fetchApi = async (apiParams: ApiParamsType) => {

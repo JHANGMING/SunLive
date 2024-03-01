@@ -1,24 +1,24 @@
 import { ReactNode } from 'react';
 import { Noto_Sans_TC } from 'next/font/google';
 export type PageCategoryType =
-  | 'liveStreamPage'
-  | 'liveStreamView'
-  | 'productPage'
-  | 'productDetailPage'
-  | 'searchPage'
-  | 'landingPage'
+  | 'mobile'
   | 'CartPage'
   | 'authPage'
+  | 'errorPage'
+  | 'searchPage'
+  | 'landingPage'
+  | 'productPage'
   | 'dashboardPage'
   | 'personInfoPage'
-  | 'mobile'
-  | 'errorPage';
+  | 'liveStreamPage'
+  | 'liveStreamView'
+  | 'productDetailPage'
 
 export type LayoutPropsType = {
-  children?: ReactNode;
-  pageCategory: PageCategoryType;
   classStyle?: string;
   isVisible?: boolean;
+  children?: ReactNode;
+  pageCategory: PageCategoryType;
 };
 
 export type AuthLayoutProps = {
@@ -29,50 +29,50 @@ export type DashboardLayoutProps = {
   children: ReactNode;
 };
 type pageSetType = {
+  mobile?: string;
   authPage: string;
-  productDetailPage: string;
-  liveStreamPage: string;
+  CartPage: string;
+  errorPage: string;
+  searchPage: string;
   productPage: string;
   landingPage: string;
-  liveStreamView: string;
-  CartPage: string;
-  searchPage: string;
   dashboardPage: string;
+  liveStreamPage: string;
+  liveStreamView: string;
   personInfoPage: string;
-  mobile?: string;
-  errorPage: string;
+  productDetailPage: string;
 };
 export const colorWhiteSet: pageSetType = {
+  mobile: 'lightWhite',
   authPage: 'bg-white',
-  productDetailPage: 'bg-white',
+  searchPage: 'bg-white',
+  errorPage: 'bg-lightWhite',
   liveStreamPage: 'bg-white',
   liveStreamView: 'bg-white',
-  searchPage: 'bg-white',
   productPage: 'bg-lightWhite',
   landingPage: 'bg-lightWhite',
-  errorPage: 'bg-lightWhite',
   CartPage: 'bg-dashboardGray',
+  productDetailPage: 'bg-white',
   dashboardPage: 'bg-dashboardGray',
   personInfoPage: 'bg-dashboardGray',
-  mobile: 'lightWhite',
 };
 
 export const footerSet: pageSetType = {
-  authPage: 'pt-60',
-  productDetailPage: 'pt-60',
-  liveStreamPage: 'pt-60',
-  liveStreamView: 'pt-60',
-  productPage: 'pt-60',
-  landingPage: 'pt-42',
+  mobile: 'p-24',
   CartPage: 'pt-60',
+  authPage: 'pt-60',
+  errorPage: 'pt-60',
   searchPage: 'pt-60',
+  landingPage: 'pt-42',
+  productPage: 'pt-60',
   dashboardPage: 'pt-0',
   personInfoPage: 'pt-0',
-  mobile: 'p-24',
-  errorPage: 'pt-60',
+  liveStreamPage: 'pt-60',
+  liveStreamView: 'pt-60',
+  productDetailPage: 'pt-60',
 };
 
 export const notoTC = Noto_Sans_TC({
-  weight: ['400', '600', '700'],
   subsets: ['latin'],
+  weight: ['400', '600', '700'],
 });

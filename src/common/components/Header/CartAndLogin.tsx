@@ -12,11 +12,11 @@ import { LayoutPropsType } from '../Layout/data';
 
 const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
   const { authStatus } = useAuthStatus();
-  const cartData = useSelector((state: RootState) => state.cart.cartData || {});
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
-  let leaveProfileTimer: ReturnType<typeof setTimeout>;
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const cartData = useSelector((state: RootState) => state.cart.cartData || {});
   let leaveCartTimer: ReturnType<typeof setTimeout>;
+  let leaveProfileTimer: ReturnType<typeof setTimeout>;
 
   const handleProfileMouseEnter = () => {
     clearTimeout(leaveProfileTimer);

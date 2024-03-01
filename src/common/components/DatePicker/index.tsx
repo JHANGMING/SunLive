@@ -5,10 +5,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { DatePickerShowProps } from './data';
 
 const DatePickerShow = ({
-  control,
   page,
-  errors,
   rules,
+  errors,
+  control,
   defaultValue,
 }: DatePickerShowProps) => {
   const inputStyle = page === 'live' ? 'h-[53px]' : 'h-[54px]';

@@ -23,29 +23,29 @@ export const logoData = {
 };
 
 export const pageSet: PageSet = {
-  landingPage: 'header',
-  liveStreamPage: 'header',
-  liveStreamView: 'header',
-  productPage: 'header',
-  productDetailPage: 'header',
   authPage: 'logo',
   CartPage: 'never',
-  searchPage: 'header',
   errorPage: 'never',
+  searchPage: 'header',
+  landingPage: 'header',
+  productPage: 'header',
+  liveStreamPage: 'header',
+  liveStreamView: 'header',
+  productDetailPage: 'header',
 };
 
 export const fixedPageSet: PageSet = {
-  landingPage: 'scroll',
-  liveStreamPage: 'scroll',
-  liveStreamView: 'never',
-  productPage: 'scroll',
-  productDetailPage: 'never',
   authPage: 'never',
   CartPage: 'always',
-  searchPage: 'scroll',
-  dashboardPage: 'always',
-  personInfoPage: 'always',
   errorPage: 'always',
+  searchPage: 'scroll',
+  landingPage: 'scroll',
+  productPage: 'scroll',
+  dashboardPage: 'always',
+  liveStreamView: 'never',
+  personInfoPage: 'always',
+  liveStreamPage: 'scroll',
+  productDetailPage: 'never',
 };
 
 export type PageSet = {
@@ -53,9 +53,9 @@ export type PageSet = {
 };
 
 export type LoggingInfoProps = {
+  isVisible?: boolean;
   dropdownClass: string;
   cartData?: CartDataType;
-  isVisible?: boolean;
 };
 
 export type CartItemCountProps = {
