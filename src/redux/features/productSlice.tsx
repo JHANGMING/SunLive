@@ -29,8 +29,8 @@ const initialState: InitialStateType = {
   vegetableProduct: [],
   productInfoByUser: [],
   liveData: {} as LivesDataType,
-  detailProduct: {} as DetailproductItemType,
   liveDetailData: {} as LivedetailDateType,
+  detailProduct: {} as DetailproductItemType,
 };
 
 export const productSlice = createSlice({
