@@ -1,10 +1,10 @@
 import { ButtonPropsType } from './data';
 
 const DefaultButton = ({
-  classStyle,
-  children,
   onClick,
+  children,
   disabled,
+  classStyle,
 }: ButtonPropsType) => {
   return (
     <button
