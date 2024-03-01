@@ -7,30 +7,30 @@ import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 import { AllproductsDataType } from '@/constants/types/product/allproducts';
 
 interface InitialStateType {
+  searchTag: string;
+  liveData: LivesDataType;
   searchData: SearchDataType;
-  allProductsData: AllproductsDataType;
+  fruitProduct: AllproductsDataType;
+  liveDetailData: LivedetailDateType;
   topSaleProduct: AllproductsDataType;
   promotionProduct: PromotionDataType;
-  fruitProduct: AllproductsDataType;
-  vegetableProduct: AllproductsDataType;
   detailProduct: DetailproductItemType;
+  allProductsData: AllproductsDataType;
+  vegetableProduct: AllproductsDataType;
   productInfoByUser: AllproductsDataType;
-  liveData: LivesDataType;
-  liveDetailData: LivedetailDateType;
-  searchTag: string;
 }
 const initialState: InitialStateType = {
+  searchTag: '',
   searchData: [],
-  allProductsData: [],
-  topSaleProduct: [],
-  promotionProduct: [],
   fruitProduct: [],
+  topSaleProduct: [],
+  allProductsData: [],
+  promotionProduct: [],
   vegetableProduct: [],
-  detailProduct: {} as DetailproductItemType,
   productInfoByUser: [],
   liveData: {} as LivesDataType,
+  detailProduct: {} as DetailproductItemType,
   liveDetailData: {} as LivedetailDateType,
-  searchTag: '',
 };
 
 export const productSlice = createSlice({
