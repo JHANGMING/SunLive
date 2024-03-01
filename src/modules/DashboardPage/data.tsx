@@ -1,32 +1,32 @@
 export type ProductDataType = {
   id: string;
+  stock: number;
+  createTime: string;
   productName: string;
   origialPrice: string;
   discountPrice: string;
-  stock: number;
-  createTime: string;
   productstatus: string;
 };
 export type OrderDataType = {
   id: string;
-  orderNumber: string;
   custom: string;
-  orderPrice: string;
   orderTime: string;
   payStatus: string;
+  orderPrice: string;
+  orderNumber: string;
   orderStatus: string;
 };
 export type LiveListDataType = {
   id: string;
-  liveNumber: string;
   liveDate: string;
-  startTime: string;
   liveLink: string;
+  startTime: string;
+  liveNumber: string;
 };
 type ColumnType = {
+  key: string;
   title: string;
   dataIndex: string;
-  key: string;
   render?: (row: any) => JSX.Element;
 };
 export const productColumns: ColumnType[] = [
