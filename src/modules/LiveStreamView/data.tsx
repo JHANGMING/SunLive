@@ -1,10 +1,10 @@
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 
 export type liveCardProps = {
-  title: string;
-  originalPrice: number;
-  salePrice: number;
   qty: number;
+  title: string;
+  salePrice: number;
+  originalPrice: number;
   productImg: {
     src: string;
     alt: string;
@@ -12,10 +12,10 @@ export type liveCardProps = {
 };
 
 export type Message = {
-  userIdSender: number;
-  message: string;
   photo: string;
+  message: string;
   nickName: string;
+  userIdSender: number;
 };
 
 export type LiveChatProps = {
@@ -29,10 +29,10 @@ export type LivestreamingProps = {
 };
 
 export type ChatAndProductPorps = {
-  liveDetailData: LivedetailDateType;
   liveId: number;
-  liveFarmerId: number;
   isFarmer?: boolean;
+  liveFarmerId: number;
+  liveDetailData: LivedetailDateType;
 };
 
 export type LiveChatCountdownProps = {
