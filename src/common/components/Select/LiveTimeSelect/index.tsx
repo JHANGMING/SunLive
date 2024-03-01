@@ -6,10 +6,10 @@ import useClient from '@/common/hooks/useClient';
 import { LiveTimeSelectProps, OptionType, optionsData } from './data';
 
 const LiveTimeSelect = ({
-  control,
   errors,
-  startTimeRules,
+  control,
   endTimeRules,
+  startTimeRules,
 }: LiveTimeSelectProps) => {
   const isClient = useClient();
   const [endTime, setEndTime] = useState<OptionType | null>(null);
