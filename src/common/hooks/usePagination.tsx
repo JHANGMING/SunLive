@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 type DataType = Array<any> | string | number | null;
 function usePagination(
   data: DataType,
-  itemsPerPage: number,
   currentPage: number
 ) {
+   const itemsPerPage = 5;
   const maxPage = useMemo(() => {
     if (Array.isArray(data) || typeof data === 'string') {
       return Math.ceil(data.length / itemsPerPage);
