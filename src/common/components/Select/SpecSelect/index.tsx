@@ -6,8 +6,8 @@ import { OptionType, SpecSelectProps } from './data';
 const SpecSelect = ({
   optionsData,
   onSpecChange,
-  initialSelectIndex = 0,
   isLive = false,
+  initialSelectIndex = 0,
 }: SpecSelectProps) => {
   const isClient = useClient();
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
