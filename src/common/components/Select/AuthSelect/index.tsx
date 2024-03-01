@@ -10,18 +10,18 @@ const AuthSelect = ({ control }: AuthSelectProps) => {
   const customStyles: StylesConfig<OptionType, false> = {
     control: (provided, state) => ({
       ...provided,
-      height: '48px',
       width: '100%',
-      borderRadius: '8px',
-      border: `${state.isFocused ? '1px solid #47835A' : '1px solid #CCCCCC'} !important`,
-      boxShadow: `${state.isFocused ? '0 0 0 1px #47835A' : 'none'} !important`,
-      outline: 'none !important',
+      height: '48px',
       paddingLeft: '4px',
+      borderRadius: '8px',
+      outline: 'none !important',
+      boxShadow: `${state.isFocused ? '0 0 0 1px #47835A' : 'none'} !important`,
+      border: `${state.isFocused ? '1px solid #47835A' : '1px solid #CCCCCC'} !important`,
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isFocused ? 'lightgray !important' : undefined,
       color: '#333333',
+      backgroundColor: state.isFocused ? 'lightgray !important' : undefined,
     }),
   };
   return (

@@ -3,17 +3,17 @@ import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
 import LandingPage from '@/modules/LandingPage';
+import { setCartData } from '@/redux/features/cartSlice';
 import { HomePropsType } from '@/modules/LandingPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
-import { setCartData } from '@/redux/features/cartSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
 export default function Home({
   liveData,
-  topSaleProduct,
   cartData,
+  topSaleProduct,
 }: HomePropsType) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,8 +36,8 @@ export default function Home({
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const token = getCookie('token', { req: context.req, res: context.res });
   let liveData = [];
-  let topSaleProduct = [];
   let cartData = [];
+  let topSaleProduct = [];
   try {
     // 取得近期直播商品
     const liveParams: ApiParamsType = {
