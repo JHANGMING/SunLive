@@ -5,8 +5,8 @@ export default function CustomHead({ pageCategory }: CustomHeadProps) {
   if (!dataSet[pageCategory]) return null;
   const { defaultTitle, defaultDescription, defaultImage } = defaultMeta;
   const pageTitle = dataSet[pageCategory].title;
-  const pageDescription = dataSet[pageCategory].desc;
   const pageImage = dataSet[pageCategory].image;
+  const pageDescription = dataSet[pageCategory].desc;
   const pageCanonicalUrl = dataSet[pageCategory].url;
 
   return (

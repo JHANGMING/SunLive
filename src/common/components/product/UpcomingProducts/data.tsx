@@ -4,11 +4,11 @@ type ProductImageType = {
 };
 
 export type ProductDataProps = {
+  date: string;
   price: number;
   title: string;
   personName: string;
-  date: string;
   classStyle: string;
-  productImage: ProductImageType;
   personImage: ProductImageType;
+  productImage: ProductImageType;
 };

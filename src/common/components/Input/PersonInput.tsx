@@ -1,16 +1,16 @@
 import { PersonInputProps } from './data';
 
 const PersonInput = ({
-  type,
-  labelText,
-  labelStyle,
-  inputText,
-  inputStyle,
   id,
-  register,
+  type,
   rules,
-  errors,
   value,
+  errors,
+  register,
+  labelText,
+  inputText,
+  labelStyle,
+  inputStyle,
   isdisabled,
 }: PersonInputProps) => {
   return (

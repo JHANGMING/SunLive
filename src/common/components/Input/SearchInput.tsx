@@ -9,10 +9,10 @@ import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { SearchInputProps } from './data';
 
 const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
-  const [inputValue, setInputValue] = useState('');
-  const dispatch = useDispatch();
-  const { searchTag } = useSelector((state: RootState) => state.product);
   const router = useRouter();
+  const dispatch = useDispatch();
+  const [inputValue, setInputValue] = useState('');
+  const { searchTag } = useSelector((state: RootState) => state.product);
 
   const handlerSearch = async () => {
     if (!inputValue) return;

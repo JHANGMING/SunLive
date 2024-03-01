@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface authData {
-  nickName: string;
   photo: string;
+  nickName: string;
 }
 const initialState: authData = {
-  nickName: '',
   photo: '',
+  nickName: '',
 };
 
 export const authSlice = createSlice({

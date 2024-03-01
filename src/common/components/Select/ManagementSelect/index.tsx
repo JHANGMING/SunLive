@@ -4,13 +4,13 @@ import { StylesConfig } from 'react-select';
 import { Controller } from 'react-hook-form';
 import { ManagementSelectProps, OptionType } from './data';
 const ManagementSelect = ({
-  control,
-  labelText,
   id,
   data,
-  placeholder,
-  errors,
   rules,
+  errors,
+  control,
+  labelText,
+  placeholder,
 }: ManagementSelectProps) => {
   const customStyles: StylesConfig<string | Date | OptionType, false> = {
     control: (provided, state) => ({

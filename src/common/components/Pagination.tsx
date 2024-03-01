@@ -7,10 +7,10 @@ type PaginationProps = {
   paginate: (pageNumber: number) => void;
 };
 const Pagination = ({
-  itemsPerPage,
-  totalItems,
   paginate,
+  totalItems,
   currentPage,
+  itemsPerPage,
 }: PaginationProps) => {
   const pageCount = Math.ceil(totalItems / itemsPerPage);
   const refs = useProducts();

@@ -9,8 +9,8 @@ import { LayoutPropsType } from '../Layout/data';
 
 const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
   const headerBehavior = fixedPageSet[pageCategory];
-  const [isVisible, setIsVisible] = useState(headerBehavior === 'always');
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isVisible, setIsVisible] = useState(headerBehavior === 'always');
 
   const handleSearchClick = useCallback(() => {
     setIsSearchActive((prevState) => !prevState);

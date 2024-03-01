@@ -1,9 +1,9 @@
 type AuthDataType = {
-  nickName: string;
-  phone: string;
   sex: boolean;
-  birthday: string;
+  phone: string;
   account: string;
+  nickName: string;
+  birthday: string;
 };
 
 export type AccountSettingProps = {

@@ -8,17 +8,14 @@ import { DynamicTableProps } from './data';
 
 const ProductlistTable = ({ columns }: DynamicTableProps) => {
   const router = useRouter();
-  const listData = useSelector((state: RootState) => state.dashboard.listData);
-  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-  const itemsPerPage = 5;
-  const data = listData;
   const [currentPage, setCurrentPage] = useState(1);
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+  const listData = useSelector((state: RootState) => state.dashboard.listData);
   useEffect(() => {
     setCurrentPage(1);
-  }, [data]);
+  }, [listData]);
   const { currentData, maxPage, dataLength } = usePagination(
-    data,
-    itemsPerPage,
+    listData,
     currentPage
   );
   const handlePrevious = () => {

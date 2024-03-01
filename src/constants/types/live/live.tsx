@@ -1,23 +1,23 @@
 export type LiveProductItemType = {
   liveId: number;
-  liveProductId: string;
-  liveProductName: string;
-  livePrice: number;
-  liveFarmer: string;
-  liveFarmerPic: string;
   livePic: string;
   liveTime: string;
+  livePrice: number;
+  liveFarmer: string;
   classStyle?: string;
+  liveProductId: string;
+  liveFarmerPic: string;
+  liveProductName: string;
 };
 
 export type LivesDataType = {
   message?: string;
   data: {
     liveId?: number;
-    liveProductId?: number;
-    liveProductName?: string;
     livePrice?: number;
     description?: string;
+    liveProductId?: number;
+    liveProductName?: string;
     upcomingLive: LiveProductItemType[];
   };
 };

@@ -12,18 +12,15 @@ import { DynamicTableProps } from './data';
 const LiveListTable = ({ columns }: DynamicTableProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
   const listData = useSelector(
     (state: RootState) => state.dashboard.livelistData
   );
   const updataListData = updateLiveDataWithFutureFlag(
     listData as unknown as LivedetailDateType[]
   );
-  const data = updataListData;
-  const itemsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState(1);
   const { currentData, maxPage, dataLength } = usePagination(
-    data,
-    itemsPerPage,
+    updataListData,
     currentPage
   );
 

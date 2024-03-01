@@ -9,25 +9,25 @@ import fetchNextApi, { apiParamsType } from '../helpers/fetchNextApi';
 import { useDebounceFn } from '../hooks/useDebounceFn';
 type GlobalLinkProps = {
   href: string;
-  children: ReactNode;
-  openInNewTab?: boolean;
-  className?: string;
-  isDisabled?: boolean;
-  productSpecId?: number;
-  productId?: number;
   liveId?: number;
   category?: string;
+  className?: string;
+  productId?: number;
+  children: ReactNode;
+  isDisabled?: boolean;
+  openInNewTab?: boolean;
+  productSpecId?: number;
 };
 const GlobalLink = ({
   href,
+  liveId,
+  children,
+  category,
+  productId,
   className,
   openInNewTab,
-  children,
-  isDisabled = false,
   productSpecId,
-  productId,
-  liveId,
-  category,
+  isDisabled = false,
 }: GlobalLinkProps) => {
   const dispatch = useDispatch();
   const handerAddtoCart = async (e: React.MouseEvent) => {

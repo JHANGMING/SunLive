@@ -22,8 +22,8 @@ export const icons = [
 ];
 
 export type FooterProps = {
-  gapClassSyle: string | undefined;
   pageCategory: string;
+  gapClassSyle: string | undefined;
 };
 
 type pageSetType = {

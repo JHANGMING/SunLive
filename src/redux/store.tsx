@@ -8,8 +8,8 @@ import dashboardReducer from '../redux/features/dashboardSlice';
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    product: productReducer,
     cart: cartReducer,
+    product: productReducer,
     message: messageReducer,
     dashboard: dashboardReducer,
   },

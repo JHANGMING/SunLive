@@ -6,18 +6,18 @@ import Button from '../Button';
 import { ProductCardProps } from './data';
 
 const ProductCard = ({
+  label,
   productId,
   productImg,
-  productTitle,
-  description,
-  smallOriginalPrice,
-  smallPromotionPrice,
-  productSpecId,
-  label,
   labelStyle,
+  description,
+  productTitle,
+  productSpecId,
   imgBorderStyle,
   priceBorderStyle,
   originalPriceStyle,
+  smallOriginalPrice,
+  smallPromotionPrice,
   cardGapThreeCol = true,
   buttonAtBottom = false,
 }: ProductCardProps) => {

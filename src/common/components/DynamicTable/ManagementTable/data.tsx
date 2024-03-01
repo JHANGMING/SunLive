@@ -1,12 +1,12 @@
 import { ColumnType } from '../data';
 
 export type ProductDataType = {
-  [key: string]: string | string[] | number;
   id: string;
+  [key: string]: string | string[] | number;
 };
 export type DynamicTableProps = {
   columns: ColumnType[];
+  showCheckbox?: boolean;
   data?: ProductDataType[];
   initialData?: ProductDataType[];
-  showCheckbox?: boolean;
 };

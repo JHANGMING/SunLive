@@ -12,9 +12,9 @@ import CartAndLogin from './CartAndLogin';
 import { LayoutPropsType } from '../Layout/data';
 
 const Header = ({ pageCategory }: LayoutPropsType) => {
-  const headerBehavior = pageSet[pageCategory];
   const dispatch = useDispatch();
   const { authStatus } = useAuthStatus();
+  const headerBehavior = pageSet[pageCategory];
   const { data } = useSWR(
     authStatus ? `/api${nextRoutes['getcart']}` : null,
     fetcher

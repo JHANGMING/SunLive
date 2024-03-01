@@ -1,9 +1,9 @@
 import { PageCategoryType } from '@/common/components/Layout/data';
 
 type dataType = {
-  title: string;
-  desc: string;
   url: string;
+  desc: string;
+  title: string;
   image: string;
 };
 

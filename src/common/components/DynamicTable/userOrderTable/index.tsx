@@ -5,11 +5,9 @@ import { DynamicTableProps } from '../data';
 
 const DynamicTable = ({ columns, data }: DynamicTableProps) => {
   const transformData = transOrderData(data);
-  const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const { currentData, maxPage, dataLength } = usePagination(
     transformData,
-    itemsPerPage,
     currentPage
   );
 

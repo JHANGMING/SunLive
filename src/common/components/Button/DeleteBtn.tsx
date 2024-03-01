@@ -9,13 +9,12 @@ import { DeleteBtnPropsType } from './data';
 const DeleteBtn = ({ size, className, productSpecId }: DeleteBtnPropsType) => {
   const dispatch = useDispatch();
   const handlerDeleteItem = async () => {
-    const dataObj = {
-      productSpecId,
-    };
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['deletecart'],
       method: 'POST',
-      data: dataObj,
+      data: {
+        productSpecId,
+      },
     };
     try {
       const result = await fetchNextApi(apiParams);

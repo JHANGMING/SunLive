@@ -19,8 +19,8 @@ export type EditProductsProps = {
 
 export type LiveproductProps = {
   productId: number;
-  productSize: boolean; // 小為false、大為 true
   liveprice: number;
+  productSize: boolean; // 小為false、大為 true
 };
 
 export type EditLiveProps = {
@@ -32,12 +32,12 @@ export type LiveListProps = {
 };
 
 export type AddLiveDataType = {
-  datePicker?: string;
+  yturl: string;
+  endTime: string;
   liveName: string;
   liveDate: string;
   startTime: string;
-  endTime: string;
-  yturl: string;
+  datePicker?: string;
 };
 
 export type ProductPorps = {

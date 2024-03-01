@@ -4,14 +4,12 @@ import { LiveProductItemType } from '@/constants/types/live/live';
 const UpcomingProduct = ({ ...data }: LiveProductItemType) => {
   const {
     liveId,
-    liveProductId,
-    liveProductName,
-    livePrice,
-    liveFarmer,
-    liveFarmerPic,
     livePic,
     liveTime,
+    livePrice,
     classStyle,
+    liveFarmerPic,
+    liveProductName,
   } = data;
 
   return (
