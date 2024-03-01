@@ -4,29 +4,29 @@ export type CartImgType = {
 };
 
 export type CartItemType = {
-  productId: number;
-  productImg: CartImgType;
-  productTitle: string;
-  cartItemPromotionPrice: number;
-  cartItemQty: number;
-  productSpecId: number;
-  smallOriginalPrice: number;
-  smallPromotionPrice: number;
-  productSpecSize: number;
-  largeOriginalPrice: number;
-  largePromotionPrice: number;
   subtotal: number;
+  productId: number;
+  cartItemQty: number;
   smallWeight: number;
   largeWeight: number;
+  productTitle: string;
+  productSpecId: number;
+  productImg: CartImgType;
+  productSpecSize: number;
+  cartItemLivePrice: number;
+  largeOriginalPrice: number;
+  smallOriginalPrice: number;
   smallProductSpecId: number;
   largeProductSpecId: number;
-  cartItemLivePrice: number;
+  largePromotionPrice: number;
+  smallPromotionPrice: number;
+  cartItemPromotionPrice: number;
 };
 
 export type CartInfoItemType = {
+  totalDiscount: number;
   totalOriginalPrice: number;
   totalPromotionPrice: number;
-  totalDiscount: number;
 };
 
 export type PriceItemType = {
@@ -36,8 +36,8 @@ export type PriceItemType = {
 };
 
 export type CartDataType = {
+  cartId?: number;
   cartItemLength?: number;
   cartItemProductInfo?: CartItemType[];
   cartInfo?: PriceItemType[] | undefined;
-  cartId?: number;
 };
