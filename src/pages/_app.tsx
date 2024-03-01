@@ -4,9 +4,9 @@ import wrapper from '@/redux/store';
 import '@/styles/globals.scss';
 
 export default function App({
+  router,
   Component,
   pageProps,
-  router,
   ...rest
 }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
