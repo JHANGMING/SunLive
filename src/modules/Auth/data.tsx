@@ -13,8 +13,8 @@ export type LoginPrpos = {
 
 export type QueryParamsType = {
   guid: string;
-  account: string;
   time: string;
+  account: string;
 };
 
 export type ChangePasswordProps = {
