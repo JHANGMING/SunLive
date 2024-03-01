@@ -7,8 +7,8 @@ export type SwiperData = {
   imgDatas: ImageData[];
 };
 export type HomeSwiperPropsType = {
-  imgData: keyof typeof swiperData;
   classStyle?: string;
+  imgData: keyof typeof swiperData;
 };
 
 export const swiperData: { [key: string]: SwiperData } = {
