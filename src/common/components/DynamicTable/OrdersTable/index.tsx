@@ -9,17 +9,15 @@ import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { DynamicTableProps, shipmentOptions } from './data';
 
 const OrdersTable = ({ columns, initialData }: DynamicTableProps) => {
-  const itemsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+  const { currentData, maxPage, dataLength } = usePagination(
+    initialData,
+    currentPage
+    );
   useEffect(() => {
     setCurrentPage(1);
   }, [initialData]);
-  const { currentData, maxPage, dataLength } = usePagination(
-    initialData,
-    itemsPerPage,
-    currentPage
-  );
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
