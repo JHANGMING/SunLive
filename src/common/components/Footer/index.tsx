@@ -7,8 +7,8 @@ import { FooterProps, icons, swiperSet } from './data';
 import { grassMotionSet } from '../LandingPage/banner/data';
 
 const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
-  const { grassMotionLeft, grassMotionRight } = grassMotionSet;
   const swierShow = swiperSet[pageCategory] ? '' : 'hidden';
+  const { grassMotionLeft, grassMotionRight } = grassMotionSet;
   if (pageCategory === 'dashboardPage' || pageCategory === 'personInfoPage') {
     return <DashBoardFooter />;
   }
