@@ -1,17 +1,17 @@
 export type ProductCardProps = {
+  label?: string;
+  productId?: number;
+  labelStyle?: string;
   productTitle: string;
   description?: string;
-  smallOriginalPrice: number;
-  smallPromotionPrice: number;
   productSpecId?: number;
-  productId?: number;
-  label?: string;
   imgBorderStyle?: string;
-  labelStyle?: string;
-  priceBorderStyle?: string;
-  originalPriceStyle?: string;
   buttonAtBottom?: boolean;
   cardGapThreeCol?: boolean;
+  priceBorderStyle?: string;
+  smallOriginalPrice: number;
+  smallPromotionPrice: number;
+  originalPriceStyle?: string;
   productImg: {
     src: string;
     alt: string;
@@ -23,6 +23,6 @@ export type ProductListProps = {
 };
 
 export type PaginatedProductListProps = {
-  data: ProductCardProps[];
   itemsPerPage: number;
+  data: ProductCardProps[];
 };
