@@ -13,10 +13,10 @@ import LogoImg from '../Logo/LogoImg';
 import { LoggingInfoProps } from './data';
 
 const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
+  const auth = useAuth();
   const router = useRouter();
   const dispatch = useDispatch();
   const { authStatus } = useAuthStatus();
-  const auth = useAuth();
   const handlerLoginOut = async () => {
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['logout'],
