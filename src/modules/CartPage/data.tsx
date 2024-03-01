@@ -10,14 +10,14 @@ type SpecType = {
 };
 
 export type ProductCardProps = {
+  qyt: number;
+  total: number;
+  spec: SpecType;
   productID: number;
   productTitle: string;
   smallOriginalPrice: number;
-  smallPromotionPrice: number;
   productImg: ProductImgType;
-  qyt: number;
-  spec: SpecType;
-  total: number;
+  smallPromotionPrice: number;
 };
 
 export type CartProps = {
@@ -29,7 +29,7 @@ export type CartTotalPriceProps = {
 };
 
 export type PaymentDataType = {
-  MerchantID?: string;
-  TradeInfo?: string;
   TradeSha?: string;
+  TradeInfo?: string;
+  MerchantID?: string;
 };
