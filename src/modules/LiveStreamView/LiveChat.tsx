@@ -1,10 +1,9 @@
 import { mutate } from 'swr';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { BsCursorFill } from 'react-icons/bs';
-import { BsPersonCircle } from 'react-icons/bs';
-import { nextRoutes } from '@/constants/apiPaths';
 import { useEffect, useRef, useState } from 'react';
+import { BsCursorFill,BsPersonCircle } from 'react-icons/bs';
+import { nextRoutes } from '@/constants/apiPaths';
 import Image from '@/common/components/CustomImage';
 import { useDebounceFn } from '@/common/hooks/useDebounceFn';
 import { setLiveRoomId, setToast } from '@/redux/features/messageSlice';
