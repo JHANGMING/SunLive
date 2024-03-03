@@ -29,7 +29,7 @@ const ChatAndProduct = ({
     <>
       <div className="flex items-center justify-between border-b border-lightGray">
         <h6 className="font-normal p-16 ">重點聊天室訊息</h6>
-        <div className="flex items-center p-16 gap-8">
+        <div className="flex items-center p-16 gap-3">
           {String(viewerCount)
             .split('')
             .map((num, index) => {
