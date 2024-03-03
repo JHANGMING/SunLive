@@ -20,6 +20,10 @@ export type ProductCardProps = {
   smallPromotionPrice: number;
 };
 
+export type CartProps = {
+  cartData: CartDataType;
+};
+
 export type CartTotalPriceProps = {
   priceData: PriceItemType;
 };
