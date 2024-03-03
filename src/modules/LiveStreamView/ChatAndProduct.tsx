@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from '@/common/components/CustomImage';
 import GlobalLink from '@/common/components/GlobalLink';
 import LiveChat from './LiveChat';
@@ -11,37 +11,40 @@ const LiveChatCountdownWithNoSSR = dynamic(
 );
 
 const ChatAndProduct = ({
-  liveDetailData,
   liveId,
   liveFarmerId,
+  liveDetailData,
   isFarmer = false,
 }: ChatAndProductPorps) => {
   const endTime = liveDetailData?.endTime;
   const [viewerCount, setViewerCount] = useState(0);
-  const [prevCount, setPrevCount] = useState(viewerCount);
-  const prevCountString = String(prevCount);
+  const prevViewerCountRef = useRef(viewerCount); 
+  const viewerCountArray = viewerCount.toString().padStart(3, '0').split('');
+  const prevCountArray = prevViewerCountRef.current
+    .toString()
+    .padStart(3, '0')
+    .split('');
+
   useEffect(() => {
-    if (viewerCount !== prevCount) {
-      setPrevCount(viewerCount);
-    }
-  }, [viewerCount, prevCount]);
+    prevViewerCountRef.current = viewerCount;
+  }, [viewerCount]);
+  const generateKey = (num:string, index:number) => `${num}-${index}-${new Date().getTime()}`;
   return (
     <>
       <div className="flex items-center justify-between border-b border-lightGray">
         <h6 className="font-normal p-16 ">重點聊天室訊息</h6>
-        <div className="flex items-center p-16 gap-8">
-          {String(viewerCount)
-            .split('')
-            .map((num, index) => {
-              const flip = prevCountString[index] === num;
-              return (
-                <div
-                  key={index}
-                  className={`bg-SoftGray text-mediumGray font-bold px-4 ${flip ? 'flip-animation' : ''}`}>
-                  {num}
-                </div>
-              );
-            })}
+        <div className="flex items-center p-16 gap-3">
+          {viewerCountArray.map((num, index) => {
+            const flip = prevCountArray[index] !== num;
+            const key = generateKey(num, index);
+            return (
+              <div
+                key={key}
+                className={`bg-SoftGray text-mediumGray font-bold px-4 ${flip ? 'flip-animation' : ''}`}>
+                {num}
+              </div>
+            );
+          })}
           <div className="text-darkGray">人正在觀看</div>
         </div>
       </div>

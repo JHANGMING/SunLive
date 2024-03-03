@@ -94,6 +94,7 @@ const ContactService = () => {
         dispatch(setToast({ message: message }));
       });
       chatHubProxy.on('notifyShipment', (message) => {
+        console.log('notifyShipment', message);
         dispatch(setToast({ message: message }));
       });
 
@@ -272,17 +273,17 @@ const ContactService = () => {
       )}
       {isChatExpanded && (
         <PersonalChatRoom
-          toggleExpand={toggleExpand}
-          setIsChatExpanded={setIsChatExpanded}
-          setChatMessages={setChatMessages}
-          setupSignalRConnection={setupSignalRConnection}
-          userId={userId}
-          chatMessages={chatMessages}
-          farmerInfo={farmer}
-          chatroomId={chatroomId}
-          setFarmer={setFarmer}
-          isConnected={isConnected}
-          chatHubProxyRef={chatHubProxyRef.current}
+        userId={userId}
+        farmerInfo={farmer}
+        setFarmer={setFarmer}
+        chatroomId={chatroomId}
+        isConnected={isConnected}
+        toggleExpand={toggleExpand}
+        chatMessages={chatMessages}
+        setChatMessages={setChatMessages}
+        setIsChatExpanded={setIsChatExpanded}
+        chatHubProxyRef={chatHubProxyRef.current}
+        setupSignalRConnection={setupSignalRConnection}
         />
       )}
     </div>

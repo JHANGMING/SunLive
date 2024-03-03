@@ -1,15 +1,15 @@
 import { mutate } from 'swr';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { BsCursorFill } from 'react-icons/bs';
-import { BsPersonCircle } from 'react-icons/bs';
-import { nextRoutes } from '@/constants/apiPaths';
 import { useEffect, useRef, useState } from 'react';
+import { BsCursorFill,BsPersonCircle } from 'react-icons/bs';
+import { nextRoutes } from '@/constants/apiPaths';
 import Image from '@/common/components/CustomImage';
 import { useDebounceFn } from '@/common/hooks/useDebounceFn';
 import { setLiveRoomId, setToast } from '@/redux/features/messageSlice';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
+import LogoImg from '@/common/components/Logo/LogoImg';
 
 const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
   const router = useRouter();
@@ -213,12 +213,18 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
                 ) : (
                   <BsPersonCircle size={24} className=" text-darkGray" />
                 )}
-                <div className="flex flex-col mr-2 text-darkGray">
-                  <span className="whitespace-nowrap">{msg.nickName}</span>
+                <div className="flex gap-6 text-14 items-baseline">
+                  <div className="flex ">
+                    <span
+                      className={`whitespace-nowrap ${msg.userIdSender === liveFarmerId ? 'bg-primary-yellow p-4 flex items-center gap-2 rounded-6' : 'text-darkGray'}`}>
+                      {msg.nickName}
+                      {msg.userIdSender === liveFarmerId && (
+                        <LogoImg classProps="w-16 h-16" />
+                      )}
+                    </span>
+                  </div>
+                  <p className="break-all break-words w-full">{msg.message}</p>
                 </div>
-                <p className="break-all text-14 break-words w-full">
-                  {msg.message}
-                </p>
               </>
             ) : (
               <>

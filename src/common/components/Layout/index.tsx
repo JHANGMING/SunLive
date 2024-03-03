@@ -29,9 +29,10 @@ const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
         ) : (
           children
         )}
-        {pageCategory === 'authPage' || <ContactService />}
+
         <ScrollPageTop />
       </main>
+      {pageCategory === 'authPage' || <ContactService />}
       <Footer
         gapClassSyle={footerSet[pageCategory]}
         pageCategory={pageCategory}
