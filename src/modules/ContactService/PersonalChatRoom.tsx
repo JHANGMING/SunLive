@@ -8,17 +8,17 @@ import { useDebounceFn } from '@/common/hooks/useDebounceFn';
 import { PersonalChatRoomProps } from './data';
 
 const PersonalChatRoom = ({
-  toggleExpand,
-  setIsChatExpanded,
-  setChatMessages,
-  setFarmer,
-  setupSignalRConnection,
-  isConnected,
-  farmerInfo,
-  chatMessages,
-  chatroomId,
   userId,
+  setFarmer,
+  farmerInfo,
+  chatroomId,
+  isConnected,
+  chatMessages,
+  toggleExpand,
+  setChatMessages,
   chatHubProxyRef,
+  setIsChatExpanded,
+  setupSignalRConnection,
 }: PersonalChatRoomProps) => {
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLUListElement | null>(null);
