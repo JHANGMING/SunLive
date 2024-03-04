@@ -110,6 +110,7 @@ const ContactService = () => {
           if (chatroomId) {
             JoinChatRoom(chatHubProxyRef.current, chatroomId);
           }
+          console.log('Now connected, connection ID=' + connection.id)
         })
         .fail((error: Error) => {
           setIsConnected(false);
