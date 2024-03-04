@@ -91,6 +91,7 @@ const ContactService = () => {
         setChatMessages(newMessages);
       });
       chatHubProxy.on('notifyMessage', (message) => {
+        console.log('notifyMessage', message);
         dispatch(setToast({ message: message }));
       });
       chatHubProxy.on('notifyShipment', (message) => {

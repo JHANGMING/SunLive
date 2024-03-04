@@ -1,19 +1,22 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { getCookies } from 'cookies-next';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import wrapper from '@/redux/store';
 import CartPage from '@/modules/CartPage';
 import { apiPaths } from '@/constants/apiPaths';
 import Layout from '@/common/components/Layout';
-import { CartProps } from '@/modules/CartPage/data';
 import { setCartData } from '@/redux/features/cartSlice';
+import { showLoading } from '@/redux/features/messageSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
-const Cart = ({ cartData }: CartProps) => {
+const Cart = () => {
   const dispatch = useDispatch();
+  const [isClient, setIsClient] = useState(false);
   useEffect(() => {
-    dispatch(setCartData({ cartData }));
-  }, [cartData]);
+    dispatch(showLoading());
+    setIsClient(true);
+  }, []);
+  if (!isClient) return null;
   return (
     <Layout pageCategory="CartPage">
       <CartPage />
@@ -24,11 +27,10 @@ const Cart = ({ cartData }: CartProps) => {
 export default Cart;
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  () =>
+  (store) =>
     async ({ req, res }) => {
       const cookies = getCookies({ req, res });
       const token = cookies.token;
-      let cartData = {};
       if (!token) {
         return {
           redirect: {
@@ -45,14 +47,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
         };
         const cartResponse = await fetchApi(cartParams);
         if (cartResponse.statusCode === 200) {
-          cartData = cartResponse;
+          store.dispatch(setCartData({ cartData: cartResponse }));
         }
       }
       return {
-        props: {
-          auth: token,
-          cartData,
-        },
+        props: {},
       };
     }
 );
