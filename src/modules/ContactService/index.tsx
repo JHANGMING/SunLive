@@ -91,17 +91,15 @@ const ContactService = () => {
         setChatMessages(newMessages);
       });
       chatHubProxy.on('notifyMessage', (message) => {
-        console.log('notifyMessage', message);
         dispatch(setToast({ message: message }));
       });
       chatHubProxy.on('notifyShipment', (message) => {
-        console.log('notifyShipment', message);
         dispatch(setToast({ message: message }));
       });
 
       chatHubProxyRef.current = chatHubProxy as any;
       await connection
-        .start({ connectionId: id })
+        .start()
         .done(() => {
           setIsConnected(true);
           if (id) {
@@ -110,7 +108,6 @@ const ContactService = () => {
           if (chatroomId) {
             JoinChatRoom(chatHubProxyRef.current, chatroomId);
           }
-          console.log('Now connected, connection ID=' + connection.id)
         })
         .fail((error: Error) => {
           setIsConnected(false);
