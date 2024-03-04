@@ -5,16 +5,16 @@ import { GetServerSidePropsContext } from 'next';
 import CartPage from '@/modules/CartPage';
 import { apiPaths } from '@/constants/apiPaths';
 import Layout from '@/common/components/Layout';
+import { CartProps } from '@/modules/CartPage/data';
 import { setCartData } from '@/redux/features/cartSlice';
 import { showLoading } from '@/redux/features/messageSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
-import { CartProps } from '@/modules/CartPage/data';
 
 const Cart = ({ cartData }:CartProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCartData({ cartData }));
-    // dispatch(showLoading());
+    dispatch(showLoading());
   }, [cartData]);
   return (
     <Layout pageCategory="CartPage">
