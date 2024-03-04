@@ -101,7 +101,7 @@ const ContactService = () => {
 
       chatHubProxyRef.current = chatHubProxy as any;
       await connection
-        .start()
+        .start({ connectionId: id })
         .done(() => {
           setIsConnected(true);
           if (id) {
