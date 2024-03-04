@@ -1,3 +1,4 @@
+import { mutate } from 'swr';
 import { ReactNode } from 'react';
 import { useDispatch } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
@@ -5,8 +6,8 @@ import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import { cartTab } from '../lib/cartTab';
 import { authTab } from '../lib/authTab';
-import fetchNextApi, { apiParamsType } from '../helpers/fetchNextApi';
 import { useDebounceFn } from '../hooks/useDebounceFn';
+import fetchNextApi, { apiParamsType } from '../helpers/fetchNextApi';
 type GlobalLinkProps = {
   href: string;
   liveId?: number;
@@ -31,10 +32,9 @@ const GlobalLink = ({
 }: GlobalLinkProps) => {
   const dispatch = useDispatch();
   const handerAddtoCart = async (e: React.MouseEvent) => {
-    if (isDisabled) {
-      e.preventDefault();
-      return;
-    }
+    e.preventDefault(); 
+
+    if (isDisabled) return;
     const dataObj = {
       productId,
       productSpecId,
@@ -50,11 +50,15 @@ const GlobalLink = ({
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
+        mutate('/api/cart/getcart');
         dispatch(
           setToast({
             message: cartTab['add'],
           })
         );
+        if (openInNewTab) {
+          window.open(href, '_blank');
+        }
       } else if (result.statusCode === 409) {
         dispatch(
           setToast({
@@ -70,28 +74,24 @@ const GlobalLink = ({
   if (category === 'liveAddCart') {
     return (
       <div
-        className={`flex justify-center gap-8 py-8 px-16  rounded-8 border border-dashed group transition duration-800 ease-in-out ${className}`}>
-        <BsHandIndex className="w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4 " />
-        <a
-          className="font-bold tracking-widest rounded-8"
-          href={href}
-          target={openInNewTab ? '_blank' : ''}
-          rel="noopener noreferrer"
-          onClick={debouncedAddCart}>
+        className={`py-8 px-16  rounded-8 border border-dashed group transition duration-800 ease-in-out ${className}`}
+        onClick={debouncedAddCart}>
+        <span
+          className="font-bold tracking-widest rounded-8 w-full flex justify-center gap-8"
+        >
+          <BsHandIndex className="w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4 " />
           {children}
-        </a>
+        </span>
       </div>
     );
   }
   return (
-    <a
+    <span
       className={className}
-      href={href}
-      target={openInNewTab ? '_blank' : ''}
-      rel="noopener noreferrer"
-      onClick={debouncedAddCart}>
+      onClick={debouncedAddCart}
+      >
       {children}
-    </a>
+    </span>
   );
 };
 

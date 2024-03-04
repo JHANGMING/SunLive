@@ -9,8 +9,8 @@ import DefaultInput from '@/common/components/Input';
 import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
 import LocationSelect from '@/common/components/Select/LocationSelect';
-import { transformDataToCartList } from '@/common/helpers/transDataToCartList';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { transformDataToCartList } from '@/common/helpers/transDataToCartList';
 import { CartProps, PaymentDataType } from './data';
 
 const CartFormSection = ({ cartData }: CartProps) => {

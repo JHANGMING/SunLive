@@ -79,21 +79,21 @@ const CartListSection = ({ cartData }: CartProps) => {
           <ul className="cartlist form-transition">
             {productData.map((data) => {
               const {
-                cartItemLivePrice,
+                subtotal,
                 productId,
                 productImg,
-                productTitle,
-                smallOriginalPrice,
-                smallPromotionPrice,
-                productSpecSize,
-                largeOriginalPrice,
-                largePromotionPrice,
-                cartItemQty,
-                subtotal,
                 smallWeight,
                 largeWeight,
+                cartItemQty,
+                productTitle,
+                productSpecSize,
+                cartItemLivePrice,
                 smallProductSpecId,
                 largeProductSpecId,
+                largeOriginalPrice,
+                smallOriginalPrice,
+                smallPromotionPrice,
+                largePromotionPrice,
               } = data;
               const productSpecId = productSpecSize
                 ? largeProductSpecId
