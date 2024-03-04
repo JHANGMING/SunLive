@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { getCookies } from 'cookies-next';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import wrapper from '@/redux/store';
 import CartPage from '@/modules/CartPage';
 import { apiPaths } from '@/constants/apiPaths';
 import Layout from '@/common/components/Layout';
 import { setCartData } from '@/redux/features/cartSlice';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { showLoading } from '@/redux/features/messageSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
 const Cart = () => {
   const dispatch = useDispatch();
