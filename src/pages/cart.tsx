@@ -27,7 +27,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const token = getCookie('token', { req: context.req, res: context.res });
   let cartData = [];
   try {
-
+    if (!token) {
+      return {
+        redirect: {
+          destination: '/auth/login',
+          permanent: false,
+        },
+      };
+    }
     // 取得購物車
     if (token) {
       const cartParams: ApiParamsType = {
