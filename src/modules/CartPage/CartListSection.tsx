@@ -165,8 +165,8 @@ const CartListSection = ({ cartData }: CartProps) => {
                           onClick={() =>
                             debouncedQtyChange(
                               productId,
+                              cartItemQty - 1,
                               productSpecId,
-                              cartItemQty - 1
                             )
                           }
                         />
@@ -178,8 +178,8 @@ const CartListSection = ({ cartData }: CartProps) => {
                           onClick={() =>
                             debouncedQtyChange(
                               productId,
+                              cartItemQty + 1,
                               productSpecId,
-                              cartItemQty + 1
                             )
                           }
                         />
