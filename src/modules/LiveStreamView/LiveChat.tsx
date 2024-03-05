@@ -136,10 +136,10 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && user.userIdSender) {
       event.preventDefault();
-      debouncedSendMsg();
+      handleSendMessage();
     }
   };
-  const handleSendMessage = async () => {
+  const handleSendMessage = useDebounceFn(async () => {
     if (!isConnected || !user.userIdSender || newMessage.trim() === '') {
       return;
     }
@@ -156,7 +156,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     } catch (error) {
       console.error('Failed to send message:', error);
     }
-  };
+  },300);
   const handerShare = async () => {
     const farmerMsg = `歡迎揪親朋好友來加入我的直播特賣: https://sun-live.vercel.app/livestream/${liveId}`;
     if (!isConnected || !user.userIdSender) {
@@ -175,7 +175,6 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       console.error('Failed to send message:', error);
     }
   };
-  const debouncedSendMsg = useDebounceFn(handleSendMessage, 300);
   return (
     <>
       <ul
@@ -286,7 +285,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         <BsCursorFill
           size={24}
           className={`${user.userIdSender ? 'text-primary-red hover:opacity-60' : 'text-darkGray'} cursor-pointer`}
-          onClick={user.userIdSender ? debouncedSendMsg : undefined}
+          onClick={user.userIdSender ? handleSendMessage : undefined}
         />
       </div>
     </>
