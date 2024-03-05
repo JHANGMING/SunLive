@@ -1,6 +1,6 @@
-import { apiPaths } from '@/constants/apiPaths';
 import { getCookie } from 'cookies-next';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { apiPaths } from '@/constants/apiPaths';
 export const config = {
   api: {
     bodyParser: false,

@@ -19,7 +19,7 @@ export default EditProducts;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const token = getCookie('token', { req: context.req, res: context.res });
+  const token = getCookie('token', { req: context.req });
   const params = context.params;
   const productId = params ? params['productId'] : null;
   let detailData = [];

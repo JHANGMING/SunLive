@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { getCookies } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
-import wrapper from '@/redux/store';
+import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
 import { apiPaths } from '@/constants/apiPaths';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
@@ -22,35 +22,31 @@ const Products = ({ listData }: ProductPorps) => {
 
 export default Products;
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  () =>
-    async ({ req, res }) => {
-      const cookies = getCookies({ req, res });
-      const token = cookies.token;
-      let listData = {};
-      if (!token) {
-        return {
-          redirect: {
-            destination: '/auth/login',
-            permanent: false,
-          },
-        };
-      }
-      if (token) {
-        const cartParams: ApiParamsType = {
-          apiPath: apiPaths['productlist'],
-          method: 'GET',
-          authToken: token,
-        };
-        const listResponse = await fetchApi(cartParams);
-        if (listResponse.statusCode === 200) {
-          listData = listResponse.data;
-        }
-      }
-      return {
-        props: {
-          listData,
-        },
-      };
-    }
-);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const token = getCookie('token', { req: context.req });
+  let listData = {};
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  }
+  const cartParams: ApiParamsType = {
+    apiPath: apiPaths['productlist'],
+    method: 'GET',
+    authToken: token,
+  };
+  const listResponse = await fetchApi(cartParams);
+  if (listResponse.statusCode === 200) {
+    listData = listResponse.data;
+  }
+  return {
+    props: {
+      listData,
+    },
+  };
+}
+
+
