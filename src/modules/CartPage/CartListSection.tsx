@@ -17,34 +17,33 @@ const CartListSection = ({ cartData }: CartProps) => {
   const priceData = cartData?.cartInfo?.[0];
   const productData = cartData?.cartItemProductInfo ?? [];
 
-  const handlerQtyChange = async (
-    productId: number,
-    cartItemQty: number,
-    productSpecId: number,
-  ) => {
-    if (cartItemQty < 1) return;
+  const handlerQtyChange = useDebounceFn(
+    async (productId: number, cartItemQty: number, productSpecId: number) => {
+      if (cartItemQty < 1) return;
 
-    const dataObj = {
-      productId,
-      cartItemQty,
-      productSpecId,
-    };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['putqty'],
-      method: 'POST',
-      data: dataObj,
-    };
-    try {
-      const result = await fetchNextApi(apiParams);
-      if (result.statusCode === 200) {
-        mutate('/api/cart/getcart');
-      } else {
-        dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
+      const dataObj = {
+        productId,
+        cartItemQty,
+        productSpecId,
+      };
+      const apiParams: apiParamsType = {
+        apiPath: nextRoutes['putqty'],
+        method: 'POST',
+        data: dataObj,
+      };
+      try {
+        const result = await fetchNextApi(apiParams);
+        if (result.statusCode === 200) {
+          mutate('/api/cart/getcart');
+        } else {
+          dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    },
+    300
+  );
 
   const handlerSpecChange = async (productId: any, specId: string) => {
     const dataObj = {
@@ -67,7 +66,6 @@ const CartListSection = ({ cartData }: CartProps) => {
       console.log(error);
     }
   };
-  const debouncedQtyChange = useDebounceFn(handlerQtyChange, 500);
   return (
     <section className="container">
       <div className=" flex gap-40">
@@ -163,7 +161,7 @@ const CartListSection = ({ cartData }: CartProps) => {
                           alt="dec"
                           className="w-20 h-20 cursor-pointer hover:opacity-70"
                           onClick={() =>
-                            debouncedQtyChange(
+                            handlerQtyChange(
                               productId,
                               productSpecId,
                               cartItemQty - 1
@@ -176,7 +174,7 @@ const CartListSection = ({ cartData }: CartProps) => {
                           alt="plus"
                           className="w-20 h-20 cursor-pointer hover:opacity-70"
                           onClick={() =>
-                            debouncedQtyChange(
+                            handlerQtyChange(
                               productId,
                               productSpecId,
                               cartItemQty + 1
