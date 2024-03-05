@@ -16,8 +16,8 @@ export const authSlice = createSlice({
     setUserData(state, action) {
       return {
         ...state,
-        nickName: action.payload.nickName,
         photo: action.payload.photo,
+        nickName: action.payload.nickName,
       };
     },
   },

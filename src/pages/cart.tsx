@@ -24,7 +24,7 @@ const Cart = ({ cartData }: CartListProps) => {
 export default Cart;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = getCookie('token', { req: context.req, res: context.res });
+  const token = getCookie('token', { req: context.req});
   let cartData = [];
   try {
     if (!token) {

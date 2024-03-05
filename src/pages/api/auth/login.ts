@@ -1,7 +1,7 @@
 import { setCookie } from 'cookies-next';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/apiPaths';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
 export default async function handler(
   req: NextApiRequest,

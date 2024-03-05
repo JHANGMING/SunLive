@@ -34,47 +34,60 @@ export default function Home({
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = getCookie('token', { req: context.req, res: context.res });
+  const token = getCookie('token', { req: context.req });
   let liveData = [];
   let cartData = [];
   let topSaleProduct = [];
-  try {
-    // 取得近期直播商品
-    const liveParams: ApiParamsType = {
-      apiPath: apiPaths['live'],
-      method: 'GET',
-    };
 
-    const liveResponse = await fetchApi(liveParams);
-    if (liveResponse.statusCode === 200) {
-      liveData = liveResponse;
-    }
-    // 取得熱門商品
-    const otherCategoryParams: ApiParamsType = {
-      apiPath: apiPaths['otherCategory'],
-      method: 'GET',
-    };
-    const otherCategoryResponse = await fetchApi(otherCategoryParams);
-    if (otherCategoryResponse.statusCode === 200) {
-      const { data } = otherCategoryResponse;
-      topSaleProduct = data.topSaleProduct;
-    }
+  // 取得近期直播商品
+  const liveParams: ApiParamsType = {
+    apiPath: apiPaths['live'],
+    method: 'GET',
+  };
 
-    // 取得購物車
-    if (token) {
-      const cartParams: ApiParamsType = {
-        apiPath: apiPaths['cart'],
-        method: 'GET',
-        authToken: token,
-      };
-      const cartResponse = await fetchApi(cartParams);
-      if (cartResponse.statusCode === 200) {
-        cartData = cartResponse;
-      }
-    }
-  } catch (error) {
-    console.error(error);
+  // 取得熱門商品
+  const otherCategoryParams: ApiParamsType = {
+    apiPath: apiPaths['otherCategory'],
+    method: 'GET',
+  };
+
+  // 取得購物車
+  const cartParams: ApiParamsType = {
+    apiPath: apiPaths['cart'],
+    method: 'GET',
+    authToken: token,
+  };
+
+  const responses = await Promise.allSettled([
+    fetchApi(liveParams),
+    fetchApi(otherCategoryParams),
+    token ? fetchApi(cartParams) : Promise.resolve(null),
+  ]);
+  const liveResponse =
+    responses[0].status === 'fulfilled'
+      ? responses[0].value
+      : { statusCode: 500 };
+  const otherCategoryResponse =
+    responses[1].status === 'fulfilled'
+      ? responses[1].value
+      : { statusCode: 500 };
+  const cartResponse =
+    responses[2].status === 'fulfilled'
+      ? responses[2].value
+      : { statusCode: 500 };
+
+  if (liveResponse.statusCode === 200) {
+    liveData = liveResponse;
   }
+
+  if (otherCategoryResponse.statusCode === 200 && otherCategoryResponse.data) {
+    topSaleProduct = otherCategoryResponse.data.topSaleProduct;
+  }
+
+  if (cartResponse && cartResponse.statusCode === 200) {
+    cartData = cartResponse.data;
+  }
+
   return {
     props: {
       liveData,
