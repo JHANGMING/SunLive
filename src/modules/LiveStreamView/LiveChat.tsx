@@ -219,7 +219,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
                       className={`whitespace-nowrap ${msg.userIdSender === liveFarmerId ? 'bg-primary-yellow p-4 flex items-center gap-2 rounded-6' : 'text-darkGray'}`}>
                       {msg.nickName}
                       {msg.userIdSender === liveFarmerId && (
-                        <LogoImg classProps="w-16 h-16" />
+                        <LogoImg classProps="w-16 h-16 logo-shake" />
                       )}
                     </span>
                   </div>
