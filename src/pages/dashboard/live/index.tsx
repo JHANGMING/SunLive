@@ -23,7 +23,7 @@ const Live = ({ listData }: LiveListProps) => {
 export default Live;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = getCookie('token', { req: context.req, res: context.res });
+  const token = getCookie('token', { req: context.req});
   let listData = {};
   if (!token) {
     return {
