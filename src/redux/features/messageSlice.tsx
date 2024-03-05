@@ -50,11 +50,11 @@ export const messageSlice = createSlice({
 });
 
 export const {
-  showLoading,
-  hideLoading,
   setToast,
   hideToast,
   setFamerId,
+  showLoading,
+  hideLoading,
   clearFamerId,
   setLiveRoomId,
 } = messageSlice.actions;
