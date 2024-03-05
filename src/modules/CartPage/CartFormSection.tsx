@@ -26,8 +26,8 @@ const CartFormSection = ({ cartData }: CartProps) => {
   const {
     control,
     register,
-    handleSubmit,
     setValue,
+    handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({});
 

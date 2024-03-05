@@ -19,15 +19,15 @@ const CartListSection = ({ cartData }: CartProps) => {
 
   const handlerQtyChange = async (
     productId: number,
+    cartItemQty: number,
     productSpecId: number,
-    cartItemQty: number
   ) => {
     if (cartItemQty < 1) return;
 
     const dataObj = {
       productId,
-      productSpecId,
       cartItemQty,
+      productSpecId,
     };
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['putqty'],
