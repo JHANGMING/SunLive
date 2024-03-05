@@ -9,7 +9,7 @@ import { CartListProps } from '@/modules/CartPage/data';
 import { setCartData } from '@/redux/features/cartSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
-const Cart = ({ cartData }:CartListProps) => {
+const Cart = ({ cartData }: CartListProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCartData({ cartData }));
@@ -35,17 +35,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
       };
     }
-    // 取得購物車
-    if (token) {
-      const cartParams: ApiParamsType = {
-        apiPath: apiPaths['cart'],
-        method: 'GET',
-        authToken: token,
-      };
-      const cartResponse = await fetchApi(cartParams);
-      if (cartResponse.statusCode === 200) {
-        cartData = cartResponse;
-      }
+    // 取得購物車商品
+    const cartParams: ApiParamsType = {
+      apiPath: apiPaths['cart'],
+      method: 'GET',
+      authToken: token,
+    };
+    const cartResponse = await fetchApi(cartParams);
+    if (cartResponse.statusCode === 200) {
+      cartData = cartResponse;
     }
   } catch (error) {
     console.error(error);
