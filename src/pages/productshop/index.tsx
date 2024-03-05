@@ -7,32 +7,31 @@ import { ProductShopProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { ProductsRefProvider } from '@/common/hooks/ProductsRefContext';
-import { AllproductsDataType } from '@/constants/types/product/allproducts';
 
 const ProductShop = ({
+  fruitProduct,
+  topSaleProduct,
   allproductsData,
   promotionProduct,
-  fruitProduct,
   vegetableProduct,
-  topSaleProduct,
 }: ProductShopProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       setAllProductsData({
+        fruitProduct,
+        topSaleProduct,
         allproductsData,
         promotionProduct,
-        fruitProduct,
         vegetableProduct,
-        topSaleProduct,
       })
     );
   }, [
+    fruitProduct,
+    topSaleProduct,
     allproductsData,
     promotionProduct,
-    fruitProduct,
     vegetableProduct,
-    topSaleProduct,
   ]);
 
   return (
@@ -47,11 +46,11 @@ const ProductShop = ({
 export default ProductShop;
 
 export async function getServerSideProps() {
-  let allproductsData: AllproductsDataType = [];
-  let promotionProduct = [];
   let fruitProduct = [];
-  let vegetableProduct = [];
   let topSaleProduct = [];
+  let allproductsData = [];
+  let promotionProduct = [];
+  let vegetableProduct = [];
   try {
     // 取得所有商品
     const allParams: ApiParamsType = {
@@ -73,10 +72,10 @@ export async function getServerSideProps() {
     const otherCategoryResponse = await fetchApi(otherCategoryParams);
     if (otherCategoryResponse.statusCode === 200) {
       const { data } = otherCategoryResponse;
-      promotionProduct = data.promotionProduct;
       fruitProduct = data.fruitProduct;
-      vegetableProduct = data.vegetableProduct;
       topSaleProduct = data.topSaleProduct;
+      promotionProduct = data.promotionProduct;
+      vegetableProduct = data.vegetableProduct;
     }
   } catch (error) {
     console.error(error);
@@ -84,11 +83,11 @@ export async function getServerSideProps() {
 
   return {
     props: {
+      fruitProduct,
+      topSaleProduct,
       allproductsData,
       promotionProduct,
-      fruitProduct,
       vegetableProduct,
-      topSaleProduct,
     },
   };
 }
