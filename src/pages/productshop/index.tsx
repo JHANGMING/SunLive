@@ -51,35 +51,37 @@ export async function getServerSideProps() {
   let allproductsData = [];
   let promotionProduct = [];
   let vegetableProduct = [];
-  try {
+
     // 取得所有商品
     const allParams: ApiParamsType = {
       apiPath: apiPaths['allproducts'],
       method: 'GET',
     };
 
-    const allproductsResponse = await fetchApi(allParams);
-    if (allproductsResponse.statusCode === 200) {
-      allproductsData = allproductsResponse.data;
-    }
-
     // 取得其他分類商品
     const otherCategoryParams: ApiParamsType = {
       apiPath: apiPaths['otherCategory'],
       method: 'GET',
     };
-
-    const otherCategoryResponse = await fetchApi(otherCategoryParams);
-    if (otherCategoryResponse.statusCode === 200) {
-      const { data } = otherCategoryResponse;
-      fruitProduct = data.fruitProduct;
-      topSaleProduct = data.topSaleProduct;
-      promotionProduct = data.promotionProduct;
-      vegetableProduct = data.vegetableProduct;
+    const responses = await Promise.allSettled([
+      fetchApi(allParams),
+      fetchApi(otherCategoryParams),
+    ]);
+    if (
+      responses[0].status === 'fulfilled' &&
+      responses[0].value.statusCode === 200
+    ) {
+      allproductsData = responses[0].value.data;
     }
-  } catch (error) {
-    console.error(error);
-  }
+
+    if (
+      responses[1].status === 'fulfilled' &&
+      responses[1].value.statusCode === 200
+    ) {
+      const { data } = responses[1].value;
+      ({ fruitProduct, topSaleProduct, promotionProduct, vegetableProduct } =
+        data);
+    }
 
   return {
     props: {
