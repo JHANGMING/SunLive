@@ -21,7 +21,14 @@ export type ProductCardProps = {
 };
 
 export type CartProps = {
-  cartData: CartDataType;
+  cartData?: CartDataType;
+  cartSSRData?: CartDataType;
+};
+
+export type CartListProps = {
+  cartData:{
+    data: CartDataType;
+  }
 };
 
 export type CartTotalPriceProps = {
