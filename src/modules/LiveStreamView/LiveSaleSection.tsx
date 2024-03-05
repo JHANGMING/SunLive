@@ -26,7 +26,7 @@ const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
                   className=" h-[284px] rounded-16 hover:opacity-60"
                 />
                 <h4
-                  className={`absolute left-0 bottom-0  w-full opacity-80 flex justify-center items-center rounded-bl-16 rounded-br-16  text-primary-green bg-white/90 ${data?.productStock === 0 ? 'h-full' : 'py-16'}`}>
+                  className={`absolute left-0 bottom-0  w-full opacity-80 flex justify-center items-center rounded-bl-16 rounded-br-16  text-primary-green bg-white/90 ${data?.productStock === 0 ? 'h-full rounded-16' : 'py-16'}`}>
                   剩餘
                   <span className=" text-primary-red mx-8 shiny-scale-effect">
                     {data.productStock}
