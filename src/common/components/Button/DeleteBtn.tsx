@@ -8,7 +8,7 @@ import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import { DeleteBtnPropsType } from './data';
 const DeleteBtn = ({ size, className, productSpecId }: DeleteBtnPropsType) => {
   const dispatch = useDispatch();
-  const handlerDeleteItem = async () => {
+  const handlerDeleteItem = useDebounceFn(async () => {
     const apiParams: apiParamsType = {
       apiPath: nextRoutes['deletecart'],
       method: 'POST',
@@ -26,11 +26,10 @@ const DeleteBtn = ({ size, className, productSpecId }: DeleteBtnPropsType) => {
     } catch (error) {
       console.log(error);
     }
-  };
-  const debouncedDelete = useDebounceFn(handlerDeleteItem, 500);
+  }, 300);
   return (
     <>
-      <BsX size={size} className={className} onClick={debouncedDelete} />
+      <BsX size={size} className={className} onClick={handlerDeleteItem} />
     </>
   );
 };

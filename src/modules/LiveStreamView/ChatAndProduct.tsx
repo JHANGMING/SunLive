@@ -18,7 +18,7 @@ const ChatAndProduct = ({
 }: ChatAndProductPorps) => {
   const endTime = liveDetailData?.endTime;
   const [viewerCount, setViewerCount] = useState(0);
-  const prevViewerCountRef = useRef(viewerCount); 
+  const prevViewerCountRef = useRef(viewerCount);
   const viewerCountArray = viewerCount.toString().padStart(3, '0').split('');
   const prevCountArray = prevViewerCountRef.current
     .toString()
@@ -28,7 +28,8 @@ const ChatAndProduct = ({
   useEffect(() => {
     prevViewerCountRef.current = viewerCount;
   }, [viewerCount]);
-  const generateKey = (num:string, index:number) => `${num}-${index}-${new Date().getTime()}`;
+  const generateKey = (num: string, index: number) =>
+    `${num}-${index}-${new Date().getTime()}`;
   return (
     <>
       <div className="flex items-center justify-between border-b border-lightGray">

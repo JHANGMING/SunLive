@@ -39,7 +39,10 @@ const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
             <ul className="flex gap-16">
               {icons.map((icon) => (
                 <li key={icon.alt}>
-                  <GlobalLink href={icon.path} openInNewTab={true}>
+                  <GlobalLink
+                    href={icon.path}
+                    openInNewTab={true}
+                    category="footer">
                     <Image
                       src={icon.src}
                       alt={`Follow us on ${icon.alt}`}

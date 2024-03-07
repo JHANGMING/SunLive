@@ -56,10 +56,10 @@ const PersonalChatRoom = ({
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && userId) {
       event.preventDefault();
-      debouncedSendMsg();
+      handleSendMessage();
     }
   };
-  const handleSendMessage = async () => {
+  const handleSendMessage = useDebounceFn(async () => {
     if (!userId || newMessage.trim() === '') {
       return;
     }
@@ -77,7 +77,7 @@ const PersonalChatRoom = ({
     } catch (error) {
       console.error('Failed to send message:', error);
     }
-  };
+  },300);
   const handlerChatExpand = () => {
     setFarmer({
       farmerId: 0,
@@ -89,7 +89,6 @@ const PersonalChatRoom = ({
     mutate(`/api${nextRoutes['getmessage']}`);
     mutate(`/api${nextRoutes['notify']}`);
   };
-  const debouncedSendMsg = useDebounceFn(handleSendMessage, 300);
   return (
     <>
       <div className=" absolute bottom-16 right-0 w-[422px] z-30 shadow-chatRoom rounded-20">
@@ -186,7 +185,7 @@ const PersonalChatRoom = ({
             <BsCursorFill
               size={24}
               className=" text-primary-green w-24 h-24 cursor-pointer hover:opacity-70"
-              onClick={debouncedSendMsg}
+              onClick={handleSendMessage}
             />
           </div>
         </div>
