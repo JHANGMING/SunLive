@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import Image from '@/common/components/CustomImage';
 import { dataSet } from './data';
 import LogoImg from '../../Logo/LogoImg';
@@ -28,7 +29,7 @@ const FriendlyFarmSection = () => {
                 desSecond_small,
               } = data;
               return (
-                <li className="mb-24 lg:mb-48" key={subTitle}>
+                <li className="mb-24 lg:mb-48" key={uuidv4()}>
                   <div className="flex gap-16 lg:gap-24 mb-8 lg:mb-16">
                     <Image
                       src={image.src}
