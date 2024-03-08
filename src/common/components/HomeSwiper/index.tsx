@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from '@/common/components/CustomImage';
@@ -27,7 +28,7 @@ const HomeSwiper = ({ imgData, classStyle }: HomeSwiperPropsType) => {
           disableOnInteraction: false, // 操作swiper，是否禁止
         }}>
         {imgDatas.map((data) => (
-          <SwiperSlide key={data.alt}>
+          <SwiperSlide key={uuidv4()}>
             <Image
               src={data.src}
               alt={data.alt}
