@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import { BsDashCircleFill, BsPlusCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
@@ -55,10 +56,8 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
           <ul className="flex gap-8 ">
             {detailProduct.productImages
               ?.slice(0, 5)
-              .map((data: ProductImgType, index: number) => (
-                <li
-                  key={`${data.alt}-${index}`}
-                  onClick={() => handleImageSelect(data.src)}>
+              .map((data: ProductImgType) => (
+                <li key={uuidv4()} onClick={() => handleImageSelect(data.src)}>
                   <Image
                     src={data.src}
                     alt={data.alt}
