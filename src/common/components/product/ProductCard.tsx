@@ -28,7 +28,7 @@ const ProductCard = ({
   const cardGapStyle = cardGapThreeCol ? 'col-span-2 col-span-4' : 'col-span-3';
   const cardTitleStyle = cardGapThreeCol || 'text-24';
   const cardImageStyle = cardGapThreeCol
-    ? 'lg:w-[416px] lg:h-[381px]'
+    ? 'lg:max-w-[416px] lg:h-[381px]'
     : 'lg:w-[306px] lg:h-[284px]';
   const [animation, setAnimation] = useState('product-card-enter');
 
@@ -43,7 +43,7 @@ const ProductCard = ({
     <li className={`${cardGapStyle} flex flex-col ${animation}`}>
       <div className="group flex flex-col gap-4 lg:gap-16">
         <Link href={`/productshop/${productId}`} className=" relative">
-          <div className="flex justify-center">
+
             <Image
               src={
                 productImg.src === null
@@ -54,10 +54,10 @@ const ProductCard = ({
               roundedStyle="rounded-20 h-full object-cover"
               className={`w-full h-[136px]  hover:opacity-60 border-dashed border-2 rounded-20 transition duration-800 ease-in-out ${cardImageStyle} ${imgBorderStyle}`}
             />
-          </div>
+
           {label && (
             <h4
-              className={`absolute left-0 bottom-0 w-full  h-60 opacity-80 flex justify-center items-center rounded-bl-20 rounded-br-20 ${labelStyle}`}>
+              className={`absolute left-0 bottom-0 w-full h-60 opacity-80 flex justify-center items-center rounded-bl-20 rounded-br-20 ${labelStyle}`}>
               {label}
             </h4>
           )}

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import useSWR, { mutate } from 'swr';
 import { BsInfoCircleFill } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
@@ -220,10 +221,8 @@ const ContactService = () => {
                 </div>
               </li>
             )}
-            {chatData?.map((chat: ChatDataType, index: number) => (
-              <li
-                className=" rounded-12 bg-white py-24 px-42"
-                key={`${isFarmer ? chat.userId : chat.farmerId}-${index}`}>
+            {chatData?.map((chat: ChatDataType) => (
+              <li className=" rounded-12 bg-white py-24 px-42" key={uuidv4()}>
                 <div className=" flex justify-between mb-16 items-center relative">
                   {chat.isRead || (
                     <BsInfoCircleFill
@@ -272,17 +271,17 @@ const ContactService = () => {
       )}
       {isChatExpanded && (
         <PersonalChatRoom
-        userId={userId}
-        farmerInfo={farmer}
-        setFarmer={setFarmer}
-        chatroomId={chatroomId}
-        isConnected={isConnected}
-        toggleExpand={toggleExpand}
-        chatMessages={chatMessages}
-        setChatMessages={setChatMessages}
-        setIsChatExpanded={setIsChatExpanded}
-        chatHubProxyRef={chatHubProxyRef.current}
-        setupSignalRConnection={setupSignalRConnection}
+          userId={userId}
+          farmerInfo={farmer}
+          setFarmer={setFarmer}
+          chatroomId={chatroomId}
+          isConnected={isConnected}
+          toggleExpand={toggleExpand}
+          chatMessages={chatMessages}
+          setChatMessages={setChatMessages}
+          setIsChatExpanded={setIsChatExpanded}
+          chatHubProxyRef={chatHubProxyRef.current}
+          setupSignalRConnection={setupSignalRConnection}
         />
       )}
     </div>

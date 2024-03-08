@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import LiveListTable from '@/common/components/DynamicTable/LIveListTable';
 import OrdersSearch from '@/common/components/Input/OrdersSearch';
 import { LiveListColumns } from '../data';
@@ -14,7 +15,7 @@ const AllLive = () => {
       <div className="bg-white rounded-20 py-18 pl-28 flex gap-24 mb-40">
         {['所有直播', '直播設定'].map((tab) => (
           <Link
-            key={tab}
+            key={uuidv4()}
             href={
               tab === '所有直播'
                 ? '/dashboard/live'

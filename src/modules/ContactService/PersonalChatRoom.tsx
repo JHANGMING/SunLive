@@ -1,4 +1,5 @@
 import { mutate } from 'swr';
+import { v4 as uuidv4 } from 'uuid';
 import { BsPersonCircle } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import { BsFillXCircleFill, BsChevronLeft, BsCursorFill } from 'react-icons/bs';
@@ -56,10 +57,10 @@ const PersonalChatRoom = ({
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey && userId) {
       event.preventDefault();
-      debouncedSendMsg();
+      handleSendMessage();
     }
   };
-  const handleSendMessage = async () => {
+  const handleSendMessage = useDebounceFn(async () => {
     if (!userId || newMessage.trim() === '') {
       return;
     }
@@ -77,7 +78,7 @@ const PersonalChatRoom = ({
     } catch (error) {
       console.error('Failed to send message:', error);
     }
-  };
+  },300);
   const handlerChatExpand = () => {
     setFarmer({
       farmerId: 0,
@@ -89,7 +90,6 @@ const PersonalChatRoom = ({
     mutate(`/api${nextRoutes['getmessage']}`);
     mutate(`/api${nextRoutes['notify']}`);
   };
-  const debouncedSendMsg = useDebounceFn(handleSendMessage, 300);
   return (
     <>
       <div className=" absolute bottom-16 right-0 w-[422px] z-30 shadow-chatRoom rounded-20">
@@ -121,10 +121,10 @@ const PersonalChatRoom = ({
         <ul
           className=" bg-SoftGray py-24 pl-24 pr-12  flex flex-col gap-16 h-[294px] overflow-y-auto"
           ref={messagesEndRef}>
-          {chatMessages?.map((msg, index) => {
+          {chatMessages?.map((msg) => {
             return (
               <li
-                key={index}
+                key={uuidv4()}
                 className={`flex gap-8 ${
                   msg.senderId === userId ? 'justify-end' : 'justify-between'
                 }`}>
@@ -186,7 +186,7 @@ const PersonalChatRoom = ({
             <BsCursorFill
               size={24}
               className=" text-primary-green w-24 h-24 cursor-pointer hover:opacity-70"
-              onClick={debouncedSendMsg}
+              onClick={handleSendMessage}
             />
           </div>
         </div>

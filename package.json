@@ -30,7 +30,8 @@
     "swiper": "^11.0.5",
     "swr": "^2.2.4",
     "tailwindcss-textshadow": "^2.1.3",
-    "tailwindcss-writing-mode": "^1.0.0"
+    "tailwindcss-writing-mode": "^1.0.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -38,6 +39,7 @@
     "@types/react-datepicker": "^4.19.5",
     "@types/react-dom": "^18",
     "@types/signalr": "^2.4.3",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",

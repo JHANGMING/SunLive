@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
 import { calculateTimeLeft } from '@/common/helpers/calculateTime';
 import { LiveChatCountdownProps } from './data';
@@ -17,11 +18,11 @@ const LiveChatCountdown = ({ endTime }: LiveChatCountdownProps) => {
       </h5>
       <ul className="flex">
         {Object.entries(timeLeft).map(([unit, value], index) => (
-          <li key={unit}>
+          <li key={uuidv4()}>
             {index > 0 && <span className="text-20 mx-2">:</span>}
             {value.split('').map((digit, digitIndex) => (
               <span
-                key={`${unit}-${digitIndex}`}
+                key={uuidv4()}
                 className="bg-primary-red rounded-[4px] text-white font-bold  text-20 px-2">
                 {digit}
               </span>

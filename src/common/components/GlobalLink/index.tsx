@@ -1,24 +1,13 @@
 import { mutate } from 'swr';
-import { ReactNode } from 'react';
 import { useDispatch } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
 import { nextRoutes } from '@/constants/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
-import { cartTab } from '../lib/cartTab';
-import { authTab } from '../lib/authTab';
-import { useDebounceFn } from '../hooks/useDebounceFn';
-import fetchNextApi, { apiParamsType } from '../helpers/fetchNextApi';
-type GlobalLinkProps = {
-  href: string;
-  liveId?: number;
-  category?: string;
-  className?: string;
-  productId?: number;
-  children: ReactNode;
-  isDisabled?: boolean;
-  openInNewTab?: boolean;
-  productSpecId?: number;
-};
+import { GlobalLinkProps } from './data';
+import { cartTab } from '../../lib/cartTab';
+import { authTab } from '../../lib/authTab';
+import { useDebounceFn } from '../../hooks/useDebounceFn';
+import fetchNextApi, { apiParamsType } from '../../helpers/fetchNextApi';
 const GlobalLink = ({
   href,
   liveId,
@@ -31,8 +20,8 @@ const GlobalLink = ({
   isDisabled = false,
 }: GlobalLinkProps) => {
   const dispatch = useDispatch();
-  const handerAddtoCart = async (e: React.MouseEvent) => {
-    e.preventDefault(); 
+  const handleAddToCart = useDebounceFn(async (e: React.MouseEvent) => {
+    e.preventDefault();
 
     if (isDisabled) return;
     const dataObj = {
@@ -69,29 +58,34 @@ const GlobalLink = ({
     } catch (error) {
       console.log(error);
     }
-  };
-  const debouncedAddCart = useDebounceFn(handerAddtoCart, 500);
-  if (category === 'liveAddCart') {
+  }, 500);
+  if (category === 'footer') {
     return (
-      <div
-        className={`py-8 px-16  rounded-8 border border-dashed group transition duration-800 ease-in-out ${className}`}
-        onClick={debouncedAddCart}>
-        <span
-          className="font-bold tracking-widest rounded-8 w-full flex justify-center gap-8"
-        >
-          <BsHandIndex className="w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4 " />
-          {children}
-        </span>
-      </div>
+      <a
+        href={href}
+        target={openInNewTab ? '_blank' : '_self'}
+        className={className}>
+        {children}
+      </a>
     );
   }
+  const isLiveAddCart = category === 'liveAddCart';
+  const onClickHandler =
+    isLiveAddCart || !isDisabled ? handleAddToCart : undefined;
+
   return (
-    <span
-      className={className}
-      onClick={debouncedAddCart}
-      >
-      {children}
-    </span>
+    <div
+      className={`${className} ${isLiveAddCart ? 'py-8 px-16 rounded-8 border border-dashed group transition duration-800 ease-in-out' : ''}`}
+      onClick={onClickHandler}>
+      {isLiveAddCart ? (
+        <span className="font-bold tracking-widest rounded-8 w-full flex justify-center gap-8">
+          <BsHandIndex className="w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4" />
+          {children}
+        </span>
+      ) : (
+        children
+      )}
+    </div>
   );
 };
 

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import Image from '@/common/components/CustomImage';
 import { featureData, featureIcon } from './data';
 
@@ -20,7 +21,7 @@ const FarmFeatureSection = () => {
           return (
             <li
               className=" col-span-4 flex flex-col justify-center items-center"
-              key={title}>
+              key={uuidv4()}>
               <div className="flex gap-8 lg:gap-16 lg:mb-16 items-center">
                 <Image
                   src={IconLeft.src}

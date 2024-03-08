@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '../Logo/LogoImg';
 import GlobalLink from '../GlobalLink';
@@ -38,8 +39,11 @@ const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
             </p>
             <ul className="flex gap-16">
               {icons.map((icon) => (
-                <li key={icon.alt}>
-                  <GlobalLink href={icon.path} openInNewTab={true}>
+                <li key={uuidv4()}>
+                  <GlobalLink
+                    href={icon.path}
+                    openInNewTab={true}
+                    category="footer">
                     <Image
                       src={icon.src}
                       alt={`Follow us on ${icon.alt}`}

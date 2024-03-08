@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import Logo from '@/common/components/Logo';
 import LiveIcon from './LIveIcon';
@@ -16,7 +17,7 @@ const NavBar = () => {
         const isActive = router.pathname === src;
         return (
           <li
-            key={subTitle}
+            key={uuidv4()}
             className={`text-center font-bold text-20 w-[20%] ${isActive ? 'text-primary-green' : ''}`}>
             <Link href={src} className="relative hover-trigger">
               <p className="mb-1">{title}</p>
