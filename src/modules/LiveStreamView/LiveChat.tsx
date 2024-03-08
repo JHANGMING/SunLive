@@ -1,4 +1,5 @@
 import { mutate } from 'swr';
+import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
@@ -185,9 +186,9 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
             歡迎{user.nameSender}進入聊天室
           </p>
         )}
-        {messages.map((msg, index) => (
+        {messages.map((msg) => (
           <li
-            key={index}
+            key={uuidv4()}
             className={`flex gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
             {msg.userIdSender !== user.userIdSender ? (
               <>

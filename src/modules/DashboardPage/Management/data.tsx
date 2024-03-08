@@ -61,6 +61,16 @@ export type LiveAccontVerifyProps = {
   setAccessToken: (token: string) => void;
 };
 
+export type PreviewImagesProps = {
+  url: string;
+  id: string;
+};
+
+export type SelectedFilesProps = {
+  file: File;
+  id: string;
+};
+
 export const statusData: OptionType[] = [
   { value: 'false', label: '下架' },
   { value: 'true', label: '上架' },

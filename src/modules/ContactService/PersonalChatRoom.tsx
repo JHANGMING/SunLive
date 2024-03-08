@@ -1,4 +1,5 @@
 import { mutate } from 'swr';
+import { v4 as uuidv4 } from 'uuid';
 import { BsPersonCircle } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import { BsFillXCircleFill, BsChevronLeft, BsCursorFill } from 'react-icons/bs';
@@ -120,10 +121,10 @@ const PersonalChatRoom = ({
         <ul
           className=" bg-SoftGray py-24 pl-24 pr-12  flex flex-col gap-16 h-[294px] overflow-y-auto"
           ref={messagesEndRef}>
-          {chatMessages?.map((msg, index) => {
+          {chatMessages?.map((msg) => {
             return (
               <li
-                key={index}
+                key={uuidv4()}
                 className={`flex gap-8 ${
                   msg.senderId === userId ? 'justify-end' : 'justify-between'
                 }`}>

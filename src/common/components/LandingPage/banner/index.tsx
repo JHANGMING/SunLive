@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import Image from '@/common/components/CustomImage';
@@ -27,7 +28,7 @@ const Banner = () => {
         modules={[Autoplay, EffectFade]}
         className="bannerSwiper flex items-center justify-center">
         {bannerImgData.map((data) => (
-          <SwiperSlide key={data.alt}>
+          <SwiperSlide key={uuidv4()}>
             {({ isVisible }) => (
               <Image
                 src={data.src}

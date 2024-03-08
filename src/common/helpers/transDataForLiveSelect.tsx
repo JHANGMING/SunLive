@@ -14,6 +14,8 @@ export const transformDataForSelect = (data: DataType[]) => {
 };
 
 export const transformLiveData = (data: LiveDataType) => {
+  console.log('data', data);
+  
   const newData = [];
   let i = 0;
   while (data[`liveProduct_${i}`]) {

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { PaginationProps } from './data';
 import { useProducts } from '../../hooks/ProductsRefContext';
@@ -43,7 +44,7 @@ const Pagination = ({
 
       {pageNumbers.map((number) => (
         <li
-          key={number}
+          key={uuidv4()}
           className={`cursor-pointer w-40 h-40 rounded-full flex justify-center items-center hover:opacity-60 ${currentPage === number ? 'bg-primary-green text-white ' : 'bg-white border border-lightGray'}`}
           onClick={() => {
             paginate(number);

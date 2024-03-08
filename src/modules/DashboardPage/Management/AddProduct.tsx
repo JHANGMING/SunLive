@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
@@ -13,6 +14,8 @@ import PersonInput from '@/common/components/Input/PersonInput';
 import ManagementSelect from '@/common/components/Select/ManagementSelect';
 import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 import {
+  PreviewImagesProps,
+  SelectedFilesProps,
   categoryData,
   countyData,
   seasonData,
@@ -23,15 +26,19 @@ import {
 const AddProduct = () => {
   const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<
+    SelectedFilesProps[]
+  >([]);
+  const [previewImages, setPreviewImages] = useState<
+    PreviewImagesProps[]
+  >([]);
   const {
+    reset,
     control,
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
-    setValue,
-    reset,
   } = useForm<FormValues>();
 
   useEffect(() => {
@@ -41,25 +48,25 @@ const AddProduct = () => {
     const updateStateTime = format(new Date(), 'yyyy/MM/dd');
     const dataObj = {
       updateStateTime,
-      productState: Boolean(data.productState),
-      category: data.category,
-      description: data.description.trim(),
-      productTitle: data.productTitle.trim(),
       period: data.period,
       origin: data.origin,
       storage: data.storage,
+      category: data.category,
       introduction: data.introduction,
-      largeOriginalPrice: Number(data.largeOriginalPrice),
-      largePromotionPrice: Number(data.largePromotionPrice),
-      largeWeight: Number(data.largeWeight),
-      largeStock: Number(data.largeStock),
-      smallOriginalPrice: Number(data.smallOriginalPrice),
-      smallPromotionPrice: Number(data.smallPromotionPrice),
-      smallWeight: Number(data.smallWeight),
       smallStock: Number(data.smallStock),
+      largeStock: Number(data.largeStock),
+      description: data.description.trim(),
+      smallWeight: Number(data.smallWeight),
+      largeWeight: Number(data.largeWeight),
+      productTitle: data.productTitle.trim(),
+      productState: Boolean(data.productState),
+      smallOriginalPrice: Number(data.smallOriginalPrice),
+      largeOriginalPrice: Number(data.largeOriginalPrice),
+      smallPromotionPrice: Number(data.smallPromotionPrice),
+      largePromotionPrice: Number(data.largePromotionPrice),
     };
     const formData = new FormData();
-    selectedFiles.forEach((file, index) => {
+    selectedFiles.forEach(({ file }, index) => {
       formData.append(`file${index}`, file);
     });
 
@@ -102,11 +109,17 @@ const AddProduct = () => {
   };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
-    const newFiles = Array.from(event.target.files);
+    const newFiles = Array.from(event.target.files).map((file) => ({
+      file,
+      id: uuidv4(),
+    }));
     const totalFiles = [...selectedFiles, ...newFiles].slice(0, 5); // 合併並限制最大檔案數量
     setSelectedFiles(totalFiles); // 更新狀態以包含所有選擇的檔案
     // 更新預覽圖片
-    const newPreviewUrls = totalFiles.map((file) => URL.createObjectURL(file));
+    const newPreviewUrls = totalFiles.map(({ file, id }) => ({
+      url: URL.createObjectURL(file),
+      id, // 使用相同的uuid
+    }));
     setPreviewImages(newPreviewUrls);
   };
 
@@ -114,15 +127,18 @@ const AddProduct = () => {
     fileInputRef.current?.click();
   };
 
-  const handleRemoveImage = (index: number) => {
+  const handleRemoveImage = (id: string) => {
     // 移除選定的檔案
-    const newSelectedFiles = selectedFiles.filter((_, i) => i !== index);
+    const newSelectedFiles = selectedFiles.filter((file) => file.id !== id);
+    const newPreviewImages = previewImages.filter((image) => image.id !== id);
+
     setSelectedFiles(newSelectedFiles);
-    // 移除對應的預覽圖片
-    const newPreviewImages = previewImages.filter((_, i) => i !== index);
     setPreviewImages(newPreviewImages);
     // 釋放被刪除圖片的URL
-    URL.revokeObjectURL(previewImages[index]);
+    const imageToRevoke = previewImages.find((image) => image.id === id);
+    if (imageToRevoke) {
+      URL.revokeObjectURL(imageToRevoke.url);
+    }
   };
   return (
     <div className="w-9/12 bg-white rounded-20 p-32 flex-grow flex flex-col self-start">
@@ -155,17 +171,17 @@ const AddProduct = () => {
               <span className=" text-primary-red">*</span>(限5張)
             </p>
             <ul className="flex gap-16">
-              {previewImages.map((previewImage, index) => (
-                <li key={index} className=" relative mt-8">
+              {previewImages.map(({ url, id }) => (
+                <li key={id} className=" relative mt-8">
                   <Image
-                    src={previewImage}
+                    src={url}
                     alt="Preview"
                     className="w-100 h-100"
                     roundedStyle="object-cover"
                   />
                   <BsXCircleFill
                     size={24}
-                    onClick={() => handleRemoveImage(index)}
+                    onClick={() => handleRemoveImage(id)}
                     className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
                   />
                 </li>
