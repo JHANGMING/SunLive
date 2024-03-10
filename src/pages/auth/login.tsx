@@ -1,44 +1,73 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
-import Layout from '@/common/components/Layout';
+import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { authTab } from '@/common/lib/authTab';
+import Layout from '@/common/components/Layout';
 import LoginPage from '@/modules/Auth/LoginPage';
-import { apiPaths } from '@/constants/apiPaths';
 import { LoginPrpos, ROUTES } from '@/modules/Auth/data';
 import { setAllCookies } from '@/common/helpers/getCookie';
+import { apiPaths, nextRoutes } from '@/constants/apiPaths';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setToast, showLoading } from '@/redux/features/messageSlice';
+import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
 
-const Login = ({ errorMessage, loginData }: LoginPrpos) => {
+const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [loginData, setLoginData] = useState(initialLoginData);
   useEffect(() => {
-    if (errorMessage) {
-      dispatch(setToast({ message: errorMessage }));
-    }
+    if (!errorMessage) return;
+    dispatch(setToast({ message: errorMessage }));
   }, [errorMessage]);
   useEffect(() => {
-    if (loginData) {
-      handleLoginData();
-      dispatch(showLoading());
-      dispatch(
-        setToast({
-          message: authTab['welcome'],
-        })
-      );
-    }
+    if (!loginData) return;
+    handleLoginData();
+    dispatch(showLoading());
+    dispatch(
+      setToast({
+        message: authTab['welcome'],
+      })
+    );
   }, [loginData]);
-  const handleLoginData = async () => {
-    if (loginData) {
-      setAllCookies(loginData);
-      const redirectTo = loginData.category
-        ? ROUTES.DASHBOARD_ACCOUNT
-        : ROUTES.HOME;
-      await router.push(redirectTo);
+  useEffect(() => {
+    window.addEventListener('message', handleMessage);
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
+  const handleMessage = async (event: MessageEvent) => {
+    const expectedOrigin = 'http://localhost:3000';
+    if (event.origin !== expectedOrigin) {
+      return;
     }
+    if (event.data.type === 'auth') {
+      const apiParams: apiParamsType = {
+        apiPath: nextRoutes['setToken'],
+        method: 'POST',
+        data: { token: event.data.result.token },
+      };
+      try {
+        const result = await fetchNextApi(apiParams);
+        if (result) {
+          setLoginData(event.data.result.data);
+        } else {
+          dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
+        }
+      } catch (error) {
+        console.error('登入失败', error);
+      }
+      console.log('event.data', event);
+    }
+  };
+  const handleLoginData = async () => {
+    if (!loginData) return;
+    setAllCookies(loginData);
+    const redirectTo = loginData.category
+      ? ROUTES.DASHBOARD_ACCOUNT
+      : ROUTES.HOME;
+    await router.push(redirectTo);
   };
 
   return (
@@ -60,7 +89,6 @@ export const getServerSideProps = async (
     account = 'defaultAccount',
     time = 'defaultTime',
   } = context.query;
-
   const hasValidQueryParams =
     guid !== 'defaultGuid' ||
     account !== 'defaultAccount' ||
