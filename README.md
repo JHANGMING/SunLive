@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://sun-live.vercel.app">
-    <img width="1200" height="1166" src ="public/images/cover.png">
+    <img width="1200" height="900" src ="public/images/cover.png">
   </a>
 </p>
 <h1 align="center" style="font-weight: 700"><img width="30" src ="public/images/logo.svg"> 搶鮮購  | SunLive </h1>
