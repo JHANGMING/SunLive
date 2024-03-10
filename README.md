@@ -6,7 +6,7 @@
 <h1 align="center" style="font-weight: 700"><img width="30" src ="public/images/logo.svg"> 搶鮮購  | SunLive </h1>
 <div align="center" style="margin-bottom:24px">
 
-  <a href="https://drive.google.com/file/d/1002Pz_NhdQ3WI1QvwiLWOzIe8CNQmxJ2/view?usp=sharing">
+  <a href="https://drive.google.com/file/d/1PA-nUPBaDxbWcsjRX8_U9CmcTLuKvKSq/view?usp=drive_link">
     簡報介紹
   </a>
   <span>｜</span>
@@ -213,7 +213,8 @@ sunlive/
 
   - 使用Tailwind來進行CSS的開發，通過提供大量預定義的類別來幫助開發者快速構建和設計界面，減少冗餘代碼。
 
-- 雲端伺服器：Vercel \* 選擇Vercel來進行部署，提供高度的穩定性和優化的整合體驗，實現快速的自動化部署流程，簡化開發到上線的過程。
+- 雲端伺服器：Vercel
+    - 選擇Vercel來進行部署，提供高度的穩定性和優化的整合體驗，實現快速的自動化部署流程，簡化開發到上線的過程。
 </p>
 
 <h2 align="center">後端技術</h2>
