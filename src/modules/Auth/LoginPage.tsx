@@ -22,7 +22,22 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+  const [windowDimensions, setWindowDimensions] = useState({
+    width: 800,
+    height: 600, 
+    left: 0,
+    top: 0,
+  });
   const gapClass = useGapClass(errors);
+  
+  useEffect(() => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const left = width / 2 - windowDimensions.width / 2;
+    const top = height / 2 - windowDimensions.height / 2;
+
+    setWindowDimensions({ ...windowDimensions, left, top });
+  }, []);
   useEffect(() => {
     return () => {
       if (timeoutId) {
@@ -33,6 +48,24 @@ const LoginPage = () => {
   }, [timeoutId]);
   const handlerToPasswordlessPage = () => {
     router.push('/auth/passwordlessLogin');
+  };
+  const handlerGoogleIdentity = async () => {
+    const apiParams: apiParamsType = {
+      apiPath: nextRoutes['googleIdentity'],
+      method: 'GET',
+    };
+    try {
+      const result = await fetchNextApi(apiParams);
+      if (result.statusCode === 200) {
+        window.open(
+          result.url,
+          '_blank',
+          `width=${windowDimensions.width},height=${windowDimensions.height},top=${windowDimensions.top},left=${windowDimensions.left}`
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   const onSubmit = async (data: FormValues) => {
     const { email, password } = data;
@@ -129,9 +162,16 @@ const LoginPage = () => {
         <Button
           type="button"
           category="auth"
-          btnStyle="mt-60 mb-60 bg-primary-green text-white mb-60 w-full"
+          btnStyle="mt-40 mb-32 bg-primary-green text-white w-full"
           onClick={handlerToPasswordlessPage}>
           使用無密碼快速登入
+        </Button>
+        <Button
+          type="button"
+          category="auth"
+          btnStyle=" bg-primary-green text-white mb-48 w-full"
+          onClick={handlerGoogleIdentity}>
+          使用google登入
         </Button>
         <p className="flex justify-center">
           還未成為會員 ?
