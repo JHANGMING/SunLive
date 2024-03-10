@@ -6,7 +6,7 @@
 <h1 align="center" style="font-weight: 700"><img width="30" src ="public/images/logo.svg"> 搶鮮購  | SunLive </h1>
 <div align="center" style="margin-bottom:24px">
 
-  <a href="https://drive.google.com/drive/folders/125EQt5W2XkYKxCivvPRQasFETE60SCwf">
+  <a href="https://drive.google.com/file/d/1002Pz_NhdQ3WI1QvwiLWOzIe8CNQmxJ2/view?usp=sharing">
     簡報介紹
   </a>
   <span>｜</span>
