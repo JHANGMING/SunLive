@@ -11,6 +11,7 @@ const DefaultInput = ({
   labelText,
   inputText,
   globalStyle,
+  autocomplete = false,
 }: DefaultInputProps) => {
   const inputClassName = `w-full border rounded-8 py-12 pl-12 text-black ${
     errors && id in errors ? 'border-primary-red' : 'border-lightGray'
@@ -20,12 +21,15 @@ const DefaultInput = ({
   return (
     <div className={globalStyle}>
       <label htmlFor={id} className={`${labelSytle} block mb-8`}>
-        {labelText} <span className=" text-primary-red">{icon}</span>
+        {labelText}
+        <span className=" text-primary-red">{icon}</span>
       </label>
       <input
         type={type}
         placeholder={inputText}
         id={id}
+        name={autocomplete ? 'username' : undefined}
+        autoComplete={autocomplete ? 'username webauthn' : undefined}
         {...(register && register(id, rules))}
         className={`focus-visible:outline-primary-green tracking-widest ${inputSytle} ${inputClassName}`}
       />
