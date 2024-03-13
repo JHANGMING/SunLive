@@ -1,4 +1,4 @@
-export const locationData = [
+const locationData = [
   {
     districts: [
       {
@@ -1583,3 +1583,4 @@ export const locationData = [
     name: '連江縣',
   },
 ];
+export default locationData;
