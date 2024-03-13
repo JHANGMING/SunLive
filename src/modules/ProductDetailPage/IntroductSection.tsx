@@ -29,32 +29,38 @@ const IntroductSection = ({ detailProduct }: DetailSectionProps) => {
       <div className="bg-lightWhite  ">
         <ul className="container pb-60 relative">
           <li>
-            <ul className=" absolute top-0 right-[130px] flex flex-col gap-24 text-darkGray font-bold">
-              <li
+            <div className=" absolute top-0 right-[130px] flex flex-col gap-24 text-darkGray font-bold">
+              <button
+                type="button"
                 className={`pl-16 border-l-4 cursor-pointer hover:opacity-60 ${isSelected('farmer') ? 'border-primary-yellow' : 'border-transparent'}`}
                 onClick={() => {
                   scrollToFarmer();
                   setSelected('farmer');
-                }}>
+                }}
+              >
                 <h5>小農介紹</h5>
-              </li>
-              <li
+              </button>
+              <button
+                type="button"
                 className={`pl-16 border-l-4 cursor-pointer hover:opacity-60 ${isSelected('product') ? 'border-primary-yellow' : 'border-transparent'}`}
                 onClick={() => {
                   scrollToProduct();
                   setSelected('product');
-                }}>
+                }}
+              >
                 <h5>商品介紹</h5>
-              </li>
-              <li
+              </button>
+              <button
+                type="button"
                 className={`pl-16 border-l-4 cursor-pointer hover:opacity-60 ${isSelected('specification') ? 'border-primary-yellow' : 'border-transparent'}`}
                 onClick={() => {
                   scrollToSpecification();
                   setSelected('specification');
-                }}>
+                }}
+              >
                 <h5>規格說明</h5>
-              </li>
-            </ul>
+              </button>
+            </div>
           </li>
           <li ref={farmerRef} className="mb-26">
             <CategoryTitle title="小農介紹" gapStyle="mb-24" />
@@ -73,9 +79,11 @@ const IntroductSection = ({ detailProduct }: DetailSectionProps) => {
               <div className="col-start-5 col-end-11 -ml-[70px]">
                 <div className="flex gap-16 items-center mb-16">
                   <h4>{detailProduct.farmerName}</h4>
-                  <div
-                    className=" bg-primary-green flex gap-8 h-[37px] px-8 items-center rounded-8 hover:opacity-60 cursor-pointer"
-                    onClick={() => handlerFamerId(detailProduct?.farmerId)}>
+                  <button
+                    type="button"
+                    className=" bg-primary-green flex gap-8 h-[37px] px-8 items-center rounded-8 hover:opacity-60"
+                    onClick={() => handlerFamerId(detailProduct?.farmerId)}
+                  >
                     <Image
                       src="/images/productDetail/chatIcon.svg"
                       alt="chatIcon"
@@ -83,7 +91,7 @@ const IntroductSection = ({ detailProduct }: DetailSectionProps) => {
                       height={19}
                     />
                     <p className="text-14 text-white">我想跟小農聊聊</p>
-                  </div>
+                  </button>
                 </div>
                 <div className=" text-primary-green bg-primary-yellow flex  items-center gap-8 py-16 rounded-20 px-16  mb-16">
                   <LogoImg classProps="w-32 h-32" />
@@ -98,8 +106,9 @@ const IntroductSection = ({ detailProduct }: DetailSectionProps) => {
             <div className="grid grid-cols-12 gap-24">
               <div
                 className="col-start-2 col-end-12 flex flex-col gap-y-24"
-                dangerouslySetInnerHTML={{ __html: cleanHtml }}>
-              </div>
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{ __html: cleanHtml }}
+              />
             </div>
           </li>
           <li ref={specificationRef}>
@@ -113,8 +122,11 @@ const IntroductSection = ({ detailProduct }: DetailSectionProps) => {
                 <li>
                   <p className="text-18 text-primary-green">規格</p>
                   <span>
-                    小份：{detailProduct.smallWeight}斤 / 大份：
-                    {detailProduct.largeWeight}斤
+                    小份：
+                    {detailProduct.smallWeight}
+                    斤 / 大份：
+                    {detailProduct.largeWeight}
+                    斤
                   </span>
                 </li>
                 <li>
