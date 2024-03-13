@@ -1,6 +1,6 @@
-export const JoinChatRoom = async (
+const JoinChatRoom = async (
   chatHubProxyRef: SignalR.Hub.Proxy | null,
-  chatroomId: number
+  chatroomId: number,
 ) => {
   try {
     await chatHubProxyRef?.invoke('JoinChatRoom', chatroomId);
@@ -8,3 +8,4 @@ export const JoinChatRoom = async (
     console.error('Failed to join chat room:', error);
   }
 };
+export default JoinChatRoom;
