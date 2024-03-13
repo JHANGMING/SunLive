@@ -4,25 +4,24 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import useAuth from '@/common/hooks/useAuth';
 import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/apiPaths';
-import { fetcher } from '@/common/helpers/fetcher';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import fetcher from '@/common/helpers/fetcher';
 import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
 import PersonInput from '@/common/components/Input/PersonInput';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 
 const AccountSettng = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
   const { authStatus } = useAuthStatus();
   const { data } = useSWR(
-    authStatus ? `/api${nextRoutes['farminfo_get']}` : null,
-    fetcher
+    authStatus ? `/api${nextRoutes.farminfo_get}` : null,
+    fetcher,
   );
   const authData = data?.data;
   const {
-    control,
     register,
     handleSubmit,
     reset,
@@ -38,12 +37,12 @@ const AccountSettng = () => {
       });
     }
   }, [authData]);
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async (formData: FormValues) => {
     const dataObj = {
-      ...data,
+      ...formData,
     };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['farminfo_set'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.farminfo_set,
       method: 'POST',
       data: dataObj,
     };
@@ -51,12 +50,12 @@ const AccountSettng = () => {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
         dispatch(setToast({ message: result.message }));
-        mutate(`/api${nextRoutes['farminfo_get']}`);
+        mutate(`/api${nextRoutes.farminfo_get}`);
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (
@@ -78,7 +77,7 @@ const AccountSettng = () => {
             inputText="XXX@gmil.com"
             inputStyle="text-14 h-[53px]"
             id="email"
-            isdisabled={true}
+            isdisabled
             value={decodeURIComponent(auth?.account || '')}
           />
           <PersonInput
@@ -117,11 +116,13 @@ const AccountSettng = () => {
             id="description"
             {...(register && register('description'))}
             className="h-[74px] w-full border border-lightGray rounded-8 py-8 px-12 text-14 resize-none overflow-y-auto tracking-widest focus-visible:outline-primary-green scrollbar-thin"
-            placeholder="我種植的草莓真的很好吃，品種繁多，包括了甜蜜時光、金莓、霓虹草莓等友善種植作品。我的草莓園地位於美麗的苗栗，充滿愛和專業的栽培，每一顆草莓都是經過細心呵護的結晶。"></textarea>
+            placeholder="我種植的草莓真的很好吃，品種繁多，包括了甜蜜時光、金莓、霓虹草莓等友善種植作品。我的草莓園地位於美麗的苗栗，充滿愛和專業的栽培，每一顆草莓都是經過細心呵護的結晶。"
+          />
         </div>
         <Button
           category="submit"
-          classStyle="bg-primary-green self-end hover:opacity-70">
+          classStyle="bg-primary-green self-end hover:opacity-70"
+        >
           儲存
         </Button>
       </form>
