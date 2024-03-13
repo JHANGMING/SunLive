@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { nextRoutes } from '@/constants/apiPaths';
-import { fetcher } from '@/common/helpers/fetcher';
+import fetcher from '@/common/helpers/fetcher';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import ViewBanner from '@/common/components/LiveStreamPage/ViewBanner';
 import LiveViewer from './LiveViewer';
 import { LivestreamingProps } from './data';
@@ -11,9 +11,9 @@ const LiveStreamView = ({ liveDetailData }: LivestreamingProps) => {
   const router = useRouter();
   const { liveId } = router.query;
   const { data } = useSWR(
-    liveId ? `/api${nextRoutes['live']}?id=${liveId}` : null,
+    liveId ? `/api${nextRoutes.live}?id=${liveId}` : null,
     fetcher,
-    { fallbackData: liveDetailData }
+    { fallbackData: liveDetailData },
   );
 
   return (
