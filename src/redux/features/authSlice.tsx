@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface authData {
+export interface AuthData {
   photo: string;
   nickName: string;
 }
-const initialState: authData = {
+const initialState: AuthData = {
   photo: '',
   nickName: '',
 };

@@ -1,12 +1,10 @@
-export const calculateTimeLeft = (endTime: string) => {
+const calculateTimeLeft = (endTime: string) => {
   if (typeof endTime !== 'string' || !endTime) {
     return { hours: '00', minutes: '00', seconds: '00' };
   }
   const endTimeParts = endTime.split(':').map((num) => parseInt(num, 10));
   if (
-    endTimeParts.length < 2 ||
-    isNaN(endTimeParts[0]) ||
-    isNaN(endTimeParts[1])
+    endTimeParts.length < 2 || Number.isNaN(endTimeParts[0]) || Number.isNaN(endTimeParts[1])
   ) {
     return { hours: '00', minutes: '00', seconds: '00' };
   }
@@ -31,3 +29,5 @@ export const calculateTimeLeft = (endTime: string) => {
       .padStart(2, '0'),
   };
 };
+
+export default calculateTimeLeft;

@@ -1,4 +1,4 @@
-export async function fetchAuthStatus() {
+const fetchAuthStatus = async () => {
   try {
     const response = await fetch('/api/auth/getCookie', {
       credentials: 'include',
@@ -6,7 +6,9 @@ export async function fetchAuthStatus() {
     const data = await response.json();
     return data.success;
   } catch (error) {
-    // console.error('Error fetching auth status', error);
+    console.error(error);
     return false;
   }
-}
+};
+
+export default fetchAuthStatus;

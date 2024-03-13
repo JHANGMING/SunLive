@@ -1,11 +1,8 @@
 import { useMemo } from 'react';
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DataType = Array<any> | string | number | null;
-function usePagination(
-  data: DataType,
-  currentPage: number
-) {
-   const itemsPerPage = 5;
+function usePagination(data: DataType, currentPage: number) {
+  const itemsPerPage = 5;
   const maxPage = useMemo(() => {
     if (Array.isArray(data) || typeof data === 'string') {
       return Math.ceil(data.length / itemsPerPage);

@@ -2,6 +2,12 @@ type DataType = {
   productId: string;
   productTitle: string;
 };
+
+type NewDataType = {
+  productId: number;
+  productSize: boolean;
+  liveprice: number;
+};
 export type LiveDataType = {
   [key: string]: string | number;
 };
@@ -14,23 +20,23 @@ export const transformDataForSelect = (data: DataType[]) => {
 };
 
 export const transformLiveData = (data: LiveDataType) => {
-  console.log('data', data);
-  
-  const newData = [];
-  let i = 0;
-  while (data[`liveProduct_${i}`]) {
-    const productIdKey = `liveProduct_${i}`;
-    const productSpecKey = `liveProductSpec_${i}`;
-    const specialPriceKey = `liveSpectialPrice_${i}`;
+  const newData: NewDataType[] = [];
+  const productKeys = Object.keys(data).filter((key) => key.startsWith('liveProduct_'));
 
-    newData.push({
-      productId: Number(data[productIdKey]),
-      productSize: data[productSpecKey] === 'true',
-      liveprice: Number(data[specialPriceKey]),
-    });
+  productKeys.forEach((key) => {
+    const match = key.match(/liveProduct_(.*)/);
+    if (match) {
+      const idSuffix = match[1];
+      const productSpecKey = `liveProductSpec_${idSuffix}`;
+      const specialPriceKey = `liveSpectialPrice_${idSuffix}`;
 
-    i++;
-  }
+      newData.push({
+        productId: Number(data[key]),
+        productSize: data[productSpecKey] === 'true',
+        liveprice: Number(data[specialPriceKey]),
+      });
+    }
+  });
 
   return newData;
 };
