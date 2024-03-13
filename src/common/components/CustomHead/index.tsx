@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { CustomHeadProps, dataSet, defaultMeta } from './data';
 
-export default function CustomHead({ pageCategory }: CustomHeadProps) {
+const CustomHead = ({ pageCategory }: CustomHeadProps) => {
   if (!dataSet[pageCategory]) return null;
   const { defaultTitle, defaultDescription, defaultImage } = defaultMeta;
   const pageTitle = dataSet[pageCategory].title;
@@ -56,4 +56,5 @@ export default function CustomHead({ pageCategory }: CustomHeadProps) {
       </h1>
     </>
   );
-}
+};
+export default CustomHead;
