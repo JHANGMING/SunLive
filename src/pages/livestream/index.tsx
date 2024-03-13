@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Layout from '@/common/components/Layout';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import LiveStreamPage from '@/modules/LiveStreamPage';
-import { liveStreamProps } from '@/modules/LiveStreamPage/data';
+import { LiveStreamProps } from '@/modules/LiveStreamPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
-const LiveStream = ({ liveData }: liveStreamProps) => {
+const LiveStream = ({ liveData }: LiveStreamProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       setAllProductsData({
         liveData,
-      })
+      }),
     );
   }, [liveData]);
 
@@ -31,7 +31,7 @@ export async function getServerSideProps() {
   try {
     // 取得近期直播商品
     const liveParams: ApiParamsType = {
-      apiPath: apiPaths['live'],
+      apiPath: apiPaths.live,
       method: 'GET',
     };
 
