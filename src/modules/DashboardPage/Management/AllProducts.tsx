@@ -10,8 +10,9 @@ const AllProducts = () => {
         <div className="flex items-center gap-16">
           <h3 className=" text-20 font-semibold ">所有農產品</h3>
           <Link
-            href={'/dashboard/products/addproduct'}
-            className=" text-primary-green p-8 border border-primary-green rounded-8 hover:bg-primary-green hover:text-white">
+            href="/dashboard/products/addproduct"
+            className=" text-primary-green p-8 border border-primary-green rounded-8 hover:bg-primary-green hover:text-white"
+          >
             新增農產品
           </Link>
         </div>
