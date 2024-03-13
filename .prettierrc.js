@@ -5,6 +5,6 @@ module.exports = {
   semi: true,
   endOfLine: 'auto',
   bracketSpacing: true,
-  bracketSameLine: true,
+  bracketSameLine: false,
   htmlWhitespaceSensitivity: 'ignore',
 };
