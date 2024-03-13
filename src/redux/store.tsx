@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../redux/features/authSlice';
-import cartReducer from '../redux/features/cartSlice';
-import productReducer from '../redux/features/productSlice';
-import messageReducer from '../redux/features/messageSlice';
-import dashboardReducer from '../redux/features/dashboardSlice';
+import authReducer from './features/authSlice';
+import cartReducer from './features/cartSlice';
+import productReducer from './features/productSlice';
+import messageReducer from './features/messageSlice';
+import dashboardReducer from './features/dashboardSlice';
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
