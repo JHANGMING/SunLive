@@ -26,11 +26,11 @@ export type FooterProps = {
   gapClassSyle: string | undefined;
 };
 
-type pageSetType = {
+type PageSetType = {
   [key: string]: boolean;
 };
 
-export const swiperSet: pageSetType = {
+export const swiperSet: PageSetType = {
   authPage: false,
   CartPage: false,
   productDetailPage: true,
