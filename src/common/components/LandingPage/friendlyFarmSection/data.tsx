@@ -1,4 +1,4 @@
-export const dataSet = {
+const dataSet = {
   title: '歡迎來到搶鮮購',
   content: [
     {
@@ -7,8 +7,8 @@ export const dataSet = {
         '我們的使命是致力於推廣友善農業，為小農提供強大的支持。我們深信，土地是我們',
       desSecond:
         '生存的根本，只有對土地保持友善的態度，才能享受到最優質的農產品。',
-      desFirst_small: '我們的使命是致力於推廣友善農業，為小農提',
-      desSecond_small: '供強大的支持。',
+      desFirstSmall: '我們的使命是致力於推廣友善農業，為小農提',
+      desSecondSmall: '供強大的支持。',
       image: {
         src: '/images/home/friendlyFarm/friendlyFarmSubtitleIcon.png',
         alt: 'FarmSubtitleIcon',
@@ -20,8 +20,8 @@ export const dataSet = {
         '我們嚴謹把關，以確保你所購買的每一件商品都是經過細心照顧的成果。我們的目標',
       desSecond:
         '是為你提供最安心、最放心的農產品，讓每一口食物都是滿滿的小農愛心。',
-      desFirst_small: '我們嚴謹把關，以確保你所購買的每一件商品',
-      desSecond_small: '都是經過細心照顧的成果。',
+      desFirstSmall: '我們嚴謹把關，以確保你所購買的每一件商品',
+      desSecondSmall: '都是經過細心照顧的成果。',
       image: {
         src: '/images/home/friendlyFarm/friendlyFarmSubtitleIcon.png',
         alt: 'FarmSubtitleIcon',
@@ -33,3 +33,4 @@ export const dataSet = {
     alt: 'friendlyFarmImg',
   },
 };
+export default dataSet;
