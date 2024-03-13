@@ -3,11 +3,12 @@ import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setProductlistData } from '@/redux/features/dashboardSlice';
 import { ProductPorps } from '@/modules/DashboardPage/Management/data';
 import AllProducts from '@/modules/DashboardPage/Management/AllProducts';
+
 const Products = ({ listData }: ProductPorps) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,7 +35,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
   const cartParams: ApiParamsType = {
-    apiPath: apiPaths['productlist'],
+    apiPath: apiPaths.productlist,
     method: 'GET',
     authToken: token,
   };
@@ -48,5 +49,3 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   };
 }
-
-

@@ -3,11 +3,12 @@ import { useDispatch } from 'react-redux';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import useAuth from '@/common/hooks/useAuth';
-import { nextRoutes } from '@/constants/apiPaths';
-import { fetcher } from '@/common/helpers/fetcher';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import fetcher from '@/common/helpers/fetcher';
 import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
+
 const ProfileImgSection = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
@@ -19,10 +20,9 @@ const ProfileImgSection = () => {
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
-  const authUrl =
-    auth?.category === '0'
-      ? `/api${nextRoutes['account_get']}`
-      : `/api${nextRoutes['farminfo_get']}`;
+  const authUrl = auth?.category === '0'
+    ? `/api${nextRoutes.account_get}`
+    : `/api${nextRoutes.farminfo_get}`;
   const { data } = useSWR(authStatus ? authUrl : null, fetcher);
   const authData = data?.data;
   useEffect(() => {
@@ -33,12 +33,11 @@ const ProfileImgSection = () => {
       setNickName(decodeURIComponent(authData.nickName));
     }
   }, [authData]);
-  const url =
-    auth?.category === '0'
-      ? `/api${nextRoutes['uploaduserImg']}`
-      : `/api${nextRoutes['uploadfarmerImg']}`;
+  const url = auth?.category === '0'
+    ? `/api${nextRoutes.uploaduserImg}`
+    : `/api${nextRoutes.uploadfarmerImg}`;
   const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (!event.target.files || event.target.files.length === 0) return;
     const file = event.target.files[0];
@@ -52,7 +51,7 @@ const ProfileImgSection = () => {
     try {
       const imgResponse = await fetch(url, imgParams);
       const imgResult = await imgResponse.json();
-      if (imgResult.statusCode == 200) {
+      if (imgResult.statusCode === 200) {
         setImg(imgResult.data.src);
       } else {
         dispatch(setToast({ message: imgResult.message }));
@@ -72,7 +71,7 @@ const ProfileImgSection = () => {
               alt="farmerProfile"
               className="w-100 h-100"
               roundedStyle="object-cover rounded-full"
-              priority={true}
+              priority
             />
           </div>
         )}
@@ -83,11 +82,14 @@ const ProfileImgSection = () => {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <div
+        <button
+          type="button"
+          aria-label="EditProfileImg"
           className=" absolute right-0 bottom-0 w-32 h-32 bg-primary-yellow rounded-full flex justify-center items-center cursor-pointer z-50"
-          onClick={triggerFileInput}>
+          onClick={triggerFileInput}
+        >
           <BsPencilSquare size={10.5} />
-        </div>
+        </button>
       </div>
       <h2 className="text-24">{nickName || 'user'}</h2>
     </>

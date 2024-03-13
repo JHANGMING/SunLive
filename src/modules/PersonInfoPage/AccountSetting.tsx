@@ -4,22 +4,22 @@ import useSWR, { mutate } from 'swr';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/apiPaths';
-import { fetcher } from '@/common/helpers/fetcher';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import fetcher from '@/common/helpers/fetcher';
 import { setToast } from '@/redux/features/messageSlice';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
 import { FormValues } from '@/common/components/Input/data';
 import DatePickerShow from '@/common/components/DatePicker';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
 import PersonInput from '@/common/components/Input/PersonInput';
 import GenderSelect from '@/common/components/Select/GenderSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 
 const AccountSetting = () => {
   const dispatch = useDispatch();
   const { authStatus } = useAuthStatus();
   const { data } = useSWR(
-    authStatus ? `/api${nextRoutes['account_get']}` : null,
-    fetcher
+    authStatus ? `/api${nextRoutes.account_get}` : null,
+    fetcher,
   );
   const authData = data?.data;
   const {
@@ -53,18 +53,18 @@ const AccountSetting = () => {
       });
     }
   }, [authData]);
-  const onSubmit = async (data: FormValues) => {
-    //儲存日期格式
-    const birthday = format(data.datePicker, 'yyyy/MM/dd');
-    const sex = data.gender.value;
+  const onSubmit = async (formData: FormValues) => {
+    // 儲存日期格式
+    const birthday = format(formData.datePicker, 'yyyy/MM/dd');
+    const sex = formData.gender.value;
     const dataObj = {
-      nickName: data.nickName,
-      phone: data.userPhone,
+      nickName: formData.nickName,
+      phone: formData.userPhone,
       sex: Boolean(sex),
       birthday,
     };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['account_set'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.account_set,
       method: 'POST',
       data: dataObj,
     };
@@ -72,12 +72,12 @@ const AccountSetting = () => {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
         dispatch(setToast({ message: result.message }));
-        mutate(`/api${nextRoutes['account_get']}`);
+        mutate(`/api${nextRoutes.account_get}`);
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (
@@ -88,10 +88,10 @@ const AccountSetting = () => {
           type="email"
           labelText="電子郵件"
           labelStyle="text-18"
-          inputText={'XXX@gmil.com'}
+          inputText="XXX@gmil.com"
           inputStyle="text-14"
           id="email"
-          isdisabled={true}
+          isdisabled
           value={decodeURIComponent(authData?.account || '')}
         />
         <div className="flex gap-24">
@@ -136,7 +136,8 @@ const AccountSetting = () => {
         </div>
         <Button
           category="submit"
-          classStyle="bg-primary-green self-end hover:opacity-70">
+          classStyle="bg-primary-green self-end hover:opacity-70"
+        >
           儲存
         </Button>
       </form>
