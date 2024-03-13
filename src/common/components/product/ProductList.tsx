@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { numberToChinese } from '@/common/helpers/numberToChinese';
+import numberToChinese from '@/common/helpers/numberToChinese';
 import PaginatedProductList from './PaginatedProductList';
 import ProductCard from './ProductCard';
 import Loading from '../Loading/Loading';
@@ -111,7 +111,7 @@ const ProductList = ({ category }: ProductListProps) => {
               key={data.productId}
               {...data}
               imgBorderStyle="border-primary-yellow"
-              buttonAtBottom={true}
+              buttonAtBottom
               cardGapThreeCol={false}
             />
           ))}

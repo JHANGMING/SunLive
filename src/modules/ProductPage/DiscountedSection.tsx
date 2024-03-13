@@ -6,7 +6,7 @@ import Button from '@/common/components/Button';
 import Image from '@/common/components/CustomImage';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import Loading from '@/common/components/Loading/Loading';
-import { useProducts } from '@/common/hooks/ProductsRefContext';
+import { useProducts } from '@/common/components/product/ProductsRefContext';
 import ProductList from '@/common/components/product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
@@ -100,7 +100,8 @@ const DiscountedSection = () => {
                 category="addCart"
                 btnStyle="bg-primary-red border-white"
                 textStyle="text-white"
-                productSpecId={productSpecId}>
+                productSpecId={productSpecId}
+              >
                 加入購物車
               </Button>
             </div>

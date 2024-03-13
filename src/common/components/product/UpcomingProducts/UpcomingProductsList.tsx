@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import updateUpcomingLiveWithStyles from '@/common/helpers/upcomingDataAddclass';
 import UpcomingProduct from './UpcomingProduct';
-import { updateUpcomingLiveWithStyles } from '@/common/helpers/upcomingDataAddclass';
 
 const UpcomingProductsList = () => {
   const { liveData } = useSelector((state: RootState) => state.product);
   const upcomingLive = liveData?.data?.upcomingLive || [];
-  const updatedUpcomingLive=updateUpcomingLiveWithStyles(upcomingLive)
+  const updatedUpcomingLive = updateUpcomingLiveWithStyles(upcomingLive);
   return (
     <div className=" col-start-5 col-end-11">
       <ul className="flex flex-col gap-40">

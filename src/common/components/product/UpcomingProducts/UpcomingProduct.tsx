@@ -31,7 +31,9 @@ const UpcomingProduct = ({ ...data }: LiveProductItemType) => {
       </div>
       <div className="flex flex-col gap-24">
         <p className="border border-dashed border-primary-red text-primary-red rounded-50 py-10 w-[67px] text-center">
-          $ {livePrice}
+          $
+          {' '}
+          {livePrice}
         </p>
         <h5 className="border-b border-black font-bold text-mediumGray">
           {liveProductName}

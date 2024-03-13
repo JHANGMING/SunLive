@@ -11,7 +11,7 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
   const [qty, setQty] = useState(1);
   const [selectedImage, setSelectedImage] = useState('');
   const [selectedSpec, setSelectedSpec] = useState(
-    detailProduct.smallproductSpecId
+    detailProduct.smallproductSpecId,
   );
   useEffect(() => {
     if (detailProduct.productImages && detailProduct.productImages.length > 0) {
@@ -25,9 +25,9 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
     setSelectedSpec(spec);
   };
   const getButtonClass = (spec: number) => {
-    let baseClass = 'w-[180px] h-48 px-32 border rounded-8 ';
-    let selectedClass = 'border-primary-red font-bold text-primary-red';
-    let defaultClass = 'border-mediumGray';
+    const baseClass = 'w-[180px] h-48 px-32 border rounded-8 ';
+    const selectedClass = 'border-primary-red font-bold text-primary-red';
+    const defaultClass = 'border-mediumGray';
 
     return baseClass + (selectedSpec === spec ? selectedClass : defaultClass);
   };
@@ -53,20 +53,24 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
               className="w-[636px] h-[338px]  border-4 border-primary-yellow rounded-20 mb-24 "
             />
           )}
-          <ul className="flex gap-8 ">
+          <div className="flex gap-8 ">
             {detailProduct.productImages
               ?.slice(0, 5)
               .map((data: ProductImgType) => (
-                <li key={uuidv4()} onClick={() => handleImageSelect(data.src)}>
+                <button
+                  type="button"
+                  key={uuidv4()}
+                  onClick={() => handleImageSelect(data.src)}
+                >
                   <Image
                     src={data.src}
                     alt={data.alt}
                     roundedStyle="object-cover rounded-8"
                     className={getThumbnailClass(data.src)}
                   />
-                </li>
+                </button>
               ))}
-          </ul>
+          </div>
         </div>
         <div className="col-span-6 ml-16">
           <div className="flex items-center gap-16 mb-8">
@@ -99,14 +103,20 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
               <button
                 type="button"
                 className={getButtonClass(detailProduct.smallproductSpecId)}
-                onClick={() => selectSpec(detailProduct.smallproductSpecId)}>
-                小份 ({detailProduct.smallWeight}斤)
+                onClick={() => selectSpec(detailProduct.smallproductSpecId)}
+              >
+                小份 (
+                {detailProduct.smallWeight}
+                斤)
               </button>
               <button
                 type="button"
                 className={getButtonClass(detailProduct.largeproductSpecId)}
-                onClick={() => selectSpec(detailProduct.largeproductSpecId)}>
-                大份 ({detailProduct.largeWeight}斤)
+                onClick={() => selectSpec(detailProduct.largeproductSpecId)}
+              >
+                大份 (
+                {detailProduct.largeWeight}
+                斤)
               </button>
             </div>
           </div>
@@ -139,7 +149,8 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
               textStyle="text-primary-red"
               productId={detailProduct.productId}
               productSpecId={selectedSpec}
-              cartItemQty={qty}>
+              cartItemQty={qty}
+            >
               加入購物車
             </Button>
             <Button
@@ -149,7 +160,8 @@ const DetailSection = ({ detailProduct }: DetailSectionProps) => {
               productId={detailProduct.productId}
               productSpecId={selectedSpec}
               cartItemQty={qty}
-              toCart={true}>
+              toCart
+            >
               立即購買
             </Button>
           </div>
