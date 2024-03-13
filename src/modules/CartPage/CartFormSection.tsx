@@ -3,14 +3,14 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { BsChevronDown } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
-import { authTab } from '@/common/lib/authTab';
-import { nextRoutes } from '@/constants/apiPaths';
+import authTabData from '@/common/lib/authTab';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import DefaultInput from '@/common/components/Input';
 import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
 import LocationSelect from '@/common/components/Select/LocationSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
-import { transformDataToCartList } from '@/common/helpers/transDataToCartList';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import transformDataToCartList from '@/common/helpers/transDataToCartList';
 import { CartProps, PaymentDataType } from './data';
 
 const CartFormSection = ({ cartData }: CartProps) => {
@@ -32,13 +32,13 @@ const CartFormSection = ({ cartData }: CartProps) => {
   } = useForm<FormValues>({});
 
   useEffect(() => {
-    setValue('city', '新北市' as any);
+    setValue('city', '新北市' as unknown as { label: string; value: string });
   }, []);
   useEffect(() => {
     if (
-      paymentData.MerchantID &&
-      paymentData.TradeInfo &&
-      paymentData.TradeSha
+      paymentData.MerchantID
+      && paymentData.TradeInfo
+      && paymentData.TradeSha
     ) {
       payformRef.current?.submit();
     }
@@ -47,7 +47,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
   const handleFormSubmit = () => {
     if (formRef.current) {
       formRef.current.dispatchEvent(
-        new Event('submit', { cancelable: true, bubbles: true })
+        new Event('submit', { cancelable: true, bubbles: true }),
       );
     }
   };
@@ -61,8 +61,8 @@ const CartFormSection = ({ cartData }: CartProps) => {
       cartList,
       cartId,
     };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['order'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.order,
       method: 'POST',
       data: dataObj,
     };
@@ -75,14 +75,14 @@ const CartFormSection = ({ cartData }: CartProps) => {
         router.push('/auth/login');
         dispatch(
           setToast({
-            message: authTab['noToken'],
-          })
+            message: authTabData.noToken,
+          }),
         );
       } else {
         dispatch(setToast({ message: result.message }));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -103,7 +103,8 @@ const CartFormSection = ({ cartData }: CartProps) => {
           <form
             ref={formRef}
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-24 form-transition">
+            className="flex flex-col gap-24 form-transition"
+          >
             <div className=" flex gap-24">
               <DefaultInput
                 page="cart"
@@ -161,7 +162,8 @@ const CartFormSection = ({ cartData }: CartProps) => {
             <button
               type="submit"
               onClick={handleFormSubmit}
-              className="text-white bg-primary-green rounded-8 py-12 w-full hover:opacity-60">
+              className="text-white bg-primary-green rounded-8 py-12 w-full hover:opacity-60"
+            >
               確認付款
             </button>
           </div>
@@ -172,7 +174,8 @@ const CartFormSection = ({ cartData }: CartProps) => {
         name="Newebpay"
         method="post"
         action="https://ccore.newebpay.com/MPG/mpg_gateway"
-        ref={payformRef}>
+        ref={payformRef}
+      >
         {/* <!-- 設定 hidden 可以隱藏不用給使用者看的資訊 --> */}
         {/* <!-- 藍新金流商店代號 --> */}
         <input
@@ -198,7 +201,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
         {/* <!-- 串接程式版本 --> */}
         <input type="hidden" id="Version" name="Version" value="2.0" />
         {/* <!-- 直接執行送出 --> */}
-        <button type="submit"></button>
+        <button type="submit" aria-label="FormSubmit" />
       </form>
     </section>
   );

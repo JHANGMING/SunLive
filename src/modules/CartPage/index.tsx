@@ -7,12 +7,12 @@ import CartProcess from './CartProcess';
 import CartFormSection from './CartFormSection';
 import CartListSection from './CartListSection';
 
-const CartPage = ({ cartSSRData }:CartProps) => {
+const CartPage = ({ cartSSRData }: CartProps) => {
   const [cartDataLocal, setCartDataLocal] = useState(cartSSRData);
   const { cartData } = useSelector((state: RootState) => state.cart);
   const cartLength = cartDataLocal?.cartItemLength ?? 0;
   useEffect(() => {
-      setCartDataLocal(cartData);
+    setCartDataLocal(cartData);
   }, [cartData]);
 
   return (

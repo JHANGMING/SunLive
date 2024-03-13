@@ -1,17 +1,18 @@
 import { mutate } from 'swr';
 import { useDispatch } from 'react-redux';
 import { BsChevronDown } from 'react-icons/bs';
-import { nextRoutes } from '@/constants/apiPaths';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
-import { useDebounceFn } from '@/common/hooks/useDebounceFn';
+import useDebounceFn from '@/common/hooks/useDebounceFn';
 import DeleteBtn from '@/common/components/Button/DeleteBtn';
 import SpecSelect from '@/common/components/Select/SpecSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { generateSpecData } from '@/common/components/Select/SpecSelect/data';
 import CartLink from './CartLink';
 import { CartProps } from './data';
 import CartTotalPrice from './CartTotalPrice';
+
 const CartListSection = ({ cartData }: CartProps) => {
   const dispatch = useDispatch();
   const priceData = cartData?.cartInfo?.[0];
@@ -26,8 +27,8 @@ const CartListSection = ({ cartData }: CartProps) => {
         cartItemQty,
         productSpecId,
       };
-      const apiParams: apiParamsType = {
-        apiPath: nextRoutes['putqty'],
+      const apiParams: NextapiParamsType = {
+        apiPath: nextRoutes.putqty,
         method: 'POST',
         data: dataObj,
       };
@@ -39,19 +40,19 @@ const CartListSection = ({ cartData }: CartProps) => {
           dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
-    300
+    300,
   );
 
-  const handlerSpecChange = async (productId: any, specId: string) => {
+  const handlerSpecChange = async (productId: number, specId: string) => {
     const dataObj = {
-      productId: productId,
+      productId,
       productSpecId: Number(specId),
     };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['putspec'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.putspec,
       method: 'POST',
       data: dataObj,
     };
@@ -63,7 +64,7 @@ const CartListSection = ({ cartData }: CartProps) => {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (
@@ -96,7 +97,6 @@ const CartListSection = ({ cartData }: CartProps) => {
               const productSpecId = productSpecSize
                 ? largeProductSpecId
                 : smallProductSpecId;
-
               return (
                 <li key={productSpecId} className="p-24 flex gap-60">
                   <div className="flex gap-16 flex-grow relative">
@@ -110,7 +110,7 @@ const CartListSection = ({ cartData }: CartProps) => {
                       roundedStyle="object-cover"
                       className="w-80 h-80"
                     />
-                    {cartItemLivePrice && (
+                    {!!cartItemLivePrice && (
                       <div className=" absolute -left-[28px] -top-[20px]">
                         <Image
                           src="/images/productShop/todaySale.svg"
@@ -126,10 +126,9 @@ const CartListSection = ({ cartData }: CartProps) => {
                           NT$
                           <span>
                             {cartItemLivePrice
-                              ? cartItemLivePrice
-                              : productSpecSize
+                              || (productSpecSize
                                 ? largePromotionPrice
-                                : smallPromotionPrice}
+                                : smallPromotionPrice)}
                           </span>
                         </p>
                         <p className=" text-lightGray line-through">
@@ -148,11 +147,9 @@ const CartListSection = ({ cartData }: CartProps) => {
                         smallProductSpecId,
                         largeProductSpecId,
                       })}
-                      onSpecChange={(option) =>
-                        handlerSpecChange(productId, option)
-                      }
+                      onSpecChange={(option) => handlerSpecChange(productId, option)}
                       initialSelectIndex={productSpecSize ? 1 : 0}
-                      isLive={cartItemLivePrice ? true : false}
+                      isLive={!!cartItemLivePrice}
                     />
                     <div className="flex-grow ml-50">
                       <div className="flex gap-x-12 items-center">
@@ -160,26 +157,22 @@ const CartListSection = ({ cartData }: CartProps) => {
                           src="/images/cart/dec.png"
                           alt="dec"
                           className="w-20 h-20 cursor-pointer hover:opacity-70"
-                          onClick={() =>
-                            handlerQtyChange(
-                              productId,
-                              cartItemQty - 1,
-                              productSpecId,
-                            )
-                          }
+                          onClick={() => handlerQtyChange(
+                            productId,
+                            cartItemQty - 1,
+                            productSpecId,
+                          )}
                         />
                         <p className="text-18">{cartItemQty}</p>
                         <Image
                           src="/images/cart/plus.png"
                           alt="plus"
                           className="w-20 h-20 cursor-pointer hover:opacity-70"
-                          onClick={() =>
-                            handlerQtyChange(
-                              productId,
-                              cartItemQty + 1,
-                              productSpecId,
-                            )
-                          }
+                          onClick={() => handlerQtyChange(
+                            productId,
+                            cartItemQty + 1,
+                            productSpecId,
+                          )}
                         />
                       </div>
                     </div>

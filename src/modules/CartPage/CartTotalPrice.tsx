@@ -9,25 +9,29 @@ const CartTotalPrice = ({ priceData }: CartTotalPriceProps) => {
           <div className="flex">
             <div className="text-18 w-1/2">商品原價</div>
             <p className="text-16 w-1/2">
-              $<span>{priceData?.totalOriginalPrice}</span>
+              $
+              <span>{priceData?.totalOriginalPrice}</span>
             </p>
           </div>
           <div className="flex">
             <div className="text-18 w-1/2">運費</div>
             <p className="text-16 w-1/2">
-              $<span>100</span>
+              $
+              <span>100</span>
             </p>
           </div>
           <div className="flex">
             <div className="text-18 w-1/2">總額</div>
             <p className="text-16 w-1/2">
-              $<span>{priceData?.totalPromotionPrice}</span>
+              $
+              <span>{priceData?.totalPromotionPrice}</span>
             </p>
           </div>
           <div className="flex">
             <div className="text-18 text-primary-red w-1/2">折扣</div>
             <p className="text-20 text-primary-red font-bold w-1/2">
-              $<span>{priceData?.totalDiscount}</span>
+              $
+              <span>{priceData?.totalDiscount}</span>
             </p>
           </div>
         </div>
@@ -39,7 +43,7 @@ const CartTotalPrice = ({ priceData }: CartTotalPriceProps) => {
         </div>
         <h5 className=" text-primary-green font-bold">
           <span>$</span>
-          {priceData?.totalPromotionPrice + 100}
+          {(priceData?.totalPromotionPrice || 0) + 100}
         </h5>
       </div>
     </div>

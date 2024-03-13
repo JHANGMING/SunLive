@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import { BsChevronRight } from 'react-icons/bs';
-const CartLink = ({ cartEmpty = false }) => {
+import { CartLinkProps } from './data';
+
+const CartLink = ({ cartEmpty = false }:CartLinkProps) => {
   const colStyle = cartEmpty ? 'col-span-12' : 'col-span-9 w-[74%] ';
   return (
     <Link
       href="/productshop"
-      className={`font-bold text-primary-green flex items-center justify-end hover:opacity-60 mb-32 ${colStyle}`}>
+      className={`font-bold text-primary-green flex items-center justify-end hover:opacity-60 mb-32 ${colStyle}`}
+    >
       <p>繼續購物</p>
       <BsChevronRight
         size={16}

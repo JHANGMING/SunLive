@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { BsCart2 } from 'react-icons/bs';
 import CartLink from './CartLink';
+
 const CartEmpty = () => {
   return (
     <section className="container grid grid-cols-12 ">
@@ -12,11 +13,12 @@ const CartEmpty = () => {
         <h4 className=" text-darkGray">您的購物車是空的</h4>
         <Link
           href="/productshop"
-          className=" text-white mb-16 py-12 px-20 rounded-8 bg-primary-green block">
+          className=" text-white mb-16 py-12 px-20 rounded-8 bg-primary-green block"
+        >
           前往探索更多蔬果
         </Link>
       </div>
-      <CartLink cartEmpty={true} />
+      <CartLink cartEmpty />
     </section>
   );
 };

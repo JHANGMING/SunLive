@@ -26,9 +26,9 @@ export type CartProps = {
 };
 
 export type CartListProps = {
-  cartData:{
+  cartData: {
     data: CartDataType;
-  }
+  };
 };
 
 export type CartTotalPriceProps = {
@@ -39,4 +39,8 @@ export type PaymentDataType = {
   TradeSha?: string;
   TradeInfo?: string;
   MerchantID?: string;
+};
+
+export type CartLinkProps = {
+  cartEmpty?: boolean;
 };
