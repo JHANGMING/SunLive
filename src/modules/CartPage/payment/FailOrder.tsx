@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { BsXCircleFill } from 'react-icons/bs';
 import LogoImg from '@/common/components/Logo/LogoImg';
 import CartProcess from '../CartProcess';
+
 const FailOrder = () => {
   return (
     <>
@@ -19,7 +20,8 @@ const FailOrder = () => {
           </div>
           <Link
             href="/cart"
-            className=" text-white mt-36 py-12 px-20 rounded-8 bg-primary-green block hover:opacity-70">
+            className=" text-white mt-36 py-12 px-20 rounded-8 bg-primary-green block hover:opacity-70"
+          >
             返回結帳頁面
           </Link>
         </div>
