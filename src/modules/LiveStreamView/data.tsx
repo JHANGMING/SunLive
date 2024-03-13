@@ -1,6 +1,6 @@
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
 
-export type liveCardProps = {
+export type LiveCardProps = {
   qty: number;
   title: string;
   salePrice: number;
@@ -37,4 +37,14 @@ export type ChatAndProductPorps = {
 
 export type LiveChatCountdownProps = {
   endTime: string;
+};
+
+export type AvatarProps = {
+  photo: string;
+  alt: string;
+};
+
+export type NameTagProps = {
+  nickName: string;
+  isLiveFarmer: boolean;
 };
