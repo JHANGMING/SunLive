@@ -3,48 +3,28 @@ import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { authTab } from '@/common/lib/authTab';
+import authTabData from '@/common/lib/authTab';
 import Layout from '@/common/components/Layout';
 import LoginPage from '@/modules/Auth/LoginPage';
 import { LoginPrpos, ROUTES } from '@/modules/Auth/data';
 import { setAllCookies } from '@/common/helpers/getCookie';
-import { apiPaths, nextRoutes } from '@/constants/apiPaths';
+import { apiPaths, nextRoutes } from '@/constants/api/apiPaths';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setToast, showLoading } from '@/redux/features/messageSlice';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 
 const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [loginData, setLoginData] = useState(initialLoginData);
-  useEffect(() => {
-    if (!errorMessage) return;
-    dispatch(setToast({ message: errorMessage }));
-  }, [errorMessage]);
-  useEffect(() => {
-    if (!loginData) return;
-    handleLoginData();
-    dispatch(showLoading());
-    dispatch(
-      setToast({
-        message: authTab['welcome'],
-      })
-    );
-  }, [loginData]);
-  useEffect(() => {
-    window.addEventListener('message', handleMessage);
-    return () => {
-      window.removeEventListener('message', handleMessage);
-    };
-  }, []);
   const handleMessage = async (event: MessageEvent) => {
     const expectedOrigin = 'http://localhost:3000';
     if (event.origin !== expectedOrigin) {
       return;
     }
     if (event.data.type === 'auth') {
-      const apiParams: apiParamsType = {
-        apiPath: nextRoutes['setToken'],
+      const apiParams: NextapiParamsType = {
+        apiPath: nextRoutes.setToken,
         method: 'POST',
         data: { token: event.data.result.token },
       };
@@ -58,7 +38,7 @@ const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
       } catch (error) {
         console.error('登入失败', error);
       }
-      console.log('event.data', event);
+      console.error('event.data', event);
     }
   };
   const handleLoginData = async () => {
@@ -69,6 +49,26 @@ const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
       : ROUTES.HOME;
     await router.push(redirectTo);
   };
+  useEffect(() => {
+    if (!errorMessage) return;
+    dispatch(setToast({ message: errorMessage }));
+  }, [errorMessage]);
+  useEffect(() => {
+    if (!loginData) return;
+    handleLoginData();
+    dispatch(showLoading());
+    dispatch(
+      setToast({
+        message: authTabData.welcome,
+      }),
+    );
+  }, [loginData]);
+  useEffect(() => {
+    window.addEventListener('message', handleMessage);
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
 
   return (
     <Layout pageCategory="authPage" classStyle="px-110 pb-80">
@@ -80,7 +80,7 @@ const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
 export default Login;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   let loginData = [];
   const { req, res } = context;
@@ -89,10 +89,9 @@ export const getServerSideProps = async (
     account = 'defaultAccount',
     time = 'defaultTime',
   } = context.query;
-  const hasValidQueryParams =
-    guid !== 'defaultGuid' ||
-    account !== 'defaultAccount' ||
-    time !== 'defaultTime';
+  const hasValidQueryParams = guid !== 'defaultGuid'
+    || account !== 'defaultAccount'
+    || time !== 'defaultTime';
 
   if (!hasValidQueryParams) {
     return {
@@ -108,7 +107,7 @@ export const getServerSideProps = async (
 
   try {
     const loginParams: ApiParamsType = {
-      apiPath: apiPaths['passwordlessVerify'],
+      apiPath: apiPaths.passwordlessVerify,
       method: 'POST',
       data: { guid, account, time: Number(time) },
     };

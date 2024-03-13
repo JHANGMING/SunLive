@@ -24,3 +24,13 @@ export type ChangePasswordProps = {
 export type OnSubmitType = {
   (data: FormValues): void;
 };
+
+export type CredentialsProps = {
+  challengeId: ArrayBuffer;
+  userData?: {
+    id: ArrayBuffer;
+    name: string;
+    displayName: string;
+  };
+};
+

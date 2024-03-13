@@ -2,15 +2,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { authTab } from '@/common/lib/authTab';
+import authTabData from '@/common/lib/authTab';
 import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/apiPaths';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import DefaultInput from '@/common/components/Input';
-import { useGapClass } from '@/common/hooks/useGapClass';
+import useGapClass from '@/common/hooks/useGapClass';
 import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
 import AuthSelect from '@/common/components/Select/AuthSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { OnSubmitType } from './data';
 
 const RegisterPage = () => {
@@ -31,8 +31,8 @@ const RegisterPage = () => {
       password: password.trim(),
       category: identity?.value,
     };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['register'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.register,
       method: 'POST',
       data: dataObj,
     };
@@ -42,14 +42,14 @@ const RegisterPage = () => {
         router.push('/auth/login');
         dispatch(
           setToast({
-            message: authTab['register'],
-          })
+            message: authTabData.register,
+          }),
         );
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -58,7 +58,8 @@ const RegisterPage = () => {
       <h2 className="text-center">電子郵件註冊</h2>
       <form
         className={`flex flex-col ${gapClass}`}
-        onSubmit={handleSubmit(onSubmit)}>
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <DefaultInput
           type="email"
           labelText="電子郵件"
@@ -115,6 +116,7 @@ const RegisterPage = () => {
               if (watch('password') !== val) {
                 return '密碼沒有一致喔！！';
               }
+              return true;
             },
           }}
         />
@@ -122,7 +124,8 @@ const RegisterPage = () => {
         <Button
           type="submit"
           category="auth"
-          btnStyle="mt-16 bg-primary-yellow text-black">
+          btnStyle="mt-16 bg-primary-yellow text-black"
+        >
           立即註冊
         </Button>
       </form>
@@ -131,7 +134,8 @@ const RegisterPage = () => {
           <p className="mb-16">已經成為會員 ?</p>
           <Link
             href="/auth/login"
-            className=" cursor-pointer text-primary-green font-bold">
+            className=" cursor-pointer text-primary-green font-bold"
+          >
             立即登入 !
           </Link>
         </div>

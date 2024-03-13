@@ -14,7 +14,7 @@ const ChangePassword = ({ queryParams }: ChangePasswordProps) => {
 export default ChangePassword;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   const {
     guid = 'defaultGuid',
@@ -22,10 +22,9 @@ export const getServerSideProps = async (
     time = 'defaultTime',
   } = context.query;
 
-  const hasValidQueryParams =
-    guid !== 'defaultGuid' ||
-    account !== 'defaultAccount' ||
-    time !== 'defaultTime';
+  const hasValidQueryParams = guid !== 'defaultGuid'
+    || account !== 'defaultAccount'
+    || time !== 'defaultTime';
   if (hasValidQueryParams) {
     return {
       props: {
@@ -37,4 +36,7 @@ export const getServerSideProps = async (
       },
     };
   }
+  return {
+    props: {},
+  };
 };

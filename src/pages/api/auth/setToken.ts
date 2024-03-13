@@ -1,6 +1,6 @@
-
 import { setCookie } from 'cookies-next';
 import type { NextApiRequest, NextApiResponse } from 'next';
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { token } = JSON.parse(req.body);
