@@ -8,13 +8,13 @@ import Loading from '../Loading/Loading';
 import ScrollPageTop from '../ScrollPageTop';
 import DashboardLayout from './DashboardLayout';
 import FixedHeader from '../Header/FixedHeader';
-import SmallHeader from '../Header/SmallHeader';
 import { LayoutPropsType, colorWhiteSet, footerSet, notoTC } from './data';
 
 const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
   return (
     <div
-      className={`${colorWhiteSet[pageCategory]} ${notoTC.className} flex flex-col min-h-screen`}>
+      className={`${colorWhiteSet[pageCategory]} ${notoTC.className} flex flex-col min-h-screen`}
+    >
       <CustomHead pageCategory={pageCategory} />
       <Header pageCategory={pageCategory} />
       <FixedHeader pageCategory={pageCategory} />
@@ -22,13 +22,18 @@ const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {
       <Toast />
       {/* <SmallHeader/> */}
       <main className="flex-grow">
-        {pageCategory === 'authPage' ? (
-          <AuthLayout classStyle={classStyle}>{children}</AuthLayout>
-        ) : pageCategory === 'dashboardPage' ? (
-          <DashboardLayout>{children}</DashboardLayout>
-        ) : (
-          children
-        )}
+        {(() => {
+          switch (pageCategory) {
+            case 'authPage':
+              return (
+                <AuthLayout classStyle={classStyle}>{children}</AuthLayout>
+              );
+            case 'dashboardPage':
+              return <DashboardLayout>{children}</DashboardLayout>;
+            default:
+              return children;
+          }
+        })()}
 
         <ScrollPageTop />
       </main>
