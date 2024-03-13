@@ -31,11 +31,13 @@ const SendMailLoading = () => {
         <div className=" bg-lightGray w-full h-10 mt-24 rounded-full overflow-hidden ">
           <div
             className="bg-primary-yellow h-full"
-            style={{ width: `${percent}%` }}></div>
+            style={{ width: `${percent}%` }}
+          />
         </div>
         {completed && (
           <p className=" text-white font-bold text-32 mt-24">信件已發至信箱</p>
-        )}{' '}
+        )}
+        {' '}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Noto_Sans_TC } from 'next/font/google';
+
 export type PageCategoryType =
   | 'mobile'
   | 'CartPage'
@@ -12,7 +13,7 @@ export type PageCategoryType =
   | 'personInfoPage'
   | 'liveStreamPage'
   | 'liveStreamView'
-  | 'productDetailPage'
+  | 'productDetailPage';
 
 export type LayoutPropsType = {
   classStyle?: string;
@@ -28,7 +29,7 @@ export type AuthLayoutProps = {
 export type DashboardLayoutProps = {
   children: ReactNode;
 };
-type pageSetType = {
+type PageSetType = {
   mobile?: string;
   authPage: string;
   CartPage: string;
@@ -42,7 +43,7 @@ type pageSetType = {
   personInfoPage: string;
   productDetailPage: string;
 };
-export const colorWhiteSet: pageSetType = {
+export const colorWhiteSet: PageSetType = {
   mobile: 'lightWhite',
   authPage: 'bg-white',
   searchPage: 'bg-white',
@@ -57,7 +58,7 @@ export const colorWhiteSet: pageSetType = {
   personInfoPage: 'bg-dashboardGray',
 };
 
-export const footerSet: pageSetType = {
+export const footerSet: PageSetType = {
   mobile: 'p-24',
   CartPage: 'pt-60',
   authPage: 'pt-60',

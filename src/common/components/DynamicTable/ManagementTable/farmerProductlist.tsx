@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { RootState } from '@/redux/store';
 import usePagination from '@/common/hooks/usePagination';
-import { getCellClass } from '@/common/helpers/getCellClass';
+import getCellClass from '@/common/helpers/getCellClass';
 import { DynamicTableProps } from './data';
 
 const ProductlistTable = ({ columns }: DynamicTableProps) => {
@@ -16,7 +16,7 @@ const ProductlistTable = ({ columns }: DynamicTableProps) => {
   }, [listData]);
   const { currentData, maxPage, dataLength } = usePagination(
     listData,
-    currentPage
+    currentPage,
   );
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
@@ -36,10 +36,9 @@ const ProductlistTable = ({ columns }: DynamicTableProps) => {
         <thead className="h-48">
           <tr className="bg-primary-yellow text-center">
             {columns.map((column) => {
-              const thClass =
-                column.title === '農產品名稱'
-                  ? 'py-[13px] font-normal w-160'
-                  : 'py-[13px] font-normal';
+              const thClass = column.title === '農產品名稱'
+                ? 'py-[13px] font-normal w-160'
+                : 'py-[13px] font-normal';
 
               return (
                 <th className={thClass} key={column.key}>
@@ -53,7 +52,8 @@ const ProductlistTable = ({ columns }: DynamicTableProps) => {
           {currentData.map((row) => (
             <tr
               className="text-center border-b border-lightGray"
-              key={row.productId}>
+              key={row.productId}
+            >
               {columns.map((column) => {
                 const tdClass = getCellClass(column.dataIndex);
                 let cellContent;
@@ -62,19 +62,22 @@ const ProductlistTable = ({ columns }: DynamicTableProps) => {
                   cellContent = (
                     <div
                       onMouseEnter={() => setHoveredRow(row.productId)}
-                      onMouseLeave={() => setHoveredRow(null)}>
+                      onMouseLeave={() => setHoveredRow(null)}
+                    >
                       {row[column.dataIndex]}
                       {hoveredRow === row.productId && (
                         <div className="flex justify-center gap-4">
                           <button
                             type="button"
                             className="text-12 text-primary-green pr-4 border-r border-lightGray"
-                            onClick={() => handleEdit(row.productId)}>
+                            onClick={() => handleEdit(row.productId)}
+                          >
                             編輯
                           </button>
                           <button
                             type="button"
-                            className="text-12 text-primary-green">
+                            className="text-12 text-primary-green"
+                          >
                             移至垃圾桶
                           </button>
                         </div>
@@ -103,19 +106,26 @@ const ProductlistTable = ({ columns }: DynamicTableProps) => {
         </tbody>
       </table>
       <div className="w-full flex justify-between mt-20 text-darkGray pl-12 pr-24">
-        <p>共 {dataLength} 筆資料</p>
+        <p>
+          共
+          {dataLength}
+          {' '}
+          筆資料
+        </p>
         <div className="flex gap-24">
           <p>{`${currentPage}/${maxPage}`}</p>
           <button
             type="button"
             onClick={handlePrevious}
-            className=" hover:text-mediumGray">
+            className=" hover:text-mediumGray"
+          >
             前一頁
           </button>
           <button
             type="button"
             onClick={handleNext}
-            className=" hover:text-mediumGray">
+            className=" hover:text-mediumGray"
+          >
             下一頁
           </button>
         </div>

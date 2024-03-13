@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { BsSearch } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { nextRoutes } from '@/constants/apiPaths';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setSearchData } from '@/redux/features/productSlice';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { SearchInputProps } from './data';
 
 const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
@@ -16,8 +16,8 @@ const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
 
   const handlerSearch = async () => {
     if (!inputValue) return;
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['search'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.search,
       method: 'POST',
       data: inputValue.trim(),
     };
@@ -43,31 +43,31 @@ const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
     if (e.key !== 'Enter') return;
     handlerSearch();
   };
-  const inputStyle =
-    headerVisible === true
-      ? 'w-400 h-48 bg-blueWhite rounded-20'
-      : 'w-680 h-48 rounded-12';
-  const iconBackgoound =
-    headerVisible === true
-      ? 'bg-primary-yellow rounded-20'
-      : 'bg-primary-green rounded-tr-12 rounded-br-12';
-  const iconStyle =
-    headerVisible === true ? 'text-20 text-mediumGray' : 'text-white ';
+  const inputStyle = headerVisible === true
+    ? 'w-400 h-48 bg-blueWhite rounded-20'
+    : 'w-680 h-48 rounded-12';
+  const iconBackgoound = headerVisible === true
+    ? 'bg-primary-yellow rounded-20'
+    : 'bg-primary-green rounded-tr-12 rounded-br-12';
+  const iconStyle = headerVisible === true ? 'text-20 text-mediumGray' : 'text-white ';
   return (
     <div className="relative">
       <input
         type="text"
-        placeholder={searchTag ? searchTag : '輸入水果、蔬菜'}
+        placeholder={searchTag || '輸入水果、蔬菜'}
         className={`${inputStyle} border pl-16 focus-visible:outline-none tracking-widest`}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyPress={handleKeyPress}
       />
-      <div
+      <button
+        type="button"
+        aria-label="Search"
         className={` w-53 h-48 flex justify-center items-center absolute top-0 right-0 cursor-pointer hover:opacity-80 ${iconBackgoound} ${headerVisible ? 'fade-in' : ''}`}
-        onClick={handlerSearch}>
+        onClick={handlerSearch}
+      >
         <BsSearch className={`"text-20 ${iconStyle}`} />
-      </div>
+      </button>
     </div>
   );
 };

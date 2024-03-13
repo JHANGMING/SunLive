@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { LogoImgPrors } from './data';
 
 const LogoImg = ({ classProps }: LogoImgPrors) => {
-  const classStyle = !!classProps ? `${classProps}` : '';
+  const classStyle = classProps ? `${classProps}` : '';
   return (
     <div className={`relative flex-shrink-0 ${classStyle}`}>
       <Image
@@ -10,7 +10,7 @@ const LogoImg = ({ classProps }: LogoImgPrors) => {
         alt="Logo"
         fill
         sizes="100%"
-        className={`object-contain align-middle`}
+        className="object-contain align-middle"
       />
     </div>
   );

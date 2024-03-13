@@ -14,3 +14,14 @@ export const Colors = [
   '#DE3C2B',
   '#47835A',
 ];
+
+export const FontSizes = [
+  '14px',
+  '16px',
+  '18px',
+  '20px',
+  '24px',
+  '28px',
+  '32px',
+  '36px',
+];

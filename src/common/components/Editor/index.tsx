@@ -1,12 +1,14 @@
+import Quill from 'quill';
+import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Controller } from 'react-hook-form';
-import React, { useEffect, useRef } from 'react';
+import 'react-quill/dist/quill.snow.css';
+import { Colors, EditorProps, FontSizes } from './data';
+
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading...</p>,
 });
-import 'react-quill/dist/quill.snow.css';
-import { Colors, EditorProps } from './data';
 
 const CustomToolbar = () => (
   <div id="toolbar">
@@ -27,7 +29,9 @@ const CustomToolbar = () => (
         <option
           key={color}
           value={color}
-          style={{ backgroundColor: color }}></option>
+          style={{ backgroundColor: color }}
+          aria-label="color"
+        />
       ))}
     </select>
     <select className="ql-background">
@@ -35,31 +39,20 @@ const CustomToolbar = () => (
         <option
           key={color}
           value={color}
-          style={{ backgroundColor: color }}></option>
+          style={{ backgroundColor: color }}
+          aria-label="background"
+        />
       ))}
     </select>
-    <button className="ql-bold" />
-    <button className="ql-italic" />
-    <button className="ql-link" />
-    <button className="ql-image" />
+    <button className="ql-bold" type="button" aria-label="Bold" />
+    <button className="ql-italic" type="button" aria-label="italic" />
+    <button className="ql-link" type="button" aria-label="link" />
+    <button className="ql-image" type="button" aria-label="image" />
   </div>
 );
-const FontSizes = [
-  '14px',
-  '16px',
-  '18px',
-  '20px',
-  '24px',
-  '28px',
-  '32px',
-  '36px',
-];
 
 const Editor = ({ control }: EditorProps) => {
-  const quillRef = useRef(null);
   useEffect(() => {
-    const Quill = require('quill');
-
     const SizeStyle = Quill.import('attributors/style/size');
     SizeStyle.whitelist = FontSizes;
     Quill.register(SizeStyle, true);
@@ -81,11 +74,8 @@ const Editor = ({ control }: EditorProps) => {
           <ReactQuill
             {...field}
             modules={modules}
-            // theme="snow"
             className="h-[350px] rounder-8"
-            onChange={(content, delta, source, editor) =>
-              field.onChange(editor.getHTML())
-            }
+            onChange={(content, _delta, _source, editor) => field.onChange(editor.getHTML())}
           />
         )}
       />

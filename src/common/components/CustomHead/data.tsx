@@ -1,6 +1,6 @@
 import { PageCategoryType } from '@/common/components/Layout/data';
 
-type dataType = {
+type DataType = {
   url: string;
   desc: string;
   title: string;
@@ -14,7 +14,7 @@ export const defaultMeta: Record<string, string> = {
   defaultImage: '/images/sunLive.png',
 };
 
-export const dataSet: Record<string, dataType> = {
+export const dataSet: Record<string, DataType> = {
   landingPage: {
     title: '',
     desc: '',
