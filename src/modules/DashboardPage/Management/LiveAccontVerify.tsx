@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { nextRoutes } from '@/constants/apiPaths';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveAccontVerifyProps } from './data';
 
 const LiveAccontVerify = ({
@@ -24,8 +24,8 @@ const LiveAccontVerify = ({
   }, []);
 
   const handlerIdentity = async () => {
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['identity'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.identity,
       method: 'GET',
     };
     try {
@@ -34,7 +34,7 @@ const LiveAccontVerify = ({
         window.open(result.url, '_blank');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (
@@ -42,9 +42,10 @@ const LiveAccontVerify = ({
       <div className="flex items-center gap-16">
         <button
           type="button"
-          className={`${!!accessToken ? 'bg-darkGray cursor-not-allowed text-white' : 'bg-primary-yellow cursor-pointer hover:opacity-70'}  text-16 font-normal py-10 px-12 rounded-8 `}
+          className={`${accessToken ? 'bg-darkGray cursor-not-allowed text-white' : 'bg-primary-yellow cursor-pointer hover:opacity-70'}  text-16 font-normal py-10 px-12 rounded-8 `}
           onClick={handlerIdentity}
-          disabled={!!accessToken}>
+          disabled={!!accessToken}
+        >
           驗證帳號
         </button>
         {!!accessToken && (
