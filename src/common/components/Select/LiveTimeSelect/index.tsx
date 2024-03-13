@@ -1,5 +1,4 @@
-import Select from 'react-select';
-import { StylesConfig } from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import { Controller } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import useClient from '@/common/hooks/useClient';
@@ -19,7 +18,7 @@ const LiveTimeSelect = ({
   useEffect(() => {
     if (startTime) {
       const startTimeIndex = optionsData.findIndex(
-        (option) => option.value === startTime.value
+        (option) => option.value === startTime.value,
       );
       const filteredOptions = optionsData.slice(startTimeIndex + 1);
       setEndTimeOptions(filteredOptions);
@@ -71,7 +70,7 @@ const LiveTimeSelect = ({
                   styles={customStyles}
                   placeholder="選擇直播開始時間"
                   value={optionsData.find(
-                    (option) => option.value === field.value
+                    (option) => option.value === field.value,
                   )}
                   onChange={(val) => {
                     let value = null;

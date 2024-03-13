@@ -1,6 +1,5 @@
 import React from 'react';
-import Select from 'react-select';
-import { StylesConfig } from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import { Controller } from 'react-hook-form';
 import useClient from '@/common/hooks/useClient';
 import { LiveProductSelectProps, OptionType } from './data';

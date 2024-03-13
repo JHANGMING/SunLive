@@ -16,7 +16,7 @@ export type OptionType = {
 
 const generateTimeOptions = () => {
   const options = [];
-  for (let hour = 8; hour < 23; hour++) {
+  for (let hour = 8; hour < 23; hour += 1) {
     for (let minute = 0; minute < 60; minute += 60) {
       const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
       options.push({ value: time, label: time });
