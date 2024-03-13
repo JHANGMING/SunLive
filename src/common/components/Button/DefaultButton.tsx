@@ -11,7 +11,8 @@ const DefaultButton = ({
       type="button"
       className={` text-white bg-primary-green rounded-8 text-14 leading-[30px] py-[5px] px-26 ${classStyle}`}
       onClick={onClick}
-      disabled={disabled}>
+      disabled={disabled}
+    >
       {children}
     </button>
   );
