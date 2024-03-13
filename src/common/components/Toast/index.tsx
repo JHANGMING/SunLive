@@ -7,7 +7,7 @@ import LogoImg from '../Logo/LogoImg';
 const Toast = () => {
   const dispatch = useDispatch();
   const { showMessage, message } = useSelector(
-    (state: RootState) => state.message
+    (state: RootState) => state.message,
   );
   useEffect(() => {
     if (showMessage) {
@@ -16,6 +16,7 @@ const Toast = () => {
       }, 3000);
       return () => clearTimeout(timer);
     }
+    return () => {};
   }, [showMessage, dispatch]);
 
   if (!showMessage) return null;
