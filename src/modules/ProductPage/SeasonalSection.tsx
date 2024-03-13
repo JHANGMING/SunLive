@@ -1,4 +1,4 @@
-import { useProducts } from '@/common/hooks/ProductsRefContext';
+import { useProducts } from '@/common/components/product/ProductsRefContext';
 import ProductList from '@/common/components/product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
@@ -9,7 +9,8 @@ const SeasonalSection = () => {
   return (
     <section
       className=" bg-seasonalBG pt-80 bg-repeat-x  -mt-80"
-      ref={seasonalProductsRef}>
+      ref={seasonalProductsRef}
+    >
       <div className="bg-primary-yellow">
         <div className="container pb-60">
           <CategoryTitle
