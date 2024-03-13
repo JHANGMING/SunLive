@@ -18,7 +18,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   if (!isClient) {
     return <Loading />;
   }
-  if (auth?.category !== '1') return;
+  if (auth?.category !== '1') return null;
   return (
     <section className="pt-60 pb-[194px] container flex gap-[74px]">
       <DashboardPage />
