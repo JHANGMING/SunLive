@@ -1,5 +1,5 @@
 type LiveproudctTpye = {
-  liveProductId: number; 
+  liveProductId: number;
   liveProductName: string;
 };
 
