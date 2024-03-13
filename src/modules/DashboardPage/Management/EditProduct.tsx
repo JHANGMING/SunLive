@@ -5,13 +5,13 @@ import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Button from '@/common/components/Button';
 import Editor from '@/common/components/Editor';
-import { nextRoutes } from '@/constants/apiPaths';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
 import PersonInput from '@/common/components/Input/PersonInput';
 import ManagementSelect from '@/common/components/Select/ManagementSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import {
   EditProductsProps,
   categoryData,
@@ -31,7 +31,6 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue,
   } = useForm<FormValues>();
 
@@ -45,14 +44,14 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
       setValue('largeOriginalPrice', detailData.largeOriginalPrice.toString());
       setValue(
         'largePromotionPrice',
-        detailData.largePromotionPrice.toString()
+        detailData.largePromotionPrice.toString(),
       );
       setValue('largeStock', detailData.largeStock.toString());
       setValue('largeWeight', detailData.largeWeight.toString());
       setValue('smallOriginalPrice', detailData.smallOriginalPrice.toString());
       setValue(
         'smallPromotionPrice',
-        detailData.smallPromotionPrice.toString()
+        detailData.smallPromotionPrice.toString(),
       );
       setValue('smallStock', detailData.smallStock.toString());
       setValue('smallWeight', detailData.smallWeight.toString());
@@ -62,7 +61,7 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
     }
   }, [detailData]);
   const onSubmit = async (data: FormValues) => {
-    //儲存日期格式
+    // 儲存日期格式
     const updateStateTime = format(new Date(), 'yyyy/MM/dd');
     const {
       productState,
@@ -102,8 +101,8 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
       smallWeight: Number(smallWeight),
       smallStock: Number(smallStock),
     };
-    const apiParams: apiParamsType = {
-      apiPath: `${nextRoutes['editproduct']}?id=${detailData.productId}`,
+    const apiParams: NextapiParamsType = {
+      apiPath: `${nextRoutes.editproduct}?id=${detailData.productId}`,
       method: 'POST',
       data: dataObj,
     };
@@ -115,7 +114,7 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
         dispatch(setToast({ message: result.message }));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     // reset();
   };
@@ -173,7 +172,8 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
         </div>
         <div className="mb-24">
           <p>
-            <span className=" text-primary-red">*</span>(限5張)
+            <span className=" text-primary-red">*</span>
+            (限5張)
           </p>
           <ul className="flex gap-16">
             {detailData.photos?.map((previewImage) => (
@@ -186,9 +186,7 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
                 />
                 <BsXCircleFill
                   size={24}
-                  onClick={() =>
-                    handleRemoveImage(Number(previewImage.photoId))
-                  }
+                  onClick={() => handleRemoveImage(Number(previewImage.photoId))}
                   className=" cursor-pointer hover:text-black absolute top-8 right-8 text-white"
                 />
               </div>
@@ -199,7 +197,8 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
       <form
         action=""
         className="flex flex-col gap-24"
-        onSubmit={handleSubmit(onSubmit)}>
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex gap-24">
           <PersonInput
             type="text"
@@ -395,7 +394,8 @@ const EditProduct = ({ detailData }: EditProductsProps) => {
         </div>
         <Button
           category="submit"
-          classStyle="bg-primary-green self-end hover:opacity-70">
+          classStyle="bg-primary-green self-end hover:opacity-70"
+        >
           修改
         </Button>
       </form>
