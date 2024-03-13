@@ -3,10 +3,10 @@ import LogoImg from '@/common/components/Logo/LogoImg';
 import { YoutubeLiveIframProps } from './data';
 
 const YoutubeLiveIfram = ({
-  isViewPage = false,
-  isFarmer = false,
-  isLivePage,
   url,
+  isLivePage,
+  isFarmer = false,
+  isViewPage = false,
 }: YoutubeLiveIframProps) => {
   let iframeContainerStyle;
   if (isFarmer) {
@@ -24,7 +24,7 @@ const YoutubeLiveIfram = ({
     if (iframeRef.current && (isViewPage || isLivePage)) {
       iframeRef.current.contentWindow?.postMessage(
         '{"event":"command","func":"playVideo","args":""}',
-        '*'
+        '*',
       );
     }
   };
@@ -32,7 +32,7 @@ const YoutubeLiveIfram = ({
     if (iframeRef.current) {
       iframeRef.current.contentWindow?.postMessage(
         '{"event":"command","func":"playVideo","args":""}',
-        '*'
+        '*',
       );
     }
   };
@@ -41,7 +41,7 @@ const YoutubeLiveIfram = ({
     if (iframeRef.current) {
       iframeRef.current.contentWindow?.postMessage(
         '{"event":"command","func":"pauseVideo","args":""}',
-        '*'
+        '*',
       );
     }
   };
@@ -52,7 +52,7 @@ const YoutubeLiveIfram = ({
     const iframeElement = iframeRef.current;
 
     if (!('IntersectionObserver' in window)) {
-      return;
+      return undefined;
     }
     const observer = new IntersectionObserver(
       (entries) => {
@@ -67,7 +67,7 @@ const YoutubeLiveIfram = ({
           pauseVideo();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     if (iframeElement) {
@@ -94,7 +94,8 @@ const YoutubeLiveIfram = ({
           title="14th Rocket-Sunlive"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
-          onLoad={handleIframeLoad}></iframe>
+          onLoad={handleIframeLoad}
+        />
       </div>
       <div className="absolute left-1/2 -top-16 lg:-top-35 transform -translate-x-1/2 ">
         <LogoImg classProps=" logo-shake w-24 h-24 lg:w-50 lg:h-50" />
