@@ -1,4 +1,5 @@
 import { BsChevronRight } from 'react-icons/bs';
+
 const CartProcess = () => {
   return (
     <section className="container grid grid-cols-12 pt-60 pb-[54px]">
