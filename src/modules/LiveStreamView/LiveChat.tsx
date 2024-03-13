@@ -3,14 +3,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { BsCursorFill,BsPersonCircle } from 'react-icons/bs';
-import { nextRoutes } from '@/constants/apiPaths';
+import { BsCursorFill, BsPersonCircle } from 'react-icons/bs';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import Image from '@/common/components/CustomImage';
-import { useDebounceFn } from '@/common/hooks/useDebounceFn';
+import useDebounceFn from '@/common/hooks/useDebounceFn';
 import { setLiveRoomId, setToast } from '@/redux/features/messageSlice';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import { Avatar, NameTag } from './MessageItem';
 
 const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
   const router = useRouter();
@@ -27,94 +27,9 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     nameSender: '',
     photoSender: '',
   });
-
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      const { current: messagesContainer } = messagesEndRef;
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-  }, [messages]);
-
-  useEffect(() => {
-    if (!liveId) return;
-    dispatch(setLiveRoomId(liveId));
-  }, [liveId]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    setupSignalRConnection();
-    return () => {
-      chatHubProxyRef.current?.connection.stop();
-      setIsConnected(false);
-    };
-  }, [chatroomId]);
-
-  //判斷是否離開頁面
-  useEffect(() => {
-    const handleRouteChange = async (url: string) => {
-      if (!url.includes('/livestream')) {
-        try {
-          chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
-        } catch (error) {
-          console.error('Error leaving live room:', error);
-        }
-      }
-    };
-    router.events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [router]);
-  const setupSignalRConnection = async () => {
-    if (chatHubProxyRef.current && isConnected) {
-      return;
-    }
-    try {
-      const { hubConnection } = await import('signalr-no-jquery');
-      const connection = hubConnection(apiUrl);
-      const chatHubProxy = connection.createHubProxy(
-        'chathub'
-      ) as unknown as SignalR.Hub.Proxy;
-
-      chatHubProxy.on('receiveLiveMessage', (message: Message) => {
-        mutate(`/api${nextRoutes['live']}?id=${liveId}`);
-        setMessages((prevMessages) => [...prevMessages, message]);
-      });
-      chatHubProxy.on('receivePeople', (message) => {
-        setViewerCount(message);
-      });
-
-      chatHubProxyRef.current = chatHubProxy;
-
-      await connection
-        .start()
-        .done(() => {
-          setIsConnected(true);
-          JoinChatRoom(chatroomId)
-            .then(() => callApi())
-            .catch((error) => console.error(error));
-        })
-        .fail((error: Error) => {
-          setIsConnected(false);
-        });
-    } catch (error) {
-      console.error('Failed to connect to SignalR server:', error);
-    }
-  };
-  const JoinChatRoom = async (chatroomId: string) => {
-    if (!chatHubProxyRef.current) {
-      return;
-    }
-    try {
-      await chatHubProxyRef.current?.invoke('JoinLiveRoom', chatroomId);
-    } catch (error) {
-      console.error('Failed to connect to SignalR server:', error);
-    }
-  };
-
   const callApi = async () => {
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['check'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.check,
       method: 'GET',
     };
     try {
@@ -133,13 +48,93 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
       console.error('Error fetching user data:', error);
     }
   };
-
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' && !event.shiftKey && user.userIdSender) {
-      event.preventDefault();
-      handleSendMessage();
+  const JoinChatRoom = async (roomId: string) => {
+    if (!chatHubProxyRef.current) {
+      return;
+    }
+    try {
+      await chatHubProxyRef.current?.invoke('JoinLiveRoom', roomId);
+    } catch (error) {
+      console.error('Failed to connect to SignalR server:', error);
     }
   };
+  const setupSignalRConnection = async () => {
+    if (chatHubProxyRef.current && isConnected) {
+      return;
+    }
+    try {
+      const { hubConnection } = await import('signalr-no-jquery');
+      const connection = hubConnection(apiUrl);
+      const chatHubProxy = connection.createHubProxy(
+        'chathub',
+      ) as unknown as SignalR.Hub.Proxy;
+
+      chatHubProxy.on('receiveLiveMessage', (message: Message) => {
+        mutate(`/api${nextRoutes.live}?id=${liveId}`);
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
+      chatHubProxy.on('receivePeople', (message) => {
+        setViewerCount(message);
+      });
+
+      chatHubProxyRef.current = chatHubProxy;
+
+      await connection
+        .start()
+        .done(() => {
+          setIsConnected(true);
+          JoinChatRoom(chatroomId)
+            .then(() => callApi())
+            .catch((error) => console.error(error));
+        })
+        .fail((error: Error) => {
+          console.error('Failed to start SignalR connection:', error);
+          setIsConnected(false);
+        });
+    } catch (error) {
+      console.error('Failed to connect to SignalR server:', error);
+    }
+  };
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      const { current: messagesContainer } = messagesEndRef;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    if (!liveId) return;
+    dispatch(setLiveRoomId(liveId));
+  }, [liveId]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return () => {};
+    }
+    setupSignalRConnection();
+    return () => {
+      chatHubProxyRef.current?.connection.stop();
+      setIsConnected(false);
+    };
+  }, [chatroomId]);
+
+  // 判斷是否離開頁面
+  useEffect(() => {
+    const handleRouteChange = async (url: string) => {
+      if (!url.includes('/livestream')) {
+        try {
+          chatHubProxyRef.current?.invoke('LeftLiveRoom', chatroomId);
+        } catch (error) {
+          console.error('Error leaving live room:', error);
+        }
+      }
+    };
+    router.events.on('routeChangeStart', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router]);
+
   const handleSendMessage = useDebounceFn(async () => {
     if (!isConnected || !user.userIdSender || newMessage.trim() === '') {
       return;
@@ -151,13 +146,19 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         user.userIdSender,
         user.nameSender,
         user.photoSender,
-        newMessage
+        newMessage,
       );
       setNewMessage('');
     } catch (error) {
       console.error('Failed to send message:', error);
     }
-  },300);
+  }, 300);
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !event.shiftKey && user.userIdSender) {
+      event.preventDefault();
+      handleSendMessage();
+    }
+  };
   const handerShare = async () => {
     const farmerMsg = `歡迎揪親朋好友來加入我的直播特賣: https://sun-live.vercel.app/livestream/${liveId}`;
     if (!isConnected || !user.userIdSender) {
@@ -170,7 +171,7 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
         user.userIdSender,
         user.nameSender,
         user.photoSender,
-        farmerMsg
+        farmerMsg,
       );
     } catch (error) {
       console.error('Failed to send message:', error);
@@ -180,77 +181,33 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     <>
       <ul
         className="px-24 pb-16 flex flex-col gap-16 overflow-y-auto max-h-[445px] flex-grow"
-        ref={messagesEndRef}>
+        ref={messagesEndRef}
+      >
         {user.nameSender && (
           <p className="text-12 text-center text-darkGray">
-            歡迎{user.nameSender}進入聊天室
+            歡迎
+            {user.nameSender}
+            進入聊天室
           </p>
         )}
         {messages.map((msg) => (
           <li
             key={uuidv4()}
-            className={`flex gap-8 ${msg.userIdSender === user.userIdSender ? 'justify-end' : 'justify-start'}`}>
-            {msg.userIdSender !== user.userIdSender ? (
-              <>
-                {msg.userIdSender === liveFarmerId ? (
-                  msg.photo ? (
-                    <Image
-                      src={msg.photo}
-                      alt="Live Host"
-                      roundedStyle="rounded-full object-cover"
-                      className="w-24 h-24 border-[2px] border-primary-yellow rounded-full flashing-border "
-                    />
-                  ) : (
-                    <BsPersonCircle size={24} className=" text-darkGray" />
-                  )
-                ) : msg.photo ? (
-                  <Image
-                    src={msg.photo}
-                    alt="Sender"
-                    roundedStyle="rounded-full object-cover"
-                    className="w-24 h-24"
-                  />
-                ) : (
-                  <BsPersonCircle size={24} className=" text-darkGray" />
-                )}
-                <div className="flex gap-6 text-14 items-baseline">
-                  <div className="flex ">
-                    <span
-                      className={`whitespace-nowrap ${msg.userIdSender === liveFarmerId ? 'bg-primary-yellow p-4 flex items-center gap-2 rounded-6' : 'text-darkGray'}`}>
-                      {msg.nickName}
-                      {msg.userIdSender === liveFarmerId && (
-                        <LogoImg classProps="w-16 h-16 logo-shake" />
-                      )}
-                    </span>
-                  </div>
-                  <p className="break-all break-words w-full">{msg.message}</p>
-                </div>
-              </>
-            ) : (
-              <>
-                <p className="break-all text-14 break-words w-full flex justify-end">
-                  {msg.message}
-                </p>
-                {liveFarmerId === user.userIdSender ? (
-                  <Image
-                    src={user.photoSender}
-                    alt="Live Host"
-                    roundedStyle="rounded-full object-cover"
-                    className="w-24 h-24 border-[2px] border-primary-yellow rounded-full flashing-border "
-                  />
-                ) : user.photoSender ? (
-                  // 一般用戶的圖片
-                  <Image
-                    src={user.photoSender}
-                    alt="Sender"
-                    roundedStyle="rounded-full object-cover"
-                    className="w-24 h-24"
-                  />
-                ) : (
-                  <BsPersonCircle size={24} className=" text-darkGray" />
-                )}
-              </>
-            )}
+            className={`flex gap-8 items-start ${msg.userIdSender === user.userIdSender ? 'flex-row-reverse' : 'justify-start'}`}
+          >
+            <Avatar
+              photo={msg.photo}
+              alt={msg.userIdSender === liveFarmerId ? 'Live Host' : 'Sender'}
+            />
+            <div className="flex gap-6 text-14 items-baseline">
+              {msg.userIdSender !== user.userIdSender && (
+                <NameTag
+                  nickName={msg.nickName}
+                  isLiveFarmer={msg.userIdSender === liveFarmerId}
+                />
+              )}
+              <p className="break-all break-words">{msg.message}</p>
+            </div>
           </li>
         ))}
       </ul>
@@ -259,7 +216,8 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
           <button
             type="button"
             className="text-white bg-primary-green rounded-8 text-14 leading-[30px] py-[5px] px-26 hover:opacity-80"
-            onClick={handerShare}>
+            onClick={handerShare}
+          >
             分享網址
           </button>
         </div>
