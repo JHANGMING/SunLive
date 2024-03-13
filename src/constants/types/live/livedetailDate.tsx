@@ -26,4 +26,5 @@ export type LivedetailDateType = {
   topProductStock: number;
   topProductLivePrice: number;
   liveProductList: LiveProductItemType[];
+  [key: string]: number | string | boolean | LiveProductItemType[] | undefined;
 };
