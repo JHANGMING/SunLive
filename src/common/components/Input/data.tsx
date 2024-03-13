@@ -16,6 +16,7 @@ export type FormValues = {
   zipCode: string;
   password: string;
   userName: string;
+  username: string;
   receiver: string;
   nickName: string;
   datePicker: Date;
@@ -27,6 +28,7 @@ export type FormValues = {
   startTime: string;
   smallStock: string;
   largeStock: string;
+  isRegister: boolean;
   smallWeight: string;
   largeWeight: string;
   description: string;
@@ -55,6 +57,7 @@ export type DefaultInputProps = {
   globalStyle?: string;
   isdisabled?: boolean;
   id: keyof FormValues;
+  autocomplete?: boolean;
   rules: RegisterOptions;
   errors?: FieldErrors<FormValues>;
   register?: UseFormRegister<FormValues>;
