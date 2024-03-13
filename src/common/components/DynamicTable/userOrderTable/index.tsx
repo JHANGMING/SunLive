@@ -8,7 +8,7 @@ const DynamicTable = ({ columns, data }: DynamicTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { currentData, maxPage, dataLength } = usePagination(
     transformData,
-    currentPage
+    currentPage,
   );
 
   const handlePrevious = () => {
@@ -35,7 +35,8 @@ const DynamicTable = ({ columns, data }: DynamicTableProps) => {
           {currentData.map((row) => (
             <tr
               className="text-center border-b border-lightGray"
-              key={row.orderId}>
+              key={row.orderId}
+            >
               {columns.map((column) => (
                 <td className="py-[13px]" key={column.key}>
                   {row[column.dataIndex]}
@@ -46,19 +47,26 @@ const DynamicTable = ({ columns, data }: DynamicTableProps) => {
         </tbody>
       </table>
       <div className="w-full flex justify-between mt-20 text-darkGray pl-12 pr-24">
-        <p>共 {dataLength} 筆資料</p>
+        <p>
+          共
+          {dataLength}
+          {' '}
+          筆資料
+        </p>
         <div className="flex gap-24">
           <p>{`${currentPage}/${maxPage}`}</p>
           <button
             type="button"
             onClick={handlePrevious}
-            className=" hover:text-mediumGray">
+            className=" hover:text-mediumGray"
+          >
             前一頁
           </button>
           <button
             type="button"
             onClick={handleNext}
-            className=" hover:text-mediumGray">
+            className=" hover:text-mediumGray"
+          >
             下一頁
           </button>
         </div>
