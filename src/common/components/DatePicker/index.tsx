@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { DatePickerShowProps } from './data';
 
 const DatePickerShow = ({
+  id,
   page,
   rules,
   errors,
@@ -23,6 +24,7 @@ const DatePickerShow = ({
         render={({ field: { onChange, value, ...field } }) => (
           <DatePicker
             {...field}
+            id={id}
             className={`${inputStyle} w-full border border-lightGray rounded-8 pl-16 focus-visible:outline-primary-green`}
             placeholderText="請選擇日期"
             dateFormat="yyyy/MM/dd"
@@ -37,8 +39,8 @@ const DatePickerShow = ({
           />
         )}
       />
-      {errors && errors['datePicker'] && (
-        <p className="text-primary-red mt-2">{errors['datePicker'].message}</p>
+      {errors && errors.datePicker && (
+        <p className="text-primary-red mt-2">{errors.datePicker.message}</p>
       )}
     </>
   );
