@@ -3,7 +3,7 @@ import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import CartPage from '@/modules/CartPage';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import Layout from '@/common/components/Layout';
 import { CartListProps } from '@/modules/CartPage/data';
 import { setCartData } from '@/redux/features/cartSlice';
@@ -24,7 +24,7 @@ const Cart = ({ cartData }: CartListProps) => {
 export default Cart;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = getCookie('token', { req: context.req});
+  const token = getCookie('token', { req: context.req });
   let cartData = [];
   try {
     if (!token) {
@@ -37,7 +37,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
     // 取得購物車商品
     const cartParams: ApiParamsType = {
-      apiPath: apiPaths['cart'],
+      apiPath: apiPaths.cart,
       method: 'GET',
       authToken: token,
     };
