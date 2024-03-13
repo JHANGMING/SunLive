@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
+import { BsSearch } from 'react-icons/bs';
 import Logo from '../Logo';
 import CartAndLogin from './CartAndLogin';
-import { BsSearch } from 'react-icons/bs';
 import SearchInput from '../Input/SearchInput';
 
 const SmallHeader = () => {
@@ -11,18 +11,20 @@ const SmallHeader = () => {
   }, []);
 
   return (
-    <div
-      className={` fixed top-0 left-1/2 transform -translate-x-1/2 bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0 py-12 lg:hidden`}>
+    <div className=" fixed top-0 left-1/2 transform -translate-x-1/2 bg-white z-30 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0 py-12 lg:hidden">
       <div className="container flex justify-between items-center ">
-        <div className={`flex lg:justify-center w-[78px]`}>
+        <div className="flex lg:justify-center w-[78px]">
           {!isSearchActive ? (
-            <div
+            <button
+              type="button"
+              aria-label="Search"
               className="bg-primary-yellow w-32 h-32 flex justify-center items-center rounded-full cursor-pointer hover:opacity-80"
-              onClick={handleSearchClick}>
+              onClick={handleSearchClick}
+            >
               <BsSearch className="text-16 text-mediumGray" />
-            </div>
+            </button>
           ) : (
-            <SearchInput headerVisible={true} onClick={handleSearchClick} />
+            <SearchInput headerVisible onClick={handleSearchClick} />
           )}
         </div>
         <div className="">

@@ -8,6 +8,7 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/zoom';
 import BannerTitle from './BannerTitle';
 import SearchInput from '../../Input/SearchInput';
+
 const Banner = () => {
   const { grassMotionLeft, grassMotionRight } = grassMotionSet;
   return (
@@ -18,7 +19,7 @@ const Banner = () => {
       </div>
       <Swiper
         spaceBetween={30}
-        centeredSlides={true}
+        centeredSlides
         speed={4000}
         autoplay={{
           delay: 5000,
@@ -26,7 +27,8 @@ const Banner = () => {
         }}
         effect="fade"
         modules={[Autoplay, EffectFade]}
-        className="bannerSwiper flex items-center justify-center">
+        className="bannerSwiper flex items-center justify-center"
+      >
         {bannerImgData.map((data) => (
           <SwiperSlide key={uuidv4()}>
             {({ isVisible }) => (
@@ -34,7 +36,7 @@ const Banner = () => {
                 src={data.src}
                 alt={data.alt}
                 roundedStyle="w-full object-cover"
-                priority={true}
+                priority
                 className={`h-[335px] lg:h-[600px] object-cover transition-transform duration-[25000ms] ease-in-out ${isVisible ? 'scale-125' : 'scale-110'}`}
               />
             )}

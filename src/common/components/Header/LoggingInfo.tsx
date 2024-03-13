@@ -3,12 +3,12 @@ import { useRouter } from 'next/router';
 import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import useAuth from '@/common/hooks/useAuth';
-import { authTab } from '@/common/lib/authTab';
-import { nextRoutes } from '@/constants/apiPaths';
+import authTabData from '@/common/lib/authTab';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
 import { removeAllCookies } from '@/common/helpers/getCookie';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import LogoImg from '../Logo/LogoImg';
 import { LoggingInfoProps } from './data';
 
@@ -18,8 +18,8 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
   const dispatch = useDispatch();
   const { authStatus } = useAuthStatus();
   const handlerLoginOut = async () => {
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['logout'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.logout,
       method: 'POST',
     };
     try {
@@ -34,14 +34,14 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
         router.push('/auth/login');
         dispatch(
           setToast({
-            message: authTab['noToken'],
-          })
+            message: authTabData.noToken,
+          }),
         );
       } else {
         dispatch(
           setToast({
             message: `${result.message || '未知錯誤'}`,
-          })
+          }),
         );
       }
     } catch (error) {
@@ -51,17 +51,20 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
 
   return (
     <div
-      className={`${dropdownClass} absolute right-16 top-60 py-24 px-20 w-[196px] bg-white z-50 border-4 border-primary-yellow rounded-12 rounded-tr-none`}>
+      className={`${dropdownClass} absolute right-16 top-60 py-24 px-20 w-[196px] bg-white z-50 border-4 border-primary-yellow rounded-12 rounded-tr-none`}
+    >
       {!authStatus ? (
         <>
           <Link
             href="/auth/login"
-            className=" bg-primary-yellow py-8 w-full block rounded-8 text-center mb-8 hover:font-bold">
+            className=" bg-primary-yellow py-8 w-full block rounded-8 text-center mb-8 hover:font-bold"
+          >
             會員登入
           </Link>
           <Link
             href="/auth/register"
-            className="border border-primary-yellow py-8 w-full block rounded-8 text-center hover:font-bold">
+            className="border border-primary-yellow py-8 w-full block rounded-8 text-center hover:font-bold"
+          >
             註冊新會員
           </Link>
         </>
@@ -75,13 +78,15 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
         {authStatus && auth?.category === '1' ? (
           <Link
             href="/dashboard/account"
-            className="mb-8 hover:text-primary-green ">
+            className="mb-8 hover:text-primary-green "
+          >
             我的後台
           </Link>
         ) : (
           <Link
             href="/personinfo?section=account"
-            className="mb-8 hover:text-primary-green ">
+            className="mb-8 hover:text-primary-green "
+          >
             我的帳戶
           </Link>
         )}
@@ -91,18 +96,18 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
               ? '/dashboard/orders/allorders'
               : '/personinfo?section=order'
           }
-          className="hover:text-primary-green mb-8">
+          className="hover:text-primary-green mb-8"
+        >
           {auth?.category === '1' ? '訂單管理' : '訂單查詢'}
         </Link>
         {authStatus && (
-          <>
-            <button
-              type="button"
-              className="hover:text-primary-green tracking-widest"
-              onClick={handlerLoginOut}>
-              會員登出
-            </button>
-          </>
+          <button
+            type="button"
+            className="hover:text-primary-green tracking-widest"
+            onClick={handlerLoginOut}
+          >
+            會員登出
+          </button>
         )}
       </div>
     </div>

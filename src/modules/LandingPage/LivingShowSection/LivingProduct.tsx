@@ -7,7 +7,7 @@ const LivingProduct = ({ living, liveData }: LivingProductProps) => {
   return (
     <div className="col-span-5 flex flex-col gap-y-8 lg:gap-y-16 items-center relative">
       <div className=" absolute -top-50 -right-20 animate-scale-bounce z-20">
-        <LiveIcon size={100} isLivingSection={true} />
+        <LiveIcon size={100} isLivingSection />
       </div>
       <div className="animate-scale-bounce absolute -top-16 -right-80 text-primary-yellow">
         <BsStars size={50} />
@@ -30,7 +30,9 @@ const LivingProduct = ({ living, liveData }: LivingProductProps) => {
               直播優惠價
             </p>
             <h4 className="text-14 lg:text-28 text-primary-red">
-              <span>$</span> {liveData?.data?.livePrice}
+              <span>$</span>
+              {' '}
+              {liveData?.data?.livePrice}
             </h4>
           </>
         ) : (

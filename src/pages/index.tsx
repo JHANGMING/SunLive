@@ -3,25 +3,25 @@ import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import { apiPaths } from '@/constants/apiPaths';
 import LandingPage from '@/modules/LandingPage';
+import fetchApi from '@/common/helpers/fetchApi';
 import { setCartData } from '@/redux/features/cartSlice';
 import { HomePropsType } from '@/modules/LandingPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import {
+  liveParams,
+  otherCategoryParams,
+  cartParams,
+} from '@/constants/api/apiParams';
 
-export default function Home({
-  liveData,
-  cartData,
-  topSaleProduct,
-}: HomePropsType) {
+const Home = ({ liveData, cartData, topSaleProduct }: HomePropsType) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       setAllProductsData({
         liveData,
         topSaleProduct,
-      })
+      }),
     );
     dispatch(setCartData({ cartData }));
   }, [liveData, topSaleProduct, cartData]);
@@ -31,7 +31,8 @@ export default function Home({
       <LandingPage />
     </Layout>
   );
-}
+};
+export default Home;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const token = getCookie('token', { req: context.req });
@@ -39,42 +40,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   let cartData = [];
   let topSaleProduct = [];
 
-  // 取得近期直播商品
-  const liveParams: ApiParamsType = {
-    apiPath: apiPaths['live'],
-    method: 'GET',
-  };
-
-  // 取得熱門商品
-  const otherCategoryParams: ApiParamsType = {
-    apiPath: apiPaths['otherCategory'],
-    method: 'GET',
-  };
-
   // 取得購物車
-  const cartParams: ApiParamsType = {
-    apiPath: apiPaths['cart'],
-    method: 'GET',
-    authToken: token,
-  };
+  const cartParamsData = { ...cartParams, token };
 
   const responses = await Promise.allSettled([
     fetchApi(liveParams),
     fetchApi(otherCategoryParams),
-    token ? fetchApi(cartParams) : Promise.resolve(null),
+    token ? fetchApi(cartParamsData) : Promise.resolve(null),
   ]);
-  const liveResponse =
-    responses[0].status === 'fulfilled'
-      ? responses[0].value
-      : { statusCode: 500 };
-  const otherCategoryResponse =
-    responses[1].status === 'fulfilled'
-      ? responses[1].value
-      : { statusCode: 500 };
-  const cartResponse =
-    responses[2].status === 'fulfilled'
-      ? responses[2].value
-      : { statusCode: 500 };
+  const liveResponse = responses[0].status === 'fulfilled' ? responses[0].value : { statusCode: 500 };
+  const otherCategoryResponse = responses[1].status === 'fulfilled' ? responses[1].value : { statusCode: 500 };
+  const cartResponse = responses[2].status === 'fulfilled' ? responses[2].value : { statusCode: 500 };
 
   if (liveResponse.statusCode === 200) {
     liveData = liveResponse;
