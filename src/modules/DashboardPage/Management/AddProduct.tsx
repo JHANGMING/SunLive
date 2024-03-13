@@ -6,13 +6,13 @@ import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Button from '@/common/components/Button';
 import Editor from '@/common/components/Editor';
-import { nextRoutes } from '@/constants/apiPaths';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import Image from '@/common/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
 import PersonInput from '@/common/components/Input/PersonInput';
 import ManagementSelect from '@/common/components/Select/ManagementSelect';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import {
   PreviewImagesProps,
   SelectedFilesProps,
@@ -26,12 +26,8 @@ import {
 const AddProduct = () => {
   const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [selectedFiles, setSelectedFiles] = useState<
-    SelectedFilesProps[]
-  >([]);
-  const [previewImages, setPreviewImages] = useState<
-    PreviewImagesProps[]
-  >([]);
+  const [selectedFiles, setSelectedFiles] = useState<SelectedFilesProps[]>([]);
+  const [previewImages, setPreviewImages] = useState<PreviewImagesProps[]>([]);
   const {
     reset,
     control,
@@ -70,8 +66,8 @@ const AddProduct = () => {
       formData.append(`file${index}`, file);
     });
 
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['addproduct'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.addproduct,
       method: 'POST',
       data: dataObj,
     };
@@ -87,7 +83,7 @@ const AddProduct = () => {
         return;
       }
       if (result.statusCode === 200) {
-        const url = `/api${nextRoutes['uploadProductImg']}?id=${result.data.productId}`;
+        const url = `/api${nextRoutes.uploadProductImg}?id=${result.data.productId}`;
         const imgResponse = await fetch(url, imgParams);
         const imgResult = await imgResponse.json();
         if (imgResult.statusCode !== 200) {
@@ -104,7 +100,7 @@ const AddProduct = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -147,9 +143,12 @@ const AddProduct = () => {
         {/* 上傳圖片 */}
         <div className="mb-24 flex flex-col items-center">
           <p className="mb-8">農產品圖片</p>
-          <div
-            className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center hover:opacity-70 cursor-pointer"
-            onClick={triggerFileInput}>
+          <button
+            type="button"
+            aria-label="EditFileImg"
+            className="w-100 h-100 border-2 border-dashed rounded-[4px] flex justify-center items-center hover:opacity-70"
+            onClick={triggerFileInput}
+          >
             <BsPlusCircle
               size={24}
               className=" text-lightGray cursor-pointer"
@@ -163,12 +162,13 @@ const AddProduct = () => {
               multiple
               ref={fileInputRef}
             />
-          </div>
+          </button>
         </div>
         {previewImages.length > 0 && (
           <div className="mb-24">
             <p>
-              <span className=" text-primary-red">*</span>(限5張)
+              <span className=" text-primary-red">*</span>
+              (限5張)
             </p>
             <ul className="flex gap-16">
               {previewImages.map(({ url, id }) => (
@@ -193,7 +193,8 @@ const AddProduct = () => {
       <form
         action=""
         className="flex flex-col gap-24"
-        onSubmit={handleSubmit(onSubmit)}>
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex gap-24">
           <PersonInput
             type="text"
@@ -389,7 +390,8 @@ const AddProduct = () => {
         </div>
         <Button
           category="submit"
-          classStyle="bg-primary-green self-end hover:opacity-70">
+          classStyle="bg-primary-green self-end hover:opacity-70"
+        >
           新增
         </Button>
       </form>
