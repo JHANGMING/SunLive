@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next';
 import { GetServerSidePropsContext } from 'next';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import Layout from '@/common/components/Layout';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import EditProduct from '@/modules/DashboardPage/Management/EditProduct';
@@ -17,16 +17,16 @@ const EditProducts = ({ detailData }: EditProductsProps) => {
 export default EditProducts;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   const token = getCookie('token', { req: context.req });
-  const params = context.params;
-  const productId = params ? params['productId'] : null;
+  const { params } = context;
+  const productId = params ? params.productId : null;
   let detailData = [];
   try {
     // 取得編輯農產品
     const detailParams: ApiParamsType = {
-      apiPath: `${apiPaths['productSet']}/${productId}`,
+      apiPath: `${apiPaths.productSet}/${productId}`,
       method: 'GET',
       authToken: token,
     };
