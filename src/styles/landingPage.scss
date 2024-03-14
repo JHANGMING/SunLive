@@ -1,0 +1,48 @@
+//banner
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+//landingPage friendlyFarmSection background
+.bg-friendlyFarmBG {
+  background-position: top center;
+}
+
+//homeSwiper
+.homeSwiper .swiper {
+  @apply w-full h-full;
+}
+
+.homeSwiper .swiper-slide {
+  @apply w-[160px] lg:w-[378px];
+  & img {
+    object-fit: cover;
+  }
+}
+.homeSwiper .swiper-wrapper {
+  transition-timing-function: linear;
+}
+
+//livingShowSection LogoImg
+@keyframes shake {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.logo-shake {
+  animation: shake 1s infinite;
+}
+
+.outline-offset:hover {
+  outline-offset: 4px;
+}
+
+.rotate-30 {
+  transform: rotate(30deg);
+}

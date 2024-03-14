@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'chat.scss';
+@import 'auth.scss';
+@import 'live.scss';
+@import 'header.scss';
+@import 'productShop';
+@import 'datepicker.scss';
+@import 'landingPage.scss';
+@layer base {
+  body {
+    margin: 0 auto;
+    line-height: 1.5;
+    scroll-behavior: smooth;
+    @apply tracking-widest text-mediumGray;
+  }
+
+  h1 {
+    @apply text-40 font-bold;
+  }
+  h2 {
+    @apply text-32 font-bold;
+  }
+  h3 {
+    @apply text-28 font-bold;
+  }
+  h4 {
+    @apply text-24 font-bold;
+  }
+  h5 {
+    @apply text-20;
+  }
+  h6 {
+    @apply text-18 font-bold;
+  }
+  img {
+    object-fit: cover;
+  }
+  a {
+    @apply block;
+  }
+}
+@layer components {
+  .cartIcon {
+    @apply relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3;
+  }
+  .cartCount {
+    @apply relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3;
+  }
+  .authIcon {
+    @apply shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full;
+  
+  }
+}
+//cart
+.cartlist li:not(:last-child) {
+  @apply border-b border-lightGray;
+}
