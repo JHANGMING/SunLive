@@ -40,14 +40,8 @@
   .cartCount {
     @apply relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3;
   }
-  .authIcon {
-    @apply shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full;
-  }
   .authTextLine {
     @apply text-18 flex justify-center items-center text-center text-darkGray after:content-[''] after:h-1 after:flex-auto after:mx-10 after:bg-darkGray before:content-[''] before:h-1 before:flex-auto before:mx-10 before:bg-darkGray;
-  }
-  .categoryTitleEllipse {
-    @apply bg-primary-yellow bg-opacity-50 text-center flex items-center justify-center rounded-[50%] w-[150px] h-32;
   }
   .product-card-enter {
     @apply opacity-0;
@@ -73,27 +67,6 @@
   @apply text-14 text-darkGray tracking-widest;
 }
 
-/* chat peopleCount */
-.flip-animation {
-  display: inline-block;
-  animation: flipAnimation 1s forwards;
-}
-
-.fade-in {
-  animation: fadeIn 0.5s ease-in;
-}
-
-/* live/veiw */
-.shiny-scale-effect {
-  animation: shinyScaleEffect 3s infinite ease-in-out;
-  @apply text-primary-red;
-}
-
-/* iveIocn  scale */
-.animate-scale-bounce {
-  animation: scale-bounce 2s ease-in-out infinite;
-}
-
 /* landingPage friendlyFarmSection background */
 .bg-friendlyFarmBG {
   background-position: top center;
@@ -110,11 +83,6 @@
   transition-timing-function: linear;
 }
 
-/* livingShowSection LogoImg */
-.logo-shake {
-  animation: shake 1s infinite;
-}
-
 .outline-offset:hover {
   outline-offset: 4px;
 }
@@ -128,37 +96,4 @@
 .hover-trigger:hover .hover-target {
   opacity: 0.5;
   transform: scale(1);
-}
-
-.hover-trigger {
-  position: relative;
-  display: inline-block;
-}
-
-.group:hover .group-shake {
-  animation: shake 0.5s ease-in-out;
-}
-
-.shake :hover {
-  animation: shake 0.5s ease-in-out;
-}
-
-.shiny-button {
-  background-image: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.6) 70%,
-    transparent
-  );
-  background-size: 200% 100%;
-  animation: shiny 2s linear infinite;
-  @apply bg-primary-yellow relative border-none overflow-hidden py-16 px-24;
-}
-
-.dropdown-enter {
-  animation: slideDown 0.3s ease forwards;
-}
-
-.dropdown-exit {
-  animation: slideUp 0.3s ease forwards;
 }
