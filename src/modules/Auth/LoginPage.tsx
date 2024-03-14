@@ -36,7 +36,6 @@ const LoginPage = () => {
     const height = window.innerHeight;
     const left = width / 2 - windowDimensions.width / 2;
     const top = height / 2 - windowDimensions.height / 2;
-
     setWindowDimensions({ ...windowDimensions, left, top });
   }, []);
   useEffect(() => {
@@ -159,9 +158,7 @@ const LoginPage = () => {
           立即登入
         </Button>
       </form>
-      <div className="text-center text-18 text-with-lines text-darkGray">
-        或
-      </div>
+      <div className="authTextLine">或</div>
       <div className="px-55.5">
         <Button
           type="button"
