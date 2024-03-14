@@ -18,7 +18,7 @@ const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
   const dispatch = useDispatch();
   const [loginData, setLoginData] = useState(initialLoginData);
   const handleMessage = async (event: MessageEvent) => {
-    const expectedOrigin = 'http://localhost:3000';
+    const expectedOrigin = 'https://sun-live.vercel.app';
     if (event.origin !== expectedOrigin) {
       return;
     }
