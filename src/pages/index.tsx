@@ -7,7 +7,10 @@ import LandingPage from '@/modules/LandingPage';
 import fetchApi from '@/common/helpers/fetchApi';
 import { setCartData } from '@/redux/features/cartSlice';
 import { HomePropsType } from '@/modules/LandingPage/data';
+import { LivesDataType } from '@/constants/types/live/live';
+import { CartDataType } from '@/constants/types/cart/cartlist';
 import { setAllProductsData } from '@/redux/features/productSlice';
+import { AllproductsDataType } from '@/constants/types/product/allproducts';
 import {
   liveParams,
   otherCategoryParams,
@@ -36,9 +39,9 @@ export default Home;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const token = getCookie('token', { req: context.req });
-  let liveData = [];
-  let cartData = [];
-  let topSaleProduct = [];
+  let liveData: LivesDataType = {};
+  let cartData: CartDataType = {};
+  let topSaleProduct: AllproductsDataType = [];
 
   // 取得購物車
   const cartParamsData = { ...cartParams, token };
@@ -48,21 +51,32 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     fetchApi(otherCategoryParams),
     token ? fetchApi(cartParamsData) : Promise.resolve(null),
   ]);
-  const liveResponse = responses[0].status === 'fulfilled' ? responses[0].value : { statusCode: 500 };
-  const otherCategoryResponse = responses[1].status === 'fulfilled' ? responses[1].value : { statusCode: 500 };
-  const cartResponse = responses[2].status === 'fulfilled' ? responses[2].value : { statusCode: 500 };
-
-  if (liveResponse.statusCode === 200) {
-    liveData = liveResponse;
-  }
-
-  if (otherCategoryResponse.statusCode === 200 && otherCategoryResponse.data) {
-    topSaleProduct = otherCategoryResponse.data.topSaleProduct;
-  }
-
-  if (cartResponse && cartResponse.statusCode === 200) {
-    cartData = cartResponse.data;
-  }
+  responses.forEach((response, index) => {
+    if (response.status !== 'fulfilled') return;
+    switch (response.value.statusCode) {
+      case 200:
+        switch (index) {
+          case 0:
+            liveData = response.value;
+            break;
+          case 1:
+            if (response.value.data) {
+              topSaleProduct = response.value.data.topSaleProduct;
+            }
+            break;
+          case 2:
+            cartData = response.value.data;
+            break;
+          default:
+            break;
+        }
+        break;
+      case 401:
+        break;
+      default:
+        break;
+    }
+  });
 
   return {
     props: {
