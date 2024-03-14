@@ -16,3 +16,10 @@ export const optionsData: OptionType[] = [
   { value: '0', label: '男' },
   { value: '1', label: '女' },
 ];
+
+export type OptionPropsType =
+  | string
+  | boolean
+  | Date
+  | { label: string; value: string }
+  | { value: string; label: string };

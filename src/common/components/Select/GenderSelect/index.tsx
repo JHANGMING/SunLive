@@ -1,7 +1,7 @@
-import Select, { StylesConfig } from 'react-select';
+import Select, { StylesConfig, GroupBase } from 'react-select';
 import { Controller } from 'react-hook-form';
 import useClient from '@/common/hooks/useClient';
-import { GenderSelectProps, OptionType, optionsData } from './data';
+import { GenderSelectProps, OptionPropsType, optionsData } from './data';
 
 const GenderSelect = ({
   id,
@@ -10,7 +10,8 @@ const GenderSelect = ({
   defaultValue,
 }: GenderSelectProps) => {
   const isClient = useClient();
-  const customStyles: StylesConfig<string | Date | OptionType, false> = {
+  const customStyles: StylesConfig< OptionPropsType, false, GroupBase<OptionPropsType>
+  > = {
     control: (provided, state) => ({
       ...provided,
       width: '100%',
