@@ -18,7 +18,7 @@ const Verify = () => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        const targetOrigin = 'http://localhost:3000' || 'https://sun-live.vercel.app';
+        const targetOrigin = 'https://sun-live.vercel.app';
         if (window.opener) {
           window.opener.postMessage({ type: 'auth', result }, targetOrigin);
           window.close();
