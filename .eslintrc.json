@@ -5,12 +5,14 @@
     "es2021": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:@typescript-eslint/recommended",
     "airbnb",
-    "airbnb-typescript"
+    "airbnb-typescript",
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "overrides": [],
 
@@ -26,17 +28,18 @@
       "typescript": {}
     }
   },
-  "plugins": ["react", "@typescript-eslint", "jsx-a11y"],
+  "plugins": ["import", "react","@typescript-eslint"],
 
   "rules": {
-    "jsx-a11y/label-has-associated-control": "off",
-    "arrow-body-style": "off",
+    "arrow-body-style": 0,
     "no-console": ["error", { "allow": ["warn", "error"] }],
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-props-no-spreading": "off",
-    "import/no-named-as-default": 0,
-    "react/require-default-props": "off",
     "linebreak-style": ["error", "unix"],
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/require-default-props": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "import/no-named-as-default": 0,
+    "jsx-a11y/label-has-associated-control": "off",
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "no-multiple-empty-lines": [
       "error",
