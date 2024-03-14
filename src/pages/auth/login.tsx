@@ -3,7 +3,7 @@ import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import authTabData from '@/common/lib/authTab';
+import authTabData from '@/constants/lib/authTab';
 import Layout from '@/common/components/Layout';
 import LoginPage from '@/modules/Auth/LoginPage';
 import { LoginPrpos, ROUTES } from '@/modules/Auth/data';
@@ -60,7 +60,7 @@ const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
     dispatch(
       setToast({
         message: authTabData.welcome,
-      }),
+      })
     );
   }, [loginData]);
   useEffect(() => {
@@ -80,7 +80,7 @@ const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
 export default Login;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ) => {
   let loginData = [];
   const { req, res } = context;
@@ -89,9 +89,10 @@ export const getServerSideProps = async (
     account = 'defaultAccount',
     time = 'defaultTime',
   } = context.query;
-  const hasValidQueryParams = guid !== 'defaultGuid'
-    || account !== 'defaultAccount'
-    || time !== 'defaultTime';
+  const hasValidQueryParams =
+    guid !== 'defaultGuid' ||
+    account !== 'defaultAccount' ||
+    time !== 'defaultTime';
 
   if (!hasValidQueryParams) {
     return {
