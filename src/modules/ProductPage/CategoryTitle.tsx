@@ -6,7 +6,7 @@ const CategoryTitle = ({
   gapStyle,
   backgroundStyle = true,
 }: CategoryTitleProps) => {
-  const h3Style = backgroundStyle === true ? 'ellipse' : '';
+  const h3Style = backgroundStyle === true ? 'categoryTitleEllipse' : '';
   return (
     <div className={`flex gap-10 p-16 h-74 items-center ${gapStyle}`}>
       <LogoImg classProps="w-32 h-32" />
