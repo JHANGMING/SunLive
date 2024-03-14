@@ -1,4 +1,5 @@
 import { ColumnType, FarmerOrderDataType } from '../data';
+
 export type OrderDataType = {
   [key: string]: string | string[] | number;
 };

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import LiveStreamView from '@/modules/LiveStreamView';
 import { LivestreamingProps } from '@/modules/LiveStreamView/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
@@ -23,16 +23,16 @@ const Livestreaming = ({ liveDetailData }: LivestreamingProps) => {
 export default Livestreaming;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
-  const params = context.params;
-  const liveId = params ? params['liveId'] : null;
+  const { params } = context;
+  const liveId = params ? params.liveId : null;
 
   let liveDetailData = [];
   try {
     // 取得編輯Live 直播頁
     const liveParams: ApiParamsType = {
-      apiPath: `${apiPaths['live']}/${liveId}`,
+      apiPath: `${apiPaths.live}/${liveId}`,
       method: 'GET',
     };
     const liveResponse = await fetchApi(liveParams);

@@ -10,13 +10,13 @@ const fetchApi = async (apiParams: ApiParamsType) => {
   const { apiPath, method, data, authToken } = apiParams;
   const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPath}`;
   const requestOptions: RequestInit = {
-    method: method,
+    method,
     headers: {
       'Content-Type': 'application/json',
       ...(authToken && { Authorization: `Bearer ${authToken}` }),
     },
-    ...(typeof data === 'object' &&
-      data !== null && { body: JSON.stringify(data) }),
+    ...(typeof data === 'object'
+      && data !== null && { body: JSON.stringify(data) }),
     ...(typeof data === 'string' && { body: data }),
   };
 
@@ -25,7 +25,7 @@ const fetchApi = async (apiParams: ApiParamsType) => {
     const result = await res.json();
     return result;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 };

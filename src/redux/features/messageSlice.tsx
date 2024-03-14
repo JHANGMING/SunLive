@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface InitialStateType {
   message: string;
@@ -21,31 +21,38 @@ export const messageSlice = createSlice({
   name: 'message',
   initialState,
   reducers: {
-    showLoading: (state) => {
-      state.isLoading = true;
-    },
-    hideLoading: (state) => {
-      state.isLoading = false;
-    },
-    setToast: (state, action) => {
-      state.showMessage = true;
-      state.message = action.payload.message || '';
-    },
-    hideToast: (state) => {
-      state.showMessage = false;
-      state.message = '';
-    },
-    setLiveRoomId: (state, action) => {
-      state.livechatroomId = action.payload;
-    },
-    setFamerId: (state, action) => {
-      state.farmerId = action.payload;
-      state.isReadyToShowChat = true;
-    },
-    clearFamerId: (state) => {
-      state.farmerId = 0;
-      state.isReadyToShowChat = false;
-    },
+    showLoading: (state) => ({
+      ...state,
+      isLoading: true,
+    }),
+    hideLoading: (state) => ({
+      ...state,
+      isLoading: false,
+    }),
+    setToast: (state, action: PayloadAction<{ message: string }>) => ({
+      ...state,
+      showMessage: true,
+      message: action.payload.message,
+    }),
+    hideToast: (state) => ({
+      ...state,
+      showMessage: false,
+      message: '',
+    }),
+    setLiveRoomId: (state, action: PayloadAction<number>) => ({
+      ...state,
+      livechatroomId: action.payload,
+    }),
+    setFamerId: (state, action: PayloadAction<number>) => ({
+      ...state,
+      farmerId: action.payload,
+      isReadyToShowChat: true,
+    }),
+    clearFamerId: (state) => ({
+      ...state,
+      farmerId: 0,
+      isReadyToShowChat: false,
+    }),
   },
 });
 

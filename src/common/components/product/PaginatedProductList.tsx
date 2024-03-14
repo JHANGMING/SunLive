@@ -21,7 +21,7 @@ const PaginatedProductList = ({
             key={uuidv4()}
             {...item}
             imgBorderStyle="border-primary-yellow"
-            buttonAtBottom={true}
+            buttonAtBottom
           />
         ))}
       </ul>

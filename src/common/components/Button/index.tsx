@@ -27,7 +27,8 @@ const Button = ({
           type={type}
           onClick={onClick}
           classStyle={classStyle}
-          {...props}>
+          {...props}
+        >
           {children}
         </AuthButton>
       );
@@ -42,7 +43,8 @@ const Button = ({
         <DefaultButton
           classStyle={classStyle}
           onClick={onClick}
-          disabled={disabled}>
+          disabled={disabled}
+        >
           {children}
         </DefaultButton>
       );

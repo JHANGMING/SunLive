@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import ProductDetailPage from '@/modules/ProductDetailPage';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
@@ -16,7 +16,7 @@ const ProductDetail = ({ detailData }: ProductDetailProps) => {
       setAllProductsData({
         detailProduct,
         productInfoByUser,
-      })
+      }),
     );
   }, [detailProduct, productInfoByUser]);
   return (
@@ -29,15 +29,15 @@ const ProductDetail = ({ detailData }: ProductDetailProps) => {
 export default ProductDetail;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
-  const params = context.params;
-  const productId = params ? params['productId'] : null;
+  const { params } = context;
+  const productId = params ? params.productId : null;
   let detailData = [];
   try {
     // 取得商品細節
     const detailParams: ApiParamsType = {
-      apiPath: `${apiPaths['detail']}/${productId}`,
+      apiPath: `${apiPaths.detail}/${productId}`,
       method: 'GET',
     };
 

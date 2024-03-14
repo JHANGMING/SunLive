@@ -9,7 +9,7 @@ import YoutubeLiveIfram from './YoutubeLiveLink';
 
 const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
   const { liveData } = useSelector((state: RootState) => state.product);
-  const living = liveData?.message === '沒有直播' ? false : true;
+  const living = liveData?.message !== '沒有直播';
   const sectionStyle = isLivePage && '-mt-[180px] bg-white';
 
   return (
@@ -30,7 +30,8 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
             </p>
             <Link
               href="/livestream/view"
-              className="shiny-button text-primary-red bg-white py-8 px-16 lg:py-16 lg:px-24 flex rounded-20 items-center gap-8 lg:gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group">
+              className="shiny-button text-primary-red bg-white py-8 px-16 lg:py-16 lg:px-24 flex rounded-20 items-center gap-8 lg:gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group"
+            >
               <BsHandIndex className=" rotate-90 w-20 h-20 lg:w-24 lg:h-24 transition-transform group-hover:translate-x-4 group-hover:text-mediumGray" />
               <h4 className="text-14 lg:text-24 group-hover:text-mediumGray">
                 {living ? '立刻加入直播' : '查看更多'}
@@ -40,7 +41,8 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
         </div>
       </section>
       <section
-        className={`hidden bg-liveBG bg-repeat-x bg-bottom lg:flex h-[528px] ${sectionStyle} `}>
+        className={`hidden bg-liveBG bg-repeat-x bg-bottom lg:flex h-[528px] ${sectionStyle} `}
+      >
         <ul className="hidden container lg:grid grid-cols-12 gap-24 mb-46">
           <li className=" col-span-6">
             <YoutubeLiveIfram isLivePage={isLivePage} />
@@ -65,7 +67,8 @@ const LivingShowSection = ({ isLivePage = false }: LivingShowSectionProps) => {
                       ? `/livestream/${liveData?.data?.liveId}`
                       : '/productshop'
                   }
-                  className="outline-offset shiny-button text-primary-red bg-white py-16 px-24 flex rounded-20 items-center gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group">
+                  className="outline-offset shiny-button text-primary-red bg-white py-16 px-24 flex rounded-20 items-center gap-16 border border-dashed border-primary-red hover:outline hover:outline-8 hover:outline-white group"
+                >
                   <BsHandIndex className=" rotate-90 w-24 h-24 transition-transform group-hover:translate-x-4 group-hover:text-mediumGray" />
                   <h4 className="group-hover:text-mediumGray">
                     {living ? '立刻加入直播' : '查看更多'}

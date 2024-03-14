@@ -158,10 +158,13 @@ const config: Config = {
     },
   },
   plugins: [
+    // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
     require('tailwindcss-writing-mode')({
       variants: ['responsive', 'hover'],
     }),
+    // eslint-disable-next-line global-require
     require('tailwindcss-textshadow'),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any , func-names
     function ({ addComponents }: any) {
       addComponents({
         '.container': {

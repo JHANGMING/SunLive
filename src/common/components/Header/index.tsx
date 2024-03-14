@@ -2,10 +2,10 @@ import useSWR from 'swr';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Logo from '@/common/components/Logo';
-import { fetcher } from '@/common/helpers/fetcher';
-import { nextRoutes } from '@/constants/apiPaths';
+import fetcher from '@/common/helpers/fetcher';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setCartData } from '@/redux/features/cartSlice';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
 import NavBar from './Navbar';
 import { pageSet } from './data';
 import CartAndLogin from './CartAndLogin';
@@ -16,8 +16,8 @@ const Header = ({ pageCategory }: LayoutPropsType) => {
   const { authStatus } = useAuthStatus();
   const headerBehavior = pageSet[pageCategory];
   const { data } = useSWR(
-    authStatus ? `/api${nextRoutes['getcart']}` : null,
-    fetcher
+    authStatus ? `/api${nextRoutes.getcart}` : null,
+    fetcher,
   );
   useEffect(() => {
     dispatch(setCartData({ cartData: data }));

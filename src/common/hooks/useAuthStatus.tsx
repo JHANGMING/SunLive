@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
-import { fetchAuthStatus } from '@/common/helpers/fetchAuthStatus';
+import fetchAuthStatus from '@/common/helpers/fetchAuthStatus';
 
-export function useAuthStatus() {
+const useAuthStatus = () => {
   const [authStatus, setAuthStatus] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -25,4 +25,5 @@ export function useAuthStatus() {
   }, []);
 
   return { authStatus, loading };
-}
+};
+export default useAuthStatus;

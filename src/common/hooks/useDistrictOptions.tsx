@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { locationData } from '@/constants/location';
+import locationData from '@/constants/location';
 import { OptionType } from '../components/Select/LocationSelect/data';
 
 const useDistrictOptions = (selectedCounty: string): OptionType[] => {
@@ -7,7 +7,7 @@ const useDistrictOptions = (selectedCounty: string): OptionType[] => {
 
   useEffect(() => {
     const selectedCityData = locationData.find(
-      (city) => city.name === selectedCounty
+      (city) => city.name === selectedCounty,
     );
     if (selectedCityData) {
       const newDistrictOptions = selectedCityData.districts.map((district) => ({

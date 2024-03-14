@@ -1,4 +1,4 @@
-type productImgType = {
+type ProductImgType = {
   src: string;
   alt: string;
 };
@@ -26,7 +26,7 @@ export type DetailproductItemType = {
   largeproductSpecId: number;
   smallPromotionPrice: number;
   largePromotionPrice: number;
-  productImages: productImgType[];
+  productImages: ProductImgType[];
   farmerImg: {
     src: string;
     alt: string;

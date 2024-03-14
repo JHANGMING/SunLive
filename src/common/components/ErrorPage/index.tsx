@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import Button from '../Button';
 import LogoImg from '../Logo/LogoImg';
 import { ErrorPagePropsType } from './data';
+
 const ErrorPage = ({ page }: ErrorPagePropsType) => {
   const router = useRouter();
   const handlerToIndex = () => {
@@ -18,7 +19,8 @@ const ErrorPage = ({ page }: ErrorPagePropsType) => {
           category="addCart"
           btnStyle="flex justify-center bg-primary-red border-white w-[206px]"
           textStyle="text-white"
-          onClick={handlerToIndex}>
+          onClick={handlerToIndex}
+        >
           返回首頁
         </Button>
       </div>

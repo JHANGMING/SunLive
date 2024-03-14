@@ -1,6 +1,5 @@
 import React from 'react';
-import Select from 'react-select';
-import { StylesConfig } from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import { Controller } from 'react-hook-form';
 import useClient from '@/common/hooks/useClient';
 import { ProductSpecSelectProps, OptionType, productSpecData } from './data';
@@ -48,7 +47,7 @@ const ProductSpecSelect = ({ control, id }: ProductSpecSelectProps) => {
                 options={productSpecData}
                 styles={customStyles}
                 value={productSpecData.find(
-                  (option) => option.value === field.value
+                  (option) => option.value === field.value,
                 )}
                 onChange={(val) => {
                   if (typeof val === 'object' && val !== null) {

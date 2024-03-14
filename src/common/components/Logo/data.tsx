@@ -1,4 +1,4 @@
-export type classStyleProps = {
+export type ClassStyleProps = {
   classStyle?: string;
   classProps?: string;
   textSytle?: string;

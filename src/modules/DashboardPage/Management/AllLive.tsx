@@ -21,14 +21,17 @@ const AllLive = () => {
                 ? '/dashboard/live'
                 : '/dashboard/live/livesetting'
             }
-            passHref>
-            <h4
+            passHref
+          >
+            <button
+              type="button"
               onClick={() => handleTabClick(tab)}
               className={`text-16 font-normal py-10 px-8 rounded-8 cursor-pointer hover:opacity-70 ${
                 selectedTab === tab ? 'bg-primary-yellow' : ''
-              }`}>
+              }`}
+            >
               {tab}
-            </h4>
+            </button>
           </Link>
         ))}
       </div>

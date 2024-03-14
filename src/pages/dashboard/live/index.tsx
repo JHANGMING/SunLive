@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import Layout from '@/common/components/Layout';
 import AllLive from '@/modules/DashboardPage/Management/AllLive';
 import { setLivelistData } from '@/redux/features/dashboardSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { LiveListProps } from '@/modules/DashboardPage/Management/data';
+
 const Live = ({ listData }: LiveListProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,7 +24,7 @@ const Live = ({ listData }: LiveListProps) => {
 export default Live;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = getCookie('token', { req: context.req});
+  const token = getCookie('token', { req: context.req });
   let listData = {};
   if (!token) {
     return {
@@ -34,7 +35,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
   const liveParams: ApiParamsType = {
-    apiPath: apiPaths['livelist'],
+    apiPath: apiPaths.livelist,
     method: 'GET',
     authToken: token,
   };

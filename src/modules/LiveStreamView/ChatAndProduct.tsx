@@ -8,7 +8,7 @@ import { ChatAndProductPorps } from './data';
 
 const LiveChatCountdownWithNoSSR = dynamic(
   () => import('./LiveChatCountdown'),
-  { ssr: false }
+  { ssr: false },
 );
 
 const ChatAndProduct = ({
@@ -39,7 +39,8 @@ const ChatAndProduct = ({
             return (
               <div
                 key={uuidv4()}
-                className={`bg-SoftGray text-mediumGray font-bold px-4 ${flip ? 'flip-animation' : ''}`}>
+                className={`bg-SoftGray text-mediumGray font-bold px-4 ${flip ? 'flip-animation' : ''}`}
+              >
                 {num}
               </div>
             );
@@ -51,7 +52,8 @@ const ChatAndProduct = ({
       {/* 聊天室 */}
       <div className={`${isFarmer ? 'px-24 py-8' : 'px-24 py-16'}`}>
         <div
-          className={` bg-SoftGray rounded-20  flex gap-20 ${isFarmer ? 'px-16 py-8' : 'p-16'}`}>
+          className={` bg-SoftGray rounded-20  flex gap-20 ${isFarmer ? 'px-16 py-8' : 'p-16'}`}
+        >
           <Image
             src={
               liveDetailData?.topProductPhoto
@@ -74,10 +76,12 @@ const ChatAndProduct = ({
               )}
             </div>
             <p className="">
-              剩餘{' '}
+              剩餘
+              {' '}
               <span className=" text-primary-red text-24 font-bold shiny-scale-effect">
                 {liveDetailData?.topProductStock}
-              </span>{' '}
+              </span>
+              {' '}
               組
             </p>
             {isFarmer && (
@@ -89,14 +93,13 @@ const ChatAndProduct = ({
             {isFarmer || (
               <GlobalLink
                 href="/cart"
-                openInNewTab={
-                  liveDetailData?.topProductStock === 0 ? false : true
-                }
+                openInNewTab={liveDetailData?.topProductStock !== 0}
                 isDisabled={liveDetailData?.topProductStock === 0}
                 className={` text-white w-full rounded-8 text-center  ${liveDetailData?.topProductStock === 0 ? 'bg-darkGray cursor-not-allowed' : 'bg-primary-red cursor-pointer hover:opacity-60'}`}
                 productSpecId={liveDetailData?.topSpecId}
                 productId={liveDetailData?.topProductId}
-                liveId={liveDetailData?.liveId}>
+                liveId={liveDetailData?.liveId}
+              >
                 {liveDetailData?.topProductStock === 0
                   ? '已賣光光'
                   : '加入購物車'}

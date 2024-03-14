@@ -15,10 +15,12 @@ const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
           {liveData?.map((data, index) => (
             <li
               key={data.productId}
-              className="flex flex-col col-span-3 relative">
+              className="flex flex-col col-span-3 relative"
+            >
               <Link
                 href={`/productshop/${data.productId}`}
-                className=" relative mb-24 border-4 rounded-20 border-primary-yellow">
+                className=" relative mb-24 border-4 rounded-20 border-primary-yellow"
+              >
                 <Image
                   src={data.productPhoto}
                   alt={data.productName}
@@ -26,7 +28,8 @@ const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
                   className=" h-[284px] rounded-16 hover:opacity-60"
                 />
                 <h4
-                  className={`absolute left-0 bottom-0  w-full opacity-80 flex justify-center items-center rounded-bl-16 rounded-br-16  text-primary-green bg-white/90 ${data?.productStock === 0 ? 'h-full rounded-16' : 'py-16'}`}>
+                  className={`absolute left-0 bottom-0  w-full opacity-80 flex justify-center items-center rounded-bl-16 rounded-br-16  text-primary-green bg-white/90 ${data?.productStock === 0 ? 'h-full rounded-16' : 'py-16'}`}
+                >
                   剩餘
                   <span className=" text-primary-red mx-8 shiny-scale-effect">
                     {data.productStock}
@@ -36,7 +39,8 @@ const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
               </Link>
               <Link
                 href={`/productshop/${data.productId}`}
-                className="flex gap-16 justify-center mb-16">
+                className="flex gap-16 justify-center mb-16"
+              >
                 <LogoImg classProps="w-32 h-32 group-shake" />
                 <h3 className="text-primary-green hover:opacity-80">
                   {data.productName}
@@ -55,7 +59,7 @@ const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
                 <GlobalLink
                   href="/cart"
                   category="liveAddCart"
-                  openInNewTab={data?.productStock === 0 ? false : true}
+                  openInNewTab={data?.productStock !== 0}
                   isDisabled={data?.productStock === 0}
                   className={` text-white w-full rounded-8 text-center  ${
                     data?.productStock === 0
@@ -64,7 +68,8 @@ const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
                   }`}
                   productSpecId={data?.specId}
                   productId={data?.productId}
-                  liveId={liveDetailData?.liveId}>
+                  liveId={liveDetailData?.liveId}
+                >
                   {data?.productStock === 0 ? '已賣光光' : '加入購物車'}
                 </GlobalLink>
               </div>

@@ -5,7 +5,8 @@ const SubmitButton = ({ classStyle, children, disabled }: ButtonPropsType) => {
     <button
       type="submit"
       className={` text-white rounded-8 text-14 leading-[30px] py-[5px] px-26 ${classStyle}`}
-      disabled={disabled}>
+      disabled={disabled}
+    >
       {children}
     </button>
   );

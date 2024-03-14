@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
+import { BsSearch } from 'react-icons/bs';
 import Logo from '../Logo';
 import LiveIcon from './LIveIcon';
 import { fixedPageSet } from './data';
 import CartAndLogin from './CartAndLogin';
-import { BsSearch } from 'react-icons/bs';
 import SearchInput from '../Input/SearchInput';
 import { LayoutPropsType } from '../Layout/data';
 
@@ -23,38 +23,42 @@ const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
       };
       window.addEventListener('scroll', toggleVisibility);
       return () => window.removeEventListener('scroll', toggleVisibility);
-    } else {
-      setIsVisible(headerBehavior === 'always');
     }
+    setIsVisible(headerBehavior === 'always');
+    return undefined;
   }, [headerBehavior]);
 
   const isVisibleClass = isVisible ? 'opacity-100' : 'opacity-0';
   const heightClass = headerBehavior === 'always' ? 'h-[98px]' : 'h-60';
-  const positionClass =
-    headerBehavior === 'always'
-      ? 'lg:flex justify-between items-center '
-      : 'fixed top-0 left-1/2 transform -translate-x-1/2';
+  const positionClass = headerBehavior === 'always'
+    ? 'lg:flex justify-between items-center '
+    : 'fixed top-0 left-1/2 transform -translate-x-1/2';
   const logoImgstyle = headerBehavior === 'always' ? 50 : 32;
 
   if (headerBehavior === 'never') return null;
   return (
     <div
-      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-50 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0`}>
+      className={`${isVisibleClass} ${heightClass} ${positionClass}  bg-white z-50 w-full transition-opacity duration-10000 ease-in-out flex-shrink-0`}
+    >
       <div className="container flex justify-between items-center ">
         <div className="w-400 flex gap-24">
           <Logo classProps={`w-${logoImgstyle} h-${logoImgstyle}`} />
           <LiveIcon size={60} />
         </div>
         <div
-          className={`w-400 flex justify-center ${pageCategory === 'dashboardPage' && 'hidden'}`}>
+          className={`w-400 flex justify-center ${pageCategory === 'dashboardPage' && 'hidden'}`}
+        >
           {!isSearchActive ? (
-            <div
+            <button
+              type="button"
+              aria-label="Search"
               className="bg-primary-yellow w-53 h-48 flex justify-center items-center rounded-full cursor-pointer hover:opacity-80"
-              onClick={handleSearchClick}>
+              onClick={handleSearchClick}
+            >
               <BsSearch className="text-20 text-mediumGray" />
-            </div>
+            </button>
           ) : (
-            <SearchInput headerVisible={true} onClick={handleSearchClick} />
+            <SearchInput headerVisible onClick={handleSearchClick} />
           )}
         </div>
         <div className="flex gap-40 items-center justify-end w-400">

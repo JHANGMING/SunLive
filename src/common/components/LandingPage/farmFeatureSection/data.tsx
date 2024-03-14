@@ -4,7 +4,7 @@ type FeatureIconProps = {
   width: number;
   height: number;
 };
-type featureImageType = {
+type FeatureImageType = {
   src: string;
   alt: string;
   width: number;
@@ -17,7 +17,7 @@ type FeatureDataType = {
   descSecond: string;
   featureIconLeft: string;
   featureIconRight: string;
-  image: featureImageType;
+  image: FeatureImageType;
 };
 export const featureData: FeatureDataType[] = [
   {

@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import Layout from '@/common/components/Layout';
 import SearchPage from '@/modules/ProductPage/SearchPage';
 import { ProductSearchProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
-import { ProductsRefProvider } from '@/common/hooks/ProductsRefContext';
+import { ProductsRefProvider } from '@/common/components/product/ProductsRefContext';
+
 const ProductSearch = ({ allproductsData }: ProductSearchProps) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       setAllProductsData({
         allproductsData,
-      })
+      }),
     );
   }, [allproductsData]);
   return (
@@ -32,7 +33,7 @@ export async function getServerSideProps() {
   try {
     // 取得所有商品
     const allParams: ApiParamsType = {
-      apiPath: apiPaths['allproducts'],
+      apiPath: apiPaths.allproducts,
       method: 'GET',
     };
 

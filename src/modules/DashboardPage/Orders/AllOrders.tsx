@@ -1,9 +1,9 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { nextRoutes } from '@/constants/apiPaths';
-import { fetcher } from '@/common/helpers/fetcher';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import fetcher from '@/common/helpers/fetcher';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
 import OrdersSearch from '@/common/components/Input/OrdersSearch';
 import { transFarmerOrderData } from '@/common/helpers/transOrderData';
 import OrdersTable from '@/common/components/DynamicTable/OrdersTable';
@@ -17,11 +17,11 @@ const AllOrders = () => {
   const { authStatus } = useAuthStatus();
   const [tabTitle, setTabTitle] = useState('所有訂單');
   const { data } = useSWR(
-    authStatus ? `/api${nextRoutes['getorderlist']}` : null,
-    fetcher
+    authStatus ? `/api${nextRoutes.getorderlist}` : null,
+    fetcher,
   );
   const [filteredData, setFilteredData] = useState<
-    FarmerOrderDataType[] | null
+  FarmerOrderDataType[] | null
   >(null);
   useEffect(() => {
     if (!data) return;

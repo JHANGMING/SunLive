@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import Image from '@/common/components/CustomImage';
-import { dataSet } from './data';
 import LogoImg from '../../Logo/LogoImg';
+import dataSet from './data';
 
 const FriendlyFarmSection = () => {
   const { src, alt } = dataSet.image;
@@ -25,8 +25,8 @@ const FriendlyFarmSection = () => {
                 desFirst,
                 desSecond,
                 image,
-                desFirst_small,
-                desSecond_small,
+                desFirstSmall,
+                desSecondSmall,
               } = data;
               return (
                 <li className="mb-24 lg:mb-48" key={uuidv4()}>
@@ -46,9 +46,9 @@ const FriendlyFarmSection = () => {
                     {desSecond}
                   </p>
                   <p className="ml-40 lg:hidden text-12 lg:text-16">
-                    {desFirst_small}
+                    {desFirstSmall}
                     <br />
-                    {desSecond_small}
+                    {desSecondSmall}
                   </p>
                 </li>
               );

@@ -2,14 +2,15 @@ import { mutate } from 'swr';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
-import { cartTab } from '@/common/lib/cartTab';
-import { authTab } from '@/common/lib/authTab';
-import { nextRoutes } from '@/constants/apiPaths';
+import cartTabData from '@/common/lib/cartTab';
+import authTabData from '@/common/lib/authTab';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
-import { useDebounceFn } from '@/common/hooks/useDebounceFn';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import useDebounceFn from '@/common/hooks/useDebounceFn';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { ButtonPropsType } from './data';
+
 const AddToCartButton = ({
   onClick,
   children,
@@ -38,8 +39,8 @@ const AddToCartButton = ({
       productSpecId,
       cartItemQty,
     };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['addcart'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.addcart,
       method: 'POST',
       data: dataObj,
     };
@@ -51,21 +52,22 @@ const AddToCartButton = ({
         if (toCart) router.push('/cart');
         dispatch(
           setToast({
-            message: cartTab['add'],
-          })
+            message: cartTabData.add,
+          }),
         );
       } else if (result.statusCode === 409) {
         dispatch(
           setToast({
-            message: authTab['noToken'],
-          })
+            message: authTabData.noToken,
+          }),
         );
         router.push('/auth/login');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+  const debouncedAddCart = useDebounceFn(handleCartAddition, 500);
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -73,7 +75,7 @@ const AddToCartButton = ({
       debouncedAddCart();
     }
   };
-  const debouncedAddCart = useDebounceFn(handleCartAddition, 500);
+
   const buttonClassName = disabled
     ? `${btnStyle} flex gap-8 py-8 px-16 rounded-8 border-dashed border cursor-not-allowed`
     : `${btnStyle} flex gap-8 py-4 px-8 lg:py-8 lg:px-16 rounded-8 lg:border-dashed border cursor-pointer hover:opacity-60 transition duration-800 ease-in-out group`;
@@ -84,7 +86,8 @@ const AddToCartButton = ({
         <BsHandIndex className="hidden lg:block w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4" />
       )}
       <p
-        className={`${textStyle} text-12 lg:text-16 lg:font-bold tracking-widest`}>
+        className={`${textStyle} text-12 lg:text-16 lg:font-bold tracking-widest`}
+      >
         {children}
       </p>
     </button>

@@ -10,9 +10,11 @@ const CustomImage = ({
   priority = false,
 }: CustomImageProps) => {
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
       className={`relative flex-shrink-0 ${className}`}
-      onClick={onClick ? onClick : undefined}>
+      onClick={onClick || undefined}
+    >
       <Image
         src={src}
         alt={alt}

@@ -6,7 +6,7 @@ const LiveStreamPage = () => {
   return (
     <>
       <LiveBanner />
-      <LivingShowSection isLivePage={true} />
+      <LivingShowSection isLivePage />
       <LiveProductSection />
     </>
   );

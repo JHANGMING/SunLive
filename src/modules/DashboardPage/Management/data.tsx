@@ -1,4 +1,4 @@
-import { locationData } from '@/constants/location';
+import locationData from '@/constants/location';
 import { LivelistType } from '@/constants/types/dashboard/livelist';
 import { ListDataType } from '@/constants/types/product/farmer_prodcut';
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';

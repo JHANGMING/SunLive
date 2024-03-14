@@ -21,7 +21,8 @@ const FarmFeatureSection = () => {
           return (
             <li
               className=" col-span-4 flex flex-col justify-center items-center"
-              key={uuidv4()}>
+              key={uuidv4()}
+            >
               <div className="flex gap-8 lg:gap-16 lg:mb-16 items-center">
                 <Image
                   src={IconLeft.src}

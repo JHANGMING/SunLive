@@ -1,45 +1,74 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
-import Layout from '@/common/components/Layout';
+import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { authTab } from '@/common/lib/authTab';
+import authTabData from '@/common/lib/authTab';
+import Layout from '@/common/components/Layout';
 import LoginPage from '@/modules/Auth/LoginPage';
-import { apiPaths } from '@/constants/apiPaths';
 import { LoginPrpos, ROUTES } from '@/modules/Auth/data';
 import { setAllCookies } from '@/common/helpers/getCookie';
+import { apiPaths, nextRoutes } from '@/constants/api/apiPaths';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setToast, showLoading } from '@/redux/features/messageSlice';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 
-const Login = ({ errorMessage, loginData }: LoginPrpos) => {
+const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (errorMessage) {
-      dispatch(setToast({ message: errorMessage }));
+  const [loginData, setLoginData] = useState(initialLoginData);
+  const handleMessage = async (event: MessageEvent) => {
+    const expectedOrigin = 'http://localhost:3000';
+    if (event.origin !== expectedOrigin) {
+      return;
     }
-  }, [errorMessage]);
-  useEffect(() => {
-    if (loginData) {
-      handleLoginData();
-      dispatch(showLoading());
-      dispatch(
-        setToast({
-          message: authTab['welcome'],
-        })
-      );
-    }
-  }, [loginData]);
-  const handleLoginData = async () => {
-    if (loginData) {
-      setAllCookies(loginData);
-      const redirectTo = loginData.category
-        ? ROUTES.DASHBOARD_ACCOUNT
-        : ROUTES.HOME;
-      await router.push(redirectTo);
+    if (event.data.type === 'auth') {
+      const apiParams: NextapiParamsType = {
+        apiPath: nextRoutes.setToken,
+        method: 'POST',
+        data: { token: event.data.result.token },
+      };
+      try {
+        const result = await fetchNextApi(apiParams);
+        if (result) {
+          setLoginData(event.data.result.data);
+        } else {
+          dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
+        }
+      } catch (error) {
+        console.error('登入失败', error);
+      }
+      console.error('event.data', event);
     }
   };
+  const handleLoginData = async () => {
+    if (!loginData) return;
+    setAllCookies(loginData);
+    const redirectTo = loginData.category
+      ? ROUTES.DASHBOARD_ACCOUNT
+      : ROUTES.HOME;
+    await router.push(redirectTo);
+  };
+  useEffect(() => {
+    if (!errorMessage) return;
+    dispatch(setToast({ message: errorMessage }));
+  }, [errorMessage]);
+  useEffect(() => {
+    if (!loginData) return;
+    handleLoginData();
+    dispatch(showLoading());
+    dispatch(
+      setToast({
+        message: authTabData.welcome,
+      }),
+    );
+  }, [loginData]);
+  useEffect(() => {
+    window.addEventListener('message', handleMessage);
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
 
   return (
     <Layout pageCategory="authPage" classStyle="px-110 pb-80">
@@ -51,7 +80,7 @@ const Login = ({ errorMessage, loginData }: LoginPrpos) => {
 export default Login;
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   let loginData = [];
   const { req, res } = context;
@@ -60,11 +89,9 @@ export const getServerSideProps = async (
     account = 'defaultAccount',
     time = 'defaultTime',
   } = context.query;
-
-  const hasValidQueryParams =
-    guid !== 'defaultGuid' ||
-    account !== 'defaultAccount' ||
-    time !== 'defaultTime';
+  const hasValidQueryParams = guid !== 'defaultGuid'
+    || account !== 'defaultAccount'
+    || time !== 'defaultTime';
 
   if (!hasValidQueryParams) {
     return {
@@ -80,7 +107,7 @@ export const getServerSideProps = async (
 
   try {
     const loginParams: ApiParamsType = {
-      apiPath: apiPaths['passwordlessVerify'],
+      apiPath: apiPaths.passwordlessVerify,
       method: 'POST',
       data: { guid, account, time: Number(time) },
     };

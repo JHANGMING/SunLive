@@ -1,6 +1,7 @@
 import { getCookie } from 'cookies-next';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
+
 export const config = {
   api: {
     bodyParser: false,
@@ -9,7 +10,7 @@ export const config = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{ error: string }>
+  res: NextApiResponse<{ error: string }>,
 ) {
   const { id } = req.query;
   const buffers: Buffer[] = [];
@@ -26,7 +27,7 @@ export default async function handler(
     await dataReceived;
     const data = Buffer.concat(buffers);
     const token = getCookie('token', { req, res });
-    const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPaths['uploadliveImg']}/${id}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}${apiPaths.uploadliveImg}/${id}`;
 
     const apiParams: RequestInit = {
       method: 'POST',

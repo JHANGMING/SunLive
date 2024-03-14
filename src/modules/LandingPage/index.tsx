@@ -6,6 +6,7 @@ import RecommendSection from '@/common/components/LandingPage/RecommendSection';
 import ComingProductsSection from '@/modules/LandingPage/ComingProductsSection';
 import FarmFeatureSection from '@/common/components/LandingPage/farmFeatureSection';
 import FriendlyFarmSection from '@/common/components/LandingPage/friendlyFarmSection';
+
 const LandingPage = () => {
   return (
     <>

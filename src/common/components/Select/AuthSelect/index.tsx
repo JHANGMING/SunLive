@@ -1,6 +1,5 @@
 import React from 'react';
-import Select from 'react-select';
-import { StylesConfig } from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import { Controller } from 'react-hook-form';
 import useClient from '@/common/hooks/useClient';
 import { AuthSelectProps, OptionType, optionsData } from './data';
@@ -29,7 +28,8 @@ const AuthSelect = ({ control }: AuthSelectProps) => {
       {isClient && (
         <>
           <label htmlFor="identity" className="text-20 font-bold block mb-8">
-            註冊身份{' '}
+            註冊身份
+            {' '}
             <span className="text-20 font-bold text-primary-red">*</span>
           </label>
           <Controller

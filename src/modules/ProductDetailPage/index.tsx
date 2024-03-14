@@ -1,12 +1,12 @@
 import DetailBanner from '@/common/components/ProductDetailPage/DetailBanner';
-import DetailSection from './DetailSection';
-import IntroductSection from './IntroductSection';
-import RelatedSection from './RelatedSection';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import Loading from '@/common/components/Loading/Loading';
 import { useEffect } from 'react';
 import { showLoading } from '@/redux/features/messageSlice';
+import RelatedSection from './RelatedSection';
+import IntroductSection from './IntroductSection';
+import DetailSection from './DetailSection';
 
 const ProductDetailPage = () => {
   const dispatch = useDispatch();

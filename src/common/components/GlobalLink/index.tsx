@@ -1,13 +1,14 @@
 import { mutate } from 'swr';
 import { useDispatch } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
-import { nextRoutes } from '@/constants/apiPaths';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import { GlobalLinkProps } from './data';
-import { cartTab } from '../../lib/cartTab';
-import { authTab } from '../../lib/authTab';
-import { useDebounceFn } from '../../hooks/useDebounceFn';
-import fetchNextApi, { apiParamsType } from '../../helpers/fetchNextApi';
+import cartTabData from '../../lib/cartTab';
+import authTabData from '../../lib/authTab';
+import useDebounceFn from '../../hooks/useDebounceFn';
+import fetchNextApi, { NextapiParamsType } from '../../helpers/fetchNextApi';
+
 const GlobalLink = ({
   href,
   liveId,
@@ -30,8 +31,8 @@ const GlobalLink = ({
       liveId,
       cartItemQty: 1,
     };
-    const apiParams: apiParamsType = {
-      apiPath: nextRoutes['addcart'],
+    const apiParams: NextapiParamsType = {
+      apiPath: nextRoutes.addcart,
       method: 'POST',
       data: dataObj,
     };
@@ -42,8 +43,8 @@ const GlobalLink = ({
         mutate('/api/cart/getcart');
         dispatch(
           setToast({
-            message: cartTab['add'],
-          })
+            message: cartTabData.add,
+          }),
         );
         if (openInNewTab) {
           window.open(href, '_blank');
@@ -51,12 +52,12 @@ const GlobalLink = ({
       } else if (result.statusCode === 409) {
         dispatch(
           setToast({
-            message: authTab['noToken'],
-          })
+            message: authTabData.noToken,
+          }),
         );
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, 500);
   if (category === 'footer') {
@@ -64,19 +65,22 @@ const GlobalLink = ({
       <a
         href={href}
         target={openInNewTab ? '_blank' : '_self'}
-        className={className}>
+        className={className}
+        rel="noreferrer"
+      >
         {children}
       </a>
     );
   }
   const isLiveAddCart = category === 'liveAddCart';
-  const onClickHandler =
-    isLiveAddCart || !isDisabled ? handleAddToCart : undefined;
+  const onClickHandler = isLiveAddCart || !isDisabled ? handleAddToCart : undefined;
 
   return (
-    <div
+    <button
+      type="button"
       className={`${className} ${isLiveAddCart ? 'py-8 px-16 rounded-8 border border-dashed group transition duration-800 ease-in-out' : ''}`}
-      onClick={onClickHandler}>
+      onClick={onClickHandler}
+    >
       {isLiveAddCart ? (
         <span className="font-bold tracking-widest rounded-8 w-full flex justify-center gap-8">
           <BsHandIndex className="w-24 h-24 rotate-90 text-primary-yellow group-hover:translate-x-4" />
@@ -85,7 +89,7 @@ const GlobalLink = ({
       ) : (
         children
       )}
-    </div>
+    </button>
   );
 };
 

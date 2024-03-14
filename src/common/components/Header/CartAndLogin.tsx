@@ -4,7 +4,7 @@ import { LuShoppingCart } from 'react-icons/lu';
 import { BsPersonCircle } from 'react-icons/bs';
 import { RootState } from '@/redux/store';
 import Image from '@/common/components/CustomImage';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
 import CartInfo from './CartInfo';
 import LoggingInfo from './LoggingInfo';
 import CartItemCount from './CartItemCount';
@@ -39,20 +39,18 @@ const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
       setShowCartDropdown(false);
     }, 500);
   };
-  const dropdownClass =
-    showCartDropdown || showProfileDropdown
-      ? 'dropdown-enter'
-      : 'dropdown-exit';
+  const dropdownClass = showCartDropdown || showProfileDropdown
+    ? 'dropdown-enter'
+    : 'dropdown-exit';
   return (
     <>
       {pageCategory !== 'dashboardPage' ? (
         <div
           className="relative"
           onMouseEnter={handleCartMouseEnter}
-          onMouseLeave={handleCartMouseLeave}>
-          <button
-            type="button"
-            className="relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
+          onMouseLeave={handleCartMouseLeave}
+        >
+          <button type="button" className="cartIcon">
             <LuShoppingCart className="text-20 lg:text-32" />
             {authStatus && <CartItemCount cartData={cartData} />}
           </button>
@@ -65,7 +63,7 @@ const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
           )}
         </div>
       ) : (
-        <div className="relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3">
+        <div className="cartCount">
           <Image
             src="/images/dashBoard/notification.png"
             alt="notification"
@@ -79,8 +77,9 @@ const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
       <div
         className="relative flex items-center justify-center"
         onMouseEnter={handleProfileMouseEnter}
-        onMouseLeave={handleProfileMouseLeave}>
-        <button className="shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full">
+        onMouseLeave={handleProfileMouseLeave}
+      >
+        <button type="button" className="authIcon" aria-label="authIcon">
           <BsPersonCircle className="text-primary-yellow text-[30px] lg:text-40" />
         </button>
         {showProfileDropdown && <LoggingInfo dropdownClass={dropdownClass} />}

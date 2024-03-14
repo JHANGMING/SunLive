@@ -1,22 +1,22 @@
-import Select from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import { useDispatch } from 'react-redux';
-import { StylesConfig } from 'react-select';
 import { Controller } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import useClient from '@/common/hooks/useClient';
-import { nextRoutes } from '@/constants/apiPaths';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
-import fetchNextApi, { apiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { transformDataForSelect } from '@/common/helpers/transDataForLiveSelect';
 import { LiveProductSelectProps, OptionType } from './data';
+
 const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
   const isClient = useClient();
   const dispatch = useDispatch();
   const [products, setProducts] = useState<OptionType[]>([]);
   useEffect(() => {
     const fetchProducts = async () => {
-      const apiParams: apiParamsType = {
-        apiPath: nextRoutes['productlist_live'],
+      const apiParams: NextapiParamsType = {
+        apiPath: nextRoutes.productlist_live,
         method: 'GET',
       };
       try {
@@ -28,7 +28,7 @@ const LiveProductSelect = ({ control, id }: LiveProductSelectProps) => {
           dispatch(setToast({ message: result.message }));
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 

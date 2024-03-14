@@ -27,7 +27,7 @@ type ColumnType = {
   key: string;
   title: string;
   dataIndex: string;
-  render?: (row: any) => JSX.Element;
+  // render?: (row: any) => JSX.Element;
 };
 export const productColumns: ColumnType[] = [
   { title: '農產品名稱', dataIndex: 'productTitle', key: 'productTitle' },

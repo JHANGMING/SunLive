@@ -1,5 +1,5 @@
 type LiveproudctTpye = {
-  productId: number; //本頁面不設定置頂產品，後端採用第一筆預設為置頂產品
+  productId: number; // 本頁面不設定置頂產品，後端採用第一筆預設為置頂產品
   liveprice: number;
   productSize: boolean; // 小為false、大為 true
 };

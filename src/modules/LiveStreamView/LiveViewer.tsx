@@ -3,6 +3,7 @@ import LogoImg from '@/common/components/Logo/LogoImg';
 import { LivestreamingProps } from './data';
 import ChatAndProduct from './ChatAndProduct';
 import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
+
 const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
   const url = liveDetailData?.yturl;
   const liveId = liveDetailData?.liveId;
@@ -10,7 +11,7 @@ const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
   return (
     <section className="container grid grid-cols-12 gap-24 -mt-[180px] pb-[144px]">
       <div className=" col-span-8">
-        <YoutubeLiveIfram isViewPage={true} url={url} />
+        <YoutubeLiveIfram isViewPage url={url} />
         <div className="pt-24 flex flex-col gap-16">
           <h2 className="text-24">
             {liveDetailData?.liveName}
@@ -35,7 +36,8 @@ const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
             <div className="flex items-center gap-16 mb-16">
               <LogoImg classProps="w-24 h-24" />
               <p className="font-bold">
-                直播時間 :<span>{liveDetailData?.liveDate}</span>
+                直播時間 :
+                <span>{liveDetailData?.liveDate}</span>
               </p>
             </div>
             <p>{liveDetailData?.liveDescription}</p>

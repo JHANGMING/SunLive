@@ -1,11 +1,15 @@
 <p align="center">
   <a href="https://sun-live.vercel.app">
-    <img width="600" height="400" src ="public/images/sunLive.png">
+    <img width="1200" height="800" src ="public/images/cover.png">
   </a>
 </p>
 <h1 align="center" style="font-weight: 700"><img width="30" src ="public/images/logo.svg"> 搶鮮購  | SunLive </h1>
 <div align="center" style="margin-bottom:24px">
 
+  <a href="https://drive.google.com/file/d/1PA-nUPBaDxbWcsjRX8_U9CmcTLuKvKSq/view?usp=drive_link">
+    簡報介紹
+  </a>
+  <span>｜</span>
   <a href="https://sun-live.vercel.app">
   專案網址 
   </a>
@@ -32,7 +36,6 @@
 
 </div>
 <hr/>
-
 
 ## 功能介紹
 
@@ -62,11 +65,8 @@
 
 - 查詢所有訂單
 
-  
-
 ### ► 小農角色 (Farmer)
 
-  
 - 註冊/登入
 
 - 個人帳號資訊設定與編輯
@@ -84,33 +84,32 @@
 
 ## 建議體驗流程
 
-  
-
 - 一般會員 (Customer)
 
-      1. 於首頁搜尋有興趣的農產品，並點選 `特定產品`  (轉跳至該產品細節頁)
+  1. 於首頁搜尋有興趣的農產品，並點選 `特定產品` (轉跳至該產品細節頁)
 
-      2. 選擇產品規格並點選 `立即購買` 按鈕 (轉跳至結帳頁面)
+  2. 選擇產品規格並點選 `立即購買` 按鈕 (轉跳至結帳頁面)
 
-      3. 填寫收貨人資料欄位，並點擊 `確認付款` 按鈕  (轉跳至藍新金流頁面)
+  3. 填寫收貨人資料欄位，並點擊 `確認付款` 按鈕 (轉跳至藍新金流頁面)
 
-      4. 於藍新金流頁面，選擇 Web ATM 方式進行結帳  (轉跳至藍新金流頁面)
+  4. 於藍新金流頁面，選擇 Web ATM 方式進行結帳 (轉跳至藍新金流頁面)
 
-      5. 點選 `查看訂單詳情` 按鈕 (轉跳至所有訂單頁面)
+  5. 點選 `查看訂單詳情` 按鈕 (轉跳至所有訂單頁面)
 
 - 小農 (Farmer)
 
-      1. 查看左側選單`直播設定` 欄位，點選 `直播設定` 按鈕 (轉跳至直播設定頁面)
+  1. 查看左側選單`直播設定` 欄位，點選 `直播設定` 按鈕 (轉跳至直播設定頁面)
 
-      2. 填寫直播設定資料欄位，並選擇直播農產品，再點擊 `儲存` 按鈕  (轉跳至所有直播頁面)
+  2. 填寫直播設定資料欄位，並選擇直播農產品，再點擊 `儲存` 按鈕 (轉跳至所有直播頁面)
 
-      3. 針對剛才新增的直播場次，於 `聊天室置頂商品` 欄位，選擇與調整置頂商品
+  3. 針對剛才新增的直播場次，於 `聊天室置頂商品` 欄位，選擇與調整置頂商品
 
-      4. 前往前台 `直播特惠` 頁面，瀏覽 `近期直播` 直播場次
+  4. 前往前台 `直播特惠` 頁面，瀏覽 `近期直播` 直播場次
 
 <hr/>
 
 ## 資料夾結構
+
 ```flow
 sunlive/
 ├── public
@@ -176,63 +175,45 @@ sunlive/
 ├── postcss.config.js
 └── tsconfig.json
 ```
+
 ---
 
-## 專案技術 
-<h2 align="center">UI/UX端</h2>
- <p>
-  <img alt="Figma" src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
-  <img alt="Canva" src="https://img.shields.io/badge/Canva-%2300C4CC.svg?&style=for-the-badge&logo=Canva&logoColor=white" />
-  <img alt="Illustrator" src="https://img.shields.io/badge/Adobe%20Illustrator-FF9A00?style=for-the-badge&logo=adobe%20illustrator&logoColor=white" />
-  <img alt="Photoshop" src="https://img.shields.io/badge/Adobe%20Photoshop-31A8FF?style=for-the-badge&logo=Adobe%20Photoshop&logoColor=black" />
-  <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" />
-   <img alt="Tailwind" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-  <img alt="Notion" src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white" />
-
-  ### 工具說明：
-
-* 線搞圖/設計圖：Figma
-    * 製作 Wireframe、線稿圖及 Prototype。
-    * 優化團隊合作與溝通，使成員能夠清晰掌握產品的設計理念和用戶體驗路徑。
-
-* 繪圖工具：Illustrator
-   - 繪製 logo 圖案。
-   - 多樣的編輯工具，精確控制圖案的每個細節。
-</p>
+## 專案技術
 
 <h2 align="center">前端技術</h2>
 <p>
-  <img alt="VS Code" src="https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" />
-  <img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
-  <img alt="Sass" src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" />
-  <img alt="Tailwind" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
   <img alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
   <img alt="NextJS" src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
   <img alt="Redux" src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img alt="Tailwind" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  <img alt="ESLINT" src="https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white" />
   <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
   <img alt="GItHUB" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
   <img alt="GIT" src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white" />
   <img alt="NPM" src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" />
-  <img alt="ESLINT" src="https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white" />
-
+  <img alt="VS Code" src="https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" />
 
 ### 技術說明：
 
-* 開發環境：Next.js
-    * 使用Next.js的SSR，可以在伺服器上完整渲染 HTML 頁面，除了有更好的 SEO 和更快的頁面加載速度，同時預先渲染的頁面，提升使用者體驗。
+- 開發環境：Next.js
 
-* 使用框架：React
-    * 使用React進行前端開發，利用React的生態系來快速搭建網站並搭配生命週期特性讓網站狀態管理更加高效，進而提升用戶體驗。
+  - 使用Next.js的SSR，可以在伺服器上完整渲染 HTML 頁面，除了有更好的 SEO 和更快的頁面加載速度，同時預先渲染的頁面，提升使用者體驗。
 
-* 語言：TypeScript
-    * 開發過程中採用TypeScript語言，其強類型特性有效預防了許多常見錯誤，並且在元件中減少了因型別錯誤導致的衝突。
+- 使用框架：React
 
-* CSS：Tailwind
-    * 使用Tailwind來進行CSS的開發，通過提供大量預定義的類別來幫助開發者快速構建和設計界面，減少冗餘代碼。
+  - 使用React進行前端開發，利用React的生態系來快速搭建網站並搭配生命週期特性讓網站狀態管理更加高效，進而提升用戶體驗。
 
-* 雲端伺服器：Vercel
-    * 選擇Vercel來進行部署，提供高度的穩定性和優化的整合體驗，實現快速的自動化部署流程，簡化開發到上線的過程。
+- 語言：TypeScript
+
+  - 開發過程中採用TypeScript語言，其強類型特性有效預防了許多常見錯誤，並且在元件中減少了因型別錯誤導致的衝突。
+
+- CSS：Tailwind
+
+  - 使用Tailwind來進行CSS的開發，通過提供大量預定義的類別來幫助開發者快速構建和設計界面，減少冗餘代碼。
+
+- 雲端伺服器：Vercel - 選擇Vercel來進行部署，提供高度的穩定性和優化的整合體驗，實現快速的自動化部署流程，簡化開發到上線的過程。
 </p>
 
 <h2 align="center">後端技術</h2>
@@ -247,21 +228,47 @@ sunlive/
   <img alt="GItHUB" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
   <img alt="POSTMAN" src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white" />
 
-  ### 技術說明：
+### 技術說明：
 
-* 開發環境：Microsoft Visual Studio
-    * 使用的是 .net Freamwork 平台，版本為4.7.2。
+- 開發環境：Microsoft Visual Studio
 
-* 使用框架：ASP .NET Web API 2
-    * 支持RESTful服務的開發。裡面包含GET、POST、PUT、DELETE等。
+  - 使用的是 .net Freamwork 平台，版本為4.7.2。
 
-* 資料庫：Microsoft SQL Server
-    * 關聯性資料庫管理系統，用於記錄數據、查詢資料等。
+- 使用框架：ASP .NET Web API 2
 
-* 技術：SignalR
-    * 此為Microsoft所開發的套件，針對即時通訊應用提供包裹性解決方案。
+  - 支持RESTful服務的開發。裡面包含GET、POST、PUT、DELETE等。
 
-* 雲端伺服器：Azure
-    * Microsoft提供一個雲端平台，選擇虛擬機台進行後端伺服器資源部署。
+- 資料庫：Microsoft SQL Server
+
+  - 關聯性資料庫管理系統，用於記錄數據、查詢資料等。
+
+- 技術：SignalR
+
+  - 此為Microsoft所開發的套件，針對即時通訊應用提供包裹性解決方案。
+
+- 雲端伺服器：Azure
+  - Microsoft提供一個雲端平台，選擇虛擬機台進行後端伺服器資源部署。
 
 </p>
+
+<h2 align="center">UI/UX端</h2>
+ <p>
+  <img alt="Figma" src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
+  <img alt="Canva" src="https://img.shields.io/badge/Canva-%2300C4CC.svg?&style=for-the-badge&logo=Canva&logoColor=white" />
+  <img alt="Illustrator" src="https://img.shields.io/badge/Adobe%20Illustrator-FF9A00?style=for-the-badge&logo=adobe%20illustrator&logoColor=white" />
+  <img alt="Photoshop" src="https://img.shields.io/badge/Adobe%20Photoshop-31A8FF?style=for-the-badge&logo=Adobe%20Photoshop&logoColor=black" />
+  <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" />
+   <img alt="Tailwind" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  <img alt="Notion" src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white" />
+
+### 工具說明：
+
+- 線搞圖/設計圖：Figma
+
+  - 製作 Wireframe、線稿圖及 Prototype。
+  - 優化團隊合作與溝通，使成員能夠清晰掌握產品的設計理念和用戶體驗路徑。
+
+- 繪圖工具：Illustrator
+  - 繪製 logo 圖案。
+  - 多樣的編輯工具，精確控制圖案的每個細節。
+  </p>

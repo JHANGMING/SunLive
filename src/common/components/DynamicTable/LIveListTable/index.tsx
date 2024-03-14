@@ -6,7 +6,7 @@ import { RootState } from '@/redux/store';
 import usePagination from '@/common/hooks/usePagination';
 import { setToast } from '@/redux/features/messageSlice';
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
-import { updateLiveDataWithFutureFlag } from '@/common/helpers/updatedLiveDat';
+import updateLiveDataWithFutureFlag from '@/common/helpers/updatedLiveDat';
 import { DynamicTableProps } from './data';
 
 const LiveListTable = ({ columns }: DynamicTableProps) => {
@@ -14,14 +14,14 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const listData = useSelector(
-    (state: RootState) => state.dashboard.livelistData
+    (state: RootState) => state.dashboard.livelistData,
   );
   const updataListData = updateLiveDataWithFutureFlag(
-    listData as unknown as LivedetailDateType[]
+    listData as unknown as LivedetailDateType[],
   );
   const { currentData, maxPage, dataLength } = usePagination(
     updataListData,
-    currentPage
+    currentPage,
   );
 
   const handlePrevious = () => {
@@ -91,25 +91,26 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
           {currentData.map((row) => (
             <tr
               className="text-center border-b border-lightGray h-60"
-              key={row.liveId}>
+              key={row.liveId}
+            >
               {columns.map((column) => {
                 let cellContent;
                 if (
-                  column.dataIndex === 'liveLink' &&
-                  column.title === '直播連結'
+                  column.dataIndex === 'liveLink'
+                  && column.title === '直播連結'
                 ) {
                   cellContent = (
                     <div className="flex justify-center gap-4 ">
                       <BsLink45Deg size={20} />
-                      <span
+                      <button
+                        type="button"
                         className="cursor-pointer hover:text-primary-green"
-                        onClick={() =>
-                          handleCopyLink(
-                            `https://sun-live.vercel.app/livestream/${row.liveId}`
-                          )
-                        }>
+                        onClick={() => handleCopyLink(
+                          `https://sun-live.vercel.app/livestream/${row.liveId}`,
+                        )}
+                      >
                         複製連結
-                      </span>
+                      </button>
                     </div>
                   );
                 } else if (column.dataIndex === 'liveProudct') {
@@ -119,7 +120,8 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
                         type="button"
                         className={`text-white w-2/4 rounded-8 text-14 leading-[30px] py-[5px] px-26 ${!row.isFuture ? 'bg-lightGray cursor-not-allowed' : 'bg-primary-green hover:opacity-70'}`}
                         disabled={!row.isFuture}
-                        onClick={() => handerToLive(row.liveId)}>
+                        onClick={() => handerToLive(row.liveId)}
+                      >
                         開始直播
                       </button>
                     </div>
@@ -134,19 +136,26 @@ const LiveListTable = ({ columns }: DynamicTableProps) => {
         </tbody>
       </table>
       <div className="w-full flex justify-between mt-20 text-darkGray pl-12 pr-24">
-        <p>共 {dataLength} 筆資料</p>
+        <p>
+          共
+          {dataLength}
+          {' '}
+          筆資料
+        </p>
         <div className="flex gap-24">
           <p>{`${currentPage}/${maxPage}`}</p>
           <button
             type="button"
             onClick={handlePrevious}
-            className=" hover:text-mediumGray">
+            className=" hover:text-mediumGray"
+          >
             前一頁
           </button>
           <button
             type="button"
             onClick={handleNext}
-            className=" hover:text-mediumGray">
+            className=" hover:text-mediumGray"
+          >
             下一頁
           </button>
         </div>

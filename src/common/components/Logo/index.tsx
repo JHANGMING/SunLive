@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from '@/common/components/CustomImage';
 import LogoImg from './LogoImg';
-import { classStyleProps } from './data';
+import { ClassStyleProps } from './data';
 
-const Logo = ({ classStyle, classProps }: classStyleProps) => {
+const Logo = ({ classStyle, classProps }: ClassStyleProps) => {
   return (
     <Link href="/" className={`flex items-center gap-16 group ${classStyle}`}>
       <LogoImg classProps={`group-shake ${classProps}`} />

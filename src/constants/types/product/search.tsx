@@ -1,4 +1,4 @@
-type productImgType = {
+type ProductImgType = {
   src: string;
   alt: string;
 };
@@ -8,7 +8,7 @@ export type SearchDataItemType = {
   description: string;
   productTitle: string;
   productSpecId: number;
-  productImg: productImgType;
+  productImg: ProductImgType;
   smallOriginalPrice: number;
   smallPromotionPrice: number;
 };

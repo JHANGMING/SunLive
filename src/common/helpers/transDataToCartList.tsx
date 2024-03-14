@@ -7,7 +7,7 @@ type AccProps = {
   subTotal: number;
 };
 
-export const transformDataToCartList = (data: CartItemType[]) => {
+const transformDataToCartList = (data: CartItemType[]) => {
   return data.reduce((acc: AccProps[], item) => {
     acc.push({
       productId: item.productId,
@@ -18,3 +18,4 @@ export const transformDataToCartList = (data: CartItemType[]) => {
     return acc;
   }, []);
 };
+export default transformDataToCartList;

@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { BsCart2 } from 'react-icons/bs';
 import Image from '@/common/components/CustomImage';
-import { useAuthStatus } from '@/common/hooks/useAuthStatus';
-import { LoggingInfoProps } from './data';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
 import { useEffect, useRef } from 'react';
+import { LoggingInfoProps } from './data';
 import DeleteBtn from '../Button/DeleteBtn';
 
 const CartInfo = ({ dropdownClass, cartData, isVisible }: LoggingInfoProps) => {
@@ -22,15 +22,16 @@ const CartInfo = ({ dropdownClass, cartData, isVisible }: LoggingInfoProps) => {
 
   return (
     <div
-      className={`${dropdownClass} ${fixedHeaderisVisible} fixed  w-[304px] bg-white shadow-cartInfo z-50`}>
+      className={`${dropdownClass} ${fixedHeaderisVisible} fixed  w-[304px] bg-white shadow-cartInfo z-50`}
+    >
       {authStatus && cartLength > 0 ? (
         <>
           <ul
             className="px-16 pb-16 cartlist max-h-[350px] overflow-y-auto"
-            ref={listRef}>
+            ref={listRef}
+          >
             {productData?.map((data) => {
               const {
-                productId,
                 productSpecId,
                 productImg,
                 productTitle,
@@ -55,7 +56,12 @@ const CartInfo = ({ dropdownClass, cartData, isVisible }: LoggingInfoProps) => {
                         {productTitle}
                       </h6>
                       <p className="text-14  flex gap-8 items-center">
-                        {cartItemQty}x<span>${cartItemPromotionPrice}</span>
+                        {cartItemQty}
+                        x
+                        <span>
+                          $
+                          {cartItemPromotionPrice}
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -73,7 +79,8 @@ const CartInfo = ({ dropdownClass, cartData, isVisible }: LoggingInfoProps) => {
           </ul>
           <Link
             href="/cart"
-            className=" font-bold py-8 w-full text-center bg-primary-yellow hover:text-white">
+            className=" font-bold py-8 w-full text-center bg-primary-yellow hover:text-white"
+          >
             訂單結帳
           </Link>
         </>

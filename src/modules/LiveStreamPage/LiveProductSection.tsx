@@ -14,7 +14,8 @@ const LiveProductSection = () => {
           {upcomingLive?.slice(0, 6).map((data) => (
             <li
               key={data.liveId}
-              className=" col-span-4 border-4 border-mediumGray rounded-20">
+              className=" col-span-4 border-4 border-mediumGray rounded-20"
+            >
               <div className=" relative">
                 <Image
                   src={
@@ -34,7 +35,7 @@ const LiveProductSection = () => {
                     className="w-120 h-120 "
                   />
                 </div>
-                <div className="bg-black/20 absolute left-0 top-0 w-full h-full rounded-16"></div>
+                <div className="bg-black/20 absolute left-0 top-0 w-full h-full rounded-16" />
                 <div className="absolute left-0 bottom-0 w-full py-16 gap-8  opacity-80 flex flex-col items-center rounded-bl-20 rounded-br-20 bg-white/90">
                   <h4 className=" text-primary-green">
                     {data.liveProductName}

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { BsArrowLeftShort } from 'react-icons/bs';
+
 const ArrowLeft = () => {
   const router = useRouter();
   const handlerGoBack = () => {

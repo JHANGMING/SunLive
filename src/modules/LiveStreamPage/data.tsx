@@ -1,6 +1,6 @@
 import { LivesDataType } from '@/constants/types/live/live';
 
-export type liveCardProps = {
+export type LiveCardProps = {
   title: string;
   liveTime: string;
   farmerName: string;
@@ -10,6 +10,6 @@ export type liveCardProps = {
   };
 };
 
-export type liveStreamProps = {
+export type LiveStreamProps = {
   liveData: LivesDataType;
 };

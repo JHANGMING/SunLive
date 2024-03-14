@@ -1,16 +1,16 @@
 import { getCookie, deleteCookie } from 'cookies-next';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { apiPaths } from '@/constants/apiPaths';
+import { apiPaths } from '@/constants/api/apiPaths';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{ error: string; success?: boolean; message?: string }>
+  res: NextApiResponse<{ error: string; success?: boolean; message?: string }>,
 ) {
   try {
     const token = getCookie('token', { req, res });
     const apiParams: ApiParamsType = {
-      apiPath: apiPaths['logout'],
+      apiPath: apiPaths.logout,
       method: 'POST',
       authToken: token,
     };
