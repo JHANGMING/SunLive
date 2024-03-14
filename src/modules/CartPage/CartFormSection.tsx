@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { BsChevronDown } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
-import authTabData from '@/common/lib/authTab';
+import authTabData from '@/constants/lib/authTab';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import DefaultInput from '@/common/components/Input';
 import { setToast } from '@/redux/features/messageSlice';
@@ -36,9 +36,9 @@ const CartFormSection = ({ cartData }: CartProps) => {
   }, []);
   useEffect(() => {
     if (
-      paymentData.MerchantID
-      && paymentData.TradeInfo
-      && paymentData.TradeSha
+      paymentData.MerchantID &&
+      paymentData.TradeInfo &&
+      paymentData.TradeSha
     ) {
       payformRef.current?.submit();
     }
@@ -47,7 +47,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
   const handleFormSubmit = () => {
     if (formRef.current) {
       formRef.current.dispatchEvent(
-        new Event('submit', { cancelable: true, bubbles: true }),
+        new Event('submit', { cancelable: true, bubbles: true })
       );
     }
   };
@@ -76,7 +76,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
         dispatch(
           setToast({
             message: authTabData.noToken,
-          }),
+          })
         );
       } else {
         dispatch(setToast({ message: result.message }));
