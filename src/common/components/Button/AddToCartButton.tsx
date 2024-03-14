@@ -2,8 +2,8 @@ import { mutate } from 'swr';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
-import cartTabData from '@/common/lib/cartTab';
-import authTabData from '@/common/lib/authTab';
+import cartTabData from '@/constants/lib/cartTab';
+import authTabData from '@/constants/lib/authTab';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import useDebounceFn from '@/common/hooks/useDebounceFn';
@@ -53,13 +53,13 @@ const AddToCartButton = ({
         dispatch(
           setToast({
             message: cartTabData.add,
-          }),
+          })
         );
       } else if (result.statusCode === 409) {
         dispatch(
           setToast({
             message: authTabData.noToken,
-          }),
+          })
         );
         router.push('/auth/login');
       }
