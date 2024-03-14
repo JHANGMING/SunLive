@@ -1,9 +1,8 @@
-import Quill from 'quill';
-import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import React, { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import 'react-quill/dist/quill.snow.css';
-import { Colors, EditorProps, FontSizes } from './data';
+import { Colors, FontSizes, EditorProps } from './data';
 
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
@@ -53,6 +52,8 @@ const CustomToolbar = () => (
 
 const Editor = ({ control }: EditorProps) => {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require
+    const Quill = require('quill');
     const SizeStyle = Quill.import('attributors/style/size');
     SizeStyle.whitelist = FontSizes;
     Quill.register(SizeStyle, true);
@@ -75,7 +76,7 @@ const Editor = ({ control }: EditorProps) => {
             {...field}
             modules={modules}
             className="h-[350px] rounder-8"
-            onChange={(content, _delta, _source, editor) => field.onChange(editor.getHTML())}
+            onChange={(content, delta, source, editor) => field.onChange(editor.getHTML())}
           />
         )}
       />
