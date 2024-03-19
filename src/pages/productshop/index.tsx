@@ -1,15 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import ProductPage from '@/modules/ProductPage';
+import { apiPaths } from '@/constants/api/apiPaths';
 import Layout from '@/common/components/Layout';
-import fetchApi from '@/common/helpers/fetchApi';
 import { ProductShopProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { ProductsRefProvider } from '@/common/components/product/ProductsRefContext';
-import {
-  allproductsParams,
-  otherCategoryParams,
-} from '@/constants/api/apiParams';
 
 const ProductShop = ({
   fruitProduct,
@@ -49,44 +46,41 @@ const ProductShop = ({
 export default ProductShop;
 
 export async function getServerSideProps() {
-  let fruitProduct = {};
-  let topSaleProduct = {};
-  let allproductsData = {};
-  let promotionProduct = {};
-  let vegetableProduct = {};
+  let fruitProduct = [];
+  let topSaleProduct = [];
+  let allproductsData = [];
+  let promotionProduct = [];
+  let vegetableProduct = [];
 
+  // 取得所有商品
+  const allParams: ApiParamsType = {
+    apiPath: apiPaths.allproducts,
+    method: 'GET',
+  };
+
+  // 取得其他分類商品
+  const otherCategoryParams: ApiParamsType = {
+    apiPath: apiPaths.otherCategory,
+    method: 'GET',
+  };
   const responses = await Promise.allSettled([
-    fetchApi(allproductsParams),
+    fetchApi(allParams),
     fetchApi(otherCategoryParams),
   ]);
-  responses.forEach((response, index) => {
-    if (response.status !== 'fulfilled' || !response.value) return;
-    const { statusCode } = response.value;
-    switch (statusCode) {
-      case 200:
-        switch (index) {
-          case 0:
-            allproductsData = response.value.data;
-            break;
-          case 1:
-            {
-              const { data } = response.value;
-              ({
-                fruitProduct,
-                topSaleProduct,
-                promotionProduct,
-                vegetableProduct,
-              } = data);
-            }
-            break;
-          default:
-            break;
-        }
-        break;
-      default:
-        break;
-    }
-  });
+  if (
+    responses[0].status === 'fulfilled'
+    && responses[0].value.statusCode === 200
+  ) {
+    allproductsData = responses[0].value.data;
+  }
+
+  if (
+    responses[1].status === 'fulfilled'
+    && responses[1].value.statusCode === 200
+  ) {
+    const { data } = responses[1].value;
+    ({ fruitProduct, topSaleProduct, promotionProduct, vegetableProduct } = data);
+  }
 
   return {
     props: {

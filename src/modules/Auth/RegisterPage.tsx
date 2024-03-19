@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import authTabData from '@/constants/lib/authTab';
+import authTabData from '@/common/lib/authTab';
 import Button from '@/common/components/Button';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import DefaultInput from '@/common/components/Input';
@@ -43,7 +43,7 @@ const RegisterPage = () => {
         dispatch(
           setToast({
             message: authTabData.register,
-          })
+          }),
         );
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));

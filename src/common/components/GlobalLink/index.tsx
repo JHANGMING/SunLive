@@ -4,8 +4,8 @@ import { BsHandIndex } from 'react-icons/bs';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import { GlobalLinkProps } from './data';
-import cartTabData from '../../../constants/lib/cartTab';
-import authTabData from '../../../constants/lib/authTab';
+import cartTabData from '../../lib/cartTab';
+import authTabData from '../../lib/authTab';
 import useDebounceFn from '../../hooks/useDebounceFn';
 import fetchNextApi, { NextapiParamsType } from '../../helpers/fetchNextApi';
 
@@ -44,7 +44,7 @@ const GlobalLink = ({
         dispatch(
           setToast({
             message: cartTabData.add,
-          })
+          }),
         );
         if (openInNewTab) {
           window.open(href, '_blank');
@@ -53,7 +53,7 @@ const GlobalLink = ({
         dispatch(
           setToast({
             message: authTabData.noToken,
-          })
+          }),
         );
       }
     } catch (error) {
@@ -73,8 +73,7 @@ const GlobalLink = ({
     );
   }
   const isLiveAddCart = category === 'liveAddCart';
-  const onClickHandler =
-    isLiveAddCart || !isDisabled ? handleAddToCart : undefined;
+  const onClickHandler = isLiveAddCart || !isDisabled ? handleAddToCart : undefined;
 
   return (
     <button

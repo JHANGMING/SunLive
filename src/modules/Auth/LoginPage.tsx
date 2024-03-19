@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import authTabData from '@/constants/lib/authTab';
+import authTabData from '@/common/lib/authTab';
 import Button from '@/common/components/Button';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import DefaultInput from '@/common/components/Input';
@@ -61,7 +61,7 @@ const LoginPage = () => {
         window.open(
           result.url,
           '_blank',
-          `width=${windowDimensions.width},height=${windowDimensions.height},top=${windowDimensions.top},left=${windowDimensions.left}`
+          `width=${windowDimensions.width},height=${windowDimensions.height},top=${windowDimensions.top},left=${windowDimensions.left}`,
         );
       }
     } catch (error) {
@@ -94,7 +94,7 @@ const LoginPage = () => {
         dispatch(
           setToast({
             message: authTabData.welcome,
-          })
+          }),
         );
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));

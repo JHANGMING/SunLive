@@ -3,8 +3,8 @@ import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
-import fetchApi from '@/common/helpers/fetchApi';
-import { farmerProductParams } from '@/constants/api/apiParams';
+import { apiPaths } from '@/constants/api/apiPaths';
+import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { setProductlistData } from '@/redux/features/dashboardSlice';
 import { ProductPorps } from '@/modules/DashboardPage/Management/data';
 import AllProducts from '@/modules/DashboardPage/Management/AllProducts';
@@ -25,6 +25,7 @@ export default Products;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const token = getCookie('token', { req: context.req });
+  let listData = {};
   if (!token) {
     return {
       redirect: {
@@ -33,23 +34,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-  const productParams = { ...farmerProductParams, authToken: token };
-  const listResponse = await fetchApi(productParams);
-  switch (listResponse.statusCode) {
-    case 200:
-      return {
-        props: {
-          listData: listResponse.data,
-        },
-      };
-    case 409:
-      return {
-        redirect: {
-          destination: '/auth/login',
-          permanent: false,
-        },
-      };
-    default:
-      return { props: {} };
+  const cartParams: ApiParamsType = {
+    apiPath: apiPaths.productlist,
+    method: 'GET',
+    authToken: token,
+  };
+  const listResponse = await fetchApi(cartParams);
+  if (listResponse.statusCode === 200) {
+    listData = listResponse.data;
   }
+  return {
+    props: {
+      listData,
+    },
+  };
 }
