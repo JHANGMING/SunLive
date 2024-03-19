@@ -35,13 +35,13 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
         dispatch(
           setToast({
             message: authTabData.noToken,
-          })
+          }),
         );
       } else {
         dispatch(
           setToast({
             message: `${result.message || '未知錯誤'}`,
-          })
+          }),
         );
       }
     } catch (error) {
