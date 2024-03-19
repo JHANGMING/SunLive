@@ -13,8 +13,8 @@ import { setAllProductsData } from '@/redux/features/productSlice';
 import { AllproductsDataType } from '@/constants/types/product/allproducts';
 import {
   liveParams,
-  otherCategoryParams,
   cartParams,
+  otherCategoryParams,
 } from '@/constants/api/apiParams';
 
 const Home = ({ liveData, cartData, topSaleProduct }: HomePropsType) => {
@@ -44,7 +44,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   let topSaleProduct: AllproductsDataType = [];
 
   // 取得購物車
-  const cartParamsData = { ...cartParams, token };
+  const cartParamsData = { ...cartParams, authToken: token };
 
   const responses = await Promise.allSettled([
     fetchApi(liveParams),
@@ -52,17 +52,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     token ? fetchApi(cartParamsData) : Promise.resolve(null),
   ]);
   responses.forEach((response, index) => {
-    if (response.status !== 'fulfilled') return;
-    switch (response.value.statusCode) {
+    if (response.status !== 'fulfilled' || !response.value) return;
+    const { statusCode } = response.value;
+    switch (statusCode) {
       case 200:
         switch (index) {
           case 0:
             liveData = response.value;
             break;
           case 1:
-            if (response.value.data) {
-              topSaleProduct = response.value.data.topSaleProduct;
-            }
+            topSaleProduct = response.value.data.topSaleProduct;
             break;
           case 2:
             cartData = response.value.data;
