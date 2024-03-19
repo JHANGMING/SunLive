@@ -36,9 +36,9 @@ const CartFormSection = ({ cartData }: CartProps) => {
   }, []);
   useEffect(() => {
     if (
-      paymentData.MerchantID &&
-      paymentData.TradeInfo &&
-      paymentData.TradeSha
+      paymentData.MerchantID
+      && paymentData.TradeInfo
+      && paymentData.TradeSha
     ) {
       payformRef.current?.submit();
     }
@@ -47,7 +47,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
   const handleFormSubmit = () => {
     if (formRef.current) {
       formRef.current.dispatchEvent(
-        new Event('submit', { cancelable: true, bubbles: true })
+        new Event('submit', { cancelable: true, bubbles: true }),
       );
     }
   };
@@ -76,7 +76,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
         dispatch(
           setToast({
             message: authTabData.noToken,
-          })
+          }),
         );
       } else {
         dispatch(setToast({ message: result.message }));
