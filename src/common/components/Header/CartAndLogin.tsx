@@ -14,7 +14,7 @@ const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
   const { authStatus } = useAuthStatus();
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const cartData = useSelector((state: RootState) => state.cart.cartData || {});
+  const cartData = useSelector((state: RootState) => state.cart.cartData);
   let leaveCartTimer: ReturnType<typeof setTimeout>;
   let leaveProfileTimer: ReturnType<typeof setTimeout>;
 

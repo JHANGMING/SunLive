@@ -24,13 +24,19 @@ export type ChangePasswordProps = {
 export type OnSubmitType = {
   (data: FormValues): void;
 };
+type UserVerificationType = 'required' | 'preferred' | 'discouraged';
 
 export type CredentialsProps = {
-  challengeId: ArrayBuffer;
-  userData?: {
-    id: ArrayBuffer;
-    name: string;
-    displayName: string;
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  options?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  resultOption?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  credential?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  newOptions?: any;
+  isRegister?: boolean;
+  challenge?: ArrayBuffer;
+  rpId?: string;
+  userVerification?: UserVerificationType;
 };
-

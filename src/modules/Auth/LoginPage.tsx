@@ -3,20 +3,19 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import authTabData from '@/common/lib/authTab';
 import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import DefaultInput from '@/common/components/Input';
 import useGapClass from '@/common/hooks/useGapClass';
-import { setAllCookies } from '@/common/helpers/getCookie';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import { setToast } from '@/redux/features/messageSlice';
+import useAuthProcess from '@/common/hooks/useAuthProcess';
 import { FormValues } from '@/common/components/Input/data';
-import { setToast, showLoading } from '@/redux/features/messageSlice';
 import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
-import { ROUTES } from './data';
 
 const LoginPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [loginResponse, setLoginResponse] = useState(null);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const {
     register,
@@ -82,27 +81,15 @@ const LoginPage = () => {
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
-        dispatch(showLoading());
-        setAllCookies(result.data);
-        const id = setTimeout(async () => {
-          const redirectTo = result.data.category
-            ? ROUTES.DASHBOARD_ACCOUNT
-            : ROUTES.HOME;
-          await router.push(redirectTo);
-        }, 1500);
-        setTimeoutId(id);
-        dispatch(
-          setToast({
-            message: authTabData.welcome,
-          }),
-        );
+        setLoginResponse(result);
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
       }
     } catch (error) {
-      console.error('登入失败', error);
+      console.error('登入失敗', error);
     }
   };
+  useAuthProcess(loginResponse);
   return (
     <>
       <h2 className="text-center">會員登入</h2>

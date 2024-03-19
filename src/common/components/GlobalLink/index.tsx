@@ -4,8 +4,8 @@ import { BsHandIndex } from 'react-icons/bs';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import { GlobalLinkProps } from './data';
-import cartTabData from '../../lib/cartTab';
-import authTabData from '../../lib/authTab';
+import cartTabData from '../../../constants/lib/cartTab';
+import authTabData from '../../../constants/lib/authTab';
 import useDebounceFn from '../../hooks/useDebounceFn';
 import fetchNextApi, { NextapiParamsType } from '../../helpers/fetchNextApi';
 
