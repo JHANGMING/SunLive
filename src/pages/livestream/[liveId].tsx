@@ -36,13 +36,18 @@ export const getServerSideProps = async (
       method: 'GET',
     };
     const liveResponse = await fetchApi(liveParams);
-    if (liveResponse.statusCode === 200) {
-      liveDetailData = liveResponse;
-    } else if (liveDetailData.length === 0) {
-      return { notFound: true };
+    switch (liveResponse.statusCode) {
+      case 200:
+        liveDetailData = liveResponse.data;
+        break;
+      case 401:
+        return { notFound: true };
+      default:
+        return { notFound: true };
     }
   } catch (error) {
     console.error(error);
+    return { notFound: true };
   }
   return {
     props: {

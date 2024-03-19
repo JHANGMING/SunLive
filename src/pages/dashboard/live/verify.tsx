@@ -12,7 +12,7 @@ const Verify = () => {
   const [token, setToken] = useState('');
   const handerVerify = async (code: string) => {
     const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.verify,
+      apiPath: nextRoutes.youTubeVerify,
       method: 'POST',
       data: { code },
     };

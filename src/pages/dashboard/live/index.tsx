@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
-import { apiPaths } from '@/constants/api/apiPaths';
 import Layout from '@/common/components/Layout';
+import fetchApi from '@/common/helpers/fetchApi';
+import { farmerLiveParams } from '@/constants/api/apiParams';
 import AllLive from '@/modules/DashboardPage/Management/AllLive';
 import { setLivelistData } from '@/redux/features/dashboardSlice';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { LiveListProps } from '@/modules/DashboardPage/Management/data';
 
 const Live = ({ listData }: LiveListProps) => {
@@ -34,14 +34,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-  const liveParams: ApiParamsType = {
-    apiPath: apiPaths.livelist,
-    method: 'GET',
-    authToken: token,
-  };
+  const liveParams = { ...farmerLiveParams, authToken: token };
   const liveResponse = await fetchApi(liveParams);
-  if (liveResponse.statusCode === 200) {
-    listData = liveResponse.data;
+  switch (liveResponse.statusCode) {
+    case 200:
+      listData = liveResponse.data;
+      break;
+    case 409:
+      return {
+        redirect: {
+          destination: '/auth/login',
+          permanent: false,
+        },
+      };
+    default:
+      return { notFound: true };
   }
   return {
     props: {
