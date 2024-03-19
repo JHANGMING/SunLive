@@ -53,13 +53,13 @@ const AddToCartButton = ({
         dispatch(
           setToast({
             message: cartTabData.add,
-          })
+          }),
         );
       } else if (result.statusCode === 409) {
         dispatch(
           setToast({
             message: authTabData.noToken,
-          })
+          }),
         );
         router.push('/auth/login');
       }
