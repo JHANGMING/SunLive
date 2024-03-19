@@ -31,19 +31,10 @@ export const getServerSideProps = async (
       authToken: token,
     };
     const detailResponse = await fetchApi(detailParams);
-    switch (detailResponse.statusCode) {
-      case 200:
-        detailData = detailResponse.data;
-        break;
-      case 409:
-        return {
-          redirect: {
-            destination: '/auth/login',
-            permanent: false,
-          },
-        };
-      default:
-        return { notFound: true };
+    if (detailResponse.statusCode === 200) {
+      detailData = detailResponse.data;
+    } else if (detailResponse.statusCode === 401) {
+      return { notFound: true };
     }
   } catch (error) {
     console.error(error);

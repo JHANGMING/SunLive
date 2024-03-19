@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { BsChevronDown } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
-import authTabData from '@/constants/lib/authTab';
+import authTabData from '@/common/lib/authTab';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import DefaultInput from '@/common/components/Input';
 import { setToast } from '@/redux/features/messageSlice';

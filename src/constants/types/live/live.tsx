@@ -12,7 +12,7 @@ export type LiveProductItemType = {
 
 export type LivesDataType = {
   message?: string;
-  data?: {
+  data: {
     liveId?: number;
     livePrice?: number;
     description?: string;
