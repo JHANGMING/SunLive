@@ -11,7 +11,7 @@ const Verify = () => {
   const dispatch = useDispatch();
   const handerVerify = async (code: string) => {
     const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.googleVerify,
+      apiPath: nextRoutes.googleverify,
       method: 'POST',
       data: { code },
     };

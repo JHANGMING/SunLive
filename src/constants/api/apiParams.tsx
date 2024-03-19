@@ -19,29 +19,4 @@ const cartParams: ApiParamsType = {
   method: 'GET',
 };
 
-// 取得所有商品
-const allproductsParams: ApiParamsType = {
-  apiPath: apiPaths.allproducts,
-  method: 'GET',
-};
-
-// 取得小農產品
-const farmerProductParams: ApiParamsType = {
-  apiPath: apiPaths.productlist,
-  method: 'GET',
-};
-
-// 取得小農所有直播
-const farmerLiveParams: ApiParamsType = {
-  apiPath: apiPaths.livelist,
-  method: 'GET',
-};
-
-export {
-  liveParams,
-  cartParams,
-  allproductsParams,
-  otherCategoryParams,
-  farmerLiveParams,
-  farmerProductParams,
-};
+export { liveParams, otherCategoryParams, cartParams };

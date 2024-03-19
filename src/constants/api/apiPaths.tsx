@@ -4,9 +4,7 @@ export const apiPaths = {
   register: '/api/register',
   logout: '/api/logout',
   googleIdentity: '/api/login/google',
-  googleVerify: '/api/login/authcode',
-  creatWebAuthn: '/api/login/attestation/result',
-  getWebAuthn: '/api/login/assertion/result',
+  googleverify: '/api/login/authcode',
   // passwordless: '/api/login/passwordless',
   passwordless: 'api/login/attestation',
   passwordlessVerify: '/api/login/passwordless/checkout',
@@ -47,7 +45,7 @@ export const apiPaths = {
   liveSet: '/api/livesetting',
   livelist: '/api/farmer/livelist',
   identity: '/api/livesetting/google',
-  youTubeVerify: '/api/livesetting/authcode',
+  verify: '/api/livesetting/authcode',
 
   // dashboard-order
   getorderlist: '/api/farmer/orderlist',
@@ -74,10 +72,8 @@ export const nextRoutes = {
   logout: '/auth/logout',
   setToken: '/auth/setToken',
   googleIdentity: '/auth/googleIdentity',
-  googleVerify: '/auth/googleverify',
+  googleverify: '/auth/googleverify',
   passwordless: '/auth/passwordless',
-  creatWebAuthn: '/auth/creatWebAuthn',
-  getWebAuthn: '/auth/getWebAuthn',
   resetpassword: '/auth/resetpassword',
   resetpasswordVerify: '/auth/resetpasswordverify',
 
@@ -119,7 +115,7 @@ export const nextRoutes = {
   editliveproduct: '/dashboard/live/editliveproduct',
   livelist: '/dashboard/live/livelist',
   identity: '/dashboard/live/identity',
-  youTubeVerify: '/dashboard/live/verify',
+  verify: '/dashboard/live/verify',
 
   // dashboard-order
   getorderlist: '/dashboard/order/getorderlist',

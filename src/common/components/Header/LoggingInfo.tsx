@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import useAuth from '@/common/hooks/useAuth';
-import authTabData from '@/constants/lib/authTab';
+import authTabData from '@/common/lib/authTab';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
