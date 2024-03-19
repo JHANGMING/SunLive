@@ -39,6 +39,8 @@ const PasswordlessLoginPage = () => {
           ]).then(async (results) => {
             if (results.every((r) => r === true)) {
               const result = await handleCredential(options, isRegister);
+              // eslint-disable-next-line no-console
+              console.log('result', result);
               if (result && result.statusCode === 200) {
                 setLoginResponse(result);
                 dispatch(setToast({ message: authTab.register }));
