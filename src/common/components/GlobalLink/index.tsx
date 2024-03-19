@@ -44,7 +44,7 @@ const GlobalLink = ({
         dispatch(
           setToast({
             message: cartTabData.add,
-          })
+          }),
         );
         if (openInNewTab) {
           window.open(href, '_blank');
@@ -53,7 +53,7 @@ const GlobalLink = ({
         dispatch(
           setToast({
             message: authTabData.noToken,
-          })
+          }),
         );
       }
     } catch (error) {
@@ -73,8 +73,7 @@ const GlobalLink = ({
     );
   }
   const isLiveAddCart = category === 'liveAddCart';
-  const onClickHandler =
-    isLiveAddCart || !isDisabled ? handleAddToCart : undefined;
+  const onClickHandler = isLiveAddCart || !isDisabled ? handleAddToCart : undefined;
 
   return (
     <button
