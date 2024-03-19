@@ -10,7 +10,7 @@ export default async function handler(
   try {
     const token = getCookie('token', { req, res });
     const apiParams: ApiParamsType = {
-      apiPath: apiPaths.verify,
+      apiPath: apiPaths.youTubeVerify,
       method: 'POST',
       data: req.body,
       authToken: token,

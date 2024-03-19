@@ -40,15 +40,19 @@ export const getServerSideProps = async (
       apiPath: `${apiPaths.detail}/${productId}`,
       method: 'GET',
     };
-
     const detailResponse = await fetchApi(detailParams);
-    if (detailResponse.statusCode === 200) {
-      detailData = detailResponse.data;
-    } else if (detailResponse.statusCode === 401) {
-      return { notFound: true };
+    switch (detailResponse.statusCode) {
+      case 200:
+        detailData = detailResponse.data;
+        break;
+      case 401:
+        return { notFound: true };
+      default:
+        return { notFound: true };
     }
   } catch (error) {
     console.error(error);
+    return { notFound: true };
   }
   return {
     props: {

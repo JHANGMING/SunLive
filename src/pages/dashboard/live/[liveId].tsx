@@ -28,13 +28,23 @@ export const getServerSideProps = async (
       method: 'GET',
     };
     const liveResponse = await fetchApi(liveParams);
-    if (liveResponse.statusCode === 200) {
-      liveDetailData = liveResponse;
-    } else if (liveDetailData.length === 0) {
-      return { notFound: true };
+    switch (liveResponse.statusCode) {
+      case 200:
+        liveDetailData = liveResponse;
+        break;
+      case 409:
+        return {
+          redirect: {
+            destination: '/auth/login',
+            permanent: false,
+          },
+        };
+      default:
+        return { notFound: true };
     }
   } catch (error) {
     console.error(error);
+    return { notFound: true };
   }
   return {
     props: {

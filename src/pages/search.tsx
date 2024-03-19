@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { apiPaths } from '@/constants/api/apiPaths';
 import Layout from '@/common/components/Layout';
+import fetchApi from '@/common/helpers/fetchApi';
 import SearchPage from '@/modules/ProductPage/SearchPage';
+import { allproductsParams } from '@/constants/api/apiParams';
 import { ProductSearchProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { ProductsRefProvider } from '@/common/components/product/ProductsRefContext';
 
 const ProductSearch = ({ allproductsData }: ProductSearchProps) => {
@@ -31,15 +31,13 @@ export default ProductSearch;
 export async function getServerSideProps() {
   let allproductsData = [];
   try {
-    // 取得所有商品
-    const allParams: ApiParamsType = {
-      apiPath: apiPaths.allproducts,
-      method: 'GET',
-    };
-
-    const allproductsResponse = await fetchApi(allParams);
-    if (allproductsResponse.statusCode === 200) {
-      allproductsData = allproductsResponse.data;
+    const allproductsResponse = await fetchApi(allproductsParams);
+    switch (allproductsResponse.statusCode) {
+      case 200:
+        allproductsData = allproductsResponse.data;
+        break;
+      default:
+        break;
     }
   } catch (error) {
     console.error(error);
