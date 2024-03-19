@@ -16,8 +16,6 @@ const useCredentialManagement = () => {
         data: dataObj,
       };
       const result = await fetchNextApi(apiParams);
-      // eslint-disable-next-line no-console
-      console.log('result', result);
       if (result.statusCode === 200) {
         if (isRegister) {
           const { challenge, user, ...restOfResultOption } = result.option;
