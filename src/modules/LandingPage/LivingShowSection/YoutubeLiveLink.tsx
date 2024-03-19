@@ -82,12 +82,10 @@ const YoutubeLiveIfram = ({
   }, [isViewPage, isLivePage]);
   return (
     <div className={`relative ${iframeContainerStyle}`}>
-      <div
-        className={`relative w-full h-full ${iframeBorderStyle} `}
-      >
+      <div className={`iframe-container ${iframeBorderStyle} `}>
         <iframe
           ref={iframeRef}
-          className={`absolute top-0 left-0 w-full h-full ${isViewPage && 'rounded-16'}`}
+          className={`${isViewPage && 'rounded-16'}`}
           src={
             isViewPage
               ? `https://www.youtube.com/embed/${url}?autoplay=1&mute=1 `

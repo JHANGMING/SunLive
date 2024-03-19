@@ -1,4 +1,3 @@
-
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { apiPaths } from '@/constants/api/apiPaths';
 import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
@@ -8,12 +7,10 @@ export default async function handler(
   res: NextApiResponse<{ error: string }>,
 ) {
   try {
-    const { email, password } = JSON.parse(req.body);
-
     const apiParams: ApiParamsType = {
-      apiPath: apiPaths.login,
+      apiPath: apiPaths.getWebAuthn,
       method: 'POST',
-      data: { account: email, password },
+      data: req.body,
     };
     const result = await fetchApi(apiParams);
     res.status(200).json(result);

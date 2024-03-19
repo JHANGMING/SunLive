@@ -29,11 +29,11 @@ const HomeSwiper = ({ imgData, classStyle }: HomeSwiperPropsType) => {
           disableOnInteraction: false, // 操作swiper，是否禁止
         }}
       >
-        {imgDatas.map((imgSwiperData) => (
+        {imgDatas.map((imgＤata) => (
           <SwiperSlide key={uuidv4()}>
             <Image
-              src={imgSwiperData.src}
-              alt={imgSwiperData.alt}
+              src={imgＤata.src}
+              alt={imgＤata.alt}
               className="w-[160px] h-[119px] lg:w-[378px] lg:h-[282px] object-cover"
             />
           </SwiperSlide>
