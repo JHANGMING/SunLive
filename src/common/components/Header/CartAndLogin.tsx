@@ -79,7 +79,11 @@ const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
         onMouseEnter={handleProfileMouseEnter}
         onMouseLeave={handleProfileMouseLeave}
       >
-        <button type="button" className="authIcon" aria-label="authIcon">
+        <button
+          type="button"
+          className="shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3 rounded-full"
+          aria-label="authIcon"
+        >
           <BsPersonCircle className="text-primary-yellow text-[30px] lg:text-40" />
         </button>
         {showProfileDropdown && <LoggingInfo dropdownClass={dropdownClass} />}

@@ -27,7 +27,6 @@
     "react-quill": "^2.0.0",
     "react-redux": "^9.1.0",
     "react-select": "^5.8.0",
-    "sass": "^1.69.7",
     "signalr-no-jquery": "^0.2.0",
     "swiper": "^11.0.5",
     "swr": "^2.2.4",
