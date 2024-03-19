@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import authTab from '@/constants/lib/authTab';
+import authTab from '@/constants/tabData/authTab';
 import Button from '@/common/components/Button';
 import useWebAuthn from '@/common/hooks/useWebAuthn';
 import DefaultInput from '@/common/components/Input';
