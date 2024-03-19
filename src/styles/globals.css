@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  body {
+    margin: 0 auto;
+    line-height: 1.5;
+    scroll-behavior: smooth;
+    @apply tracking-widest text-mediumGray;
+  }
+  h1 {
+    @apply text-40 font-bold;
+  }
+  h2 {
+    @apply text-32 font-bold;
+  }
+  h3 {
+    @apply text-28 font-bold;
+  }
+  h4 {
+    @apply text-24 font-bold;
+  }
+  h5 {
+    @apply text-20;
+  }
+  h6 {
+    @apply text-18 font-bold;
+  }
+  img {
+    object-fit: cover;
+  }
+  a {
+    @apply block;
+  }
+}
+@layer components {
+  .cartIcon {
+    @apply relative flex w-32 h-32 lg:h-50 lg:w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3;
+  }
+  .cartCount {
+    @apply relative flex h-50 w-50 items-center justify-center rounded-full bg-primary-yellow shadow-headerIcon hover:shadow-none transform transition-shadow duration-300 ease-in-out hover:transform hover:translate-x-3 hover:translate-y-3;
+  }
+  .authTextLine {
+    @apply text-18 flex justify-center items-center text-center text-darkGray after:content-[''] after:h-1 after:flex-auto after:mx-10 after:bg-darkGray before:content-[''] before:h-1 before:flex-auto before:mx-10 before:bg-darkGray;
+  }
+  .product-card-enter {
+    @apply opacity-0;
+  }
+  .product-card-enter-active {
+    @apply opacity-100 transition-opacity duration-700 ease-in-out;
+  }
+  .product-card-exit-active {
+    @apply opacity-0 transition-opacity duration-700 ease-in-out;
+  }
+}
+/* cart */
+.cartlist li:not(:last-child) {
+  @apply border-b border-lightGray;
+}
+
+/* datepicker */
+.react-datepicker-wrapper {
+  @apply w-full;
+}
+
+.react-datepicker__input-container input::placeholder {
+  @apply text-14 text-darkGray tracking-widest;
+}
+
+/* landingPage friendlyFarmSection background */
+.bg-friendlyFarmBG {
+  background-position: top center;
+}
+
+/* homeSwiper */
+.homeSwiper .swiper-slide {
+  @apply w-[160px] lg:w-[378px];
+}
+.homeSwiper .swiper-slide img {
+  @apply object-cover;
+}
+.homeSwiper .swiper-wrapper {
+  transition-timing-function: linear;
+}
+
+.outline-offset:hover {
+  outline-offset: 4px;
+}
+
+/* header */
+.hover-target {
+  transition: opacity 0.4s ease;
+  transform: scale(0);
+  transform-origin: center;
+}
+.hover-trigger:hover .hover-target {
+  opacity: 0.5;
+  transform: scale(1);
+}
