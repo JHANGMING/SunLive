@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import authTab from '@/constants/lib/authTab';
+import authTab from '@/constants/tabData/authTab';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { setAllCookies } from '@/common/helpers/getCookie';
 import { showLoading, setToast } from '@/redux/features/messageSlice';
