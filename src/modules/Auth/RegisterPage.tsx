@@ -43,7 +43,7 @@ const RegisterPage = () => {
         dispatch(
           setToast({
             message: authTabData.register,
-          })
+          }),
         );
       } else {
         dispatch(setToast({ message: `${result.message || '未知錯誤'}` }));
