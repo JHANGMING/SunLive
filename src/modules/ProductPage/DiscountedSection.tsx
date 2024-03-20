@@ -6,8 +6,8 @@ import Button from '@/components/Button';
 import Image from '@/components/CustomImage';
 import LogoImg from '@/components/Logo/LogoImg';
 import Loading from '@/components/Loading/Loading';
-import { useProducts } from '@/components/product/ProductsRefContext';
-import ProductList from '@/components/product/ProductList';
+import { useProducts } from '@/components/Product/ProductsRefContext';
+import ProductList from '@/components/Product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
 const DiscountedSection = () => {

@@ -6,7 +6,7 @@ import SearchPage from '@/modules/ProductPage/SearchPage';
 import { allproductsParams } from '@/constants/api/apiParams';
 import { ProductSearchProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
-import { ProductsRefProvider } from '@/components/product/ProductsRefContext';
+import { ProductsRefProvider } from '@/components/Product/ProductsRefContext';
 
 const ProductSearch = ({ allproductsData }: ProductSearchProps) => {
   const dispatch = useDispatch();

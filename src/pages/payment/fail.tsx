@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout';
-import FailOrder from '@/modules/CartPage/payment/FailOrder';
+import FailOrder from '@/modules/CartPage/Payment/FailOrder';
 
 const Order = () => {
   return (

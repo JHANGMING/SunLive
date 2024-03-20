@@ -1,4 +1,4 @@
-import ProductList from '@/components/product/ProductList';
+import ProductList from '@/components/Product/ProductList';
 import LinkToProduct from '@/components/LandingPage/LinkToProduct';
 
 const ProductListSection = () => {

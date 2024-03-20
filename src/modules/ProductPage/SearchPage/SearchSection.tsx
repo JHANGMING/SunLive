@@ -4,7 +4,7 @@ import { RootState } from '@/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { showLoading } from '@/redux/features/messageSlice';
 import { setSearchData } from '@/redux/features/productSlice';
-import ProductList from '@/components/product/ProductList';
+import ProductList from '@/components/Product/ProductList';
 import SearchInput from '@/components/Input/SearchInput';
 import CategoryTitle from '../CategoryTitle';
 

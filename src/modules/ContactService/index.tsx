@@ -7,18 +7,18 @@ import {
 } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
 import Logo from '@/components/Logo';
+import { RootState } from '@/redux/store';
+import Image from '@/components/CustomImage';
 import useAuth from '@/common/hooks/useAuth';
 import fetcher from '@/common/helpers/fetcher';
-import Image from '@/components/CustomImage';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import LogoImg from '@/components/Logo/LogoImg';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
+import JoinChatRoom from '@/common/helpers/signalRService';
 import { joinroomParams } from '@/constants/api/nextApiParams';
 import { clearFamerId, setToast } from '@/redux/features/messageSlice';
-import JoinChatRoom from './signalRService';
 import PersonalChatRoom from './PersonalChatRoom';
 import { ChatDataType, ChatcontentType } from './data';
 

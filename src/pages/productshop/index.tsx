@@ -5,7 +5,7 @@ import Layout from '@/components/Layout';
 import fetchApi from '@/common/helpers/fetchApi';
 import { ProductShopProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
-import { ProductsRefProvider } from '@/components/product/ProductsRefContext';
+import { ProductsRefProvider } from '@/components/Product/ProductsRefContext';
 import {
   allproductsParams,
   otherCategoryParams,

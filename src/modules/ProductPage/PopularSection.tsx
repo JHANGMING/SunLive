@@ -1,5 +1,5 @@
-import { useProducts } from '@/components/product/ProductsRefContext';
-import ProductList from '@/components/product/ProductList';
+import { useProducts } from '@/components/Product/ProductsRefContext';
+import ProductList from '@/components/Product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
 const PopularSection = () => {
