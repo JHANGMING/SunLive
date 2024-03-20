@@ -6,13 +6,14 @@ import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Button from '@/common/components/Button';
 import Editor from '@/common/components/Editor';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import Image from '@/common/components/CustomImage';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
 import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
 import PersonInput from '@/common/components/Input/PersonInput';
+import { addproductParams } from '@/constants/api/nextApiParams';
 import ManagementSelect from '@/common/components/Select/ManagementSelect';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import {
   PreviewImagesProps,
   SelectedFilesProps,
@@ -65,17 +66,11 @@ const AddProduct = () => {
     selectedFiles.forEach(({ file }, index) => {
       formData.append(`file${index}`, file);
     });
-
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.addproduct,
-      method: 'POST',
-      data: dataObj,
-    };
-
     const imgParams = {
       method: 'POST',
       body: formData,
     };
+    const apiParams = { ...addproductParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode !== 200) {
