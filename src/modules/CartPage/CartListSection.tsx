@@ -1,14 +1,14 @@
 import { mutate } from 'swr';
 import { useDispatch } from 'react-redux';
 import { BsChevronDown } from 'react-icons/bs';
-import { nextRoutes } from '@/constants/api/apiPaths';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
 import useDebounceFn from '@/common/hooks/useDebounceFn';
-import DeleteBtn from '@/common/components/Button/DeleteBtn';
-import SpecSelect from '@/common/components/Select/SpecSelect';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
-import { generateSpecData } from '@/common/components/Select/SpecSelect/data';
+import DeleteBtn from '@/components/Button/DeleteBtn';
+import SpecSelect from '@/components/Select/SpecSelect';
+import { putqtyParams, putspecParams } from '@/constants/api/nextApiParams';
+import { generateSpecData } from '@/components/Select/SpecSelect/data';
 import CartLink from './CartLink';
 import { CartProps } from './data';
 import CartTotalPrice from './CartTotalPrice';
@@ -27,11 +27,7 @@ const CartListSection = ({ cartData }: CartProps) => {
         cartItemQty,
         productSpecId,
       };
-      const apiParams: NextapiParamsType = {
-        apiPath: nextRoutes.putqty,
-        method: 'POST',
-        data: dataObj,
-      };
+      const apiParams = { ...putqtyParams, data: dataObj };
       try {
         const result = await fetchNextApi(apiParams);
         if (result.statusCode === 200) {
@@ -51,11 +47,7 @@ const CartListSection = ({ cartData }: CartProps) => {
       productId,
       productSpecId: Number(specId),
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.putspec,
-      method: 'POST',
-      data: dataObj,
-    };
+    const apiParams = { ...putspecParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

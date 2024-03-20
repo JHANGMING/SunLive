@@ -1,8 +1,9 @@
 import { getCookie } from 'cookies-next';
 import { GetServerSidePropsContext } from 'next';
+import Layout from '@/components/Layout';
+import fetchApi from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/api/apiPaths';
-import Layout from '@/common/components/Layout';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import createApiParams from '@/common/helpers/createApiParams';
 import EditProduct from '@/modules/DashboardPage/Management/EditProduct';
 import { EditProductsProps } from '@/modules/DashboardPage/Management/data';
 
@@ -25,11 +26,7 @@ export const getServerSideProps = async (
   let detailData = [];
   try {
     // 取得編輯農產品
-    const detailParams: ApiParamsType = {
-      apiPath: `${apiPaths.productSet}/${productId}`,
-      method: 'GET',
-      authToken: token,
-    };
+    const detailParams = createApiParams(`${apiPaths.productSet}/${productId}`, 'GET', token);
     const detailResponse = await fetchApi(detailParams);
     switch (detailResponse.statusCode) {
       case 200:

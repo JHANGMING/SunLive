@@ -4,11 +4,12 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { BsCursorFill, BsPersonCircle } from 'react-icons/bs';
+import Image from '@/components/CustomImage';
 import { nextRoutes } from '@/constants/api/apiPaths';
-import Image from '@/common/components/CustomImage';
 import useDebounceFn from '@/common/hooks/useDebounceFn';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { liveCheckParams } from '@/constants/api/nextApiParams';
 import { setLiveRoomId, setToast } from '@/redux/features/messageSlice';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { LiveChatProps, Message } from './data';
 import { Avatar, NameTag } from './MessageItem';
 
@@ -28,12 +29,8 @@ const LiveChat = ({ liveId, liveFarmerId, setViewerCount }: LiveChatProps) => {
     photoSender: '',
   });
   const callApi = async () => {
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.check,
-      method: 'GET',
-    };
     try {
-      const result = await fetchNextApi(apiParams);
+      const result = await fetchNextApi(liveCheckParams);
       if (result.statusCode === 200) {
         setUser({
           userIdSender: result.data.senderId,

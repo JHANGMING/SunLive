@@ -1,6 +1,6 @@
 import { BsPersonCircle } from 'react-icons/bs';
-import Image from '@/common/components/CustomImage';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import Image from '@/components/CustomImage';
+import LogoImg from '@/components/Logo/LogoImg';
 import { AvatarProps, NameTagProps } from './data';
 
 const Avatar = ({ photo, alt }:AvatarProps) => {

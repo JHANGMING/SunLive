@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { nextRoutes } from '@/constants/api/apiPaths';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { liveIdentityParams } from '@/constants/api/nextApiParams';
 import { LiveAccontVerifyProps } from './data';
 
 const LiveAccontVerify = ({
@@ -24,12 +24,8 @@ const LiveAccontVerify = ({
   }, []);
 
   const handlerIdentity = async () => {
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.identity,
-      method: 'GET',
-    };
     try {
-      const result = await fetchNextApi(apiParams);
+      const result = await fetchNextApi(liveIdentityParams);
       if (result.statusCode === 200) {
         window.open(result.url, '_blank');
       }

@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import authTab from '@/constants/lib/authTab';
-import Button from '@/common/components/Button';
+import authTab from '@/constants/tabData/authTab';
+import Button from '@/components/Button';
 import useWebAuthn from '@/common/hooks/useWebAuthn';
-import DefaultInput from '@/common/components/Input';
-import ArrowLeft from '@/common/components/ArrowLeft';
+import DefaultInput from '@/components/Input';
+import ArrowLeft from '@/components/ArrowLeft';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthProcess from '@/common/hooks/useAuthProcess';
-import { FormValues } from '@/common/components/Input/data';
+import { FormValues } from '@/components/Input/data';
 import useCredentialManagement from '@/common/hooks/useCredentialManagement';
 
 const PasswordlessLoginPage = () => {
@@ -39,8 +39,6 @@ const PasswordlessLoginPage = () => {
           ]).then(async (results) => {
             if (results.every((r) => r === true)) {
               const result = await handleCredential(options, isRegister);
-              // eslint-disable-next-line no-console
-              console.log('result', result);
               if (result && result.statusCode === 200) {
                 setLoginResponse(result);
                 dispatch(setToast({ message: authTab.register }));

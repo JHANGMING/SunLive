@@ -2,13 +2,13 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import LoginPage from '@/modules/Auth/LoginPage';
 import { LoginPrpos } from '@/modules/Auth/data';
-import { apiPaths } from '@/constants/api/apiPaths';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import fetchApi from '@/common/helpers/fetchApi';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthProcess from '@/common/hooks/useAuthProcess';
+import { passwordlessVerifyParams } from '@/constants/api/apiParams';
 
 const Login = ({ errorMessage, loginData: initialLoginData }: LoginPrpos) => {
   const dispatch = useDispatch();
@@ -66,12 +66,7 @@ export const getServerSideProps = async (
   }
 
   try {
-    const loginParams: ApiParamsType = {
-      apiPath: apiPaths.passwordlessVerify,
-      method: 'POST',
-      data: { guid, account, time: Number(time) },
-    };
-
+    const loginParams = { ...passwordlessVerifyParams, data: { guid, account, time: Number(time) } };
     const loginResponse = await fetchApi(loginParams);
     if (loginResponse.statusCode === 200) {
       loginData = loginResponse;

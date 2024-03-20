@@ -2,15 +2,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import authTabData from '@/constants/lib/authTab';
-import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/api/apiPaths';
-import DefaultInput from '@/common/components/Input';
+import Button from '@/components/Button';
+import DefaultInput from '@/components/Input';
 import useGapClass from '@/common/hooks/useGapClass';
+import authTabData from '@/constants/tabData/authTab';
 import { setToast } from '@/redux/features/messageSlice';
-import { FormValues } from '@/common/components/Input/data';
-import AuthSelect from '@/common/components/Select/AuthSelect';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { FormValues } from '@/components/Input/data';
+import AuthSelect from '@/components/Select/AuthSelect';
+import { registerParams } from '@/constants/api/nextApiParams';
 import { OnSubmitType } from './data';
 
 const RegisterPage = () => {
@@ -31,11 +31,7 @@ const RegisterPage = () => {
       password: password.trim(),
       category: identity?.value,
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.register,
-      method: 'POST',
-      data: dataObj,
-    };
+    const apiParams = { ...registerParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

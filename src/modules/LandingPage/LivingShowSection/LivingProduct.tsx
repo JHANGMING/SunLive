@@ -1,5 +1,5 @@
 import { BsStars } from 'react-icons/bs';
-import LiveIcon from '@/common/components/Header/LIveIcon';
+import LiveIcon from '@/components/Header/LIveIcon';
 import { LivingProductProps } from './data';
 
 const LivingProduct = ({ living, liveData }: LivingProductProps) => {

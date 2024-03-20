@@ -3,14 +3,15 @@ import useSWR, { mutate } from 'swr';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import useAuth from '@/common/hooks/useAuth';
-import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import fetcher from '@/common/helpers/fetcher';
+import Button from '@/components/Button';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
-import { FormValues } from '@/common/components/Input/data';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
-import PersonInput from '@/common/components/Input/PersonInput';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { FormValues } from '@/components/Input/data';
+import PersonInput from '@/components/Input/PersonInput';
+import { farmerinfoSetParams } from '@/constants/api/nextApiParams';
 
 const AccountSettng = () => {
   const auth = useAuth();
@@ -41,11 +42,7 @@ const AccountSettng = () => {
     const dataObj = {
       ...formData,
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.farminfo_set,
-      method: 'POST',
-      data: dataObj,
-    };
+    const apiParams = { ...farmerinfoSetParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

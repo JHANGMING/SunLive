@@ -1,4 +1,4 @@
-import LogoImg from '@/common/components/Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
 import { CartTotalPriceProps } from './data';
 
 const CartTotalPrice = ({ priceData }: CartTotalPriceProps) => {

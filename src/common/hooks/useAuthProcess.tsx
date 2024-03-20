@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import authTab from '@/constants/lib/authTab';
-import { nextRoutes } from '@/constants/api/apiPaths';
+import authTab from '@/constants/tabData/authTab';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
 import { setAllCookies } from '@/common/helpers/getCookie';
+import { setTokenParams } from '@/constants/api/nextApiParams';
 import { showLoading, setToast } from '@/redux/features/messageSlice';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 
 const ROUTES = {
   DASHBOARD_ACCOUNT: '/dashboard/account',
@@ -18,12 +18,7 @@ const useAuthProcess = (loginResponse :any) => {
   const loginData = loginResponse?.data;
   const token = loginResponse?.token;
   const setToken = async (authToken: string) => {
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.setToken,
-      method: 'POST',
-      data: { token: authToken },
-    };
-
+    const apiParams = { ...setTokenParams, data: { token: authToken } };
     try {
       await fetchNextApi(apiParams);
     } catch (error) {

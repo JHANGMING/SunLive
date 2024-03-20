@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import useAuth from '@/common/hooks/useAuth';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import fetcher from '@/common/helpers/fetcher';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
 

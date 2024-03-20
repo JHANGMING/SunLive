@@ -3,7 +3,7 @@ import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import CartPage from '@/modules/CartPage';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import fetchApi from '@/common/helpers/fetchApi';
 import { cartParams } from '@/constants/api/apiParams';
 import { CartListProps } from '@/modules/CartPage/data';

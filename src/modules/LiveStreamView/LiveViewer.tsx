@@ -1,5 +1,5 @@
-import Image from '@/common/components/CustomImage';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import Image from '@/components/CustomImage';
+import LogoImg from '@/components/Logo/LogoImg';
 import { LivestreamingProps } from './data';
 import ChatAndProduct from './ChatAndProduct';
 import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';

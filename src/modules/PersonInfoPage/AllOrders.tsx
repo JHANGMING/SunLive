@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import fetcher from '@/common/helpers/fetcher';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
-import DynamicTable from '@/common/components/DynamicTable/userOrderTable';
+import DynamicTable from '@/components/DynamicTable/userOrderTable';
 import { ordersColumns } from './data';
 
 const AllOrders = () => {

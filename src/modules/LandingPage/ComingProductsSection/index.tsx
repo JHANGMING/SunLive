@@ -1,6 +1,6 @@
-import Image from '@/common/components/CustomImage';
-import LinkToProduct from '@/common/components/LandingPage/LinkToProduct';
-import UpcomingProductsList from '@/common/components/product/UpcomingProducts/UpcomingProductsList';
+import Image from '@/components/CustomImage';
+import LinkToProduct from '@/components/LandingPage/LinkToProduct';
+import UpcomingProductsList from '@/components/Product/UpcomingProducts/UpcomingProductsList';
 
 const ComingProductsSection = () => {
   return (

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useAuth from '@/common/hooks/useAuth';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
 import AllOrders from './AllOrders';
 import AccountSetting from './AccountSetting';
 import ProfileImgSection from './ProfileImgSection';

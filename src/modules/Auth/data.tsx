@@ -1,4 +1,4 @@
-import { FormValues } from '@/common/components/Input/data';
+import { FormValues } from '@/components/Input/data';
 import { ResultDataType } from '@/common/helpers/getCookie';
 
 export const ROUTES = {

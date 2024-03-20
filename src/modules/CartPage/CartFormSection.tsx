@@ -3,13 +3,13 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { BsChevronDown } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
-import authTabData from '@/constants/lib/authTab';
-import { nextRoutes } from '@/constants/api/apiPaths';
-import DefaultInput from '@/common/components/Input';
+import DefaultInput from '@/components/Input';
+import authTabData from '@/constants/tabData/authTab';
 import { setToast } from '@/redux/features/messageSlice';
-import { FormValues } from '@/common/components/Input/data';
-import LocationSelect from '@/common/components/Select/LocationSelect';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { FormValues } from '@/components/Input/data';
+import { orderParams } from '@/constants/api/nextApiParams';
+import LocationSelect from '@/components/Select/LocationSelect';
 import transformDataToCartList from '@/common/helpers/transDataToCartList';
 import { CartProps, PaymentDataType } from './data';
 
@@ -61,12 +61,7 @@ const CartFormSection = ({ cartData }: CartProps) => {
       cartList,
       cartId,
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.order,
-      method: 'POST',
-      data: dataObj,
-    };
-
+    const apiParams = { ...orderParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

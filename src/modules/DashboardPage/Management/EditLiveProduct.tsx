@@ -1,12 +1,13 @@
 import useSWR from 'swr';
 import { useDispatch } from 'react-redux';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import fetcher from '@/common/helpers/fetcher';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { editliveproductParams } from '@/constants/api/nextApiParams';
 import { LivedetailDateType } from '@/constants/types/live/livedetailDate';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { EditLiveProductProps, LiveProductType } from './data';
 
 const EditLiveProduct = ({ liveId }: EditLiveProductProps) => {
@@ -26,11 +27,7 @@ const EditLiveProduct = ({ liveId }: EditLiveProductProps) => {
       liveProductId,
       liveId,
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.editliveproduct,
-      method: 'POST',
-      data: dataObj,
-    };
+    const apiParams = { ...editliveproductParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

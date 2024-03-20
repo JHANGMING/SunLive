@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import ProductPage from '@/modules/ProductPage';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import fetchApi from '@/common/helpers/fetchApi';
 import { ProductShopProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
-import { ProductsRefProvider } from '@/common/components/product/ProductsRefContext';
+import { ProductsRefProvider } from '@/components/Product/ProductsRefContext';
 import {
   allproductsParams,
   otherCategoryParams,

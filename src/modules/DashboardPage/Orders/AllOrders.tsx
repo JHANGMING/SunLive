@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import fetcher from '@/common/helpers/fetcher';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
-import OrdersSearch from '@/common/components/Input/OrdersSearch';
+import OrdersSearch from '@/components/Input/OrdersSearch';
 import { transFarmerOrderData } from '@/common/helpers/transOrderData';
-import OrdersTable from '@/common/components/DynamicTable/OrdersTable';
-import { FarmerOrderDataType } from '@/common/components/DynamicTable/data';
+import OrdersTable from '@/components/DynamicTable/OrdersTable';
+import { FarmerOrderDataType } from '@/components/DynamicTable/data';
 import OrdersDashboard from '.';
 import { ordersColumns } from '../data';
 

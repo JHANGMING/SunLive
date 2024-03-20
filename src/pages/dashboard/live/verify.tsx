@@ -1,21 +1,17 @@
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { nextRoutes } from '@/constants/api/apiPaths';
-import Loading from '@/common/components/Loading/Loading';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import Loading from '@/components/Loading/Loading';
 import { showLoading } from '@/redux/features/messageSlice';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import { youTubeVerifyParams } from '@/constants/api/nextApiParams';
 
 const Verify = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
   const handerVerify = async (code: string) => {
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.youTubeVerify,
-      method: 'POST',
-      data: { code },
-    };
+    const apiParams = { ...youTubeVerifyParams, data: { code } };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

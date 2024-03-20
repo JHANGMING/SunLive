@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/api/apiPaths';
-import DefaultInput from '@/common/components/Input';
+import Button from '@/components/Button';
+import DefaultInput from '@/components/Input';
 import { setToast } from '@/redux/features/messageSlice';
-import { FormValues } from '@/common/components/Input/data';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { FormValues } from '@/components/Input/data';
+import { resetpasswordVerifyParams } from '@/constants/api/nextApiParams';
 import { ChangePasswordProps } from './data';
 
 const ChangePasswordPage = ({ queryParams }: ChangePasswordProps) => {
@@ -29,11 +29,7 @@ const ChangePasswordPage = ({ queryParams }: ChangePasswordProps) => {
       guid,
       password: password.trim(),
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.resetpasswordVerify,
-      method: 'POST',
-      data: dataObj,
-    };
+    const apiParams = { ...resetpasswordVerifyParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

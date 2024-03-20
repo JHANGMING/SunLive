@@ -1,5 +1,5 @@
-import { useProducts } from '@/common/components/product/ProductsRefContext';
-import ProductList from '@/common/components/product/ProductList';
+import { useProducts } from '@/components/Product/ProductsRefContext';
+import ProductList from '@/components/Product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
 const SeasonalSection = () => {

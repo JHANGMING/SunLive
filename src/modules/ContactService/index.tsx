@@ -7,17 +7,18 @@ import {
 } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Logo from '@/components/Logo';
 import { RootState } from '@/redux/store';
-import Logo from '@/common/components/Logo';
+import Image from '@/components/CustomImage';
 import useAuth from '@/common/hooks/useAuth';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import fetcher from '@/common/helpers/fetcher';
-import Image from '@/common/components/CustomImage';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
+import JoinChatRoom from '@/common/helpers/signalRService';
+import { joinroomParams } from '@/constants/api/nextApiParams';
 import { clearFamerId, setToast } from '@/redux/features/messageSlice';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
-import JoinChatRoom from './signalRService';
 import PersonalChatRoom from './PersonalChatRoom';
 import { ChatDataType, ChatcontentType } from './data';
 
@@ -55,11 +56,7 @@ const ContactService = () => {
   const isReady = notify?.haveUnreadMessage;
   const apiUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
   const getChatApi = async (farmerid: number) => {
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.joinroom,
-      method: 'POST',
-      data: { receiverId: farmerid },
-    };
+    const apiParams = { ...joinroomParams, data: { receiverId: farmerid } };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

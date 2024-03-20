@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
+import fetchApi from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/api/apiPaths';
 import ProductDetailPage from '@/modules/ProductDetailPage';
+import createApiParams from '@/common/helpers/createApiParams';
 import { setAllProductsData } from '@/redux/features/productSlice';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 import { ProductDetailProps } from '@/modules/ProductDetailPage/data';
 
 const ProductDetail = ({ detailData }: ProductDetailProps) => {
@@ -36,10 +37,7 @@ export const getServerSideProps = async (
   let detailData = [];
   try {
     // 取得商品細節
-    const detailParams: ApiParamsType = {
-      apiPath: `${apiPaths.detail}/${productId}`,
-      method: 'GET',
-    };
+    const detailParams = createApiParams(`${apiPaths.detail}/${productId}`, 'GET');
     const detailResponse = await fetchApi(detailParams);
     switch (detailResponse.statusCode) {
       case 200:

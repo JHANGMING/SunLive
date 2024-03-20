@@ -3,16 +3,17 @@ import { useEffect } from 'react';
 import useSWR, { mutate } from 'swr';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import fetcher from '@/common/helpers/fetcher';
+import Button from '@/components/Button';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
-import { FormValues } from '@/common/components/Input/data';
-import DatePickerShow from '@/common/components/DatePicker';
-import PersonInput from '@/common/components/Input/PersonInput';
-import GenderSelect from '@/common/components/Select/GenderSelect';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { FormValues } from '@/components/Input/data';
+import DatePickerShow from '@/components/DatePicker';
+import PersonInput from '@/components/Input/PersonInput';
+import { accountSetParams } from '@/constants/api/nextApiParams';
+import GenderSelect from '@/components/Select/GenderSelect';
 
 const AccountSetting = () => {
   const dispatch = useDispatch();
@@ -63,11 +64,7 @@ const AccountSetting = () => {
       sex: Boolean(sex),
       birthday,
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.account_set,
-      method: 'POST',
-      data: dataObj,
-    };
+    const apiParams = { ...accountSetParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

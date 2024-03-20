@@ -1,4 +1,4 @@
-import Banner from '@/common/components/ProductPage/Banner';
+import Banner from '@/components/ProductPage/Banner';
 import SearchSection from './SearchSection';
 import AllProductSection from '../AllProductSection';
 

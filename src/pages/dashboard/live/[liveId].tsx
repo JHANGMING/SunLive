@@ -1,7 +1,8 @@
 import { GetServerSidePropsContext } from 'next';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
+import fetchApi from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/api/apiPaths';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
+import createApiParams from '@/common/helpers/createApiParams';
 import { EditLiveProps } from '@/modules/DashboardPage/Management/data';
 import EditLiveSettings from '@/modules/DashboardPage/Management/EditLiveSettings';
 
@@ -23,10 +24,7 @@ export const getServerSideProps = async (
   let liveDetailData = [];
   try {
     // 取得編輯Live 直播頁
-    const liveParams: ApiParamsType = {
-      apiPath: `${apiPaths.live}/${liveId}`,
-      method: 'GET',
-    };
+    const liveParams = createApiParams(`${apiPaths.live}/${liveId}`, 'GET');
     const liveResponse = await fetchApi(liveParams);
     switch (liveResponse.statusCode) {
       case 200:
