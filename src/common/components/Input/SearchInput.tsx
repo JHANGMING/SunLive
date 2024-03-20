@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { BsSearch } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { nextRoutes } from '@/constants/api/apiPaths';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { searchParams } from '@/constants/api/nextApiParams';
 import { setSearchData } from '@/redux/features/productSlice';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import { SearchInputProps } from './data';
 
 const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
@@ -16,11 +16,7 @@ const SearchInput = ({ headerVisible = false, onClick }: SearchInputProps) => {
 
   const handlerSearch = async () => {
     if (!inputValue) return;
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.search,
-      method: 'POST',
-      data: inputValue.trim(),
-    };
+    const apiParams = { ...searchParams, data: inputValue.trim() };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

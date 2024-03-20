@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import DefaultInput from '@/common/components/Input';
 import ArrowLeft from '@/common/components/ArrowLeft';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
 import { setToast } from '@/redux/features/messageSlice';
 import { FormValues } from '@/common/components/Input/data';
+import { resetpasswordParams } from '@/constants/api/nextApiParams';
 import SendMailLoading from '@/common/components/Loading/SendMailLoading';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 
 const ResetPasswordPage = () => {
   const router = useRouter();
@@ -25,11 +25,7 @@ const ResetPasswordPage = () => {
     const dataObj = {
       account: data.email.trim(),
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.resetpassword,
-      method: 'POST',
-      data: dataObj,
-    };
+    const apiParams = { ...resetpasswordParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

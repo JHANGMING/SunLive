@@ -1,20 +1,16 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { nextRoutes } from '@/constants/api/apiPaths';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
 import Loading from '@/common/components/Loading/Loading';
 import { showLoading } from '@/redux/features/messageSlice';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import { googleVerifyParams } from '@/constants/api/nextApiParams';
 
 const Verify = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handerVerify = async (code: string) => {
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.googleVerify,
-      method: 'POST',
-      data: { code },
-    };
+    const apiParams = { ...googleVerifyParams, data: { code } };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

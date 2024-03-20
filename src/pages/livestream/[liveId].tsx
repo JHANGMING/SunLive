@@ -2,11 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/common/components/Layout';
+import fetchApi from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/api/apiPaths';
 import LiveStreamView from '@/modules/LiveStreamView';
+import createApiParams from '@/common/helpers/createApiParams';
 import { LivestreamingProps } from '@/modules/LiveStreamView/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
-import fetchApi, { ApiParamsType } from '@/common/helpers/fetchApi';
 
 const Livestreaming = ({ liveDetailData }: LivestreamingProps) => {
   const dispatch = useDispatch();
@@ -31,10 +32,7 @@ export const getServerSideProps = async (
   let liveDetailData = [];
   try {
     // 取得編輯Live 直播頁
-    const liveParams: ApiParamsType = {
-      apiPath: `${apiPaths.live}/${liveId}`,
-      method: 'GET',
-    };
+    const liveParams = createApiParams(`${apiPaths.live}/${liveId}`, 'GET');
     const liveResponse = await fetchApi(liveParams);
     switch (liveResponse.statusCode) {
       case 200:
