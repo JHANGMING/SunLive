@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useRef, useState } from 'react';
-import Image from '@/common/components/CustomImage';
-import GlobalLink from '@/common/components/GlobalLink';
+import Image from '@/components/CustomImage';
+import GlobalLink from '@/components/GlobalLink';
 import LiveChat from './LiveChat';
 import { ChatAndProductPorps } from './data';
 

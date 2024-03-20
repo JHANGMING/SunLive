@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Image from '@/common/components/CustomImage';
-import LogoImg from '@/common/components/Logo/LogoImg';
-import GlobalLink from '@/common/components/GlobalLink';
+import Image from '@/components/CustomImage';
+import LogoImg from '@/components/Logo/LogoImg';
+import GlobalLink from '@/components/GlobalLink';
 import { LivestreamingProps } from './data';
 import CategoryTitle from '../ProductPage/CategoryTitle';
 

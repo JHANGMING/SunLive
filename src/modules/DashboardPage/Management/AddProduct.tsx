@@ -4,16 +4,16 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Button from '@/common/components/Button';
-import Editor from '@/common/components/Editor';
-import Image from '@/common/components/CustomImage';
+import Button from '@/components/Button';
+import Editor from '@/components/Editor';
+import Image from '@/components/CustomImage';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
 import { setToast } from '@/redux/features/messageSlice';
-import { FormValues } from '@/common/components/Input/data';
-import PersonInput from '@/common/components/Input/PersonInput';
+import { FormValues } from '@/components/Input/data';
+import PersonInput from '@/components/Input/PersonInput';
 import { addproductParams } from '@/constants/api/nextApiParams';
-import ManagementSelect from '@/common/components/Select/ManagementSelect';
+import ManagementSelect from '@/components/Select/ManagementSelect';
 import {
   PreviewImagesProps,
   SelectedFilesProps,

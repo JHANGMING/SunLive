@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { RefObject } from 'react';
-import { useProducts } from '@/common/components/product/ProductsRefContext';
+import { useProducts } from '@/components/product/ProductsRefContext';
 import CategoryProductTag from './CategoryProductTag';
 
 const CategorySection = () => {

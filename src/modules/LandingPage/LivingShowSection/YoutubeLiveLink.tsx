@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
 import { YoutubeLiveIframProps } from './data';
 
 const YoutubeLiveIfram = ({

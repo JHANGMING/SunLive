@@ -1,5 +1,5 @@
-import { useProducts } from '@/common/components/product/ProductsRefContext';
-import ProductList from '@/common/components/product/ProductList';
+import { useProducts } from '@/components/product/ProductsRefContext';
+import ProductList from '@/components/product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
 const AllProductSection = () => {

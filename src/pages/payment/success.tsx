@@ -1,4 +1,4 @@
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import SuccessOrder from '@/modules/CartPage/payment/SuccessOrder';
 
 const Order = () => {

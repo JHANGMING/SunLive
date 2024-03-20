@@ -1,4 +1,4 @@
-import LogoImg from '@/common/components/Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
 import { CategoryTitleProps } from './data';
 
 const CategoryTitle = ({

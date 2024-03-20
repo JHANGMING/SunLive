@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next';
 import { GetServerSidePropsContext } from 'next';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import PersonInfoPage from '@/modules/PersonInfoPage';
 
 const PersonInfo = () => {

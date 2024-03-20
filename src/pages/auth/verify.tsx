@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
-import Loading from '@/common/components/Loading/Loading';
+import Loading from '@/components/Loading/Loading';
 import { showLoading } from '@/redux/features/messageSlice';
 import { googleVerifyParams } from '@/constants/api/nextApiParams';
 

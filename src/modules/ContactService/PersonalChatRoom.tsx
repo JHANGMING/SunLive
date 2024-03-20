@@ -8,7 +8,7 @@ import {
 } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import { nextRoutes } from '@/constants/api/apiPaths';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import useDebounceFn from '@/common/hooks/useDebounceFn';
 import { PersonalChatRoomProps } from './data';
 

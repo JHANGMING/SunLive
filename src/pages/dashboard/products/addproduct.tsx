@@ -1,4 +1,4 @@
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import AddProduct from '@/modules/DashboardPage/Management/AddProduct';
 
 const Products = () => {

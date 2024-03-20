@@ -3,13 +3,13 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { BsChevronDown } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
-import DefaultInput from '@/common/components/Input';
+import DefaultInput from '@/components/Input';
 import authTabData from '@/constants/tabData/authTab';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
-import { FormValues } from '@/common/components/Input/data';
+import { FormValues } from '@/components/Input/data';
 import { orderParams } from '@/constants/api/nextApiParams';
-import LocationSelect from '@/common/components/Select/LocationSelect';
+import LocationSelect from '@/components/Select/LocationSelect';
 import transformDataToCartList from '@/common/helpers/transDataToCartList';
 import { CartProps, PaymentDataType } from './data';
 

@@ -8,12 +8,12 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import Logo from '@/common/components/Logo';
+import Logo from '@/components/Logo';
 import useAuth from '@/common/hooks/useAuth';
 import fetcher from '@/common/helpers/fetcher';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import { nextRoutes } from '@/constants/api/apiPaths';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
 import { joinroomParams } from '@/constants/api/nextApiParams';

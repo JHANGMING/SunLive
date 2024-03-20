@@ -1,4 +1,4 @@
-import LiveBanner from '@/common/components/LiveStreamPage/LiveBanner';
+import LiveBanner from '@/components/LiveStreamPage/LiveBanner';
 import LivingShowSection from '../LandingPage/LivingShowSection';
 import LiveProductSection from './LiveProductSection';
 

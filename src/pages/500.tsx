@@ -1,5 +1,5 @@
-import Layout from '@/common/components/Layout';
-import ErrorPage from '@/common/components/ErrorPage';
+import Layout from '@/components/Layout';
+import ErrorPage from '@/components/ErrorPage';
 
 const PageNotFound = () => {
   return (

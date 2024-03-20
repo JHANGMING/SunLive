@@ -1,4 +1,4 @@
-import Banner from '@/common/components/ProductPage/Banner';
+import Banner from '@/components/ProductPage/Banner';
 import PopularSection from './PopularSection';
 import SeasonalSection from './SeasonalSection';
 import CategorySection from './CategorySection';

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import fetchApi from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/api/apiPaths';
 import LiveStreamView from '@/modules/LiveStreamView';

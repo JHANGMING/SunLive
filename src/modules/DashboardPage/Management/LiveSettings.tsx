@@ -4,18 +4,18 @@ import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
-import Button from '@/common/components/Button';
-import Image from '@/common/components/CustomImage';
+import Button from '@/components/Button';
+import Image from '@/components/CustomImage';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
-import { FormValues } from '@/common/components/Input/data';
-import DatePickerShow from '@/common/components/DatePicker';
+import { FormValues } from '@/components/Input/data';
+import DatePickerShow from '@/components/DatePicker';
 import { addliveParams } from '@/constants/api/nextApiParams';
-import PersonInput from '@/common/components/Input/PersonInput';
+import PersonInput from '@/components/Input/PersonInput';
 import { setToast, showLoading } from '@/redux/features/messageSlice';
-import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
-import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
-import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
+import LiveTimeSelect from '@/components/Select/LiveTimeSelect';
+import LiveProductSelect from '@/components/Select/Live/ProductSelect';
+import ProductSpecSelect from '@/components/Select/Live/ProductSpecSelect';
 import {
   LiveDataType,
   transformLiveData,

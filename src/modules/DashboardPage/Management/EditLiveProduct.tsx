@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useDispatch } from 'react-redux';
 import fetcher from '@/common/helpers/fetcher';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
