@@ -92,7 +92,7 @@ const YoutubeLiveIfram = ({
               : 'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&mute=1&loop=1&playlist=5NFpRgeGfkM'
           }
           title="14th Rocket-Sunlive"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           onLoad={handleIframeLoad}
         />
