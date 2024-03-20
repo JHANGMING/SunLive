@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react';
 import Button from '@/common/components/Button';
 import DefaultInput from '@/common/components/Input';
 import useGapClass from '@/common/hooks/useGapClass';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
 import useAuthProcess from '@/common/hooks/useAuthProcess';
 import { FormValues } from '@/common/components/Input/data';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import { googleIdentityParams, loginParams } from '@/constants/api/nextApiParams';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -50,12 +50,8 @@ const LoginPage = () => {
     router.push('/auth/passwordlessLogin');
   };
   const handlerGoogleIdentity = async () => {
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.googleIdentity,
-      method: 'GET',
-    };
     try {
-      const result = await fetchNextApi(apiParams);
+      const result = await fetchNextApi(googleIdentityParams);
       if (result.statusCode === 200) {
         window.open(
           result.url,
@@ -73,11 +69,7 @@ const LoginPage = () => {
       email: email.trim(),
       password: password.trim(),
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.login,
-      method: 'POST',
-      data: dataObj,
-    };
+    const apiParams = { ...loginParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
