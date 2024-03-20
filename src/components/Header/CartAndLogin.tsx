@@ -50,7 +50,7 @@ const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
           onMouseEnter={handleCartMouseEnter}
           onMouseLeave={handleCartMouseLeave}
         >
-          <button type="button" className="cartIcon">
+          <button type="button" className="cartIcon" aria-label="cartIcon">
             <LuShoppingCart className="text-20 lg:text-32" />
             {authStatus && <CartItemCount cartData={cartData} />}
           </button>
