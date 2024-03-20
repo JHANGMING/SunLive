@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { passwordlessParams } from '@/constants/api/nextApiParams';
 import base64URLStringToBuffer from '@/common/helpers/base64URLStringToBuffer';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
-import { nextRoutes } from '@/constants/api/apiPaths';
 
 const useCredentialManagement = () => {
   const [isRequestPending, setIsRequestPending] = useState(false);
@@ -10,11 +10,7 @@ const useCredentialManagement = () => {
     setIsRequestPending(true);
     try {
       const dataObj = { inputName: username.trim(), isRegister };
-      const apiParams: NextapiParamsType = {
-        apiPath: nextRoutes.passwordless,
-        method: 'POST',
-        data: dataObj,
-      };
+      const apiParams = { ...passwordlessParams, data: dataObj };
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
         if (isRegister) {
