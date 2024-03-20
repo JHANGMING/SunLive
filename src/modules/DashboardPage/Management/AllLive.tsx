@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import LiveListTable from '@/common/components/DynamicTable/LIveListTable';
-import OrdersSearch from '@/common/components/Input/OrdersSearch';
+import LiveListTable from '@/components/DynamicTable/LIveListTable';
+import OrdersSearch from '@/components/Input/OrdersSearch';
 import { LiveListColumns } from '../data';
 
 const AllLive = () => {

@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import { BsDashCircleFill, BsPlusCircleFill } from 'react-icons/bs';
-import Button from '@/common/components/Button';
-import Image from '@/common/components/CustomImage';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import Button from '@/components/Button';
+import Image from '@/components/CustomImage';
+import LogoImg from '@/components/Logo/LogoImg';
 import { ProductImgType } from '@/constants/types/product/allproducts';
 import { DetailSectionProps } from './data';
 

@@ -1,11 +1,11 @@
-import HomeSwiper from '@/common/components/HomeSwiper';
-import Banner from '@/common/components/LandingPage/banner';
+import HomeSwiper from '@/components/HomeSwiper';
+import Banner from '@/components/LandingPage/banner';
 import LivingShowSection from '@/modules/LandingPage/LivingShowSection';
 import ProductListSection from '@/modules/LandingPage/productListSection';
-import RecommendSection from '@/common/components/LandingPage/RecommendSection';
+import RecommendSection from '@/components/LandingPage/RecommendSection';
 import ComingProductsSection from '@/modules/LandingPage/ComingProductsSection';
-import FarmFeatureSection from '@/common/components/LandingPage/farmFeatureSection';
-import FriendlyFarmSection from '@/common/components/LandingPage/friendlyFarmSection';
+import FarmFeatureSection from '@/components/LandingPage/farmFeatureSection';
+import FriendlyFarmSection from '@/components/LandingPage/friendlyFarmSection';
 
 const LandingPage = () => {
   return (

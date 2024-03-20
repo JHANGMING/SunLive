@@ -3,14 +3,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import Button from '@/common/components/Button';
-import DefaultInput from '@/common/components/Input';
-import ArrowLeft from '@/common/components/ArrowLeft';
+import Button from '@/components/Button';
+import DefaultInput from '@/components/Input';
+import ArrowLeft from '@/components/ArrowLeft';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
 import { setToast } from '@/redux/features/messageSlice';
-import { FormValues } from '@/common/components/Input/data';
+import { FormValues } from '@/components/Input/data';
 import { resetpasswordParams } from '@/constants/api/nextApiParams';
-import SendMailLoading from '@/common/components/Loading/SendMailLoading';
+import SendMailLoading from '@/components/Loading/SendMailLoading';
 
 const ResetPasswordPage = () => {
   const router = useRouter();

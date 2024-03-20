@@ -4,13 +4,13 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import useAuth from '@/common/hooks/useAuth';
 import fetcher from '@/common/helpers/fetcher';
-import Button from '@/common/components/Button';
+import Button from '@/components/Button';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
-import { FormValues } from '@/common/components/Input/data';
-import PersonInput from '@/common/components/Input/PersonInput';
+import { FormValues } from '@/components/Input/data';
+import PersonInput from '@/components/Input/PersonInput';
 import { farmerinfoSetParams } from '@/constants/api/nextApiParams';
 
 const AccountSettng = () => {

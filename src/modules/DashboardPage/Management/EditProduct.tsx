@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Button from '@/common/components/Button';
-import Editor from '@/common/components/Editor';
+import Button from '@/components/Button';
+import Editor from '@/components/Editor';
 import { nextRoutes } from '@/constants/api/apiPaths';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
-import { FormValues } from '@/common/components/Input/data';
-import PersonInput from '@/common/components/Input/PersonInput';
-import ManagementSelect from '@/common/components/Select/ManagementSelect';
+import { FormValues } from '@/components/Input/data';
+import PersonInput from '@/components/Input/PersonInput';
+import ManagementSelect from '@/components/Select/ManagementSelect';
 import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import {
   EditProductsProps,

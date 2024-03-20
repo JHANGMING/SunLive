@@ -2,7 +2,7 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import LoginPage from '@/modules/Auth/LoginPage';
 import { LoginPrpos } from '@/modules/Auth/data';
 import fetchApi from '@/common/helpers/fetchApi';

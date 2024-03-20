@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { BsFillGeoFill } from 'react-icons/bs';
 import { RootState } from '@/redux/store';
-import Button from '@/common/components/Button';
-import Image from '@/common/components/CustomImage';
-import LogoImg from '@/common/components/Logo/LogoImg';
-import Loading from '@/common/components/Loading/Loading';
-import { useProducts } from '@/common/components/product/ProductsRefContext';
-import ProductList from '@/common/components/product/ProductList';
+import Button from '@/components/Button';
+import Image from '@/components/CustomImage';
+import LogoImg from '@/components/Logo/LogoImg';
+import Loading from '@/components/Loading/Loading';
+import { useProducts } from '@/components/product/ProductsRefContext';
+import ProductList from '@/components/product/ProductList';
 import CategoryTitle from './CategoryTitle';
 
 const DiscountedSection = () => {

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
 import { RootState } from '@/redux/store';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import LivingProduct from './LivingProduct';
 import { LivingShowSectionProps } from './data';
 import YoutubeLiveIfram from './YoutubeLiveLink';

@@ -1,4 +1,4 @@
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import RegisterPage from '@/modules/Auth/RegisterPage';
 
 const Register = () => {

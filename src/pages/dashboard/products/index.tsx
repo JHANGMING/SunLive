@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import fetchApi from '@/common/helpers/fetchApi';
 import { farmerProductParams } from '@/constants/api/apiParams';
 import { setProductlistData } from '@/redux/features/dashboardSlice';

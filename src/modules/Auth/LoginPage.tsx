@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import Button from '@/common/components/Button';
-import DefaultInput from '@/common/components/Input';
+import Button from '@/components/Button';
+import DefaultInput from '@/components/Input';
 import useGapClass from '@/common/hooks/useGapClass';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
 import useAuthProcess from '@/common/hooks/useAuthProcess';
-import { FormValues } from '@/common/components/Input/data';
+import { FormValues } from '@/components/Input/data';
 import { googleIdentityParams, loginParams } from '@/constants/api/nextApiParams';
 
 const LoginPage = () => {

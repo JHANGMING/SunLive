@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
-import Loading from '@/common/components/Loading/Loading';
+import Loading from '@/components/Loading/Loading';
 import { showLoading } from '@/redux/features/messageSlice';
 import { youTubeVerifyParams } from '@/constants/api/nextApiParams';
 

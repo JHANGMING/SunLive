@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { BsCursorFill, BsPersonCircle } from 'react-icons/bs';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import useDebounceFn from '@/common/hooks/useDebounceFn';
 import fetchNextApi from '@/common/helpers/fetchNextApi';

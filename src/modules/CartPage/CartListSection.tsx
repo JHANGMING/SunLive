@@ -1,14 +1,14 @@
 import { mutate } from 'swr';
 import { useDispatch } from 'react-redux';
 import { BsChevronDown } from 'react-icons/bs';
-import Image from '@/common/components/CustomImage';
+import Image from '@/components/CustomImage';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
 import useDebounceFn from '@/common/hooks/useDebounceFn';
-import DeleteBtn from '@/common/components/Button/DeleteBtn';
-import SpecSelect from '@/common/components/Select/SpecSelect';
+import DeleteBtn from '@/components/Button/DeleteBtn';
+import SpecSelect from '@/components/Select/SpecSelect';
 import { putqtyParams, putspecParams } from '@/constants/api/nextApiParams';
-import { generateSpecData } from '@/common/components/Select/SpecSelect/data';
+import { generateSpecData } from '@/components/Select/SpecSelect/data';
 import CartLink from './CartLink';
 import { CartProps } from './data';
 import CartTotalPrice from './CartTotalPrice';

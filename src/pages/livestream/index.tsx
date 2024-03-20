@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Layout from '@/common/components/Layout';
+import Layout from '@/components/Layout';
 import fetchApi from '@/common/helpers/fetchApi';
 import LiveStreamPage from '@/modules/LiveStreamPage';
 import { liveParams } from '@/constants/api/apiParams';

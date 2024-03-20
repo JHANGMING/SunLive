@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import Button from '@/common/components/Button';
-import DefaultInput from '@/common/components/Input';
+import Button from '@/components/Button';
+import DefaultInput from '@/components/Input';
 import { setToast } from '@/redux/features/messageSlice';
 import fetchNextApi from '@/common/helpers/fetchNextApi';
-import { FormValues } from '@/common/components/Input/data';
+import { FormValues } from '@/components/Input/data';
 import { resetpasswordVerifyParams } from '@/constants/api/nextApiParams';
 import { ChangePasswordProps } from './data';
 

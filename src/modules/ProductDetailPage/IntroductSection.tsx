@@ -2,7 +2,7 @@ import Image from 'next/image';
 import * as DOMPurify from 'dompurify';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import LogoImg from '@/common/components/Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
 import { setFamerId } from '@/redux/features/messageSlice';
 import useScrollToElement from '@/common/hooks/useScrollToRef';
 import { DetailSectionProps } from './data';
