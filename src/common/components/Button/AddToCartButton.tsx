@@ -2,13 +2,13 @@ import { mutate } from 'swr';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
-import cartTabData from '@/constants/lib/cartTab';
-import authTabData from '@/constants/lib/authTab';
-import { nextRoutes } from '@/constants/api/apiPaths';
+import cartTabData from '@/constants/tabData/cartTab';
+import authTabData from '@/constants/tabData/authTab';
 import { setToast } from '@/redux/features/messageSlice';
 import useDebounceFn from '@/common/hooks/useDebounceFn';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { addcartParams } from '@/constants/api/nextApiParams';
 import { ButtonPropsType } from './data';
 
 const AddToCartButton = ({
@@ -39,12 +39,7 @@ const AddToCartButton = ({
       productSpecId,
       cartItemQty,
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.addcart,
-      method: 'POST',
-      data: dataObj,
-    };
-
+    const apiParams = { ...addcartParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {

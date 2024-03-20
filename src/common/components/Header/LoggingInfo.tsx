@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import { setCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import useAuth from '@/common/hooks/useAuth';
-import authTabData from '@/constants/lib/authTab';
-import { nextRoutes } from '@/constants/api/apiPaths';
+import authTabData from '@/constants/tabData/authTab';
+import LogoImg from '@/common/components/Logo/LogoImg';
 import { setToast } from '@/redux/features/messageSlice';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { logoutParams } from '@/constants/api/nextApiParams';
 import { removeAllCookies } from '@/common/helpers/getCookie';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
-import LogoImg from '../Logo/LogoImg';
 import { LoggingInfoProps } from './data';
 
 const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
@@ -18,12 +18,8 @@ const LoggingInfo = ({ dropdownClass }: LoggingInfoProps) => {
   const dispatch = useDispatch();
   const { authStatus } = useAuthStatus();
   const handlerLoginOut = async () => {
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.logout,
-      method: 'POST',
-    };
     try {
-      const result = await fetchNextApi(apiParams);
+      const result = await fetchNextApi(logoutParams);
       if (result.statusCode === 200) {
         setCookie('authStatus', 'false');
         router.push('/auth/login');

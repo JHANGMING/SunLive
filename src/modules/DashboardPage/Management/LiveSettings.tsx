@@ -5,15 +5,16 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { BsPlusCircle, BsXCircleFill } from 'react-icons/bs';
 import Button from '@/common/components/Button';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import Image from '@/common/components/CustomImage';
+import { nextRoutes } from '@/constants/api/apiPaths';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
 import { FormValues } from '@/common/components/Input/data';
 import DatePickerShow from '@/common/components/DatePicker';
+import { addliveParams } from '@/constants/api/nextApiParams';
 import PersonInput from '@/common/components/Input/PersonInput';
 import { setToast, showLoading } from '@/redux/features/messageSlice';
 import LiveTimeSelect from '@/common/components/Select/LiveTimeSelect';
 import LiveProductSelect from '@/common/components/Select/Live/ProductSelect';
-import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 import ProductSpecSelect from '@/common/components/Select/Live/ProductSpecSelect';
 import {
   LiveDataType,
@@ -81,16 +82,11 @@ const LiveSettings = () => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append('image', selectedFile);
-      const apiParams: NextapiParamsType = {
-        apiPath: nextRoutes.addlive,
-        method: 'POST',
-        data: dataObj,
-      };
-
       const imgParams = {
         method: 'POST',
         body: formData,
       };
+      const apiParams = { ...addliveParams, data: dataObj };
       try {
         const result = await fetchNextApi(apiParams);
 

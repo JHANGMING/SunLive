@@ -37,6 +37,12 @@ const farmerLiveParams: ApiParamsType = {
   method: 'GET',
 };
 
+// 無密碼認證
+const passwordlessVerifyParams: ApiParamsType = {
+  apiPath: apiPaths.passwordlessVerify,
+  method: 'POST',
+};
+
 export {
   liveParams,
   cartParams,
@@ -44,4 +50,5 @@ export {
   otherCategoryParams,
   farmerLiveParams,
   farmerProductParams,
+  passwordlessVerifyParams,
 };

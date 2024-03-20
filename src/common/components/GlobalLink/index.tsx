@@ -1,13 +1,13 @@
 import { mutate } from 'swr';
 import { useDispatch } from 'react-redux';
 import { BsHandIndex } from 'react-icons/bs';
-import { nextRoutes } from '@/constants/api/apiPaths';
+import cartTabData from '@/constants/tabData/cartTab';
+import authTabData from '@/constants/tabData/authTab';
 import { setToast } from '@/redux/features/messageSlice';
+import useDebounceFn from '@/common/hooks/useDebounceFn';
+import fetchNextApi from '@/common/helpers/fetchNextApi';
+import { addcartParams } from '@/constants/api/nextApiParams';
 import { GlobalLinkProps } from './data';
-import cartTabData from '../../../constants/lib/cartTab';
-import authTabData from '../../../constants/lib/authTab';
-import useDebounceFn from '../../hooks/useDebounceFn';
-import fetchNextApi, { NextapiParamsType } from '../../helpers/fetchNextApi';
 
 const GlobalLink = ({
   href,
@@ -31,12 +31,7 @@ const GlobalLink = ({
       liveId,
       cartItemQty: 1,
     };
-    const apiParams: NextapiParamsType = {
-      apiPath: nextRoutes.addcart,
-      method: 'POST',
-      data: dataObj,
-    };
-
+    const apiParams = { ...addcartParams, data: dataObj };
     try {
       const result = await fetchNextApi(apiParams);
       if (result.statusCode === 200) {
