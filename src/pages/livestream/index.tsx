@@ -32,7 +32,7 @@ export async function getServerSideProps() {
     const liveResponse = await fetchApi(liveParams);
     switch (liveResponse.statusCode) {
       case 200:
-        liveData = liveResponse.data;
+        liveData = liveResponse;
         break;
       default:
         break;
