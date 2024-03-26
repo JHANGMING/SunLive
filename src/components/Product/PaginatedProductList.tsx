@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Pagination from '@/components/Pagination';
 import ProductCard from './ProductCard';
-import Pagination from '../Pagination';
 import { PaginatedProductListProps } from './data';
 
 const PaginatedProductList = ({
