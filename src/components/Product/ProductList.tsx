@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import Loading from '@/components/Loading/Loading';
 import numberToChinese from '@/common/helpers/numberToChinese';
 import ProductCard from './ProductCard';
 import { ProductListProps } from './data';
@@ -18,8 +17,8 @@ const ProductList = ({ category }: ProductListProps) => {
   } = useSelector((state: RootState) => state.product);
   switch (category) {
     case 'landingPage':
-      if (!topSaleProduct || topSaleProduct.length === 0) {
-        return <Loading />;
+      if (!Array.isArray(topSaleProduct) || topSaleProduct.length === 0) {
+        return null;
       }
       return (
         <ul className="grid grid-cols-4 lg:grid-cols-12 auto-rows-min gap-x-24 gap-y-24 lg:gap-y-84">
@@ -33,8 +32,8 @@ const ProductList = ({ category }: ProductListProps) => {
         </ul>
       );
     case 'discounted':
-      if (!promotionProduct || promotionProduct.length === 0) {
-        return <Loading />;
+      if (!Array.isArray(promotionProduct) || promotionProduct.length === 0) {
+        return null;
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24">
@@ -50,8 +49,8 @@ const ProductList = ({ category }: ProductListProps) => {
         </ul>
       );
     case 'popular':
-      if (!topSaleProduct || topSaleProduct.length === 0) {
-        return <Loading />;
+      if (!Array.isArray(topSaleProduct) || topSaleProduct.length === 0) {
+        return null;
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 ">
@@ -67,8 +66,8 @@ const ProductList = ({ category }: ProductListProps) => {
         </ul>
       );
     case 'seasonalVegetable':
-      if (!vegetableProduct || vegetableProduct.length === 0) {
-        return <Loading />;
+      if (!Array.isArray(vegetableProduct) || vegetableProduct.length === 0) {
+        return null;
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-84">
@@ -84,8 +83,8 @@ const ProductList = ({ category }: ProductListProps) => {
         </ul>
       );
     case 'seasonalfruit':
-      if (!fruitProduct || fruitProduct.length === 0) {
-        return <Loading />;
+      if (!Array.isArray(fruitProduct) || fruitProduct.length === 0) {
+        return null;
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-84">
@@ -101,8 +100,8 @@ const ProductList = ({ category }: ProductListProps) => {
         </ul>
       );
     case 'related':
-      if (!productInfoByUser || productInfoByUser.length === 0) {
-        return <Loading />;
+      if (!Array.isArray(productInfoByUser) || productInfoByUser.length === 0) {
+        return null;
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24">
@@ -118,8 +117,8 @@ const ProductList = ({ category }: ProductListProps) => {
         </ul>
       );
     case 'search':
-      if (!searchData || searchData.length === 0) {
-        return <Loading />;
+      if (!Array.isArray(searchData) || searchData.length === 0) {
+        return null;
       }
       return (
         <ul className="grid grid-cols-12 auto-rows-min gap-x-24 gap-y-68 ">
@@ -133,8 +132,8 @@ const ProductList = ({ category }: ProductListProps) => {
         </ul>
       );
     case 'all':
-      if (!allProductsData || allProductsData.length === 0) {
-        return <Loading />;
+      if (!Array.isArray(allProductsData) || allProductsData.length === 0) {
+        return null;
       }
       return <PaginatedProductList data={allProductsData} itemsPerPage={9} />;
 
