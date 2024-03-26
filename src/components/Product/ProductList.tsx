@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import Loading from '@/components/Loading/Loading';
 import numberToChinese from '@/common/helpers/numberToChinese';
-import PaginatedProductList from './PaginatedProductList';
 import ProductCard from './ProductCard';
-import Loading from '../Loading/Loading';
 import { ProductListProps } from './data';
+import PaginatedProductList from './PaginatedProductList';
 
 const ProductList = ({ category }: ProductListProps) => {
   const {
