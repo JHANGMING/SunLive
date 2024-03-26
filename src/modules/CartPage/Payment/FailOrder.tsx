@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { BsXCircleFill } from 'react-icons/bs';
 import LogoImg from '@/components/Logo/LogoImg';
-import CartProcess from '../CartProcess';
+import CartProcess from '@/modules/CartPage/CartProcess';
 
 const FailOrder = () => {
   return (
