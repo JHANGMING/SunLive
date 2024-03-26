@@ -5,10 +5,10 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { RootState } from '@/redux/store';
 import Image from '@/components/CustomImage';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
+import { LayoutPropsType } from '@/components/Layout/data';
 import CartInfo from './CartInfo';
 import LoggingInfo from './LoggingInfo';
 import CartItemCount from './CartItemCount';
-import { LayoutPropsType } from '../Layout/data';
 
 const CartAndLogin = ({ pageCategory, isVisible }: LayoutPropsType) => {
   const { authStatus } = useAuthStatus();
