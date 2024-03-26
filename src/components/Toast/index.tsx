@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import LogoImg from '@/components/Logo/LogoImg';
 import { hideToast } from '@/redux/features/messageSlice';
-import LogoImg from '../Logo/LogoImg';
 
 const Toast = () => {
   const dispatch = useDispatch();
