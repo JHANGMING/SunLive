@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import LiveListTable from '@/components/DynamicTable/LIveListTable';
 import OrdersSearch from '@/components/Input/OrdersSearch';
-import { LiveListColumns } from '../data';
+import { LiveListColumns } from '@/modules/DashboardPage/data';
 
 const AllLive = () => {
   const [selectedTab, setSelectedTab] = useState('所有直播');
