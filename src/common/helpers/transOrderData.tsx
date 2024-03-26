@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import {
   FarmerOrderDataType,
   OrderDataType,
-} from '../../components/DynamicTable/data';
+} from '@/components/DynamicTable/data';
 
 export const transOrderData = (data: OrderDataType[]) => {
   return data?.map((item) => ({
