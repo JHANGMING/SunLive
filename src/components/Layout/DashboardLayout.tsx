@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useAuth from '@/common/hooks/useAuth';
 import DashboardPage from '@/modules/DashboardPage';
-import Loading from '../Loading/Loading';
+import Loading from '@/components/Loading/Loading';
 import { DashboardLayoutProps } from './data';
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
