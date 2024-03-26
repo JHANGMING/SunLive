@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { CredentialsProps } from '@/modules/Auth/data';
 import { setToast } from '@/redux/features/messageSlice';
-import bufferToBase64URLString from '../helpers/bufferToBase64URLString';
-import fetchNextApi, { NextapiParamsType } from '../helpers/fetchNextApi';
+import bufferToBase64URLString from '@/common/helpers/bufferToBase64URLString';
+import fetchNextApi, { NextapiParamsType } from '@/common/helpers/fetchNextApi';
 
 const useWebAuthn = () => {
   const dispatch = useDispatch();
