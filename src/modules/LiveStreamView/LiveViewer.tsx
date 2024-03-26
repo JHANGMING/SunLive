@@ -1,8 +1,8 @@
 import Image from '@/components/CustomImage';
 import LogoImg from '@/components/Logo/LogoImg';
+import YoutubeLiveIfram from '@/modules/LandingPage/LivingShowSection/YoutubeLiveLink';
 import { LivestreamingProps } from './data';
 import ChatAndProduct from './ChatAndProduct';
-import YoutubeLiveIfram from '../LandingPage/LivingShowSection/YoutubeLiveLink';
 
 const LiveViewer = ({ liveDetailData }: LivestreamingProps) => {
   const url = liveDetailData?.yturl;
