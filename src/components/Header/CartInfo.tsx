@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { BsCart2 } from 'react-icons/bs';
-import Image from '@/components/CustomImage';
-import useAuthStatus from '@/common/hooks/useAuthStatus';
 import { useEffect, useRef } from 'react';
+import Image from '@/components/CustomImage';
+import DeleteBtn from '@/components/Button/DeleteBtn';
+import useAuthStatus from '@/common/hooks/useAuthStatus';
 import { LoggingInfoProps } from './data';
-import DeleteBtn from '../Button/DeleteBtn';
 
 const CartInfo = ({ dropdownClass, cartData, isVisible }: LoggingInfoProps) => {
   const { authStatus } = useAuthStatus();
