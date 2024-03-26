@@ -1,12 +1,13 @@
-import DetailBanner from '@/components/ProductDetailPage/DetailBanner';
+
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import Loading from '@/components/Loading/Loading';
-import { useEffect } from 'react';
 import { showLoading } from '@/redux/features/messageSlice';
+import ProductDetailBanner from '@/components/Banner/ProductDetailBanner';
+import DetailSection from './DetailSection';
 import RelatedSection from './RelatedSection';
 import IntroductSection from './IntroductSection';
-import DetailSection from './DetailSection';
 
 const ProductDetailPage = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const ProductDetailPage = () => {
   }
   return (
     <>
-      <DetailBanner />
+      <ProductDetailBanner />
       <DetailSection detailProduct={detailProduct} />
       <IntroductSection detailProduct={detailProduct} />
       <RelatedSection />

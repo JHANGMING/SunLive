@@ -1,4 +1,5 @@
-import Banner from '@/components/ProductPage/Banner';
+
+import ProductBanner from '@/components/Banner/ProductBanner';
 import PopularSection from './PopularSection';
 import SeasonalSection from './SeasonalSection';
 import CategorySection from './CategorySection';
@@ -8,7 +9,7 @@ import DiscountedSection from './DiscountedSection';
 const ProductPage = () => {
   return (
     <>
-      <Banner />
+      <ProductBanner />
       <CategorySection />
       <DiscountedSection />
       <PopularSection />

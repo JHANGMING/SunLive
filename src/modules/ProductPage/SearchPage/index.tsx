@@ -1,11 +1,12 @@
-import Banner from '@/components/ProductPage/Banner';
+
+import ProductBanner from '@/components/Banner/ProductBanner';
+import AllProductSection from '@/modules/ProductPage/AllProductSection';
 import SearchSection from './SearchSection';
-import AllProductSection from '../AllProductSection';
 
 const SearchPage = () => {
   return (
     <>
-      <Banner />
+      <ProductBanner />
       <main>
         <SearchSection />
         <AllProductSection />

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import FarmerProductSearch from '@/components/Input/FarmerProductSearch';
 import ProductlistTable from '@/components/DynamicTable/ManagementTable/farmerProductlist';
-import { productColumns } from '../data';
+import { productColumns } from '@/modules/DashboardPage/data';
 
 const AllProducts = () => {
   return (

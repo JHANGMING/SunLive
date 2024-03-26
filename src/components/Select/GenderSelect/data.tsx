@@ -1,5 +1,5 @@
 import { Control } from 'react-hook-form';
-import { FormValues } from '../../Input/data';
+import { FormValues } from '@/components/Input/data';
 
 export type GenderSelectProps = {
   labelText: string;

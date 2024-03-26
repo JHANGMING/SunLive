@@ -1,5 +1,5 @@
 import { FieldErrors } from 'react-hook-form';
-import { FormValues } from '../../components/Input/data';
+import { FormValues } from '@/components/Input/data';
 
 const useGapClass = (errors: FieldErrors<FormValues>) => {
   const errorCount = Object.keys(errors).length;

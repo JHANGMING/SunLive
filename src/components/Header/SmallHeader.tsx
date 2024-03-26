@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 import { BsSearch } from 'react-icons/bs';
-import Logo from '../Logo';
+import Logo from '@/components/Logo';
+import SearchInput from '@/components/Input/SearchInput';
 import CartAndLogin from './CartAndLogin';
-import SearchInput from '../Input/SearchInput';
 
 const SmallHeader = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);

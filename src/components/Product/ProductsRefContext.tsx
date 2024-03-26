@@ -1,5 +1,7 @@
 import React, { ReactNode, createContext, useContext } from 'react';
-import useProductRefs, { ProductRefsType } from '../../common/hooks/useProductRefs';
+import useProductRefs, {
+  ProductRefsType,
+} from '@/common/hooks/useProductRefs';
 
 export const ProductsRefContext = createContext<ProductRefsType | null>(null);
 type ProductsRefProviderProps = {

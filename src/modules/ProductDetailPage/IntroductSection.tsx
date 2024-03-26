@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import LogoImg from '@/components/Logo/LogoImg';
 import { setFamerId } from '@/redux/features/messageSlice';
 import useScrollToElement from '@/common/hooks/useScrollToRef';
+import CategoryTitle from '@/modules/ProductPage/CategoryTitle';
 import { DetailSectionProps } from './data';
-import CategoryTitle from '../ProductPage/CategoryTitle';
 
 const IntroductSection = ({ detailProduct }: DetailSectionProps) => {
   const dispatach = useDispatch();

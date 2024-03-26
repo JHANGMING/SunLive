@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LogoImg from '@/components/Logo/LogoImg';
-import ProfileImgSection from '../PersonInfoPage/ProfileImgSection';
+import ProfileImgSection from '@/modules/PersonInfoPage/ProfileImgSection';
 
 const DashboardPage = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import { useProducts } from '@/components/Product/ProductsRefContext';
 import { PaginationProps } from './data';
-import { useProducts } from '../Product/ProductsRefContext';
 
 const Pagination = ({
   paginate,

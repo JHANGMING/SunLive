@@ -1,5 +1,5 @@
-import LiveBanner from '@/components/LiveStreamPage/LiveBanner';
-import LivingShowSection from '../LandingPage/LivingShowSection';
+import LiveBanner from '@/components/Banner/LiveBanner';
+import LivingShowSection from '@/modules/LandingPage/LivingShowSection';
 import LiveProductSection from './LiveProductSection';
 
 const LiveStreamPage = () => {

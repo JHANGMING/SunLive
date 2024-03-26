@@ -1,11 +1,11 @@
-import { useEffect, useState, useCallback } from 'react';
 import { BsSearch } from 'react-icons/bs';
-import Logo from '../Logo';
+import { useEffect, useState, useCallback } from 'react';
+import Logo from '@/components/Logo';
+import SearchInput from '@/components/Input/SearchInput';
+import { LayoutPropsType } from '@/components/Layout/data';
 import LiveIcon from './LIveIcon';
 import { fixedPageSet } from './data';
 import CartAndLogin from './CartAndLogin';
-import SearchInput from '../Input/SearchInput';
-import { LayoutPropsType } from '../Layout/data';
 
 const FixedHeader = ({ pageCategory }: LayoutPropsType) => {
   const headerBehavior = fixedPageSet[pageCategory];
