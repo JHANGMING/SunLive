@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import fetcher from '@/common/helpers/fetcher';
 import { nextRoutes } from '@/constants/api/apiPaths';
-import ViewBanner from '@/components/LiveStreamPage/ViewBanner';
+import ViewBanner from '@/components/Banner/ViewBanner';
 import LiveViewer from './LiveViewer';
 import { LivestreamingProps } from './data';
 import LiveSaleSection from './LiveSaleSection';
