@@ -54,50 +54,57 @@ const Home = ({ liveData, cartData, topSaleProduct }: HomePropsType) => {
 export default Home;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = getCookie('token', { req: context.req });
-  let liveData: LivesDataType = {};
-  let cartData: CartDataType = {};
-  let topSaleProduct: AllproductsDataType = [];
+  try {
+    const token = getCookie('token', { req: context.req });
+    let liveData: LivesDataType = {};
+    let cartData: CartDataType = {};
+    let topSaleProduct: AllproductsDataType = [];
 
-  // 取得購物車
-  const cartParamsData = { ...cartParams, authToken: token };
+    // 取得購物車
+    const cartParamsData = { ...cartParams, authToken: token };
 
-  const responses = await Promise.allSettled([
-    fetchApi(liveParams),
-    fetchApi(otherCategoryParams),
-    token ? fetchApi(cartParamsData) : Promise.resolve(null),
-  ]);
-  responses.forEach((response, index) => {
-    if (response.status !== 'fulfilled' || !response.value) return;
-    const { statusCode } = response.value;
-    switch (statusCode) {
-      case 200:
-        switch (index) {
-          case 0:
-            liveData = response.value;
-            break;
-          case 1:
-            topSaleProduct = response.value.data.topSaleProduct;
-            break;
-          case 2:
-            cartData = response.value.data;
-            break;
-          default:
-            break;
-        }
-        break;
-      case 401:
-        break;
-      default:
-        break;
-    }
-  });
+    const responses = await Promise.allSettled([
+      fetchApi(liveParams),
+      fetchApi(otherCategoryParams),
+      token ? fetchApi(cartParamsData) : Promise.resolve(null),
+    ]);
+    responses.forEach((response, index) => {
+      if (response.status !== 'fulfilled' || !response.value) return;
+      const { statusCode } = response.value;
+      switch (statusCode) {
+        case 200:
+          switch (index) {
+            case 0:
+              liveData = response.value;
+              break;
+            case 1:
+              topSaleProduct = response.value.data.topSaleProduct;
+              break;
+            case 2:
+              cartData = response.value.data;
+              break;
+            default:
+              break;
+          }
+          break;
+        case 401:
+          break;
+        default:
+          break;
+      }
+    });
 
-  return {
-    props: {
-      liveData,
-      topSaleProduct,
-      cartData,
-    },
-  };
+    return {
+      props: {
+        liveData,
+        topSaleProduct,
+        cartData,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {},
+    };
+  }
 }
