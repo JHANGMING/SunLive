@@ -1,15 +1,15 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { nextRoutes } from '@/constants/api/apiPaths';
 import fetcher from '@/common/helpers/fetcher';
+import { nextRoutes } from '@/constants/api/apiPaths';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
 import OrdersSearch from '@/components/Input/OrdersSearch';
-import { transFarmerOrderData } from '@/common/helpers/transOrderData';
+import { ordersColumns } from '@/modules/DashboardPage/data';
 import OrdersTable from '@/components/DynamicTable/OrdersTable';
 import { FarmerOrderDataType } from '@/components/DynamicTable/data';
+import { transFarmerOrderData } from '@/common/helpers/transOrderData';
 import OrdersDashboard from '.';
-import { ordersColumns } from '../data';
 
 const AllOrders = () => {
   const router = useRouter();
