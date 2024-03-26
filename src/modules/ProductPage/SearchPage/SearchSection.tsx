@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { RootState } from '@/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
+import SearchInput from '@/components/Input/SearchInput';
+import ProductList from '@/components/Product/ProductList';
 import { showLoading } from '@/redux/features/messageSlice';
 import { setSearchData } from '@/redux/features/productSlice';
-import ProductList from '@/components/Product/ProductList';
-import SearchInput from '@/components/Input/SearchInput';
-import CategoryTitle from '../CategoryTitle';
+import CategoryTitle from '@/modules/ProductPage/CategoryTitle';
 
 const SearchSection = () => {
   const router = useRouter();
