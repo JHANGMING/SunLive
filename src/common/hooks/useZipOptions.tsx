@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import locationData from '@/constants/location';
-import { OptionType } from '../../components/Select/LocationSelect/data';
+import { OptionType } from '@/components/Select/LocationSelect/data';
 
 const useZipOptions = (selectedDistrict: string): OptionType[] => {
   const [zipOptions, setZipOptions] = useState<OptionType[]>([]);
