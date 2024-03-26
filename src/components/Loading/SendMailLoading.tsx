@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LogoImg from '../Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
 
 const SendMailLoading = () => {
   const [percent, setPercent] = useState(0);
