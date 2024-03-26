@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Button from '@/components/Button';
 import Image from '@/components/CustomImage';
 import LogoImg from '@/components/Logo/LogoImg';
-import Button from '../Button';
 import { ProductCardProps } from './data';
 
 const ProductCard = ({
