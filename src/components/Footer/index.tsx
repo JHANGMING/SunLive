@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import Image from '@/components/CustomImage';
-import LogoImg from '../Logo/LogoImg';
-import GlobalLink from '../GlobalLink';
-import HomeSwiper from '../HomeSwiper';
+import LogoImg from '@/components/Logo/LogoImg';
+import GlobalLink from '@/components/GlobalLink';
+import HomeSwiper from '@/components/HomeSwiper';
+import { grassMotionSet } from '@/components/Banner/LandingPageBanner/data';
 import DashBoardFooter from './DashBoardFooter';
 import { FooterProps, icons, swiperSet } from './data';
-import { grassMotionSet } from '../LandingPage/banner/data';
 
 const Footer = ({ gapClassSyle, pageCategory }: FooterProps) => {
   const swierShow = swiperSet[pageCategory] ? '' : 'hidden';
