@@ -3,10 +3,8 @@ import { getCookie } from 'cookies-next';
 import { useDispatch } from 'react-redux';
 import { GetServerSidePropsContext } from 'next';
 import Layout from '@/components/Layout';
-import LandingPage from '@/modules/LandingPage';
 import fetchApi from '@/common/helpers/fetchApi';
 import { setCartData } from '@/redux/features/cartSlice';
-import { HomePropsType } from '@/modules/LandingPage/data';
 import { LivesDataType } from '@/constants/types/live/live';
 import { CartDataType } from '@/constants/types/cart/cartlist';
 import { setAllProductsData } from '@/redux/features/productSlice';
@@ -16,6 +14,17 @@ import {
   cartParams,
   otherCategoryParams,
 } from '@/constants/api/apiParams';
+import {
+  Banner,
+  HomeSwiper,
+  HomePropsType,
+  RecommendSection,
+  LivingShowSection,
+  FarmFeatureSection,
+  ProductListSection,
+  FriendlyFarmSection,
+  ComingProductsSection,
+} from '@/modules/LandingPage/data';
 
 const Home = ({ liveData, cartData, topSaleProduct }: HomePropsType) => {
   const dispatch = useDispatch();
@@ -31,7 +40,14 @@ const Home = ({ liveData, cartData, topSaleProduct }: HomePropsType) => {
 
   return (
     <Layout pageCategory="landingPage">
-      <LandingPage />
+      <Banner />
+      <FriendlyFarmSection />
+      <HomeSwiper imgData="farmDatas" />
+      <FarmFeatureSection />
+      <LivingShowSection />
+      <ComingProductsSection />
+      <RecommendSection />
+      <ProductListSection />
     </Layout>
   );
 };
