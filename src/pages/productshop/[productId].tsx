@@ -4,10 +4,14 @@ import { GetServerSidePropsContext } from 'next';
 import Layout from '@/components/Layout';
 import fetchApi from '@/common/helpers/fetchApi';
 import { apiPaths } from '@/constants/api/apiPaths';
-import ProductDetailPage from '@/modules/ProductDetailPage';
+import { showLoading } from '@/redux/features/messageSlice';
 import createApiParams from '@/common/helpers/createApiParams';
 import { setAllProductsData } from '@/redux/features/productSlice';
 import { ProductDetailProps } from '@/modules/ProductDetailPage/data';
+import DetailSection from '@/modules/ProductDetailPage/DetailSection';
+import RelatedSection from '@/modules/ProductDetailPage/RelatedSection';
+import ProductDetailBanner from '@/components/Banner/ProductDetailBanner';
+import IntroductSection from '@/modules/ProductDetailPage/IntroductSection';
 
 const ProductDetail = ({ detailData }: ProductDetailProps) => {
   const { detailProduct, productInfoByUser } = detailData;
@@ -15,14 +19,17 @@ const ProductDetail = ({ detailData }: ProductDetailProps) => {
   useEffect(() => {
     dispatch(
       setAllProductsData({
-        detailProduct,
         productInfoByUser,
       }),
     );
-  }, [detailProduct, productInfoByUser]);
+    dispatch(showLoading());
+  }, [productInfoByUser]);
   return (
     <Layout pageCategory="productDetailPage">
-      <ProductDetailPage />
+      <ProductDetailBanner />
+      <DetailSection detailProduct={detailProduct} />
+      <IntroductSection detailProduct={detailProduct} />
+      <RelatedSection />
     </Layout>
   );
 };
@@ -50,7 +57,13 @@ export const getServerSideProps = async (
     }
   } catch (error) {
     console.error(error);
-    return { notFound: true };
+    return {
+      props: {},
+      redirect: {
+        destination: '/500',
+        permanent: false,
+      },
+    };
   }
   return {
     props: {
