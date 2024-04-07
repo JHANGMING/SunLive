@@ -137,10 +137,9 @@ sunlive
 │   │   └── ...
 │   ├── constants
 │   │   ├── api
-│   │   ├── location.tsx
 │   │   ├── styles
-│   │   ├── tabData
-│   │   └── types
+│   │   ├── types
+│   │   └── ...
 │   ├── modules
 │   │   ├── Auth
 │   │   ├── CartPage
