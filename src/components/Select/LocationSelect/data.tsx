@@ -5,7 +5,7 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import locationData from '@/constants/location';
-import { FormValues } from '../../Input/data';
+import { FormValues } from '@/components/Input/data';
 
 export type LocationSelectProps = {
   id: string;

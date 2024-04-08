@@ -1,5 +1,5 @@
+import { PageCategoryType } from '@/components/Layout/data';
 import { CartDataType } from '@/constants/types/cart/cartlist';
-import { PageCategoryType } from '../Layout/data';
 
 export const navBarDatas = [
   {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import usePagination from '@/common/hooks/usePagination';
 import { transOrderData } from '@/common/helpers/transOrderData';
-import { DynamicTableProps } from '../data';
+import { DynamicTableProps } from '@/components/DynamicTable/data';
 
 const DynamicTable = ({ columns, data }: DynamicTableProps) => {
   const transformData = transOrderData(data);

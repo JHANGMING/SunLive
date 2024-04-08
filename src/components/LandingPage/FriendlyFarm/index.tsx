@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import Image from '@/components/CustomImage';
-import LogoImg from '../../Logo/LogoImg';
+import LogoImg from '@/components/Logo/LogoImg';
 import dataSet from './data';
 
 const FriendlyFarmSection = () => {

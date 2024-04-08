@@ -2,8 +2,8 @@ import Link from 'next/link';
 import Image from '@/components/CustomImage';
 import LogoImg from '@/components/Logo/LogoImg';
 import GlobalLink from '@/components/GlobalLink';
+import CategoryTitle from '@/modules/ProductPage/CategoryTitle';
 import { LivestreamingProps } from './data';
-import CategoryTitle from '../ProductPage/CategoryTitle';
 
 const LiveSaleSection = ({ liveDetailData }: LivestreamingProps) => {
   const liveData = liveDetailData?.liveProductList;

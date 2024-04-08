@@ -2,12 +2,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import Image from '@/components/CustomImage';
+import SearchInput from '@/components/Input/SearchInput';
+import BannerTitle from './BannerTitle';
 import { bannerImgData, grassMotionSet } from './data';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/zoom';
-import BannerTitle from './BannerTitle';
-import SearchInput from '../../Input/SearchInput';
 
 const Banner = () => {
   const { grassMotionLeft, grassMotionRight } = grassMotionSet;

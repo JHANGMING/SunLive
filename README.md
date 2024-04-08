@@ -111,7 +111,7 @@
 ## 資料夾結構
 
 ```flow
-sunlive/
+sunlive
 ├── public
 │   ├── favicon.ico
 │   └── images
@@ -120,52 +120,49 @@ sunlive/
 │       └── ...
 ├── src
 │   ├── common
-│   │   ├── components
-│   │   │   ├── Button
-│   │   │   ├── CustomHead
-│   │   │   └── ...
 │   │   ├── helpers
-│   │   │   ├── fetchApi.tsx
-│   │   │   ├── fetchAuthStatus.tsx
+│   │   │   ├── base64URLStringToBuffer.tsx
+│   │   │   ├── bufferToBase64URLString.tsx
+│   │   │   ├── calculateTime.tsx
 │   │   │   └── ...
-│   │   ├── hooks
-│   │   │   ├── ProductsRefContext.tsx
-│   │   │   ├── useAuth.tsx
-│   │   │   └── ...
-│   │   └── lib
-│   │       ├── authTab.tsx
-│   │       └── cartTab.tsx
-│   ├── constants
-│   │   ├── apiPaths.tsx
-│   │   ├── location.tsx
-│   │   └── types
-│   │       ├── cart
-│   │       ├── dashboard
+│   │   └── hooks
+│   │       ├── useAuth.tsx
+│   │       ├── useClient.tsx
+│   │       ├── useCredentialManagement.tsx
 │   │       └── ...
+│   ├── components
+│   │   ├── Banner
+│   │   ├── Button
+│   │   ├── CustomHead
+│   │   └── ...
+│   ├── constants
+│   │   ├── api
+│   │   ├── styles
+│   │   ├── types
+│   │   └── ...
 │   ├── modules
 │   │   ├── Auth
 │   │   ├── CartPage
-│   │   └── ...
+│   │   ├── ContactService
+│   │   ├── ...
 │   ├── pages
 │   │   ├── 404.tsx
 │   │   ├── 500.tsx
 │   │   ├── _app.tsx
 │   │   ├── _document.tsx
-│   │   ├── index.tsx
 │   │   ├── api
 │   │   │   ├── auth
 │   │   │   ├── cart
+│   │   │   ├── chat
 │   │   │   └── ...
-│   ├── redux
-│   │   ├── features
-│   │   │   ├── authSlice.tsx
-│   │   │   ├── cartSlice.tsx
-│   │   │   └── ...
-│   │   └── store.tsx
-│   └── styles
-│       ├── globals.scss
-│       ├── header.scss
-│       └── ...
+│   │   ├── index.tsx
+│   │   └── ...
+│   └── redux
+│       ├── features
+│       │   ├── authSlice.tsx
+│       │   ├── cartSlice.tsx
+│       │   └── ...
+│       └── store.tsx
 ├── tailwind.config.ts
 ├── README.md
 ├── next-env.d.ts

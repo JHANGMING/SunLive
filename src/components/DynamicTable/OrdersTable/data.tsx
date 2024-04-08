@@ -1,4 +1,7 @@
-import { ColumnType, FarmerOrderDataType } from '../data';
+import {
+  ColumnType,
+  FarmerOrderDataType,
+} from '@/components/DynamicTable/data';
 
 export type OrderDataType = {
   [key: string]: string | string[] | number;

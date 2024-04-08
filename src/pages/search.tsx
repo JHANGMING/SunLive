@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Layout from '@/components/Layout';
 import fetchApi from '@/common/helpers/fetchApi';
-import SearchPage from '@/modules/ProductPage/SearchPage';
+import ProductBanner from '@/components/Banner/ProductBanner';
 import { allproductsParams } from '@/constants/api/apiParams';
 import { ProductSearchProps } from '@/modules/ProductPage/data';
 import { setAllProductsData } from '@/redux/features/productSlice';
+import AllProductSection from '@/modules/ProductPage/AllProductSection';
+import SearchSection from '@/modules/ProductPage/SearchSection';
 import { ProductsRefProvider } from '@/components/Product/ProductsRefContext';
 
 const ProductSearch = ({ allproductsData }: ProductSearchProps) => {
@@ -20,7 +22,9 @@ const ProductSearch = ({ allproductsData }: ProductSearchProps) => {
   return (
     <Layout pageCategory="searchPage">
       <ProductsRefProvider>
-        <SearchPage />
+        <ProductBanner />
+        <SearchSection />
+        <AllProductSection />
       </ProductsRefProvider>
     </Layout>
   );
@@ -41,6 +45,13 @@ export async function getServerSideProps() {
     }
   } catch (error) {
     console.error(error);
+    return {
+      props: {},
+      redirect: {
+        destination: '/500',
+        permanent: false,
+      },
+    };
   }
 
   return {

@@ -6,10 +6,10 @@ import fetcher from '@/common/helpers/fetcher';
 import { nextRoutes } from '@/constants/api/apiPaths';
 import { setCartData } from '@/redux/features/cartSlice';
 import useAuthStatus from '@/common/hooks/useAuthStatus';
+import { LayoutPropsType } from '@/components/Layout/data';
 import NavBar from './Navbar';
 import { pageSet } from './data';
 import CartAndLogin from './CartAndLogin';
-import { LayoutPropsType } from '../Layout/data';
 
 const Header = ({ pageCategory }: LayoutPropsType) => {
   const dispatch = useDispatch();

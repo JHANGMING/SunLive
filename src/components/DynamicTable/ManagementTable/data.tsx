@@ -1,4 +1,4 @@
-import { ColumnType } from '../data';
+import { ColumnType } from '@/components/DynamicTable/data';
 
 export type ProductDataType = {
   id: string;

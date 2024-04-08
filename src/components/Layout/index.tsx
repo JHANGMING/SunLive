@@ -1,13 +1,13 @@
 import Header from '@/components/Header';
 import ContactService from '@/modules/ContactService';
-import Toast from '../Toast';
-import Footer from '../Footer';
-import AuthLayout from './AuthLayout';
-import CustomHead from '../CustomHead';
-import Loading from '../Loading/Loading';
-import ScrollPageTop from '../ScrollPageTop';
+import Toast from '@/components/Toast';
+import Footer from '@/components/Footer';
+import CustomHead from '@/components/CustomHead';
+import Loading from '@/components/Loading/Loading';
+import ScrollPageTop from '@/components/ScrollPageTop';
+import FixedHeader from '@/components/Header/FixedHeader';
 import DashboardLayout from './DashboardLayout';
-import FixedHeader from '../Header/FixedHeader';
+import AuthLayout from './AuthLayout';
 import { LayoutPropsType, colorWhiteSet, footerSet, notoTC } from './data';
 
 const Layout = ({ children, pageCategory, classStyle }: LayoutPropsType) => {

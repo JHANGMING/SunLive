@@ -1,10 +1,10 @@
 import { Controller } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
 import Select, { SingleValue, StylesConfig } from 'react-select';
+import DefaultInput from '@/components/Input';
 import useClient from '@/common/hooks/useClient';
 import useZipOptions from '@/common/hooks/useZipOptions';
 import useDistrictOptions from '@/common/hooks/useDistrictOptions';
-import DefaultInput from '../../Input';
 import { LocationSelectProps, OptionType, countyOptions } from './data';
 
 const LocationSelect = ({

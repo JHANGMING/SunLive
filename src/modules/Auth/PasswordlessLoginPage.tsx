@@ -61,10 +61,7 @@ const PasswordlessLoginPage = () => {
   return (
     <div className="flex flex-col justify-between h-full relative">
       <ArrowLeft />
-      <form
-        className="flex flex-col gap-16"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="flex flex-col gap-16" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="mb-40 text-center">無密碼快速登入</h2>
         <DefaultInput
           type="text"
@@ -78,7 +75,10 @@ const PasswordlessLoginPage = () => {
           rules={{
             required: isRegisterForm ? 'Email 為必填' : false,
             pattern: isRegisterForm
-              ? { value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, message: 'Email 格式不正確' }
+              ? {
+                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: 'Email 格式不正確',
+              }
               : undefined,
           }}
         />
@@ -91,6 +91,10 @@ const PasswordlessLoginPage = () => {
         >
           註冊
         </Button>
+        <p className="text-20 font-bold block mb-8">
+          若已註冊過，即可點擊登入，選擇帳號
+          <span className=" text-primary-red">*</span>
+        </p>
         <Button
           type="button"
           category="auth"

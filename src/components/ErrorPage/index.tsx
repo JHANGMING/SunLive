@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import Button from '../Button';
-import LogoImg from '../Logo/LogoImg';
+import Button from '@/components/Button';
+import LogoImg from '@/components/Logo/LogoImg';
 import { ErrorPagePropsType } from './data';
 
 const ErrorPage = ({ page }: ErrorPagePropsType) => {
