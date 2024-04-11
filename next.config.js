@@ -4,8 +4,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: '20.44.57.192',
+        protocol: 'https',
+        hostname: 'sunliveapi.rocket-coding.com',
       },
     ],
   },
