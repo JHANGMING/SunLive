@@ -178,6 +178,25 @@ sunlive
 ```
 
 ---
+## Git 規範
+### Commit
+| 類型 | 格式 | 說明 |
+| :---: | :---: | :--- |
+| 新增功能 | feat | 新增功能 |
+| 更新功能 | update | 更新現有功能 |
+| 修補錯誤 | fix | 修正現有功能的錯誤 |
+| 重構程式 | refactor | 重構。針對已上線的功能程式碼調整與優化，且不改變記有邏輯。 |
+| 樣式相關 | style | 程式碼格式調整 (不影響程式碼運行的變動) |
+| 維護資料 | chore | 更新專案建置設定、更新版本號等。 |
+### Branch
+| 類型 | 格式 |
+| :---: | :---: |
+| 新增功能 | feature-[branch name] |
+| 更新功能 | update-[branch name] |
+| 重構功能 | refactor-[branch name] |
+| 修正功能 | fix-[branch name] |
+| 緊急修復 | hotfix-[branch name] |
+<hr/>
 
 ## 專案技術
 
