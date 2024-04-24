@@ -169,7 +169,7 @@ const ContactService = () => {
     setFarmer(farmerObj);
     setIsExpanded(true);
     setIsChatExpanded(true);
-    getChatApi(farmerId);
+    getChatApi(farmerid);
   };
   if (!authStatus) return null;
   return (
