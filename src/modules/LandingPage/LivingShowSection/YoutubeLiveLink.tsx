@@ -3,7 +3,6 @@ import LogoImg from '@/components/Logo/LogoImg';
 import { YoutubeLiveIframProps } from './data';
 
 const YoutubeLiveIfram = ({
-  url,
   isLivePage,
   isFarmer = false,
   isViewPage = false,
