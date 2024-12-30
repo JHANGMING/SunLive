@@ -86,9 +86,14 @@ const YoutubeLiveIfram = ({
         <iframe
           ref={iframeRef}
           className={` absolute top-0 left-0 w-full h-full ${isViewPage && 'rounded-16'}`}
+          // src={
+          //   isViewPage
+          //     ? `https://www.youtube.com/embed/${url}?autoplay=1&mute=1 `
+          //     : 'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&mute=1&loop=1&playlist=5NFpRgeGfkM'
+          // }
           src={
             isViewPage
-              ? `https://www.youtube.com/embed/${url}?autoplay=1&mute=1 `
+              ? 'https://www.youtube.com/embed/UgmNORvWr1I?autoplay=1&mute=1'
               : 'https://www.youtube.com/embed/5NFpRgeGfkM?autoplay=1&mute=1&loop=1&playlist=5NFpRgeGfkM'
           }
           title="14th Rocket-Sunlive"
